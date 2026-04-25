@@ -10,8 +10,11 @@ if (fs.existsSync(legacyMiddleware)) {
 }
 
 const proxyFile = path.join(root, "src", "proxy.ts");
-if (!fs.existsSync(proxyFile)) {
-  failures.push("Required src/proxy.ts is missing.");
+const openNextConfig = path.join(root, "open-next.config.ts");
+const isCloudflareOpenNext = fs.existsSync(openNextConfig);
+
+if (!fs.existsSync(proxyFile) && !isCloudflareOpenNext) {
+  failures.push("Required src/proxy.ts is missing unless Cloudflare OpenNext mode is configured.");
 }
 
 const nextConfigPath = path.join(root, "next.config.ts");
