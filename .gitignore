@@ -24,11 +24,8 @@ build/
 next-env.d.ts
 
 # Runtime data
-data/*.db
-data/*.sqlite
-data/*.sqlite3
-data/backups/
-data/observability/
+data/**
+!data/.gitkeep
 
 # Logs and debug artifacts
 *.log
