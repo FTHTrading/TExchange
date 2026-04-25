@@ -4,6 +4,9 @@ import { ASSET_REGISTRY } from "@/content/troptions/assetRegistry";
 import { getCriticalClaims, getBlockedClaims } from "@/content/troptions/claimRegistry";
 import { DisclaimerBanner } from "@/components/troptions/DisclaimerBanner";
 import { StatusBadge } from "@/components/troptions/StatusBadge";
+import { VideoFeature } from "@/components/troptions-media/VideoFeature";
+import { MediaStrip } from "@/components/troptions-media/MediaStrip";
+import { getMediaByCategory, getApprovedMedia, MEDIA_STATS } from "@/content/troptions/mediaRegistry";
 import Link from "next/link";
 
 export const metadata = {
@@ -15,6 +18,9 @@ export default function TroptionsOverviewPage() {
   const criticalClaims = getCriticalClaims();
   const blockedClaims = getBlockedClaims();
   const activeModules = MODULE_REGISTRY.filter((m) => m.status === "live").length;
+  const brandVideo = getMediaByCategory("video")[0];
+  const rwaImages = getMediaByCategory("rwa");
+  const allApproved = getApprovedMedia();
 
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-white">
@@ -121,6 +127,54 @@ export default function TroptionsOverviewPage() {
               </div>
             ))}
           </div>
+        </section>
+
+        {/* Institutional Brand Video */}
+        {brandVideo && (
+          <section>
+            <p className="text-[10px] text-[#C9A84C] uppercase tracking-[0.2em] font-mono mb-3">Institutional Narrative</p>
+            <VideoFeature
+              src={brandVideo.src}
+              title={brandVideo.title}
+              caption={brandVideo.description}
+            />
+          </section>
+        )}
+
+        {/* Media Library Strip */}
+        {rwaImages.length > 0 && (
+          <section>
+            <MediaStrip assets={rwaImages} label="Real World Asset Evidence" />
+          </section>
+        )}
+
+        {/* Media Registry Summary */}
+        <section className="rounded-lg border border-[#C9A84C]/20 bg-[#0D1B2A] p-6">
+          <p className="text-[10px] text-[#C9A84C] uppercase tracking-[0.2em] font-mono mb-3">Approved Media Registry</p>
+          <div className="flex flex-wrap gap-8">
+            <div>
+              <p className="text-2xl font-bold text-white">{MEDIA_STATS.total}</p>
+              <p className="text-[10px] text-slate-500 uppercase tracking-widest font-mono mt-0.5">Total Assets</p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-white">{MEDIA_STATS.images}</p>
+              <p className="text-[10px] text-slate-500 uppercase tracking-widest font-mono mt-0.5">Image Assets</p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-white">{MEDIA_STATS.videos}</p>
+              <p className="text-[10px] text-slate-500 uppercase tracking-widest font-mono mt-0.5">Video Assets</p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-[#C9A84C]">{MEDIA_STATS.approved}</p>
+              <p className="text-[10px] text-slate-500 uppercase tracking-widest font-mono mt-0.5">Approved</p>
+            </div>
+          </div>
+          <Link
+            href="/troptions-old-money/media"
+            className="inline-flex mt-5 rounded border border-[#C9A84C]/40 px-4 py-2 text-sm font-semibold text-[#C9A84C] hover:bg-[#C9A84C]/10"
+          >
+            View Full Media Library →
+          </Link>
         </section>
 
         {/* Full Disclaimer */}

@@ -35,6 +35,7 @@ export const OLD_MONEY_NAV = [
   { label: "Annual Letter", href: "/troptions-old-money/annual-letter" },
   { label: "Governance", href: "/troptions-old-money/governance" },
   { label: "Contact", href: "/troptions-old-money/contact" },
+  { label: "Media Library", href: "/troptions-old-money/media" },
 ] as const;
 
 export const OLD_MONEY_EVIDENCE_ROWS = [

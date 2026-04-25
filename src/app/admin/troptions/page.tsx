@@ -5,6 +5,7 @@ import { getCriticalRisks, getUnmitigatedRisks } from "@/content/troptions/riskM
 import { ADVERTISING_AUDIT, getBlockedAdvertisingItems } from "@/content/troptions/advertisingAudit";
 import { getCriticalFailures } from "@/content/troptions/failureMatrix";
 import { StatusBadge } from "@/components/troptions/StatusBadge";
+import { MEDIA_REGISTRY, MEDIA_STATS } from "@/content/troptions/mediaRegistry";
 
 export const metadata = {
   title: "Admin Command Center — Troptions",
@@ -123,6 +124,44 @@ export default function AdminCommandCenterPage() {
                         {entry.disclosureRequired ? "Yes" : "No"}
                       </span>
                     </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* Media Registry Status */}
+        <section>
+          <h2 className="text-lg font-bold text-white mb-4">Media Registry Status</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+            <StatCard label="Total Media" value={MEDIA_STATS.total} color="text-white" />
+            <StatCard label="Images" value={MEDIA_STATS.images} color="text-blue-400" />
+            <StatCard label="Videos" value={MEDIA_STATS.videos} color="text-purple-400" />
+            <StatCard label="Approved" value={MEDIA_STATS.approved} color="text-green-400" />
+          </div>
+          <div className="overflow-x-auto rounded-lg border border-slate-700/40">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-slate-700/40 bg-[#0D1B2A]">
+                  {["ID", "Title", "Type", "Category", "Status", "Routes"].map((h) => (
+                    <th key={h} className="text-left text-[#C9A84C] font-mono text-xs uppercase tracking-widest px-4 py-3">{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {MEDIA_REGISTRY.map((asset) => (
+                  <tr key={asset.id} className="border-b border-slate-800/60 hover:bg-slate-900/30 transition-colors">
+                    <td className="px-4 py-3 text-slate-500 font-mono text-xs">{asset.id}</td>
+                    <td className="px-4 py-3 text-slate-300 text-xs max-w-[200px] truncate">{asset.title}</td>
+                    <td className="px-4 py-3 text-[#C9A84C] font-mono text-xs">{asset.type}</td>
+                    <td className="px-4 py-3 text-slate-400 text-xs">{asset.category}</td>
+                    <td className="px-4 py-3">
+                      <span className={`text-xs font-bold ${asset.status === "approved" ? "text-green-400" : "text-yellow-400"}`}>
+                        {asset.status.toUpperCase()}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-slate-500 text-xs">{asset.routeUse.length} route{asset.routeUse.length !== 1 ? "s" : ""}</td>
                   </tr>
                 ))}
               </tbody>

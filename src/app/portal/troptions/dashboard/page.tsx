@@ -1,9 +1,12 @@
 import { ClientPortalLayout } from "@/components/client-portal/ClientPortalLayout";
 import { ClientStatusCard } from "@/components/client-portal/ClientStatusCard";
 import { getClientPortalSummary } from "@/lib/troptions/clientPortalEngine";
+import { MediaStrip } from "@/components/troptions-media/MediaStrip";
+import { MEDIA_STATS, getApprovedMedia } from "@/content/troptions/mediaRegistry";
 
 export default function TroptionsClientDashboardPage() {
   const summary = getClientPortalSummary("CL-001");
+  const imageAssets = getApprovedMedia().filter((m) => m.type === "image");
 
   return (
     <ClientPortalLayout
@@ -26,6 +29,26 @@ export default function TroptionsClientDashboardPage() {
       <ClientStatusCard label="Settlement readiness" status={summary.settlementReadiness} />
       <ClientStatusCard label="Open exceptions" status={String(summary.openExceptions.length)} detail={summary.openExceptions.join(" | ")} />
       <ClientStatusCard label="Required approvals" status={String(summary.requiredApprovals.length)} detail={summary.requiredApprovals.join(" | ")} />
+
+      {/* Media Evidence Strip */}
+      {imageAssets.length > 0 && (
+        <div style={{ marginTop: "2rem" }}>
+          <p
+            style={{
+              fontSize: "0.65rem",
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "#C9A24A",
+              fontWeight: 700,
+              marginBottom: "0.6rem",
+              fontFamily: "Trebuchet MS, Segoe UI, sans-serif",
+            }}
+          >
+            Approved Asset Evidence — {MEDIA_STATS.approved} items
+          </p>
+          <MediaStrip assets={imageAssets} />
+        </div>
+      )}
     </ClientPortalLayout>
   );
 }
