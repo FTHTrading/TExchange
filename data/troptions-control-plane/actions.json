@@ -1,0 +1,35 @@
+[
+  {
+    "actionId": "ACT-001",
+    "actionType": "approval-request",
+    "subjectId": "ASSET-TGOLD-001",
+    "subjectType": "asset",
+    "requestedBy": "issuer-admin-1",
+    "status": "pending",
+    "reason": "Request legal and custody approvals for issuance readiness.",
+    "createdAt": "2026-04-25T09:30:00.000Z",
+    "updatedAt": "2026-04-25T09:30:00.000Z"
+  },
+  {
+    "actionId": "ACT-002",
+    "actionType": "exception-resolution",
+    "subjectId": "EXC-001",
+    "subjectType": "exception",
+    "requestedBy": "custody-officer-1",
+    "status": "running",
+    "reason": "Resolve custody agreement blocker.",
+    "createdAt": "2026-04-25T10:30:00.000Z",
+    "updatedAt": "2026-04-25T11:00:00.000Z"
+  },
+  {
+    "actionId": "ACT-003",
+    "actionType": "release-gate-evaluation",
+    "subjectId": "GATE-SETTLEMENT-001",
+    "subjectType": "settlement",
+    "requestedBy": "compliance-officer-1",
+    "status": "blocked",
+    "reason": "Settlement gate check failed due to readiness blockers.",
+    "createdAt": "2026-04-25T12:00:00.000Z",
+    "updatedAt": "2026-04-25T12:05:00.000Z"
+  }
+]

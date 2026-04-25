@@ -6,21 +6,43 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "jest",
+    "typecheck": "tsc --noEmit",
+    "validate:env": "node scripts/validate-env.mjs",
+    "policy:gates": "node scripts/check-policy-gates.mjs",
+    "backup:control-plane": "node scripts/backup-control-plane.mjs",
+    "restore:control-plane": "node scripts/restore-control-plane.mjs",
+    "migrate:postgres": "node scripts/migrate-sqlite-to-postgres.mjs",
+    "cutover:postgres": "node scripts/cutover-control-plane-to-postgres.mjs",
+    "check:postgres": "node scripts/check-postgres-connection.mjs",
+    "observability:snapshot": "node scripts/export-observability-snapshot.mjs",
+    "rollback:drill": "node scripts/run-rollback-drill.mjs",
+    "recovery:timing": "node scripts/capture-recovery-timing.mjs",
+    "smoke:prod": "node scripts/run-production-smoke-checks.mjs",
+    "backups:rotate": "node scripts/rotate-backups.mjs",
+    "incident:drill": "node scripts/run-incident-drill.mjs"
   },
   "dependencies": {
+    "@types/pg": "^8.20.0",
+    "better-sqlite3": "^12.9.0",
     "next": "16.2.4",
+    "pg": "^8.20.0",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/jest": "^30.0.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
+    "jest": "^30.3.0",
     "tailwindcss": "^4",
+    "ts-jest": "^29.4.9",
     "typescript": "^5"
   }
 }

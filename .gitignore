@@ -1,7 +1,5 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
+# Dependencies and package managers
+node_modules/
 /.pnp
 .pnp.*
 .yarn/*
@@ -10,32 +8,51 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
+# Environment and local settings
+.env
+.env.*
+!.env.example
+*.local
 
-# next.js
-/.next/
-/out/
+# Build and test outputs
+.next/
+out/
+dist/
+coverage/
+build/
+*.tsbuildinfo
+next-env.d.ts
 
-# production
-/build
+# Runtime data
+data/*.db
+data/*.sqlite
+data/*.sqlite3
+data/backups/
+data/observability/
 
-# misc
-.DS_Store
-*.pem
-
-# debug
+# Logs and debug artifacts
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# Key material and secrets
+*.pem
+*.key
+*.p12
+*.pfx
+*token*
+*secret*
+*api-key*
 
-# vercel
+# Explicit external token note files
+Workers AI API token was successful - Copy.txt
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+
+# Tooling
 .vercel
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts

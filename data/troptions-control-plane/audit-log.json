@@ -1,0 +1,18 @@
+[
+  {
+    "eventId": "AUDIT-GENESIS-000",
+    "timestamp": "2026-04-25T00:00:00.000Z",
+    "actorId": "system",
+    "actorRole": "viewer",
+    "actionType": "genesis",
+    "subjectId": "system",
+    "subjectType": "system",
+    "previousState": "none",
+    "nextState": "initialized",
+    "reason": "Initialize Troptions audit chain",
+    "evidenceIds": [],
+    "approvalIds": [],
+    "previousHash": "GENESIS",
+    "hash": "04c243d0ac0cf157787b208a75b34d9b09963b8ee4146fa2242fd8d40a0dc1a9"
+  }
+]
