@@ -1,11 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import { InstitutionalFuturePanel } from "@/components/troptions-evolution/InstitutionalFuturePanel";
+import { VoiceNarrationPlayer } from "@/components/troptions-evolution/VoiceNarrationPlayer";
 import "@/styles/troptions-evolution.css";
-
-export const metadata = {
-  title: "Troptions Institutional Operating System",
-  description: "Premium Troptions platform homepage for market intelligence, automation, portfolio visibility, and secure reporting.",
-};
 
 export default function TroptionsOverviewPage() {
   const buildStatus = process.env.NODE_ENV === "production" ? "Production" : "Development Preview";
@@ -65,6 +63,7 @@ export default function TroptionsOverviewPage() {
       </div>
 
       <div className="mx-auto w-full max-w-7xl space-y-16 px-5 py-10 md:px-8 md:py-16">
+        <VoiceNarrationPlayer pageId="homepage" autoPlay={false} showTranscript={true} />
         <section className="grid items-start gap-8 rounded-3xl border border-[var(--line)] bg-[radial-gradient(circle_at_12%_10%,rgba(201,154,60,0.24),transparent_38%),linear-gradient(180deg,var(--navy)_0%,var(--navy-2)_100%)] p-8 shadow-[0_24px_100px_rgba(3,10,22,0.65)] md:grid-cols-[1.05fr_0.95fr] md:p-10">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--gold-light)]">Institutional Platform</p>
