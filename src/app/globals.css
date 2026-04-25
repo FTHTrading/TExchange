@@ -1,8 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #071426;
+  --foreground: #f8fafc;
+  --navy: #071426;
+  --navy-2: #0b1f36;
+  --gold: #c99a3c;
+  --gold-light: #f0cf82;
+  --ink: #111827;
+  --muted: #8a94a6;
+  --panel: #ffffff;
+  --line: rgba(201, 154, 60, 0.35);
+  --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
 }
 
 @theme inline {
@@ -22,5 +31,6 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), "Segoe UI", "Helvetica Neue", sans-serif;
+  text-rendering: optimizeLegibility;
 }

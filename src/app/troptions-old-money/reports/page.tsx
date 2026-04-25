@@ -3,6 +3,8 @@ import { OLD_MONEY_PAGES } from "@/content/troptions-old-money/pages";
 import { ReportCoverCard } from "@/components/troptions-media/ReportCoverCard";
 import { AssetImageCard } from "@/components/troptions-media/AssetImageCard";
 import { MEDIA_REGISTRY } from "@/content/troptions/mediaRegistry";
+import { InstitutionalFuturePanel } from "@/components/troptions-evolution/InstitutionalFuturePanel";
+import "@/styles/troptions-evolution.css";
 
 const REPORT_LIBRARY = [
   {
@@ -103,6 +105,10 @@ export default function TroptionsOldMoneyReportsPage() {
           </div>
         )}
 
+      </div>
+
+      <div className="om-page" style={{ marginTop: "1.2rem", gap: "1.2rem", display: "flex", flexDirection: "column" }}>
+        <InstitutionalFuturePanel />
       </div>
     </>
   );

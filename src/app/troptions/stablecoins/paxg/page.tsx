@@ -1,0 +1,1 @@
+﻿export default function TroptionsStablecoinsPaxgPage() { return (<main style={{ background: "#0a0f1a", minHeight: "100vh", color: "#e8e0d0", padding: "2rem", fontFamily: "system-ui, sans-serif" }}><h1>PAXG Reference Rail</h1><p>PAXG is treated as a gold-linked reference asset requiring custody, redemption, and commodity-classification review.</p></main>); }

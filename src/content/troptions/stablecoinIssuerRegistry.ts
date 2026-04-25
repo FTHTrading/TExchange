@@ -1,0 +1,84 @@
+export interface StablecoinIssuerRecord {
+  symbol: "USDC" | "USDT" | "PYUSD" | "USDP" | "PAXG" | "TRU-UNIT" | "TRU-GOLD" | "TRU-TREASURY";
+  issuer: string;
+  chainSupport: readonly string[];
+  chainSupportNote: string;
+  useCases: readonly string[];
+  riskControls: readonly string[];
+  defaultInstitutionalRoute: boolean;
+}
+
+export const STABLECOIN_ISSUER_REGISTRY: readonly StablecoinIssuerRecord[] = [
+  {
+    symbol: "USDC",
+    issuer: "Circle",
+    chainSupport: ["Solana", "Ethereum", "Base", "Arbitrum", "Polygon", "Avalanche", "Optimism"],
+    chainSupportNote: "Chain list is configurable and non-exhaustive.",
+    useCases: ["Payment simulation", "Settlement readiness", "x402 readiness", "RWA funding simulation"],
+    riskControls: ["Issuer approval", "Provider approval", "Jurisdiction approval"],
+    defaultInstitutionalRoute: true,
+  },
+  {
+    symbol: "USDT",
+    issuer: "Tether",
+    chainSupport: ["TRON", "Ethereum", "Solana"],
+    chainSupportNote: "Chain list is configurable and non-exhaustive.",
+    useCases: ["Liquidity route evaluation", "Settlement simulation", "Route monitoring"],
+    riskControls: ["Reserve transparency review", "Freeze and sanctions awareness", "Illicit-finance monitoring"],
+    defaultInstitutionalRoute: false,
+  },
+  {
+    symbol: "PYUSD",
+    issuer: "Paxos / PayPal route",
+    chainSupport: ["Ethereum", "Solana"],
+    chainSupportNote: "Configurable support based on provider enablement.",
+    useCases: ["PayPal-linked rail evaluation", "Institutional payment simulation"],
+    riskControls: ["Provider approval", "Jurisdiction review"],
+    defaultInstitutionalRoute: false,
+  },
+  {
+    symbol: "USDP",
+    issuer: "Paxos",
+    chainSupport: ["Ethereum"],
+    chainSupportNote: "Configurable support based on issuer/provider status.",
+    useCases: ["Regulated dollar route evaluation", "Treasury simulation"],
+    riskControls: ["Provider approval", "Chain support review", "Jurisdiction review"],
+    defaultInstitutionalRoute: false,
+  },
+  {
+    symbol: "PAXG",
+    issuer: "Paxos",
+    chainSupport: ["Ethereum"],
+    chainSupportNote: "Configurable support based on provider status.",
+    useCases: ["Gold-linked reference", "Reserve and proof comparison"],
+    riskControls: ["Custody review", "Redemption policy review", "Commodity classification review"],
+    defaultInstitutionalRoute: false,
+  },
+  {
+    symbol: "TRU-UNIT",
+    issuer: "Troptions internal accounting",
+    chainSupport: ["Internal ledger"],
+    chainSupportNote: "Internal accounting unit for simulation and reporting only.",
+    useCases: ["Internal accounting", "Scenario simulation"],
+    riskControls: ["No public issuance", "Policy gate required"],
+    defaultInstitutionalRoute: false,
+  },
+  {
+    symbol: "TRU-GOLD",
+    issuer: "Troptions internal accounting",
+    chainSupport: ["Internal ledger"],
+    chainSupportNote: "Gold-linked internal accounting reference for simulations.",
+    useCases: ["Gold-linked scenario modeling", "Internal reporting"],
+    riskControls: ["No reserve claim without evidence", "No redemption function"],
+    defaultInstitutionalRoute: false,
+  },
+  {
+    symbol: "TRU-TREASURY",
+    issuer: "Troptions internal accounting",
+    chainSupport: ["Internal ledger"],
+    chainSupportNote: "Treasury-linked internal unit for evaluation workflows.",
+    useCases: ["Treasury scenario analysis", "Internal exposure tracking"],
+    riskControls: ["No live transfer", "No external market representation"],
+    defaultInstitutionalRoute: false,
+  },
+];

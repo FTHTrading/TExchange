@@ -1,190 +1,278 @@
-import { TROPTIONS_SYSTEM_IDENTITY, TROPTIONS_ECOSYSTEM_PILLARS, FULL_DISCLAIMER } from "@/content/troptions/troptionsRegistry";
-import { MODULE_REGISTRY } from "@/content/troptions/moduleRegistry";
-import { ASSET_REGISTRY } from "@/content/troptions/assetRegistry";
-import { getCriticalClaims, getBlockedClaims } from "@/content/troptions/claimRegistry";
-import { DisclaimerBanner } from "@/components/troptions/DisclaimerBanner";
-import { StatusBadge } from "@/components/troptions/StatusBadge";
-import { VideoFeature } from "@/components/troptions-media/VideoFeature";
-import { MediaStrip } from "@/components/troptions-media/MediaStrip";
-import { getMediaByCategory, getApprovedMedia, MEDIA_STATS } from "@/content/troptions/mediaRegistry";
 import Link from "next/link";
+import { InstitutionalFuturePanel } from "@/components/troptions-evolution/InstitutionalFuturePanel";
+import "@/styles/troptions-evolution.css";
 
 export const metadata = {
   title: "Troptions Institutional Operating System",
-  description: "Institutional-grade digital asset ecosystem. Proof-gated. Custody-gated. Compliance-by-jurisdiction.",
+  description: "Premium Troptions platform homepage for market intelligence, automation, portfolio visibility, and secure reporting.",
 };
 
 export default function TroptionsOverviewPage() {
-  const criticalClaims = getCriticalClaims();
-  const blockedClaims = getBlockedClaims();
-  const activeModules = MODULE_REGISTRY.filter((m) => m.status === "live").length;
-  const brandVideo = getMediaByCategory("video")[0];
-  const rwaImages = getMediaByCategory("rwa");
-  const allApproved = getApprovedMedia();
+  const buildStatus = process.env.NODE_ENV === "production" ? "Production" : "Development Preview";
+  const platformCards = [
+    "Market Intelligence",
+    "Portfolio & Wallet Review",
+    "Automation Workflows",
+    "Reporting Systems",
+    "Secure Member Portal",
+    "Admin Control Plane",
+  ];
 
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-white">
-      {/* Header */}
-      <div className="border-b border-[#C9A84C]/20 bg-[#0D1B2A]">
-        <div className="max-w-7xl mx-auto px-6 py-8">
-          <p className="text-[#C9A84C] font-mono text-xs uppercase tracking-[0.3em]">
-            v{TROPTIONS_SYSTEM_IDENTITY.version}
-          </p>
-          <h1 className="text-4xl font-bold text-white mt-3">{TROPTIONS_SYSTEM_IDENTITY.name}</h1>
-          <p className="text-[#C9A84C] font-light mt-1 text-lg">{TROPTIONS_SYSTEM_IDENTITY.tagline}</p>
-
-        </div>
-      </div>
-
-      {/* System Status Bar */}
-      <div className="bg-slate-900/60 border-b border-slate-800/60">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex flex-wrap gap-8">
-          <div>
-            <p className="text-[10px] text-slate-500 uppercase tracking-widest font-mono">Active Modules</p>
-            <p className="text-2xl font-bold text-white">{activeModules}<span className="text-slate-500 text-sm font-normal">/{MODULE_REGISTRY.length}</span></p>
-          </div>
-          <div>
-            <p className="text-[10px] text-slate-500 uppercase tracking-widest font-mono">Assets Registered</p>
-            <p className="text-2xl font-bold text-white">{ASSET_REGISTRY.length}</p>
-          </div>
-          <div>
-            <p className="text-[10px] text-slate-500 uppercase tracking-widest font-mono">Blocked Claims</p>
-            <p className="text-2xl font-bold text-red-400">{blockedClaims.length}</p>
-          </div>
-          <div>
-            <p className="text-[10px] text-slate-500 uppercase tracking-widest font-mono">Critical Claims</p>
-            <p className="text-2xl font-bold text-red-500">{criticalClaims.length}</p>
-          </div>
-          <div>
-            <p className="text-[10px] text-slate-500 uppercase tracking-widest font-mono">Compliance Model</p>
-            <p className="text-sm font-bold text-[#C9A84C] uppercase">{TROPTIONS_SYSTEM_IDENTITY.complianceModel}</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-6 py-12 space-y-16">
-
-        {/* Disclaimer */}
-        <DisclaimerBanner variant="full-public" />
-
-        <section className="rounded-lg border border-[#C9A84C]/35 bg-[#0D1B2A] p-6">
-          <p className="text-[10px] text-[#C9A84C] uppercase tracking-[0.2em] font-mono">Institutional Program</p>
-          <h2 className="text-xl font-bold text-white mt-2">Old Money Institutional</h2>
-          <p className="text-slate-300 text-sm mt-2 max-w-2xl">
-            A conservative institutional site experience focused on governance, settlement discipline, evidence, and disclosure controls.
-          </p>
-          <Link
-            href="/troptions-old-money"
-            className="inline-flex mt-4 rounded border border-[#C9A84C]/40 px-4 py-2 text-sm font-semibold text-[#C9A84C] hover:bg-[#C9A84C]/10"
-          >
-            Enter Old Money Institutional →
+    <main className="bg-[var(--navy)] text-white">
+      <div className="border-b border-[var(--line)] bg-[var(--navy)]/95 backdrop-blur supports-[backdrop-filter]:sticky supports-[backdrop-filter]:top-0 supports-[backdrop-filter]:z-30">
+        <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-4 md:px-8">
+          <Link href="/troptions" className="flex items-center gap-3">
+            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--gold)]/15 text-sm font-bold text-[var(--gold-light)]">T</span>
+            <span className="text-sm font-semibold tracking-[0.25em] text-[var(--gold-light)]">TROPTIONS</span>
           </Link>
-        </section>
 
-        {/* Ecosystem Pillars */}
-        <section>
-          <h2 className="text-2xl font-bold text-white mb-6">Ecosystem Pillars</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-            {TROPTIONS_ECOSYSTEM_PILLARS.map((pillar) => (
-              <div key={pillar} className="bg-[#0D1B2A] border border-[#C9A84C]/20 rounded-lg p-4">
-                <p className="text-white text-sm font-medium">{pillar}</p>
-              </div>
-            ))}
+          <nav aria-label="Troptions navigation" className="hidden items-center gap-7 text-sm text-slate-200 md:flex">
+            <Link href="#solutions" className="hover:text-white">Solutions</Link>
+            <Link href="#platform" className="hover:text-white">Platform</Link>
+            <Link href="#resources" className="hover:text-white">Resources</Link>
+            <Link href="#company" className="hover:text-white">Company</Link>
+            <Link href="/troptions/legacy" className="hover:text-white">Legacy</Link>
+            <Link href="/troptions/then-now" className="hover:text-white">Then vs Now</Link>
+            <Link href="/troptions/ecosystem" className="hover:text-white">Ecosystem</Link>
+            <Link href="/troptions/future" className="hover:text-white">Future</Link>
+            <Link href="/troptions/diligence/source-map" className="hover:text-white">Source Map</Link>
+          </nav>
+
+          <Link
+            href="/portal/troptions/onboarding"
+            className="hidden rounded-lg bg-[var(--gold)] px-4 py-2 text-sm font-semibold text-[var(--ink)] transition hover:bg-[var(--gold-light)] md:inline-flex"
+          >
+            Request Access
+          </Link>
+
+          <details className="relative md:hidden">
+            <summary className="cursor-pointer rounded-lg border border-[var(--line)] px-3 py-2 text-xs font-semibold text-[var(--gold-light)] list-none">Menu</summary>
+            <div className="absolute right-0 mt-2 grid min-w-44 gap-2 rounded-xl border border-[var(--line)] bg-[var(--navy-2)] p-3 text-sm text-slate-100 shadow-2xl">
+              <Link href="#solutions">Solutions</Link>
+              <Link href="#platform">Platform</Link>
+              <Link href="#resources">Resources</Link>
+              <Link href="#company">Company</Link>
+              <Link href="/troptions/legacy">Legacy</Link>
+              <Link href="/troptions/then-now">Then vs Now</Link>
+              <Link href="/troptions/ecosystem">Ecosystem</Link>
+              <Link href="/troptions/future">Future</Link>
+              <Link href="/troptions/diligence/source-map">Source Map</Link>
+              <Link href="/portal/troptions/onboarding" className="mt-1 rounded-md bg-[var(--gold)] px-3 py-2 text-center font-semibold text-[var(--ink)]">Request Access</Link>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <div className="mx-auto w-full max-w-7xl space-y-16 px-5 py-10 md:px-8 md:py-16">
+        <section className="grid items-start gap-8 rounded-3xl border border-[var(--line)] bg-[radial-gradient(circle_at_12%_10%,rgba(201,154,60,0.24),transparent_38%),linear-gradient(180deg,var(--navy)_0%,var(--navy-2)_100%)] p-8 shadow-[0_24px_100px_rgba(3,10,22,0.65)] md:grid-cols-[1.05fr_0.95fr] md:p-10">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--gold-light)]">Institutional Platform</p>
+            <h1 className="mt-5 text-4xl leading-tight text-white md:text-6xl" style={{ fontFamily: "var(--font-display)" }}>
+              Intelligent Solutions. Global Impact.
+            </h1>
+            <p className="mt-5 max-w-2xl text-base leading-8 text-slate-200 md:text-lg">
+              TROPTIONS unifies market intelligence, automation, portfolio visibility, and secure reporting into one premium operating platform.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/portal/troptions/dashboard" className="rounded-lg bg-[var(--gold)] px-5 py-3 text-sm font-semibold text-[var(--ink)] transition hover:bg-[var(--gold-light)]">Explore Platform</Link>
+              <Link href="/portal/troptions/onboarding" className="rounded-lg border border-[var(--line)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Request Access</Link>
+            </div>
           </div>
-        </section>
 
-        {/* Asset Registry Status */}
-        <section>
-          <h2 className="text-2xl font-bold text-white mb-6">Asset Registry</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {ASSET_REGISTRY.map((asset) => (
-              <div key={asset.assetId} className="bg-[#0D1B2A] border border-slate-700/40 rounded-lg p-5">
-                <div className="flex items-start justify-between gap-2">
-                  <div>
-                    <p className="text-[#C9A84C] text-xs font-mono uppercase tracking-widest">{asset.assetId}</p>
-                    <h3 className="text-white font-medium mt-0.5 text-sm">{asset.assetName}</h3>
+          <aside className="rounded-2xl border border-[var(--line)] bg-[rgba(255,255,255,0.05)] p-5 backdrop-blur">
+            <div className="mb-4 flex items-center justify-between border-b border-[var(--line)] pb-3">
+              <p className="text-xs uppercase tracking-[0.2em] text-[var(--gold-light)]">Platform Preview</p>
+              <span className="rounded-full border border-emerald-400/50 bg-emerald-400/20 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-emerald-200">Secure Session</span>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {[
+                "Market Intelligence",
+                "Wallet Review",
+                "Reports",
+                "Secure Portal",
+                "System Health",
+              ].map((label) => (
+                <article key={label} className="rounded-xl border border-[var(--line)] bg-[rgba(11,31,54,0.85)] p-3">
+                  <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">Module</p>
+                  <p className="mt-2 text-sm font-semibold text-white">{label}</p>
+                  <div className="mt-3 h-1.5 rounded-full bg-white/20">
+                    <div className="h-1.5 rounded-full bg-[var(--gold)]" style={{ width: "72%" }} />
                   </div>
-                  <StatusBadge status={asset.issuanceStatus} size="sm" />
-                </div>
-                <p className="text-slate-500 text-xs mt-2">{asset.assetType} · {asset.assetClass}</p>
-              </div>
+                </article>
+              ))}
+            </div>
+          </aside>
+        </section>
+
+        <section id="platform" className="space-y-7">
+          <header className="max-w-3xl">
+            <h2 className="text-3xl font-semibold text-white md:text-4xl" style={{ fontFamily: "var(--font-display)" }}>
+              One unified operating layer for modern digital infrastructure.
+            </h2>
+          </header>
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {platformCards.map((card) => (
+              <article key={card} className="rounded-2xl border border-[var(--line)] bg-white p-5 text-[var(--ink)] shadow-[0_18px_50px_rgba(7,20,38,0.35)]">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#9b7a2e]">Platform</p>
+                <h3 className="mt-2 text-lg font-semibold">{card}</h3>
+                <p className="mt-2 text-sm text-slate-600">Structured workflows and controls designed for reliable operations at scale.</p>
+              </article>
             ))}
           </div>
         </section>
 
-        {/* Module Registry */}
-        <section>
-          <h2 className="text-2xl font-bold text-white mb-6">Operational Modules</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {MODULE_REGISTRY.map((mod) => (
-              <div key={mod.id} className="bg-[#0D1B2A] border border-slate-700/40 rounded-lg p-4">
-                <div className="flex items-start justify-between gap-2">
-                  <p className="text-[#C9A84C] font-mono text-xs">{mod.id}</p>
-                  <StatusBadge status={mod.status} size="sm" />
-                </div>
-                <h3 className="text-white text-sm font-medium mt-1">{mod.name}</h3>
-                <p className="text-slate-500 text-xs mt-1 line-clamp-2 leading-relaxed">{mod.description}</p>
-              </div>
+        <section id="solutions" className="rounded-2xl border border-[var(--line)] bg-[var(--navy-2)]/95 p-6">
+          <div className="grid gap-4 md:grid-cols-4">
+            {[
+              "Unified Identity",
+              "Trusted & Secure",
+              "Global & Scalable",
+              "Premium Experience",
+            ].map((item) => (
+              <article key={item} className="rounded-xl border border-[var(--line)] bg-[rgba(255,255,255,0.04)] p-4 text-center">
+                <p className="text-sm font-semibold text-[var(--gold-light)]">{item}</p>
+              </article>
             ))}
           </div>
         </section>
 
-        {/* Institutional Brand Video */}
-        {brandVideo && (
-          <section>
-            <p className="text-[10px] text-[#C9A84C] uppercase tracking-[0.2em] font-mono mb-3">Institutional Narrative</p>
-            <VideoFeature
-              src={brandVideo.src}
-              title={brandVideo.title}
-              caption={brandVideo.description}
-            />
-          </section>
-        )}
+        <section className="grid gap-6 lg:grid-cols-2">
+          <article className="rounded-2xl border border-[var(--line)] bg-[var(--panel)] p-6 text-[var(--ink)]">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#9b7a2e]">Member Portal Preview</p>
+            <h3 className="mt-2 text-2xl font-semibold">Welcome back</h3>
+            <p className="mt-2 text-sm text-slate-600">Demo labels only for interface preview. No live account data is displayed here.</p>
+            <div className="mt-5 grid gap-3 md:grid-cols-[0.9fr_1.1fr]">
+              <aside className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">Secure Navigation</p>
+                <ul className="mt-2 space-y-2 text-sm text-slate-700">
+                  <li>Dashboard</li>
+                  <li>Resources</li>
+                  <li>Activity</li>
+                  <li>Reports</li>
+                  <li>Membership</li>
+                </ul>
+              </aside>
+              <div className="space-y-3">
+                <div className="rounded-xl border border-slate-200 p-3">
+                  <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Membership Status</p>
+                  <p className="mt-1 text-sm font-semibold text-slate-800">Demo: Active - Institutional Tier</p>
+                </div>
+                <div className="rounded-xl border border-slate-200 p-3">
+                  <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Recent Activity</p>
+                  <p className="mt-1 text-sm text-slate-700">Sample workflow reviews and report exports.</p>
+                </div>
+                <div className="rounded-xl border border-slate-200 p-3">
+                  <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Exclusive Resources</p>
+                  <p className="mt-1 text-sm text-slate-700">Curated strategy notes and platform guidance.</p>
+                </div>
+              </div>
+            </div>
+          </article>
 
-        {/* Media Library Strip */}
-        {rwaImages.length > 0 && (
-          <section>
-            <MediaStrip assets={rwaImages} label="Real World Asset Evidence" />
-          </section>
-        )}
-
-        {/* Media Registry Summary */}
-        <section className="rounded-lg border border-[#C9A84C]/20 bg-[#0D1B2A] p-6">
-          <p className="text-[10px] text-[#C9A84C] uppercase tracking-[0.2em] font-mono mb-3">Approved Media Registry</p>
-          <div className="flex flex-wrap gap-8">
-            <div>
-              <p className="text-2xl font-bold text-white">{MEDIA_STATS.total}</p>
-              <p className="text-[10px] text-slate-500 uppercase tracking-widest font-mono mt-0.5">Total Assets</p>
+          <article className="rounded-2xl border border-[var(--line)] bg-[var(--panel)] p-6 text-[var(--ink)]">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#9b7a2e]">Admin Control Plane Preview</p>
+            <h3 className="mt-2 text-2xl font-semibold">Operational command center</h3>
+            <div className="mt-5 grid gap-3 sm:grid-cols-3">
+              {[
+                "Overview",
+                "Users",
+                "Organizations",
+                "Products",
+                "Subscriptions",
+                "Reports",
+                "Security",
+                "Integrations",
+                "Settings",
+              ].map((item) => (
+                <div key={item} className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-medium text-slate-700">{item}</div>
+              ))}
             </div>
-            <div>
-              <p className="text-2xl font-bold text-white">{MEDIA_STATS.images}</p>
-              <p className="text-[10px] text-slate-500 uppercase tracking-widest font-mono mt-0.5">Image Assets</p>
+            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+              {[
+                "Demo: Active Organizations 128",
+                "Demo: Platform Health 99.95%",
+                "Demo: Reports Generated 362",
+                "Demo: Review Queue 21",
+              ].map((item) => (
+                <div key={item} className="rounded-xl border border-slate-200 p-3 text-sm text-slate-700">{item}</div>
+              ))}
             </div>
-            <div>
-              <p className="text-2xl font-bold text-white">{MEDIA_STATS.videos}</p>
-              <p className="text-[10px] text-slate-500 uppercase tracking-widest font-mono mt-0.5">Video Assets</p>
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-[#C9A84C]">{MEDIA_STATS.approved}</p>
-              <p className="text-[10px] text-slate-500 uppercase tracking-widest font-mono mt-0.5">Approved</p>
-            </div>
-          </div>
-          <Link
-            href="/troptions-old-money/media"
-            className="inline-flex mt-5 rounded border border-[#C9A84C]/40 px-4 py-2 text-sm font-semibold text-[#C9A84C] hover:bg-[#C9A84C]/10"
-          >
-            View Full Media Library →
-          </Link>
+          </article>
         </section>
 
-        {/* Full Disclaimer */}
-        <section>
-          <h2 className="text-sm font-mono text-[#C9A84C] uppercase tracking-widest mb-3">Full Disclosure</h2>
-          <div className="border border-slate-700/40 bg-slate-900/30 rounded-lg p-6">
-            <p className="text-slate-400 text-xs leading-relaxed">{FULL_DISCLAIMER}</p>
+        <section id="resources" className="rounded-2xl border border-[var(--line)] bg-[var(--navy-2)] p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--gold-light)]">Intelligence and Reporting</p>
+          <h3 className="mt-2 text-2xl font-semibold text-white" style={{ fontFamily: "var(--font-display)" }}>Market Intelligence Report</h3>
+          <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+            {[
+              "Executive Summary",
+              "Risk Review",
+              "Source Verification",
+              "Export-ready PDF",
+              "Export-ready CSV",
+            ].map((item) => (
+              <article key={item} className="rounded-xl border border-[var(--line)] bg-[rgba(255,255,255,0.05)] p-3 text-sm text-slate-100">
+                {item}
+              </article>
+            ))}
           </div>
         </section>
 
+        <section className="space-y-5 rounded-2xl border border-[var(--line)] bg-[var(--navy-2)]/95 p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--gold-light)]">Security</p>
+          <h3 className="text-2xl font-semibold text-white" style={{ fontFamily: "var(--font-display)" }}>Security-first operating posture</h3>
+          <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+            {[
+              "Local-first review options",
+              "Public-address inventory support",
+              "Review before external lookups",
+              "Audit-ready exports",
+              "Role-based access planning",
+              "Troptions workflows are designed not to collect or store wallet secrets.",
+            ].map((item) => (
+              <article key={item} className="rounded-xl border border-[var(--line)] bg-[rgba(255,255,255,0.04)] p-4 text-sm text-slate-100">
+                {item}
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="company" className="space-y-6">
+          <header>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--gold-light)]">Roadmap</p>
+          </header>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {[
+              "Phase 1: Dashboard & reporting",
+              "Phase 2: Review workflows",
+              "Phase 3: Integrations",
+              "Phase 4: Production hardening",
+            ].map((item) => (
+              <article key={item} className="rounded-2xl border border-[var(--line)] bg-white p-5 text-[var(--ink)]">
+                <p className="text-sm font-semibold">{item}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-3xl border border-[var(--line)] bg-[linear-gradient(120deg,rgba(11,31,54,0.95),rgba(7,20,38,1))] p-8">
+          <h2 className="max-w-3xl text-3xl leading-tight text-white md:text-4xl" style={{ fontFamily: "var(--font-display)" }}>
+            Build the command center before scaling the operation.
+          </h2>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link href="/portal/troptions/onboarding" className="rounded-lg bg-[var(--gold)] px-5 py-3 text-sm font-semibold text-[var(--ink)] transition hover:bg-[var(--gold-light)]">Request Access</Link>
+            <Link href="/portal/troptions/dashboard" className="rounded-lg border border-[var(--line)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">View Platform Preview</Link>
+          </div>
+        </section>
+
+        <InstitutionalFuturePanel />
+
+        <footer className="rounded-2xl border border-[var(--line)] bg-[var(--navy-2)] p-6">
+          <p className="text-sm font-semibold text-white">TROPTIONS / FTH Trading</p>
+          <p className="mt-2 text-xs leading-6 text-slate-300">{buildStatus === "Production" ? "Production mode" : "Development preview mode"}</p>
+          <p className="mt-2 text-xs leading-6 text-slate-300">Information shown is for platform demonstration and planning purposes only. It is not financial, legal, tax, or investment advice.</p>
+        </footer>
       </div>
     </main>
   );

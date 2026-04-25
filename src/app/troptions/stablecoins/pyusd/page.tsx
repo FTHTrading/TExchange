@@ -1,0 +1,1 @@
+﻿export default function TroptionsStablecoinsPyusdPage() { return (<main style={{ background: "#0a0f1a", minHeight: "100vh", color: "#e8e0d0", padding: "2rem", fontFamily: "system-ui, sans-serif" }}><h1>PYUSD Rail Evaluation</h1><p>PYUSD support is simulation-only and requires provider and jurisdiction approval before any production enablement.</p></main>); }
