@@ -52,4 +52,6 @@ Thumbs.db
 
 # Tooling
 .vercel
+.open-next/
+.wrangler/
 
