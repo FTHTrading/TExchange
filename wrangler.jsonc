@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "troptions",
+  "account_id": "07bcc4a189ef176261b818409c95891f",
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-04-25",
   "compatibility_flags": ["nodejs_compat"],

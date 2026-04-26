@@ -55,3 +55,6 @@ Thumbs.db
 .open-next/
 .wrangler/
 
+
+.vercel
+.env*.local
