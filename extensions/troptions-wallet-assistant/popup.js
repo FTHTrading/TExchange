@@ -12,7 +12,12 @@ const primaryRoutes = [
 
 const adminRoutes = [
   ["Wallet Control Tower", "/admin/troptions/wallets"],
-  ["Navigation Audit", "/admin/troptions/navigation-audit"]
+  ["Navigation Audit", "/admin/troptions/navigation-audit"],
+  ["Open Agent Dashboard", "/admin/troptions/openclaw/dashboard"],
+  ["Ask Jefe", "/admin/troptions/openclaw/jefe"],
+  ["Check Site", "/admin/troptions/openclaw/site-ops"],
+  ["Check x402", "/admin/troptions/openclaw/x402"],
+  ["Check XRPL", "/admin/troptions/xrpl-platform/mainnet-readiness"]
 ];
 
 function buildLinks(container, routes, baseUrl) {

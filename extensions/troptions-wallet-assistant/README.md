@@ -19,6 +19,11 @@ Chrome extension helper for the local Troptions wallet simulation environment.
 - `/portal/troptions/wallet/x402`
 - `/admin/troptions/wallets`
 - `/admin/troptions/navigation-audit`
+- `/admin/troptions/openclaw/dashboard`
+- `/admin/troptions/openclaw/jefe`
+- `/admin/troptions/openclaw/site-ops`
+- `/admin/troptions/openclaw/x402`
+- `/admin/troptions/xrpl-platform/mainnet-readiness`
 
 ## Load in Chrome
 

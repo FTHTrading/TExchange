@@ -100,6 +100,25 @@ export default function AdminCommandCenterPage() {
           </div>
         </section>
 
+        <section>
+          <h2 className="text-lg font-bold text-white mb-4">Agent Command Center</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              { label: "OpenClaw Dashboard", href: "/admin/troptions/openclaw/dashboard" },
+              { label: "OpenClaw Chat", href: "/admin/troptions/openclaw/chat" },
+              { label: "OpenClaw x402", href: "/admin/troptions/openclaw/x402" },
+              { label: "OpenClaw Site Ops", href: "/admin/troptions/openclaw/site-ops" },
+              { label: "Jefe Fast Operator", href: "/admin/troptions/openclaw/jefe" },
+              { label: "Jefe Commands", href: "/admin/troptions/openclaw/jefe/commands" },
+            ].map((item) => (
+              <a key={item.href} href={item.href} className="bg-[#0D1B2A] border border-slate-700/40 rounded-lg p-4 hover:border-[#C9A84C]/60 transition-colors">
+                <p className="text-sm text-[#C9A84C] font-mono">{item.label}</p>
+                <p className="text-xs text-slate-500 mt-2">{item.href}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+
         {/* Advertising Audit Status */}
         <section>
           <h2 className="text-lg font-bold text-white mb-4">Advertising Audit</h2>
