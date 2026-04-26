@@ -14,15 +14,16 @@ export function VoiceNarrationPlayer({ pageId, autoPlay = false, showTranscript 
   const [isLoading, setIsLoading] = useState(false);
   const [currentSegmentIndex, setCurrentSegmentIndex] = useState(0);
   const [audioUrls, setAudioUrls] = useState<string[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [playbackMode, setPlaybackMode] = useState<"audio" | "speech">("audio");
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const script = useMemo(() => getNarrationScript(pageId), [pageId]);
-  const segments = script?.segments ?? [];
+  const segments = useMemo(() => script?.segments ?? [], [script]);
 
   const handleAudioEnded = useCallback(() => {
     setCurrentSegmentIndex((prevIndex) => {
       if (prevIndex < segments.length - 1) {
-        setIsPlaying(false);
         return prevIndex + 1;
       } else {
         setIsPlaying(false);
@@ -42,19 +43,48 @@ export function VoiceNarrationPlayer({ pageId, autoPlay = false, showTranscript 
 
   // Play audio when isPlaying changes
   useEffect(() => {
+    if (!isPlaying) return;
+
+    if (playbackMode === "speech") {
+      const speechSynthesisApi = window.speechSynthesis;
+      if (!speechSynthesisApi) {
+        return;
+      }
+
+      speechSynthesisApi.cancel();
+
+      const utterance = new SpeechSynthesisUtterance(segments[currentSegmentIndex]?.text ?? "");
+      utterance.rate = 0.96;
+      utterance.onend = handleAudioEnded;
+      utterance.onerror = () => {
+        setIsPlaying(false);
+        setErrorMessage("Browser narration failed. Try again in a moment.");
+      };
+
+      speechSynthesisApi.speak(utterance);
+      return () => {
+        speechSynthesisApi.cancel();
+      };
+    }
+
     const audio = audioRef.current;
     if (!audio || audioUrls.length === 0) return;
 
-    if (isPlaying) {
-      audio.src = audioUrls[currentSegmentIndex];
-      audio.play().catch((error) => console.error("Failed to play audio:", error));
-    }
-  }, [isPlaying, currentSegmentIndex, audioUrls]);
+    audio.src = audioUrls[currentSegmentIndex];
+    audio.play().catch((error) => {
+      console.error("Failed to play audio:", error);
+      setIsPlaying(false);
+      setErrorMessage("Narration playback failed. Try again in a moment.");
+    });
+  }, [isPlaying, currentSegmentIndex, audioUrls, playbackMode, segments, handleAudioEnded]);
 
-  const loadAudio = async () => {
-    if (audioUrls.length > 0) return;
+  const loadAudio = async (): Promise<{ urls: string[]; fallbackToSpeech: boolean }> => {
+    if (audioUrls.length > 0) {
+      return { urls: audioUrls, fallbackToSpeech: false };
+    }
 
     setIsLoading(true);
+    setErrorMessage(null);
     try {
       const urls: string[] = [];
 
@@ -69,30 +99,50 @@ export function VoiceNarrationPlayer({ pageId, autoPlay = false, showTranscript 
           }),
         });
 
-        if (response.ok) {
-          const blob = await response.blob();
-          const url = URL.createObjectURL(blob);
-          urls.push(url);
+        if (!response.ok) {
+          throw new Error(`Narration synthesis failed for ${segment.id}`);
         }
+
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        urls.push(url);
       }
 
       setAudioUrls(urls);
+      setPlaybackMode("audio");
       setIsLoading(false);
 
       if (autoPlay && urls.length > 0) {
         setTimeout(() => setIsPlaying(true), 100);
       }
+
+      return { urls, fallbackToSpeech: false };
     } catch (error) {
       console.error("Failed to load narration audio:", error);
       setIsLoading(false);
+      setPlaybackMode("speech");
+      setErrorMessage("Cloud narration is unavailable. Using browser voice instead.");
+      return { urls: [], fallbackToSpeech: true };
     }
   };
 
-  const playAudio = () => {
+  const playAudio = async () => {
+    setErrorMessage(null);
+    let shouldUseSpeech = playbackMode === "speech";
+
     if (audioUrls.length === 0) {
-      loadAudio();
+      const { urls, fallbackToSpeech } = await loadAudio();
+      shouldUseSpeech = fallbackToSpeech;
+      if (urls.length === 0 && !fallbackToSpeech) {
+        return;
+      }
+    }
+
+    if (shouldUseSpeech && (!window.speechSynthesis || typeof SpeechSynthesisUtterance === "undefined")) {
+      setErrorMessage("Narration is unavailable in this browser.");
       return;
     }
+
     setIsPlaying(true);
   };
 
@@ -100,6 +150,9 @@ export function VoiceNarrationPlayer({ pageId, autoPlay = false, showTranscript 
     setIsPlaying(false);
     if (audioRef.current) {
       audioRef.current.pause();
+    }
+    if (typeof window !== "undefined" && window.speechSynthesis) {
+      window.speechSynthesis.cancel();
     }
   };
 
@@ -138,6 +191,12 @@ export function VoiceNarrationPlayer({ pageId, autoPlay = false, showTranscript 
             <strong>{segments[currentSegmentIndex].id}:</strong> {segments[currentSegmentIndex].text}
           </p>
         </div>
+      )}
+
+      {errorMessage && (
+        <p style={{ marginTop: "0.75rem", marginBottom: 0, fontSize: "0.875rem", color: "#fca5a5" }}>
+          {errorMessage}
+        </p>
       )}
 
       <audio ref={audioRef} style={{ display: "none" }} />

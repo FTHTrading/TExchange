@@ -18,50 +18,6 @@ export default function TroptionsOverviewPage() {
 
   return (
     <main className="bg-[var(--navy)] text-white">
-      <div className="border-b border-[var(--line)] bg-[var(--navy)]/95 backdrop-blur supports-[backdrop-filter]:sticky supports-[backdrop-filter]:top-0 supports-[backdrop-filter]:z-30">
-        <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-4 md:px-8">
-          <Link href="/troptions" className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--gold)]/15 text-sm font-bold text-[var(--gold-light)]">T</span>
-            <span className="text-sm font-semibold tracking-[0.25em] text-[var(--gold-light)]">TROPTIONS</span>
-          </Link>
-
-          <nav aria-label="Troptions navigation" className="hidden items-center gap-7 text-sm text-slate-200 md:flex">
-            <Link href="#solutions" className="hover:text-white">Solutions</Link>
-            <Link href="#platform" className="hover:text-white">Platform</Link>
-            <Link href="#resources" className="hover:text-white">Resources</Link>
-            <Link href="#company" className="hover:text-white">Company</Link>
-            <Link href="/troptions/legacy" className="hover:text-white">Legacy</Link>
-            <Link href="/troptions/then-now" className="hover:text-white">Then vs Now</Link>
-            <Link href="/troptions/ecosystem" className="hover:text-white">Ecosystem</Link>
-            <Link href="/troptions/future" className="hover:text-white">Future</Link>
-            <Link href="/troptions/diligence/source-map" className="hover:text-white">Source Map</Link>
-          </nav>
-
-          <Link
-            href="/portal/troptions/onboarding"
-            className="hidden rounded-lg bg-[var(--gold)] px-4 py-2 text-sm font-semibold text-[var(--ink)] transition hover:bg-[var(--gold-light)] md:inline-flex"
-          >
-            Request Access
-          </Link>
-
-          <details className="relative md:hidden">
-            <summary className="cursor-pointer rounded-lg border border-[var(--line)] px-3 py-2 text-xs font-semibold text-[var(--gold-light)] list-none">Menu</summary>
-            <div className="absolute right-0 mt-2 grid min-w-44 gap-2 rounded-xl border border-[var(--line)] bg-[var(--navy-2)] p-3 text-sm text-slate-100 shadow-2xl">
-              <Link href="#solutions">Solutions</Link>
-              <Link href="#platform">Platform</Link>
-              <Link href="#resources">Resources</Link>
-              <Link href="#company">Company</Link>
-              <Link href="/troptions/legacy">Legacy</Link>
-              <Link href="/troptions/then-now">Then vs Now</Link>
-              <Link href="/troptions/ecosystem">Ecosystem</Link>
-              <Link href="/troptions/future">Future</Link>
-              <Link href="/troptions/diligence/source-map">Source Map</Link>
-              <Link href="/portal/troptions/onboarding" className="mt-1 rounded-md bg-[var(--gold)] px-3 py-2 text-center font-semibold text-[var(--ink)]">Request Access</Link>
-            </div>
-          </details>
-        </div>
-      </div>
-
       <div className="mx-auto w-full max-w-7xl space-y-16 px-5 py-10 md:px-8 md:py-16">
         <VoiceNarrationPlayer pageId="homepage" autoPlay={false} showTranscript={true} />
         <section className="grid items-start gap-8 rounded-3xl border border-[var(--line)] bg-[radial-gradient(circle_at_12%_10%,rgba(201,154,60,0.24),transparent_38%),linear-gradient(180deg,var(--navy)_0%,var(--navy-2)_100%)] p-8 shadow-[0_24px_100px_rgba(3,10,22,0.65)] md:grid-cols-[1.05fr_0.95fr] md:p-10">
@@ -76,6 +32,7 @@ export default function TroptionsOverviewPage() {
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/portal/troptions/dashboard" className="rounded-lg bg-[var(--gold)] px-5 py-3 text-sm font-semibold text-[var(--ink)] transition hover:bg-[var(--gold-light)]">Explore Platform</Link>
               <Link href="/portal/troptions/onboarding" className="rounded-lg border border-[var(--line)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Request Access</Link>
+              <Link href="/troptions/wallets" className="rounded-lg border border-[var(--line)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">View Wallet Showcase</Link>
             </div>
           </div>
 
@@ -102,6 +59,35 @@ export default function TroptionsOverviewPage() {
               ))}
             </div>
           </aside>
+        </section>
+
+        <section className="rounded-3xl border border-[var(--line)] bg-[rgba(7,13,24,0.85)] p-8 shadow-[0_24px_80px_rgba(2,8,23,0.45)]">
+          <p className="text-sm uppercase tracking-[0.25em] text-[var(--gold-light)]">XRPL Platform</p>
+          <h2 className="mt-3 text-3xl font-semibold text-white">XRPL Market Data, AMM, and DEX Readiness</h2>
+          <p className="mt-4 max-w-4xl text-base leading-8 text-slate-300">Troptions adds an XRPL market-data and route-simulation layer for order books, AMM pools, issued assets, trustlines, and pathfinding. Mainnet trading remains blocked by default. Testnet labs and unsigned transaction payloads are used for validation until external signer, custody, compliance, and board approvals are complete.</p>
+          <div className="mt-8 grid gap-4 md:grid-cols-3 xl:grid-cols-4">
+            {[
+              "Live market data",
+              "Order books",
+              "AMM pools",
+              "Trustlines",
+              "Issued assets",
+              "Pathfinding quotes",
+              "Testnet lab",
+              "Mainnet readiness gates",
+              "GitHub + docs links",
+            ].map((item) => (
+              <article key={item} className="rounded-2xl border border-[var(--line)] bg-white/5 p-4 text-sm font-medium text-slate-100">
+                {item}
+              </article>
+            ))}
+          </div>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link href="/troptions/xrpl-platform" className="rounded-lg bg-[var(--gold)] px-5 py-3 text-sm font-semibold text-[var(--ink)] transition hover:bg-[var(--gold-light)]">Open XRPL Platform</Link>
+            <Link href="/troptions/xrpl-platform/links" className="rounded-lg border border-[var(--line)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">View XRPL Links</Link>
+            <Link href="/portal/troptions/xrpl-platform" className="rounded-lg border border-[var(--line)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Open Portal XRPL</Link>
+            <Link href="/admin/troptions/xrpl-platform" className="rounded-lg border border-[var(--line)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Admin XRPL Control</Link>
+          </div>
         </section>
 
         <section id="platform" className="space-y-7">

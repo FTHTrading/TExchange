@@ -86,6 +86,16 @@ Claims & Advertising Control
 - Policy gates passing
 - Env validation passing
 
+## XRPL Platform
+
+- Public XRPL platform: /troptions/xrpl-platform
+- XRPL links and docs: /troptions/xrpl-platform/links
+- Portal XRPL platform: /portal/troptions/xrpl-platform
+- Admin XRPL control: /admin/troptions/xrpl-platform
+- Detailed docs: docs/xrpl-platform.md
+
+The XRPL platform is market-data, AMM/DEX monitoring, route-simulation, and execution-readiness infrastructure only. Mainnet execution is blocked by default, testnet payloads remain unsigned, and production flows require external signer plus legal, custody, compliance, provider, signer, and board approvals.
+
 ## 🚀 Local Development
 
 ```bash
