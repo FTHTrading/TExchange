@@ -60,6 +60,61 @@ function initSchema(database: Database.Database): void {
       tags_json TEXT NOT NULL,
       created_at TEXT NOT NULL
     );
+
+    CREATE TABLE IF NOT EXISTS control_hub_tasks (
+      id TEXT PRIMARY KEY,
+      intent TEXT NOT NULL,
+      status TEXT NOT NULL,
+      audit_token TEXT NOT NULL,
+      routed_to TEXT NOT NULL,
+      requires_approval INTEGER NOT NULL DEFAULT 0,
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS control_hub_simulations (
+      id TEXT PRIMARY KEY,
+      task_id TEXT NOT NULL,
+      simulation_json TEXT NOT NULL,
+      created_at TEXT NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS control_hub_approvals (
+      id TEXT PRIMARY KEY,
+      task_id TEXT NOT NULL,
+      required_for TEXT NOT NULL,
+      status TEXT NOT NULL,
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS control_hub_audit_entries (
+      id TEXT PRIMARY KEY,
+      task_id TEXT NOT NULL,
+      audit_token TEXT NOT NULL,
+      intent TEXT NOT NULL,
+      action_type TEXT NOT NULL,
+      outcome TEXT NOT NULL,
+      blocked_count INTEGER NOT NULL DEFAULT 0,
+      requires_approval INTEGER NOT NULL DEFAULT 0,
+      created_at TEXT NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS control_hub_blocked_actions (
+      id TEXT PRIMARY KEY,
+      task_id TEXT NOT NULL,
+      capability_id TEXT NOT NULL,
+      reason TEXT NOT NULL,
+      created_at TEXT NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS control_hub_recommendations (
+      id TEXT PRIMARY KEY,
+      task_id TEXT NOT NULL,
+      recommendation TEXT NOT NULL,
+      priority TEXT NOT NULL DEFAULT 'low',
+      created_at TEXT NOT NULL
+    );
   `);
 }
 

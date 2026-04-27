@@ -2,6 +2,7 @@
 
 import { CONTROL_HUB_CONFIG, CONTROL_HUB_POLICY_SUMMARY, CONTROL_HUB_AGENT_TIERS, CLAWD_ROUTING_RULES, JEFE_CLAWD_COMMANDS } from "@/content/troptions/controlHubRegistry";
 import { CLAWD_CAPABILITIES } from "@/content/troptions/clawdCapabilities";
+import type { ControlHubStateSnapshot } from "@/lib/troptions/controlHubStateTypes";
 
 // ─── sub-components ───────────────────────────────────────────────────────────
 
@@ -189,9 +190,51 @@ function JefeClawdCommands() {
   );
 }
 
+// ─── persisted state summary ──────────────────────────────────────────────────
+
+const PERSISTENCE_MODE_LABELS: Record<string, string> = {
+  postgres: "Postgres (durable)",
+  sqlite: "SQLite (local)",
+  unavailable: "Unavailable",
+};
+
+function PersistenceStateSection({ snapshot }: { snapshot: ControlHubStateSnapshot }) {
+  const modeLabel = PERSISTENCE_MODE_LABELS[snapshot.persistenceMode] ?? snapshot.persistenceMode;
+  const isLive = snapshot.persistenceMode !== "unavailable";
+
+  return (
+    <div className="rounded-xl border border-slate-700 bg-slate-900/80 p-6 space-y-5">
+      <div className="flex items-center gap-3">
+        <div
+          className={`h-2.5 w-2.5 rounded-full ${isLive ? "bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.7)]" : "bg-slate-500"}`}
+        />
+        <p className="text-xs uppercase tracking-widest text-slate-400">
+          Governance Persistence — {modeLabel}
+        </p>
+      </div>
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+        <StatCard label="Tasks" value={snapshot.totalTasks} />
+        <StatCard label="Simulations" value={snapshot.totalSimulations} />
+        <StatCard label="Awaiting Approval" value={snapshot.totalApprovalRequired} highlight={snapshot.totalApprovalRequired > 0} />
+        <StatCard label="Blocked Actions" value={snapshot.totalBlockedActions} highlight={snapshot.totalBlockedActions > 0} />
+        <StatCard label="Audit Entries" value={snapshot.totalAuditEntries} />
+        <StatCard label="Recommendations" value={snapshot.totalRecommendations} />
+      </div>
+      {snapshot.lastUpdatedAt && (
+        <p className="text-xs text-slate-500">
+          Last activity:{" "}
+          <span className="font-mono text-slate-400">
+            {new Date(snapshot.lastUpdatedAt).toLocaleString()}
+          </span>
+        </p>
+      )}
+    </div>
+  );
+}
+
 // ─── main export ──────────────────────────────────────────────────────────────
 
-export function ControlHubPanel() {
+export function ControlHubPanel({ snapshot }: { snapshot?: ControlHubStateSnapshot }) {
   const cfg = CONTROL_HUB_CONFIG;
 
   return (
@@ -258,6 +301,14 @@ export function ControlHubPanel() {
         <SectionHeader>Jefe Commands That Invoke Clawd</SectionHeader>
         <JefeClawdCommands />
       </section>
+
+      {/* persisted state */}
+      {snapshot && (
+        <section className="space-y-4">
+          <SectionHeader>Persisted Governance State</SectionHeader>
+          <PersistenceStateSection snapshot={snapshot} />
+        </section>
+      )}
     </div>
   );
 }

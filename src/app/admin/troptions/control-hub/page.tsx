@@ -1,4 +1,6 @@
 import { ControlHubPanel } from "@/components/troptions/ControlHubPanel";
+import { getControlHubStateSnapshot } from "@/lib/troptions/controlHubStateStore";
+import type { ControlHubStateSnapshot } from "@/lib/troptions/controlHubStateTypes";
 
 export const metadata = {
   title: "Clawd Governance Control Hub | Admin",
@@ -6,6 +8,13 @@ export const metadata = {
 };
 
 export default function AdminControlHubPage() {
+  let snapshot: ControlHubStateSnapshot | undefined;
+  try {
+    snapshot = getControlHubStateSnapshot();
+  } catch {
+    snapshot = undefined;
+  }
+
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-white">
       <div className="mx-auto max-w-7xl px-6 py-16 space-y-6">
@@ -21,7 +30,7 @@ export default function AdminControlHubPage() {
           </p>
         </header>
 
-        <ControlHubPanel />
+        <ControlHubPanel snapshot={snapshot} />
       </div>
     </main>
   );

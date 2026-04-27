@@ -1,5 +1,12 @@
 import { NextResponse } from "next/server";
 import { evaluateClawdIntent } from "@/lib/troptions/clawdGovernanceAdapter";
+import {
+  createTaskRecord,
+  createSimulationRecord,
+  createApprovalRecord,
+  createAuditRecord,
+  createBlockedActionRecord,
+} from "@/lib/troptions/controlHubStateStore";
 
 export async function POST(request: Request) {
   const authHeader = request.headers.get("authorization");
@@ -29,6 +36,80 @@ export async function POST(request: Request) {
 
   const governed = evaluateClawdIntent(body.intent.trim());
 
+  // ─── persist governance state ─────────────────────────────────────────────
+  let taskId: string | null = null;
+  let auditRecordId: string | null = null;
+  let persisted = false;
+
+  try {
+    // Determine task status from evaluation outcome
+    const taskStatus =
+      governed.blocked.length > 0
+        ? "blocked"
+        : governed.requiresApproval
+          ? "needs_approval"
+          : "simulated";
+
+    const task = createTaskRecord({
+      intent: governed.intent,
+      status: taskStatus,
+      auditToken: governed.auditToken,
+      routedTo: governed.routedTo,
+      requiresApproval: governed.requiresApproval,
+    });
+    taskId = task.id;
+
+    createSimulationRecord({
+      taskId: task.id,
+      simulationJson: JSON.stringify({
+        ok: governed.ok,
+        simulationOnly: governed.simulationOnly,
+        intent: governed.intent,
+        allowed: governed.allowed,
+        blocked: governed.blocked,
+        appliedConstraints: governed.appliedConstraints,
+        routedTo: governed.routedTo,
+        requiresApproval: governed.requiresApproval,
+        routingReason: governed.routingReason,
+        plan: governed.plan,
+        auditToken: governed.auditToken,
+      }),
+    });
+
+    if (governed.requiresApproval) {
+      createApprovalRecord({
+        taskId: task.id,
+        requiredFor: `Intent: ${governed.intent}`,
+        status: "pending",
+      });
+    }
+
+    for (const blocked of governed.blocked) {
+      createBlockedActionRecord({
+        taskId: task.id,
+        capabilityId: blocked.id,
+        reason: blocked.reason ?? "Blocked by capability policy",
+      });
+    }
+
+    const audit = createAuditRecord({
+      taskId: task.id,
+      auditToken: governed.auditToken,
+      intent: governed.intent,
+      actionType: "govern-intent-evaluation",
+      outcome: taskStatus,
+      blockedCount: governed.blocked.length,
+      requiresApproval: governed.requiresApproval,
+    });
+    auditRecordId = audit.id;
+
+    persisted = true;
+  } catch {
+    // Persistence failure is non-fatal — governance result is still returned.
+    // No unsafe execution is enabled on failure.
+    persisted = false;
+  }
+
   return NextResponse.json({
     ok: governed.ok,
     simulationOnly: governed.simulationOnly,
@@ -41,5 +122,8 @@ export async function POST(request: Request) {
     routingReason: governed.routingReason,
     plan: governed.plan,
     auditToken: governed.auditToken,
+    taskId,
+    persisted,
+    auditRecordId,
   });
 }
