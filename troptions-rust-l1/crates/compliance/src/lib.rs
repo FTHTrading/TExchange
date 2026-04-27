@@ -10,6 +10,7 @@ use tsn_state::{
     AuditEvent, AuditEventType, AssetClass, ComplianceDecision, ComplianceOutcome,
     GeniusActStatus, KybTier, KycTier, SanctionsStatus,
 };
+#[allow(unused_imports)]
 use uuid::Uuid;
 
 pub struct TransferEvalInput {

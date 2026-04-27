@@ -9,7 +9,7 @@
 use chrono::Utc;
 use tsn_state::{
     AuditEvent, AuditEventType, GeniusActStatus, GovernanceDecision,
-    ReserveAttestation, ReservePolicyType, StablecoinAsset,
+    ReserveAttestation,
 };
 use uuid::Uuid;
 
