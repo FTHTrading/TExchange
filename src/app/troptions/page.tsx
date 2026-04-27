@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { InstitutionalFuturePanel } from "@/components/troptions-evolution/InstitutionalFuturePanel";
 import { VoiceNarrationPlayer } from "@/components/troptions-evolution/VoiceNarrationPlayer";
@@ -61,9 +62,118 @@ export default function TroptionsOverviewPage() {
           </aside>
         </section>
 
+        {/* ── Brand Identity Showcase ── */}
+        <section className="rounded-3xl border border-[var(--line)] bg-[linear-gradient(150deg,rgba(8,18,34,0.97),rgba(11,26,45,0.99))] p-8 shadow-[0_24px_80px_rgba(2,8,23,0.5)]">
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--gold-light)]">Brand Identity</p>
+          <h2 className="mt-3 text-3xl font-semibold text-white">The TROPTIONS Mark</h2>
+          <p className="mt-4 max-w-3xl text-base leading-8 text-slate-300">
+            A globally recognized brand across real estate, mobile medical clinics, education, solar, and digital commerce — powered by TROPTIONS as the common currency layer.
+          </p>
+
+          {/* Primary logo large */}
+          <div className="mt-8 flex flex-wrap items-center gap-6">
+            <div className="relative h-36 w-56 overflow-hidden rounded-2xl border border-[var(--line)] bg-white shadow-lg">
+              <Image
+                src="/assets/troptions/logos/troptions-logo-powered-by.jpg"
+                alt="TROPTIONS® Powered By — primary logo"
+                fill
+                sizes="224px"
+                className="object-contain p-3"
+              />
+            </div>
+            <div className="relative h-36 w-56 overflow-hidden rounded-2xl border border-[var(--line)] bg-white shadow-lg">
+              <Image
+                src="/assets/troptions/logos/troptions-classic-white.jpg"
+                alt="TROPTIONS classic logo"
+                fill
+                sizes="224px"
+                className="object-contain p-3"
+              />
+            </div>
+            <div className="relative h-36 w-36 overflow-hidden rounded-2xl border border-[var(--line)] bg-black shadow-lg">
+              <Image
+                src="/assets/troptions/logos/troptions-tt-black.jpg"
+                alt="TROPTIONS TT mark on black"
+                fill
+                sizes="144px"
+                className="object-cover"
+              />
+            </div>
+            <div className="relative h-36 w-36 overflow-hidden rounded-2xl border border-[var(--line)] bg-black shadow-lg">
+              <Image
+                src="/assets/troptions/logos/troptions-tt-gold.jpg"
+                alt="TROPTIONS TT gold mark"
+                fill
+                sizes="144px"
+                className="object-cover"
+              />
+            </div>
+          </div>
+
+          {/* TROPTIONS Xchange variants */}
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="relative aspect-video overflow-hidden rounded-2xl border border-[var(--line)] shadow-lg">
+              <Image
+                src="/assets/troptions/logos/troptions-xchange-dark.jpg"
+                alt="TROPTIONS Xchange — dark variant"
+                fill
+                sizes="(max-width: 640px) 100vw, 33vw"
+                className="object-contain bg-black"
+              />
+            </div>
+            <div className="relative aspect-video overflow-hidden rounded-2xl border border-[var(--line)] shadow-lg">
+              <Image
+                src="/assets/troptions/logos/troptions-xchange-fire.jpg"
+                alt="TROPTIONS Xchange — fire variant"
+                fill
+                sizes="(max-width: 640px) 100vw, 33vw"
+                className="object-contain bg-black"
+              />
+            </div>
+            <div className="relative aspect-video overflow-hidden rounded-2xl border border-[var(--line)] shadow-lg">
+              <Image
+                src="/assets/troptions/logos/troptions-golf-globe.jpg"
+                alt="TROPTIONS — golf globe powered by"
+                fill
+                sizes="(max-width: 640px) 100vw, 33vw"
+                className="object-contain bg-white"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* ── Real-World Deployment: Mobile Medical Clinic ── */}
+        <section className="overflow-hidden rounded-3xl border border-[var(--line)] shadow-[0_24px_80px_rgba(2,8,23,0.5)]">
+          <div className="relative aspect-21/9 w-full">
+            <Image
+              src="/assets/troptions/logos/troptions-mobile-medical-clinic.jpg"
+              alt="TROPTIONS Mobile Medical Clinic — real-world deployment"
+              fill
+              sizes="100vw"
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-8">
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--gold-light)]">Real-World Deployment</p>
+              <h2 className="mt-2 text-2xl font-bold text-white md:text-3xl">Mobile Medical Clinic — Powered by TROPTIONS</h2>
+              <p className="mt-2 max-w-2xl text-sm leading-7 text-slate-200">
+                Healthcare delivered on-location and accepted with TROPTIONS. A live example of the ecosystem in action — bridging physical services with digital trade currency.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-3">
+                <Link href="/troptions/mobile-medical" className="rounded-lg bg-[var(--gold)] px-5 py-2.5 text-sm font-semibold text-[var(--ink)] transition hover:bg-[var(--gold-light)]">
+                  View Mobile Medical
+                </Link>
+                <Link href="/troptions/ecosystem" className="rounded-lg border border-white/40 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10">
+                  Explore Ecosystem
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="rounded-3xl border border-[var(--line)] bg-[rgba(7,13,24,0.85)] p-8 shadow-[0_24px_80px_rgba(2,8,23,0.45)]">
-          <p className="text-sm uppercase tracking-[0.25em] text-[var(--gold-light)]">XRPL Platform</p>
-          <h2 className="mt-3 text-3xl font-semibold text-white">XRPL Market Data, AMM, and DEX Readiness</h2>
+          <p className="text-sm uppercase tracking-[0.25em] text-[var(--gold-light)]">XRPL Platform</p>          <h2 className="mt-3 text-3xl font-semibold text-white">XRPL Market Data, AMM, and DEX Readiness</h2>
           <p className="mt-4 max-w-4xl text-base leading-8 text-slate-300">Troptions adds an XRPL market-data and route-simulation layer for order books, AMM pools, issued assets, trustlines, and pathfinding. Mainnet trading remains blocked by default. Testnet labs and unsigned transaction payloads are used for validation until external signer, custody, compliance, and board approvals are complete.</p>
           <div className="mt-8 grid gap-4 md:grid-cols-3 xl:grid-cols-4">
             {[
@@ -87,6 +197,20 @@ export default function TroptionsOverviewPage() {
             <Link href="/troptions/xrpl-platform/links" className="rounded-lg border border-[var(--line)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">View XRPL Links</Link>
             <Link href="/portal/troptions/xrpl-platform" className="rounded-lg border border-[var(--line)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Open Portal XRPL</Link>
             <Link href="/admin/troptions/xrpl-platform" className="rounded-lg border border-[var(--line)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Admin XRPL Control</Link>
+          </div>
+        </section>
+
+        <section className="rounded-3xl border border-[var(--line)] bg-[linear-gradient(160deg,rgba(8,20,35,0.95),rgba(9,26,44,0.98))] p-8 shadow-[0_24px_80px_rgba(2,8,23,0.45)]">
+          <p className="text-sm uppercase tracking-[0.25em] text-[var(--gold-light)]">Wallet Intelligence</p>
+          <h2 className="mt-3 text-3xl font-semibold text-white">Wallet Forensics and XRPL Funds Tracking</h2>
+          <p className="mt-4 max-w-4xl text-base leading-8 text-slate-300">
+            Investigate wallet relationships, classify native XRP versus IOUs, map destination-tagged exchange deposits, and generate
+            plain-English forensic reports in a read-only workflow.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link href="/troptions/wallet-forensics" className="rounded-lg bg-[var(--gold)] px-5 py-3 text-sm font-semibold text-[var(--ink)] transition hover:bg-[var(--gold-light)]">Open Wallet Forensics</Link>
+            <Link href="/troptions/wallet-forensics/funds-flow" className="rounded-lg border border-[var(--line)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Track XRP Flow</Link>
+            <Link href="/troptions/wallet-forensics/exchange-deposits" className="rounded-lg border border-[var(--line)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Exchange Deposit Report</Link>
           </div>
         </section>
 
@@ -254,9 +378,22 @@ export default function TroptionsOverviewPage() {
         <InstitutionalFuturePanel />
 
         <footer className="rounded-2xl border border-[var(--line)] bg-[var(--navy-2)] p-6">
-          <p className="text-sm font-semibold text-white">TROPTIONS / FTH Trading</p>
-          <p className="mt-2 text-xs leading-6 text-slate-300">{buildStatus === "Production" ? "Production mode" : "Development preview mode"}</p>
-          <p className="mt-2 text-xs leading-6 text-slate-300">Information shown is for platform demonstration and planning purposes only. It is not financial, legal, tax, or investment advice.</p>
+          <div className="flex flex-wrap items-center gap-4">
+            <div className="relative h-14 w-44 overflow-hidden rounded-xl bg-white">
+              <Image
+                src="/assets/troptions/logos/troptions-logo-powered-by.jpg"
+                alt="TROPTIONS® Powered By"
+                fill
+                sizes="176px"
+                className="object-contain p-2"
+              />
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-white">TROPTIONS / FTH Trading</p>
+              <p className="mt-1 text-xs leading-6 text-slate-300">{buildStatus === "Production" ? "Production mode" : "Development preview mode"}</p>
+            </div>
+          </div>
+          <p className="mt-4 text-xs leading-6 text-slate-400">Information shown is for platform demonstration and planning purposes only. It is not financial, legal, tax, or investment advice.</p>
         </footer>
       </div>
     </main>

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -22,8 +23,17 @@ export function TroptionsSiteNav() {
   return (
     <div className="border-b border-[var(--line)] bg-[var(--navy)]/95 backdrop-blur supports-[backdrop-filter]:sticky supports-[backdrop-filter]:top-0 supports-[backdrop-filter]:z-30">
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-4 md:px-8">
-        <Link href="/troptions" className="flex items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--gold)]/15 text-sm font-bold text-[var(--gold-light)]">T</span>
+        <Link href="/troptions" className="flex items-center gap-2">
+          <span className="relative h-10 w-10 overflow-hidden rounded-lg border border-[var(--line)] bg-black">
+            <Image
+              src="/assets/troptions/logos/troptions-tt-black.jpg"
+              alt="TROPTIONS logo"
+              fill
+              sizes="40px"
+              className="object-cover"
+              priority
+            />
+          </span>
           <span className="text-sm font-semibold tracking-[0.25em] text-[var(--gold-light)]">TROPTIONS</span>
         </Link>
 
