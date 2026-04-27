@@ -1,0 +1,8 @@
+[package]
+name = "tsn-telemetry"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+serde = { workspace = true }
+tsn-state = { path = "../state" }
