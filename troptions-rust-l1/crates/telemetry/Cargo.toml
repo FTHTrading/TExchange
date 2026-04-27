@@ -5,4 +5,6 @@ edition.workspace = true
 
 [dependencies]
 serde = { workspace = true }
-tsn-state = { path = "../state" }
+serde_json = { workspace = true }
+uuid = { workspace = true }
+chrono = { workspace = true }
