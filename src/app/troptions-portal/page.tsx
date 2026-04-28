@@ -1389,7 +1389,7 @@ export default function TroptionsPortalPage() {
                 },
                 {
                   label: "liquidityPoolDeposit",
-                  desc: "Seed a Stellar constant-product AMM pool. 35 XLM treasury ready to provide initial liquidity.",
+                  desc: "Seed a Stellar constant-product AMM pool. Generates a simulation record only — no XLM is deposited from treasury. Live operations require Control Hub approval.",
                 },
                 {
                   label: "USDF Stablecoin Rails",
@@ -1397,7 +1397,7 @@ export default function TroptionsPortalPage() {
                 },
                 {
                   label: "Payment Operations",
-                  desc: "Send TROPT or XLM to any activated Stellar account from treasury.",
+                  desc: "Send TROPT or XLM to any activated Stellar account. Simulation only — no treasury funds are transferred from this portal.",
                 },
               ].map((f) => (
                 <div key={f.label} className="flex gap-3 items-start">
@@ -1512,7 +1512,7 @@ export default function TroptionsPortalPage() {
                   "Multi-wallet architecture",
                   "Treasury management",
                   "Admin control plane",
-                  "Simulation + live modes",
+                  "Simulation mode (public portal)",
                 ],
               },
             ].map((col) => (
