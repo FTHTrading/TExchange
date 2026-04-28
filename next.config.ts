@@ -8,6 +8,30 @@ const nextConfig: NextConfig = {
 	turbopack: {
 		root: repoRoot,
 	},
+	async rewrites() {
+		return [
+			{
+				source: "/",
+				has: [
+					{
+						type: "host",
+						value: "troptionslive\\.unykorn\\.org",
+					},
+				],
+				destination: "/troptions-live",
+			},
+			{
+				source: "/",
+				has: [
+					{
+						type: "host",
+						value: ".*troptions-live.*",
+					},
+				],
+				destination: "/troptions-live",
+			},
+		];
+	},
 };
 
 export default nextConfig;
