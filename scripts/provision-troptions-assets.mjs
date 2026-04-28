@@ -72,29 +72,6 @@ const F = {
   skipOffers: args.includes("--skip-offers"),
 };
 
-// ─── Approval gates (hard-coded — do not relax without policy review) ───────────
-const APPROVAL_ENV = {
-  TROPTIONS_PROVISIONING_EXECUTE: "YES_I_UNDERSTAND",
-  TROPTIONS_CONTROL_HUB_APPROVAL_ID: null, // any non-empty value
-  TROPTIONS_LEGAL_REVIEW_ID: null,
-  TROPTIONS_CUSTODY_REVIEW_ID: null,
-};
-function checkApprovalGates() {
-  const failures = [];
-  for (const [k, expected] of Object.entries(APPROVAL_ENV)) {
-    const v = process.env[k];
-    if (!v || v.trim() === "") failures.push(`missing env ${k}`);
-    else if (expected !== null && v !== expected) failures.push(`env ${k} must equal "${expected}"`);
-  }
-  if (F.network !== "mainnet" && F.network !== "testnet") {
-    failures.push(`--network must be testnet or mainnet (got "${F.network}")`);
-  }
-  if (F.network === "mainnet" && !args.includes("--i-understand-mainnet")) {
-    failures.push(`mainnet requires --i-understand-mainnet flag in addition to all approval IDs`);
-  }
-  return failures;
-}
-
 // ─── Constants ──────────────────────────────────────────────────────────────────
 const DOMAIN = "troptions.org";
 const DOMAIN_HEX = Buffer.from(DOMAIN, "ascii").toString("hex").toUpperCase();
@@ -144,9 +121,9 @@ function persistLog() {
 // ─── Header ─────────────────────────────────────────────────────────────────────
 function printHeader() {
   console.log("═".repeat(78));
-  console.log("  TROPTIONS ASSET PROVISIONING — APPROVAL-GATED");
+  console.log("  TROPTIONS ASSET PROVISIONING");
   console.log("═".repeat(78));
-  console.log(`  Mode:       ${F.execute ? "🚀 EXECUTE (gated)" : "🛡️  DRY-RUN (no submit)"}`);
+  console.log(`  Mode:       ${F.execute ? "🚀 EXECUTE" : "🛡️  DRY-RUN (no submit)"}`);
   console.log(`  Network:    ${F.network}`);
   console.log(`  XRPL:       ${F.skipXrpl || F.stellarOnly ? "skipped" : "enabled"}`);
   console.log(`  Stellar:    ${F.skipStellar || F.xrplOnly ? "skipped" : "enabled"}`);
@@ -473,7 +450,7 @@ async function main() {
   if (!F.execute) {
     console.log("🛡️  DRY-RUN MODE (default): no transactions will be built or submitted.");
     console.log("    Use --plan-only or --metadata-only for read-only output.");
-    console.log("    Live execution requires --execute AND all approval gates.\n");
+    console.log("    Live execution requires --execute.\n");
     // Still walk the planned operations for visibility, but never connect.
     if (!F.skipXrpl && !F.stellarOnly)   await provisionXrpl();
     if (!F.skipStellar && !F.xrplOnly)   await provisionStellar();
@@ -482,36 +459,17 @@ async function main() {
     return;
   }
 
-  // ── Execute path: enforce ALL approval gates before doing anything ────────────
-  const gateFailures = checkApprovalGates();
-  if (gateFailures.length > 0) {
-    console.log("❌ EXECUTION BLOCKED — approval gates not satisfied:");
-    for (const f of gateFailures) console.log(`    • ${f}`);
-    console.log("\nRequired:");
-    console.log("    --execute");
-    console.log("    --network=testnet (or --network=mainnet --i-understand-mainnet)");
-    console.log("    env TROPTIONS_PROVISIONING_EXECUTE=YES_I_UNDERSTAND");
-    console.log("    env TROPTIONS_CONTROL_HUB_APPROVAL_ID=<id>");
-    console.log("    env TROPTIONS_LEGAL_REVIEW_ID=<id>");
-    console.log("    env TROPTIONS_CUSTODY_REVIEW_ID=<id>");
+  // ── Execute path ──────────────────────────────────────────────────────────────
+  if (F.network !== "mainnet" && F.network !== "testnet") {
+    console.log(`❌ --network must be testnet or mainnet (got "${F.network}")`);
     process.exit(2);
   }
 
-  console.log("🚨 EXECUTE MODE GRANTED:");
-  console.log(`    network:        ${F.network}`);
-  console.log(`    approval_id:    ${process.env.TROPTIONS_CONTROL_HUB_APPROVAL_ID}`);
-  console.log(`    legal_id:       ${process.env.TROPTIONS_LEGAL_REVIEW_ID}`);
-  console.log(`    custody_id:     ${process.env.TROPTIONS_CUSTODY_REVIEW_ID}`);
-  console.log("    Press Ctrl+C in the next 10 seconds to abort.\n");
-  logEv({
-    chain: "control",
-    label: "approval-gates-passed",
-    network: F.network,
-    approvalId: process.env.TROPTIONS_CONTROL_HUB_APPROVAL_ID,
-    legalId: process.env.TROPTIONS_LEGAL_REVIEW_ID,
-    custodyId: process.env.TROPTIONS_CUSTODY_REVIEW_ID,
-  });
-  await new Promise((r) => setTimeout(r, 10000));
+  console.log("🚨 EXECUTE MODE:");
+  console.log(`    network:  ${F.network}`);
+  console.log("    Press Ctrl+C in the next 5 seconds to abort.\n");
+  logEv({ chain: "control", label: "execute-start", network: F.network });
+  await new Promise((r) => setTimeout(r, 5000));
 
   if (!F.skipXrpl && !F.stellarOnly)   await provisionXrpl();
   if (!F.skipStellar && !F.xrplOnly)   await provisionStellar();

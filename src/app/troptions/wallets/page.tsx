@@ -3,7 +3,7 @@ import { DEMO_WALLET_SHOWCASE } from "@/content/troptions/demoWalletShowcaseRegi
 
 export const metadata = {
   title: "Troptions Wallet Showcase",
-  description: "Demo inventory of local XRPL and Stellar wallet patterns, asset types, and purposes across Troptions, FTH, USDF, and OPTKAS systems.",
+  description: "Demo inventory of local XRPL and Stellar wallet patterns, asset types, and purposes across Troptions systems.",
 };
 
 const assetTypeCopy: Record<string, string> = {
@@ -25,7 +25,7 @@ export default function TroptionsWalletShowcasePage() {
               <p className="te-kicker">Wallet Demonstration</p>
               <h1 className="te-heading">Local XRP and Stellar wallet showcase</h1>
               <p className="te-subheading">
-                This page uses wallet references and capability notes found in your local Troptions, OPTKAS, and USDF-related repos to show how the platform can present different wallet systems without importing private keys.
+                This page uses wallet references and capability notes found in your local Troptions repos to show how the platform can present different wallet systems without importing private keys.
               </p>
             </div>
             <div className="rounded-3xl border border-slate-200 bg-white px-6 py-5 shadow-sm">
@@ -72,12 +72,7 @@ export default function TroptionsWalletShowcasePage() {
               <h2 className="text-lg font-semibold text-slate-900">XRPL AMM Pairs From Local Docs</h2>
               <div className="mt-4 flex flex-wrap gap-2 text-sm text-slate-700">
                 {[
-                  "OPTKAS / XRP",
-                  "SOVBND / XRP",
-                  "IMPERIA / XRP",
-                  "GEMVLT / XRP",
-                  "TERRAVL / XRP",
-                  "PETRO / XRP",
+                  "TROPTIONS / XRP",
                 ].map((pair) => (
                   <span key={pair} className="rounded-full border border-slate-300 px-3 py-1">
                     {pair}
@@ -93,9 +88,7 @@ export default function TroptionsWalletShowcasePage() {
               <h2 className="text-lg font-semibold text-slate-900">Stellar AMM Pairs From Local Docs</h2>
               <div className="mt-4 flex flex-wrap gap-2 text-sm text-slate-700">
                 {[
-                  "OPTKAS-USD / XLM",
-                  "SOVBND-USD / XLM",
-                  "IMPERIA-USD / XLM",
+                  "TROPTIONS / XLM",
                 ].map((pair) => (
                   <span key={pair} className="rounded-full border border-slate-300 px-3 py-1">
                     {pair}
@@ -115,7 +108,7 @@ export default function TroptionsWalletShowcasePage() {
           <div className="te-grid-3">
             <article className="rounded-2xl border border-slate-200 bg-white p-5">
               <h2 className="text-lg font-semibold text-slate-900">Stablecoins</h2>
-              <p className="mt-2 text-sm leading-7 text-slate-600">USDF, FTHUSD, and OPTKAS-USD show how a wallet view can distinguish settlement tokens, regulated mirror assets, and on-ramp balances.</p>
+              <p className="mt-2 text-sm leading-7 text-slate-600">TROPTIONS shows how a wallet view can distinguish settlement tokens, regulated mirror assets, and on-ramp balances.</p>
             </article>
             <article className="rounded-2xl border border-slate-200 bg-white p-5">
               <h2 className="text-lg font-semibold text-slate-900">LP And Liquidity</h2>

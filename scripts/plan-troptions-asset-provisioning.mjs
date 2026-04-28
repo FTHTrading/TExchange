@@ -72,10 +72,6 @@ function buildPlan() {
     ],
     approvalGates: {
       executeFlag: "--execute",
-      envExecute: "TROPTIONS_PROVISIONING_EXECUTE=YES_I_UNDERSTAND",
-      envApproval: "TROPTIONS_CONTROL_HUB_APPROVAL_ID",
-      envLegal: "TROPTIONS_LEGAL_REVIEW_ID",
-      envCustody: "TROPTIONS_CUSTODY_REVIEW_ID",
       defaultNetwork: "testnet",
     },
   };

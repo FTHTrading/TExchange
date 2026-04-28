@@ -340,12 +340,10 @@ function RoleCard({ snapshot }: { snapshot: RoleSnapshot }) {
       {/* TROPTIONS holdings */}
       {snapshot.chain === "stellar" && snapshot.balances && (() => {
         const tBal = snapshot.balances.find((b) => b.assetCode === "TROPTIONS");
-        const oBal = snapshot.balances.find((b) => b.assetCode === "OPTKAS");
-        if (!tBal && !oBal) return null;
+        if (!tBal) return null;
         return (
           <div className="border-t border-slate-800 pt-3 space-y-1 text-xs">
             {tBal && <Holding label="TROPTIONS" value={tBal.balance} />}
-            {oBal && <Holding label="OPTKAS"    value={oBal.balance} />}
           </div>
         );
       })()}
