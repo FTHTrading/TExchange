@@ -24,6 +24,8 @@ members = [
     "crates/telemetry",
     "crates/sdk",
     "crates/cli",
+    "crates/brands",
+    "crates/genesis",
 ]
 resolver = "2"
 

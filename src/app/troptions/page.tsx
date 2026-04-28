@@ -34,6 +34,7 @@ export default function TroptionsOverviewPage() {
               <Link href="/portal/troptions/dashboard" className="rounded-lg bg-[var(--gold)] px-5 py-3 text-sm font-semibold text-[var(--ink)] transition hover:bg-[var(--gold-light)]">Explore Platform</Link>
               <Link href="/portal/troptions/onboarding" className="rounded-lg border border-[var(--line)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Request Access</Link>
               <Link href="/troptions/wallets" className="rounded-lg border border-[var(--line)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">View Wallet Showcase</Link>
+              <Link href="/troptions-portal" className="rounded-lg bg-[var(--gold)]/20 border border-[var(--gold)]/40 px-5 py-3 text-sm font-semibold text-[var(--gold-light)] transition hover:bg-[var(--gold)]/30">Public Portal ↗</Link>
             </div>
           </div>
 

@@ -446,6 +446,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "tsn-brands"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "serde",
+ "serde_json",
+ "sha2",
+ "thiserror",
+ "uuid",
+]
+
+[[package]]
 name = "tsn-bridge-stellar"
 version = "0.1.0"
 dependencies = [
@@ -525,6 +537,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "tsn-genesis"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "hex",
+ "serde",
+ "serde_json",
+ "sha2",
+ "thiserror",
+ "tsn-brands",
+ "tsn-state",
+ "uuid",
+]
+
+[[package]]
 name = "tsn-governance"
 version = "0.1.0"
 dependencies = [
@@ -600,16 +627,22 @@ dependencies = [
 name = "tsn-rpc"
 version = "0.1.0"
 dependencies = [
+ "chrono",
  "serde",
+ "serde_json",
  "tsn-runtime",
  "tsn-state",
+ "tsn-telemetry",
+ "uuid",
 ]
 
 [[package]]
 name = "tsn-runtime"
 version = "0.1.0"
 dependencies = [
+ "chrono",
  "serde",
+ "serde_json",
  "tsn-amm",
  "tsn-assets",
  "tsn-compliance",
@@ -618,7 +651,9 @@ dependencies = [
  "tsn-rwa",
  "tsn-stablecoin",
  "tsn-state",
+ "tsn-telemetry",
  "tsn-trustlines",
+ "uuid",
 ]
 
 [[package]]
@@ -638,9 +673,13 @@ dependencies = [
 name = "tsn-sdk"
 version = "0.1.0"
 dependencies = [
+ "chrono",
  "serde",
  "serde_json",
+ "tsn-rpc",
  "tsn-state",
+ "tsn-telemetry",
+ "uuid",
 ]
 
 [[package]]
@@ -670,8 +709,10 @@ dependencies = [
 name = "tsn-telemetry"
 version = "0.1.0"
 dependencies = [
+ "chrono",
  "serde",
- "tsn-state",
+ "serde_json",
+ "uuid",
 ]
 
 [[package]]

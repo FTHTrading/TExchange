@@ -15,6 +15,10 @@
       "custom_domain": true
     },
     {
+      "pattern": "troptionslive.unykorn.org",
+      "custom_domain": true
+    },
+    {
       "pattern": "api.troptions.unykorn.org",
       "custom_domain": true
     }

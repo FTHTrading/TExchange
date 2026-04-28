@@ -100,6 +100,23 @@ export default function AdminCommandCenterPage() {
           </div>
         </section>
 
+        {/* Mint Console */}
+        <section>
+          <h2 className="text-lg font-bold text-[#C9A84C] font-mono uppercase tracking-widest mb-4">Mint Console</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              { label: "🪙 Tradelines + NFTs + LP Tokens", href: "/admin/troptions/mint", note: "XRPL & Stellar — simulation-first" },
+              { label: "XRPL Platform", href: "/admin/troptions/xrpl-platform", note: "XRPL platform ops" },
+              { label: "XRPL & Stellar Ecosystem", href: "/admin/troptions/xrpl-stellar", note: "Cross-rail asset registry" },
+            ].map((item) => (
+              <a key={item.href} href={item.href} className="bg-[#0D1B2A] border border-[#C9A84C]/30 rounded-lg p-4 hover:border-[#C9A84C]/80 transition-colors">
+                <p className="text-sm text-[#C9A84C] font-mono">{item.label}</p>
+                <p className="text-xs text-slate-500 mt-2">{item.note}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+
         <section>
           <h2 className="text-lg font-bold text-white mb-4">Agent Command Center</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
