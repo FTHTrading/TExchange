@@ -12,6 +12,8 @@ const AI_NAV = [
   { label: "Feeds & Sitemaps", href: "/troptions-ai/feeds" },
   { label: "x402 Readiness", href: "/troptions-ai/x402" },
   { label: "Telecom", href: "/troptions-ai/telecom" },
+  { label: "Sovereign AI", href: "/troptions-ai/sovereign" },
+  { label: "Templates", href: "/troptions-ai/templates" },
 ];
 
 export default function TroptionsAiLayout({ children }: { children: ReactNode }) {
