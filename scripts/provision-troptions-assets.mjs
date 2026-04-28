@@ -70,6 +70,7 @@ const F = {
   skipNft: args.includes("--skip-nft"),
   skipMpt: args.includes("--skip-mpt"),
   skipOffers: args.includes("--skip-offers"),
+  skipAmm: args.includes("--skip-amm"),
 };
 
 // ─── Constants ──────────────────────────────────────────────────────────────────
@@ -130,6 +131,7 @@ function printHeader() {
   console.log(`  NFT mint:   ${F.skipNft ? "skipped" : "enabled"}`);
   console.log(`  MPT issue:  ${F.enableMpt && !F.skipMpt ? "enabled (--enable-mpt)" : "skipped (default)"}`);
   console.log(`  DEX offers: ${F.skipOffers ? "skipped" : "enabled"}`);
+  console.log(`  AMM/LP:     ${F.skipAmm ? "skipped" : "enabled"}`);
   console.log(`  Domain:     ${DOMAIN}`);
   console.log("═".repeat(78));
   console.log();
@@ -324,6 +326,22 @@ async function provisionXrpl() {
     }, "dex-offer-buy-troptions");
   }
 
+  // ── Step 7: AMMCreate TROPTIONS/XRP liquidity pool ─────────────────────────
+  if (!F.skipAmm) {
+    console.log("\n  → Step 7: AMMCreate TROPTIONS/XRP pool (1 XRP + 1,000 TROPTIONS, fee 0.3%)");
+    await xrplSubmit(client, dist, {
+      TransactionType: "AMMCreate",
+      Account: dist.classicAddress,
+      Amount: xrpl.xrpToDrops("1"),
+      Amount2: {
+        currency: TROPTIONS_HEX,
+        issuer: issuer.classicAddress,
+        value: "1000",
+      },
+      TradingFee: 300, // 0.3 %
+    }, "xrpl-amm-create");
+  }
+
   await client.disconnect();
 }
 
@@ -354,14 +372,15 @@ async function provisionStellar() {
   const TROPTIONS_ASSET = new StellarSdk.Asset("TROPTIONS", issuer.publicKey());
 
   // ── Step 1: configure issuer (auth flags + home_domain) ───────────────────────
-  console.log("\n  → Step 1: SetOptions on issuer (auth_required + auth_revocable + auth_clawback_enabled + home_domain)");
+// NOTE: AuthClawbackEnabledFlag is intentionally omitted — clawback-enabled assets
+    // cannot participate in Stellar AMM liquidity pools (CAP-38 restriction).
+    console.log("\n  → Step 1: SetOptions on issuer (auth_required + auth_revocable + home_domain)");
   await stellarSubmit(server, issuer, (b) =>
     b.addOperation(StellarSdk.Operation.setOptions({
       homeDomain: DOMAIN,
       setFlags:
         StellarSdk.AuthRequiredFlag |
-        StellarSdk.AuthRevocableFlag |
-        StellarSdk.AuthClawbackEnabledFlag,
+        StellarSdk.AuthRevocableFlag,
     })),
     "issuer-setoptions",
     "Troptions issuer config",
@@ -426,6 +445,44 @@ async function provisionStellar() {
       })),
       "dex-offer-buy-troptions",
       "Troptions DEX buy",
+    );
+  }
+
+  // ── Step 6: create TROPTIONS/XLM AMM liquidity pool ──────────────────────────
+  if (!F.skipAmm) {
+    const lpAsset = new StellarSdk.LiquidityPoolAsset(
+      StellarSdk.Asset.native(),
+      TROPTIONS_ASSET,
+      30, // 0.3% fee
+    );
+
+    console.log("\n  → Step 6a: ChangeTrust on distributor for LP share token");
+    await stellarSubmit(server, dist, (b) =>
+      b.addOperation(StellarSdk.Operation.changeTrust({
+        asset: lpAsset,
+        limit: "1000000000",
+      })),
+      "distributor-changetrust-lp",
+      "Troptions LP share trustline",
+    );
+
+    const lpPoolId = StellarSdk.getLiquidityPoolId(
+      "constant_product",
+      lpAsset.getLiquidityPoolParameters(),
+    ).toString("hex");
+    console.log(`     Pool ID: ${lpPoolId}`);
+
+    console.log("\n  → Step 6b: liquidityPoolDeposit (1 XLM + 10,000 TROPTIONS)");
+    await stellarSubmit(server, dist, (b) =>
+      b.addOperation(StellarSdk.Operation.liquidityPoolDeposit({
+        liquidityPoolId: lpPoolId,
+        maxAmountA: "1",
+        maxAmountB: "10000",
+        minPrice: { n: 1, d: 1000000 },
+        maxPrice: { n: 1000000, d: 1 },
+      })),
+      "distributor-lp-deposit",
+      "Troptions LP initial deposit",
     );
   }
 }
