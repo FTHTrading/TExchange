@@ -6,14 +6,16 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const NAV_ITEMS = [
-  { label: "Home",         href: "/troptions" },
-  { label: "Wallets",      href: "/troptions/wallets" },
-  { label: "Transactions", href: "/troptions/transactions" },
-  { label: "Handbooks",    href: "/troptions/compliance/handbooks" },
-  { label: "KYC",          href: "/troptions/kyc" },
-  { label: "Migration",    href: "/troptions/migration" },
-  { label: "RWA",          href: "/troptions/rwa/axl-001" },
-  { label: "Compliance",   href: "/troptions/xrpl-stellar-compliance" },
+  { label: "Home",            href: "/troptions" },
+  { label: "Wallets",         href: "/troptions/wallets" },
+  { label: "Transactions",    href: "/troptions/transactions" },
+  { label: "Handbooks",       href: "/troptions/compliance/handbooks" },
+  { label: "KYC",             href: "/troptions/kyc" },
+  { label: "Migration",       href: "/troptions/migration" },
+  { label: "RWA",             href: "/troptions/rwa/axl-001" },
+  { label: "Compliance",      href: "/troptions/xrpl-stellar-compliance" },
+  { label: "XRPL IOU",        href: "/troptions/xrpl-iou" },
+  { label: "Funding Routes",  href: "/troptions/funding-routes" },
 ] as const;
 
 const CTA = { label: "Request Access", href: "/portal/troptions/onboarding" } as const;
