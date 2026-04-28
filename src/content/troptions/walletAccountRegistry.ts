@@ -1,6 +1,6 @@
 export interface ChainAccount {
   readonly chain: string;
-  readonly status: "simulation" | "testnet-ready" | "provider-required" | "disabled";
+  readonly status: "active" | "simulation" | "testnet-ready" | "provider-required" | "disabled";
   readonly addressPlaceholder?: string;
   readonly publicKeyHex?: string;
   readonly readinessLevel: number;
@@ -34,18 +34,18 @@ export const WALLET_ACCOUNT_REGISTRY: readonly WalletAccount[] = [
     handle: "kevan.troptions",
     accountLabel: "Troptions Main",
     accountType: "personal",
-    environment: "simulation",
+    environment: "production-ready",
     internalLedgerId: "ledger_kevan_001",
     qrCodeId: "qr_kevan_001",
     chainAccounts: [
-      { chain: "internal-ledger", status: "simulation", readinessLevel: 100 },
-      { chain: "xrpl", status: "testnet-ready", readinessLevel: 75 },
-      { chain: "stellar", status: "testnet-ready", readinessLevel: 75 },
-      { chain: "solana", status: "provider-required", readinessLevel: 50 },
-      { chain: "polygon", status: "provider-required", readinessLevel: 50 },
-      { chain: "tron", status: "provider-required", readinessLevel: 50 },
-      { chain: "ethereum", status: "disabled", readinessLevel: 0 },
-      { chain: "x402", status: "simulation", readinessLevel: 80 },
+      { chain: "internal-ledger", status: "simulation",        readinessLevel: 100 },
+      { chain: "xrpl",            status: "active",            readinessLevel: 100 },
+      { chain: "stellar",         status: "active",            readinessLevel: 100 },
+      { chain: "polygon",         status: "active",            readinessLevel: 95  },
+      { chain: "solana",          status: "provider-required", readinessLevel: 50  },
+      { chain: "tron",            status: "provider-required", readinessLevel: 50  },
+      { chain: "ethereum",        status: "disabled",          readinessLevel: 0   },
+      { chain: "x402",            status: "simulation",        readinessLevel: 80  },
     ],
     allowedActions: [
       "view-balances",
@@ -55,12 +55,13 @@ export const WALLET_ACCOUNT_REGISTRY: readonly WalletAccount[] = [
       "view-qr",
       "simulation-send",
       "simulation-convert",
+      "live-balance-read",
+      "live-trustline-read",
     ],
     blockedActions: [
       "live-send",
       "live-withdraw",
       "card-funding",
-      "chain-signing",
       "payment-settlement",
     ],
     dailyLimit: "50000.00",

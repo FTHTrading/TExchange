@@ -1,12 +1,13 @@
 export interface ChainReadiness {
   readonly chainId: string;
   readonly chainName: string;
-  readonly status: "simulation" | "testnet-ready" | "provider-required" | "disabled";
+  readonly status: "active" | "simulation" | "testnet-ready" | "provider-required" | "disabled";
   readonly readinessLevel: number;
   readonly supportedAssets: readonly string[];
   readonly requiresProvider: boolean;
   readonly providerName?: string;
   readonly documentationUrl?: string;
+  readonly rpcEndpoint?: string;
   readonly riskLevel: "low" | "medium" | "high";
 }
 
@@ -24,22 +25,22 @@ export const WALLET_CHAIN_REGISTRY: readonly ChainReadiness[] = [
   {
     chainId: "xrpl",
     chainName: "XRP Ledger",
-    status: "testnet-ready",
-    readinessLevel: 75,
-    supportedAssets: ["XRP", "USDF", "USDP", "IOUs"],
-    requiresProvider: true,
-    providerName: "Ripple / 3rd party XRPL provider",
+    status: "active",
+    readinessLevel: 95,
+    supportedAssets: ["XRP", "TROPTIONS", "USDF", "USDP", "IOUs", "NFTs", "AMM LP"],
+    requiresProvider: false,
+    rpcEndpoint: "wss://xrplcluster.com",
     documentationUrl: "https://xrpl.org",
     riskLevel: "low",
   },
   {
     chainId: "stellar",
     chainName: "Stellar",
-    status: "testnet-ready",
-    readinessLevel: 75,
-    supportedAssets: ["XLM", "USDF", "USDC", "Custom Assets"],
-    requiresProvider: true,
-    providerName: "Stellar Development Foundation / 3rd party provider",
+    status: "active",
+    readinessLevel: 90,
+    supportedAssets: ["XLM", "TROPTIONS", "USDF", "USDC", "Custom Assets", "LP Shares"],
+    requiresProvider: false,
+    rpcEndpoint: "https://horizon.stellar.org",
     documentationUrl: "https://stellar.org",
     riskLevel: "low",
   },
@@ -57,11 +58,11 @@ export const WALLET_CHAIN_REGISTRY: readonly ChainReadiness[] = [
   {
     chainId: "polygon",
     chainName: "Polygon (Ethereum L2)",
-    status: "provider-required",
-    readinessLevel: 50,
-    supportedAssets: ["MATIC", "USDC", "USDT", "ERC-20 tokens"],
-    requiresProvider: true,
-    providerName: "Polygon Labs / RPC provider",
+    status: "active",
+    readinessLevel: 80,
+    supportedAssets: ["POL", "MATIC", "KENNY", "EVL", "USDC", "USDT", "ERC-20 tokens"],
+    requiresProvider: false,
+    rpcEndpoint: "https://polygon-rpc.com",
     documentationUrl: "https://polygon.technology",
     riskLevel: "medium",
   },
@@ -106,6 +107,10 @@ export function getChainByChainId(chainId: string): ChainReadiness | undefined {
 
 export function getActiveChains(): readonly ChainReadiness[] {
   return WALLET_CHAIN_REGISTRY.filter((chain) => chain.status !== "disabled");
+}
+
+export function getLiveChains(): readonly ChainReadiness[] {
+  return WALLET_CHAIN_REGISTRY.filter((chain) => chain.status === "active");
 }
 
 export function getTestnetReadyChains(): readonly ChainReadiness[] {

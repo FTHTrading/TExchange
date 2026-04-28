@@ -193,6 +193,40 @@
   color: #d6def0;
 }
 
+/* ── Genesis page helpers ── */
+.xp-cmd {
+  font-size: 0.75rem;
+  word-break: break-all;
+}
+
+.xp-small-muted {
+  font-size: 0.7rem;
+  opacity: 0.6;
+}
+
+.xp-purpose {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  opacity: 0.8;
+}
+
+.xp-actions-mini {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.xp-chip--sm {
+  font-size: 0.65rem;
+}
+
+.xp-desc {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  margin-top: 0.4rem;
+}
+
 @media (max-width: 720px) {
   .xp-wrap {
     width: min(100% - 1rem, 1200px);

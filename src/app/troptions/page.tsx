@@ -18,29 +18,29 @@ export default function TroptionsOverviewPage() {
   ];
 
   return (
-    <main className="bg-[var(--navy)] text-white">
+    <main className="bg-(--navy) text-white">
       <div className="mx-auto w-full max-w-7xl space-y-16 px-5 py-10 md:px-8 md:py-16">
         <VoiceNarrationPlayer pageId="homepage" autoPlay={false} showTranscript={true} />
-        <section className="grid items-start gap-8 rounded-3xl border border-[var(--line)] bg-[radial-gradient(circle_at_12%_10%,rgba(201,154,60,0.24),transparent_38%),linear-gradient(180deg,var(--navy)_0%,var(--navy-2)_100%)] p-8 shadow-[0_24px_100px_rgba(3,10,22,0.65)] md:grid-cols-[1.05fr_0.95fr] md:p-10">
+        <section className="grid items-start gap-8 rounded-3xl border border-(--line) bg-[radial-gradient(circle_at_12%_10%,rgba(201,154,60,0.24),transparent_38%),linear-gradient(180deg,var(--navy)_0%,var(--navy-2)_100%)] p-8 shadow-[0_24px_100px_rgba(3,10,22,0.65)] md:grid-cols-[1.05fr_0.95fr] md:p-10">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--gold-light)]">Institutional Platform</p>
-            <h1 className="mt-5 text-4xl leading-tight text-white md:text-6xl" style={{ fontFamily: "var(--font-display)" }}>
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-(--gold-light)">Institutional Platform</p>
+            <h1 className="mt-5 text-4xl leading-tight text-white md:text-6xl font-display">
               Intelligent Solutions. Global Impact.
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-8 text-slate-200 md:text-lg">
               TROPTIONS unifies market intelligence, automation, portfolio visibility, and secure reporting into one premium operating platform.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/portal/troptions/dashboard" className="rounded-lg bg-[var(--gold)] px-5 py-3 text-sm font-semibold text-[var(--ink)] transition hover:bg-[var(--gold-light)]">Explore Platform</Link>
-              <Link href="/portal/troptions/onboarding" className="rounded-lg border border-[var(--line)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Request Access</Link>
-              <Link href="/troptions/wallets" className="rounded-lg border border-[var(--line)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">View Wallet Showcase</Link>
-              <Link href="/troptions-portal" className="rounded-lg bg-[var(--gold)]/20 border border-[var(--gold)]/40 px-5 py-3 text-sm font-semibold text-[var(--gold-light)] transition hover:bg-[var(--gold)]/30">Public Portal ↗</Link>
+              <Link href="/portal/troptions/dashboard" className="rounded-lg bg-(--gold) px-5 py-3 text-sm font-semibold text-(--ink) transition hover:bg-(--gold-light)">Explore Platform</Link>
+              <Link href="/portal/troptions/onboarding" className="rounded-lg border border-(--line) px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Request Access</Link>
+              <Link href="/troptions/wallets" className="rounded-lg border border-(--line) px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">View Wallet Showcase</Link>
+              <Link href="/troptions-portal" className="rounded-lg bg-(--gold)/20 border border-(--gold)/40 px-5 py-3 text-sm font-semibold text-(--gold-light) transition hover:bg-(--gold)/30">Public Portal ↗</Link>
             </div>
           </div>
 
-          <aside className="rounded-2xl border border-[var(--line)] bg-[rgba(255,255,255,0.05)] p-5 backdrop-blur">
-            <div className="mb-4 flex items-center justify-between border-b border-[var(--line)] pb-3">
-              <p className="text-xs uppercase tracking-[0.2em] text-[var(--gold-light)]">Platform Preview</p>
+          <aside className="rounded-2xl border border-(--line) bg-[rgba(255,255,255,0.05)] p-5 backdrop-blur">
+            <div className="mb-4 flex items-center justify-between border-b border-(--line) pb-3">
+              <p className="text-xs uppercase tracking-[0.2em] text-(--gold-light)">Platform Preview</p>
               <span className="rounded-full border border-emerald-400/50 bg-emerald-400/20 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-emerald-200">Secure Session</span>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
@@ -51,11 +51,11 @@ export default function TroptionsOverviewPage() {
                 "Secure Portal",
                 "System Health",
               ].map((label) => (
-                <article key={label} className="rounded-xl border border-[var(--line)] bg-[rgba(11,31,54,0.85)] p-3">
-                  <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">Module</p>
+                <article key={label} className="rounded-xl border border-(--line) bg-[rgba(11,31,54,0.85)] p-3">
+                  <p className="text-[11px] uppercase tracking-[0.14em] text-(--muted)">Module</p>
                   <p className="mt-2 text-sm font-semibold text-white">{label}</p>
                   <div className="mt-3 h-1.5 rounded-full bg-white/20">
-                    <div className="h-1.5 rounded-full bg-[var(--gold)]" style={{ width: "72%" }} />
+                    <div className="h-1.5 rounded-full bg-(--gold) w-[72%]" />
                   </div>
                 </article>
               ))}
@@ -64,8 +64,8 @@ export default function TroptionsOverviewPage() {
         </section>
 
         {/* ── Brand Identity Showcase ── */}
-        <section className="rounded-3xl border border-[var(--line)] bg-[linear-gradient(150deg,rgba(8,18,34,0.97),rgba(11,26,45,0.99))] p-8 shadow-[0_24px_80px_rgba(2,8,23,0.5)]">
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--gold-light)]">Brand Identity</p>
+        <section className="rounded-3xl border border-(--line) bg-[linear-gradient(150deg,rgba(8,18,34,0.97),rgba(11,26,45,0.99))] p-8 shadow-[0_24px_80px_rgba(2,8,23,0.5)]">
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-(--gold-light)">Brand Identity</p>
           <h2 className="mt-3 text-3xl font-semibold text-white">The TROPTIONS Mark</h2>
           <p className="mt-4 max-w-3xl text-base leading-8 text-slate-300">
             A globally recognized brand across real estate, mobile medical clinics, education, solar, and digital commerce — powered by TROPTIONS as the common currency layer.
@@ -73,7 +73,7 @@ export default function TroptionsOverviewPage() {
 
           {/* Primary logo large */}
           <div className="mt-8 flex flex-wrap items-center gap-6">
-            <div className="relative h-36 w-56 overflow-hidden rounded-2xl border border-[var(--line)] bg-white shadow-lg">
+            <div className="relative h-36 w-56 overflow-hidden rounded-2xl border border-(--line) bg-white shadow-lg">
               <Image
                 src="/assets/troptions/logos/troptions-logo-powered-by.jpg"
                 alt="TROPTIONS® Powered By — primary logo"
@@ -82,7 +82,7 @@ export default function TroptionsOverviewPage() {
                 className="object-contain p-3"
               />
             </div>
-            <div className="relative h-36 w-56 overflow-hidden rounded-2xl border border-[var(--line)] bg-white shadow-lg">
+            <div className="relative h-36 w-56 overflow-hidden rounded-2xl border border-(--line) bg-white shadow-lg">
               <Image
                 src="/assets/troptions/logos/troptions-classic-white.jpg"
                 alt="TROPTIONS classic logo"
@@ -91,7 +91,7 @@ export default function TroptionsOverviewPage() {
                 className="object-contain p-3"
               />
             </div>
-            <div className="relative h-36 w-36 overflow-hidden rounded-2xl border border-[var(--line)] bg-black shadow-lg">
+            <div className="relative h-36 w-36 overflow-hidden rounded-2xl border border-(--line) bg-black shadow-lg">
               <Image
                 src="/assets/troptions/logos/troptions-tt-black.jpg"
                 alt="TROPTIONS TT mark on black"
@@ -100,7 +100,7 @@ export default function TroptionsOverviewPage() {
                 className="object-cover"
               />
             </div>
-            <div className="relative h-36 w-36 overflow-hidden rounded-2xl border border-[var(--line)] bg-black shadow-lg">
+            <div className="relative h-36 w-36 overflow-hidden rounded-2xl border border-(--line) bg-black shadow-lg">
               <Image
                 src="/assets/troptions/logos/troptions-tt-gold.jpg"
                 alt="TROPTIONS TT gold mark"
@@ -113,7 +113,7 @@ export default function TroptionsOverviewPage() {
 
           {/* TROPTIONS Xchange variants */}
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="relative aspect-video overflow-hidden rounded-2xl border border-[var(--line)] shadow-lg">
+            <div className="relative aspect-video overflow-hidden rounded-2xl border border-(--line) shadow-lg">
               <Image
                 src="/assets/troptions/logos/troptions-xchange-dark.jpg"
                 alt="TROPTIONS Xchange — dark variant"
@@ -122,7 +122,7 @@ export default function TroptionsOverviewPage() {
                 className="object-contain bg-black"
               />
             </div>
-            <div className="relative aspect-video overflow-hidden rounded-2xl border border-[var(--line)] shadow-lg">
+            <div className="relative aspect-video overflow-hidden rounded-2xl border border-(--line) shadow-lg">
               <Image
                 src="/assets/troptions/logos/troptions-xchange-fire.jpg"
                 alt="TROPTIONS Xchange — fire variant"
@@ -131,7 +131,7 @@ export default function TroptionsOverviewPage() {
                 className="object-contain bg-black"
               />
             </div>
-            <div className="relative aspect-video overflow-hidden rounded-2xl border border-[var(--line)] shadow-lg">
+            <div className="relative aspect-video overflow-hidden rounded-2xl border border-(--line) shadow-lg">
               <Image
                 src="/assets/troptions/logos/troptions-golf-globe.jpg"
                 alt="TROPTIONS — golf globe powered by"
@@ -144,7 +144,7 @@ export default function TroptionsOverviewPage() {
         </section>
 
         {/* ── Real-World Deployment: Mobile Medical Clinic ── */}
-        <section className="overflow-hidden rounded-3xl border border-[var(--line)] shadow-[0_24px_80px_rgba(2,8,23,0.5)]">
+        <section className="overflow-hidden rounded-3xl border border-(--line) shadow-[0_24px_80px_rgba(2,8,23,0.5)]">
           <div className="relative aspect-21/9 w-full">
             <Image
               src="/assets/troptions/logos/troptions-mobile-medical-clinic.jpg"
@@ -156,13 +156,13 @@ export default function TroptionsOverviewPage() {
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-8">
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--gold-light)]">Real-World Deployment</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-(--gold-light)">Real-World Deployment</p>
               <h2 className="mt-2 text-2xl font-bold text-white md:text-3xl">Mobile Medical Clinic — Powered by TROPTIONS</h2>
               <p className="mt-2 max-w-2xl text-sm leading-7 text-slate-200">
                 Healthcare delivered on-location and accepted with TROPTIONS. A live example of the ecosystem in action — bridging physical services with digital trade currency.
               </p>
               <div className="mt-4 flex flex-wrap gap-3">
-                <Link href="/troptions/mobile-medical" className="rounded-lg bg-[var(--gold)] px-5 py-2.5 text-sm font-semibold text-[var(--ink)] transition hover:bg-[var(--gold-light)]">
+                <Link href="/troptions/mobile-medical" className="rounded-lg bg-(--gold) px-5 py-2.5 text-sm font-semibold text-(--ink) transition hover:bg-(--gold-light)">
                   View Mobile Medical
                 </Link>
                 <Link href="/troptions/ecosystem" className="rounded-lg border border-white/40 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10">
@@ -173,8 +173,8 @@ export default function TroptionsOverviewPage() {
           </div>
         </section>
 
-        <section className="rounded-3xl border border-[var(--line)] bg-[rgba(7,13,24,0.85)] p-8 shadow-[0_24px_80px_rgba(2,8,23,0.45)]">
-          <p className="text-sm uppercase tracking-[0.25em] text-[var(--gold-light)]">XRPL Platform</p>          <h2 className="mt-3 text-3xl font-semibold text-white">XRPL Market Data, AMM, and DEX Readiness</h2>
+        <section className="rounded-3xl border border-(--line) bg-[rgba(7,13,24,0.85)] p-8 shadow-[0_24px_80px_rgba(2,8,23,0.45)]">
+          <p className="text-sm uppercase tracking-[0.25em] text-(--gold-light)">XRPL Platform</p>          <h2 className="mt-3 text-3xl font-semibold text-white">XRPL Market Data, AMM, and DEX Readiness</h2>
           <p className="mt-4 max-w-4xl text-base leading-8 text-slate-300">Troptions adds an XRPL market-data and route-simulation layer for order books, AMM pools, issued assets, trustlines, and pathfinding. Mainnet trading remains blocked by default. Testnet labs and unsigned transaction payloads are used for validation until external signer, custody, compliance, and board approvals are complete.</p>
           <div className="mt-8 grid gap-4 md:grid-cols-3 xl:grid-cols-4">
             {[
@@ -188,42 +188,42 @@ export default function TroptionsOverviewPage() {
               "Mainnet readiness gates",
               "GitHub + docs links",
             ].map((item) => (
-              <article key={item} className="rounded-2xl border border-[var(--line)] bg-white/5 p-4 text-sm font-medium text-slate-100">
+              <article key={item} className="rounded-2xl border border-(--line) bg-white/5 p-4 text-sm font-medium text-slate-100">
                 {item}
               </article>
             ))}
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/troptions/xrpl-platform" className="rounded-lg bg-[var(--gold)] px-5 py-3 text-sm font-semibold text-[var(--ink)] transition hover:bg-[var(--gold-light)]">Open XRPL Platform</Link>
-            <Link href="/troptions/xrpl-platform/links" className="rounded-lg border border-[var(--line)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">View XRPL Links</Link>
-            <Link href="/portal/troptions/xrpl-platform" className="rounded-lg border border-[var(--line)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Open Portal XRPL</Link>
-            <Link href="/admin/troptions/xrpl-platform" className="rounded-lg border border-[var(--line)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Admin XRPL Control</Link>
+            <Link href="/troptions/xrpl-platform" className="rounded-lg bg-(--gold) px-5 py-3 text-sm font-semibold text-(--ink) transition hover:bg-(--gold-light)">Open XRPL Platform</Link>
+            <Link href="/troptions/xrpl-platform/links" className="rounded-lg border border-(--line) px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">View XRPL Links</Link>
+            <Link href="/portal/troptions/xrpl-platform" className="rounded-lg border border-(--line) px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Open Portal XRPL</Link>
+            <Link href="/admin/troptions/xrpl-platform" className="rounded-lg border border-(--line) px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Admin XRPL Control</Link>
           </div>
         </section>
 
-        <section className="rounded-3xl border border-[var(--line)] bg-[linear-gradient(160deg,rgba(8,20,35,0.95),rgba(9,26,44,0.98))] p-8 shadow-[0_24px_80px_rgba(2,8,23,0.45)]">
-          <p className="text-sm uppercase tracking-[0.25em] text-[var(--gold-light)]">Wallet Intelligence</p>
+        <section className="rounded-3xl border border-(--line) bg-[linear-gradient(160deg,rgba(8,20,35,0.95),rgba(9,26,44,0.98))] p-8 shadow-[0_24px_80px_rgba(2,8,23,0.45)]">
+          <p className="text-sm uppercase tracking-[0.25em] text-(--gold-light)">Wallet Intelligence</p>
           <h2 className="mt-3 text-3xl font-semibold text-white">Wallet Forensics and XRPL Funds Tracking</h2>
           <p className="mt-4 max-w-4xl text-base leading-8 text-slate-300">
             Investigate wallet relationships, classify native XRP versus IOUs, map destination-tagged exchange deposits, and generate
             plain-English forensic reports in a read-only workflow.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/troptions/wallet-forensics" className="rounded-lg bg-[var(--gold)] px-5 py-3 text-sm font-semibold text-[var(--ink)] transition hover:bg-[var(--gold-light)]">Open Wallet Forensics</Link>
-            <Link href="/troptions/wallet-forensics/funds-flow" className="rounded-lg border border-[var(--line)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Track XRP Flow</Link>
-            <Link href="/troptions/wallet-forensics/exchange-deposits" className="rounded-lg border border-[var(--line)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Exchange Deposit Report</Link>
+            <Link href="/troptions/wallet-forensics" className="rounded-lg bg-(--gold) px-5 py-3 text-sm font-semibold text-(--ink) transition hover:bg-(--gold-light)">Open Wallet Forensics</Link>
+            <Link href="/troptions/wallet-forensics/funds-flow" className="rounded-lg border border-(--line) px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Track XRP Flow</Link>
+            <Link href="/troptions/wallet-forensics/exchange-deposits" className="rounded-lg border border-(--line) px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Exchange Deposit Report</Link>
           </div>
         </section>
 
         <section id="platform" className="space-y-7">
           <header className="max-w-3xl">
-            <h2 className="text-3xl font-semibold text-white md:text-4xl" style={{ fontFamily: "var(--font-display)" }}>
+            <h2 className="text-3xl font-semibold text-white md:text-4xl font-display">
               One unified operating layer for modern digital infrastructure.
             </h2>
           </header>
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {platformCards.map((card) => (
-              <article key={card} className="rounded-2xl border border-[var(--line)] bg-white p-5 text-[var(--ink)] shadow-[0_18px_50px_rgba(7,20,38,0.35)]">
+              <article key={card} className="rounded-2xl border border-(--line) bg-white p-5 text-(--ink) shadow-[0_18px_50px_rgba(7,20,38,0.35)]">
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#9b7a2e]">Platform</p>
                 <h3 className="mt-2 text-lg font-semibold">{card}</h3>
                 <p className="mt-2 text-sm text-slate-600">Structured workflows and controls designed for reliable operations at scale.</p>
@@ -232,7 +232,7 @@ export default function TroptionsOverviewPage() {
           </div>
         </section>
 
-        <section id="solutions" className="rounded-2xl border border-[var(--line)] bg-[var(--navy-2)]/95 p-6">
+        <section id="solutions" className="rounded-2xl border border-(--line) bg-(--navy-2)/95 p-6">
           <div className="grid gap-4 md:grid-cols-4">
             {[
               "Unified Identity",
@@ -240,15 +240,15 @@ export default function TroptionsOverviewPage() {
               "Global & Scalable",
               "Premium Experience",
             ].map((item) => (
-              <article key={item} className="rounded-xl border border-[var(--line)] bg-[rgba(255,255,255,0.04)] p-4 text-center">
-                <p className="text-sm font-semibold text-[var(--gold-light)]">{item}</p>
+              <article key={item} className="rounded-xl border border-(--line) bg-[rgba(255,255,255,0.04)] p-4 text-center">
+                <p className="text-sm font-semibold text-(--gold-light)">{item}</p>
               </article>
             ))}
           </div>
         </section>
 
         <section className="grid gap-6 lg:grid-cols-2">
-          <article className="rounded-2xl border border-[var(--line)] bg-[var(--panel)] p-6 text-[var(--ink)]">
+          <article className="rounded-2xl border border-(--line) bg-(--panel) p-6 text-(--ink)">
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#9b7a2e]">Member Portal Preview</p>
             <h3 className="mt-2 text-2xl font-semibold">Welcome back</h3>
             <p className="mt-2 text-sm text-slate-600">Demo labels only for interface preview. No live account data is displayed here.</p>
@@ -280,7 +280,7 @@ export default function TroptionsOverviewPage() {
             </div>
           </article>
 
-          <article className="rounded-2xl border border-[var(--line)] bg-[var(--panel)] p-6 text-[var(--ink)]">
+          <article className="rounded-2xl border border-(--line) bg-(--panel) p-6 text-(--ink)">
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#9b7a2e]">Admin Control Plane Preview</p>
             <h3 className="mt-2 text-2xl font-semibold">Operational command center</h3>
             <div className="mt-5 grid gap-3 sm:grid-cols-3">
@@ -311,9 +311,9 @@ export default function TroptionsOverviewPage() {
           </article>
         </section>
 
-        <section id="resources" className="rounded-2xl border border-[var(--line)] bg-[var(--navy-2)] p-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--gold-light)]">Intelligence and Reporting</p>
-          <h3 className="mt-2 text-2xl font-semibold text-white" style={{ fontFamily: "var(--font-display)" }}>Market Intelligence Report</h3>
+        <section id="resources" className="rounded-2xl border border-(--line) bg-(--navy-2) p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-(--gold-light)">Intelligence and Reporting</p>
+          <h3 className="mt-2 text-2xl font-semibold text-white font-display">Market Intelligence Report</h3>
           <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
             {[
               "Executive Summary",
@@ -322,16 +322,16 @@ export default function TroptionsOverviewPage() {
               "Export-ready PDF",
               "Export-ready CSV",
             ].map((item) => (
-              <article key={item} className="rounded-xl border border-[var(--line)] bg-[rgba(255,255,255,0.05)] p-3 text-sm text-slate-100">
+              <article key={item} className="rounded-xl border border-(--line) bg-[rgba(255,255,255,0.05)] p-3 text-sm text-slate-100">
                 {item}
               </article>
             ))}
           </div>
         </section>
 
-        <section className="space-y-5 rounded-2xl border border-[var(--line)] bg-[var(--navy-2)]/95 p-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--gold-light)]">Security</p>
-          <h3 className="text-2xl font-semibold text-white" style={{ fontFamily: "var(--font-display)" }}>Security-first operating posture</h3>
+        <section className="space-y-5 rounded-2xl border border-(--line) bg-(--navy-2)/95 p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-(--gold-light)">Security</p>
+          <h3 className="text-2xl font-semibold text-white font-display">Security-first operating posture</h3>
           <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
             {[
               "Local-first review options",
@@ -341,7 +341,7 @@ export default function TroptionsOverviewPage() {
               "Role-based access planning",
               "Troptions workflows are designed not to collect or store wallet secrets.",
             ].map((item) => (
-              <article key={item} className="rounded-xl border border-[var(--line)] bg-[rgba(255,255,255,0.04)] p-4 text-sm text-slate-100">
+              <article key={item} className="rounded-xl border border-(--line) bg-[rgba(255,255,255,0.04)] p-4 text-sm text-slate-100">
                 {item}
               </article>
             ))}
@@ -350,7 +350,7 @@ export default function TroptionsOverviewPage() {
 
         <section id="company" className="space-y-6">
           <header>
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--gold-light)]">Roadmap</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-(--gold-light)">Roadmap</p>
           </header>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {[
@@ -359,26 +359,26 @@ export default function TroptionsOverviewPage() {
               "Phase 3: Integrations",
               "Phase 4: Production hardening",
             ].map((item) => (
-              <article key={item} className="rounded-2xl border border-[var(--line)] bg-white p-5 text-[var(--ink)]">
+              <article key={item} className="rounded-2xl border border-(--line) bg-white p-5 text-(--ink)">
                 <p className="text-sm font-semibold">{item}</p>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="rounded-3xl border border-[var(--line)] bg-[linear-gradient(120deg,rgba(11,31,54,0.95),rgba(7,20,38,1))] p-8">
-          <h2 className="max-w-3xl text-3xl leading-tight text-white md:text-4xl" style={{ fontFamily: "var(--font-display)" }}>
+        <section className="rounded-3xl border border-(--line) bg-[linear-gradient(120deg,rgba(11,31,54,0.95),rgba(7,20,38,1))] p-8">
+          <h2 className="max-w-3xl text-3xl leading-tight text-white md:text-4xl font-display">
             Build the command center before scaling the operation.
           </h2>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link href="/portal/troptions/onboarding" className="rounded-lg bg-[var(--gold)] px-5 py-3 text-sm font-semibold text-[var(--ink)] transition hover:bg-[var(--gold-light)]">Request Access</Link>
-            <Link href="/portal/troptions/dashboard" className="rounded-lg border border-[var(--line)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">View Platform Preview</Link>
+            <Link href="/portal/troptions/onboarding" className="rounded-lg bg-(--gold) px-5 py-3 text-sm font-semibold text-(--ink) transition hover:bg-(--gold-light)">Request Access</Link>
+            <Link href="/portal/troptions/dashboard" className="rounded-lg border border-(--line) px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">View Platform Preview</Link>
           </div>
         </section>
 
         <InstitutionalFuturePanel />
 
-        <footer className="rounded-2xl border border-[var(--line)] bg-[var(--navy-2)] p-6">
+          <footer className="rounded-2xl border border-(--line) bg-(--navy-2) p-6">
           <div className="flex flex-wrap items-center gap-4">
             <div className="relative h-14 w-44 overflow-hidden rounded-xl bg-white">
               <Image

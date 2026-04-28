@@ -280,6 +280,23 @@ export const TTN_SUBMISSIONS: Submission[] = [
     simulationOnly: true,
     livePublishingEnabled: false,
   },
+  {
+    id: "sub-009",
+    creatorId: "creator-004",
+    type: "sponsor-pitch",
+    title: "FTH Markets Sponsorship Proposal — Q3 2026",
+    description:
+      "Sponsorship pitch for the FTH Daily Markets channel, proposing a 30-day educational content sponsorship arrangement. No revenue guarantees or investment commitments.",
+    status: "submitted",
+    rightsStatus: "pending",
+    ipfsStatus: "not_created",
+    targetChannelSlug: "fth-daily-markets",
+    proposedBudgetNote: "Budget range TBD pending rights and compliance review.",
+    createdAt: "2026-04-26T10:00:00Z",
+    updatedAt: "2026-04-26T10:00:00Z",
+    simulationOnly: true,
+    livePublishingEnabled: false,
+  },
 ];
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -302,7 +319,7 @@ export function getSubmissionsByStatus(status: SubmissionStatus): Submission[] {
 
 export function getPendingReviewSubmissions(): Submission[] {
   return TTN_SUBMISSIONS.filter(
-    (s) => s.status === "submitted" || s.status === "under_review" || s.status === "needs_rights_review",
+    (s) => s.status === "submitted" || s.status === "under_review",
   );
 }
 
