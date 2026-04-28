@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
 	turbopack: {
 		root: repoRoot,
 	},
+	serverExternalPackages: ["better-sqlite3"],
 	async rewrites() {
 		return [
 			{
