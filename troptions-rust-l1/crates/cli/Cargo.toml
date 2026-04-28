@@ -9,5 +9,6 @@ path = "src/main.rs"
 
 [dependencies]
 tsn-state = { path = "../state" }
+tsn-nil = { path = "../nil" }
 serde_json = { workspace = true }
 uuid = { workspace = true }
