@@ -26,6 +26,7 @@ members = [
     "crates/cli",
     "crates/brands",
     "crates/genesis",
+    "crates/contracts",
 ]
 resolver = "2"
 

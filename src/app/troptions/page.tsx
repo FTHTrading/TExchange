@@ -139,6 +139,9 @@ const NAV_CARDS = [
   { href: "/troptions/ecosystem",                icon: "ECO",  title: "Ecosystem",           desc: "Brand entities, NIL, namespaces, NFTs" },
   { href: "/troptions/rwa/axl-001",              icon: "RWA",  title: "RWA Series 001",      desc: "AXL-001 Alexandrite collateral package (gated)" },
   { href: "/troptions/xrpl-stellar-compliance",  icon: "CMP",  title: "Compliance",          desc: "ISO 20022, AML controls, jurisdiction" },
+  { href: "/troptions/transactions",             icon: "TXN",  title: "Transactions",        desc: "8 transaction categories — workflow, DD checklists, approval gates" },
+  { href: "/troptions/compliance/handbooks",     icon: "HBK",  title: "Handbooks",           desc: "Downloadable transaction guides, checklists, and disclosures" },
+  { href: "/troptions/kyc",                      icon: "KYC",  title: "KYC / Onboarding",   desc: "Document hash submission, oracle attestation, DID anchoring" },
 ] as const;
 
 // =============================================================================
