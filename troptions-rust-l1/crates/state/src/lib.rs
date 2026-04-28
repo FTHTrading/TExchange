@@ -416,7 +416,12 @@ pub struct AuditEvent {
 }
 
 impl AuditEvent {
-    pub fn new(event_type: AuditEventType, actor: &str, summary: &str, metadata: serde_json::Value) -> Self {
+    pub fn new(
+        event_type: AuditEventType,
+        actor: &str,
+        summary: &str,
+        metadata: serde_json::Value,
+    ) -> Self {
         AuditEvent {
             event_id: Uuid::new_v4(),
             event_type,
@@ -459,16 +464,16 @@ pub enum QuantumMigrationStatus {
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum QuantumSignatureScheme {
-    MlDsa,                 // NIST FIPS 204
-    SlhDsa,                // NIST FIPS 205
-    HybridEd25519MlDsa,    // Transition hybrid
+    MlDsa,              // NIST FIPS 204
+    SlhDsa,             // NIST FIPS 205
+    HybridEd25519MlDsa, // Transition hybrid
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum QuantumKemScheme {
-    MlKem,                 // NIST FIPS 203
-    HybridX25519MlKem,     // Transition hybrid
+    MlKem,             // NIST FIPS 203
+    HybridX25519MlKem, // Transition hybrid
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -511,6 +516,8 @@ mod tests {
         );
         assert!(!decision.allowed);
         assert!(decision.simulation_only);
-        assert!(decision.blocked_actions.contains(&"live_execution".to_string()));
+        assert!(decision
+            .blocked_actions
+            .contains(&"live_execution".to_string()));
     }
 }

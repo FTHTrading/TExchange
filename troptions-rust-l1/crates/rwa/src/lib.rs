@@ -64,7 +64,10 @@ pub fn register_rwa_simulation(req: &RwaRegistrationRequest) -> RwaRegistrationR
             "legal_review".to_string(),
             "custody_verification".to_string(),
         ],
-        compliance_checks: vec!["platform_simulation_gate".to_string(), "rwa_jurisdiction".to_string()],
+        compliance_checks: vec![
+            "platform_simulation_gate".to_string(),
+            "rwa_jurisdiction".to_string(),
+        ],
         audit_hint: "RWA registration simulation — legal review required".to_string(),
         decided_at: Utc::now(),
     };

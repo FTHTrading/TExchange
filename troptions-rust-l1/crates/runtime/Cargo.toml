@@ -18,4 +18,3 @@ tsn-nft = { path = "../nft" }
 tsn-amm = { path = "../amm" }
 tsn-governance = { path = "../governance" }
 tsn-telemetry = { path = "../telemetry" }
-tsn-nil = { path = "../nil" }

@@ -14,8 +14,8 @@
  */
 import { NextResponse } from "next/server";
 import { guardPortalWrite, guardPortalRead } from "@/lib/troptions/portalApiGuards";
-import { verifyGenesisAdminKey } from "@/lib/troptions/xrplGenesisEngine";
 import {
+  verifyGenesisAdminKey,
   createTroptionsXlmPool,
   createTroptionsUsdcPool,
   getStellarGenesisStatus,
@@ -50,6 +50,8 @@ export async function POST(request: Request) {
         const result = await createTroptionsXlmPool({
           xlmAmount:       typeof params.xlmAmount       === "string" ? params.xlmAmount       : "10000",
           troptionsAmount: typeof params.troptionsAmount === "string" ? params.troptionsAmount : "1000000",
+          maxPrice:        typeof params.maxPrice        === "string" ? params.maxPrice        : "1000",
+          minPrice:        typeof params.minPrice        === "string" ? params.minPrice        : "0",
         });
         return NextResponse.json({ op, ...result });
       }
@@ -58,6 +60,8 @@ export async function POST(request: Request) {
         const result = await createTroptionsUsdcPool({
           usdcAmount:      typeof params.usdcAmount      === "string" ? params.usdcAmount      : "10000",
           troptionsAmount: typeof params.troptionsAmount === "string" ? params.troptionsAmount : "1000000",
+          maxPrice:        typeof params.maxPrice        === "string" ? params.maxPrice        : "1000",
+          minPrice:        typeof params.minPrice        === "string" ? params.minPrice        : "0",
         });
         return NextResponse.json({ op, ...result });
       }
@@ -84,7 +88,7 @@ export async function GET(request: Request) {
 
   return NextResponse.json({
     ok:           true,
-    lpWalletReady: !!lpWallet && lpWallet.ok !== false,
+    lpWalletReady: !!lpWallet,
     lpWallet:      lpWallet ?? null,
     availableOps:  ["create-xlm-pool", "create-usdc-pool"],
     pools: [

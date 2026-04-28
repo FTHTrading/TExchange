@@ -109,7 +109,10 @@ pub fn submit_to_control_hub(task: &ControlHubTask) -> (ControlHubSimulation, Au
     let audit_event = AuditEvent::new(
         AuditEventType::GovernanceDecisionRecorded,
         &task.origin_crate,
-        &format!("Control Hub task submitted (simulation): {}", task.task_type),
+        &format!(
+            "Control Hub task submitted (simulation): {}",
+            task.task_type
+        ),
         serde_json::json!({
             "task_id": task.task_id,
             "task_type": task.task_type,
@@ -138,7 +141,10 @@ mod tests {
         let (sim, _audit) = submit_to_control_hub(&task);
         assert!(sim.simulation_only);
         assert!(!sim.allowed);
-        assert!(sim.blocked_reasons.iter().any(|r| r.contains("platform_simulation_gate_active")));
+        assert!(sim
+            .blocked_reasons
+            .iter()
+            .any(|r| r.contains("platform_simulation_gate_active")));
     }
 
     #[test]

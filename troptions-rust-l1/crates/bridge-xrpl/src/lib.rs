@@ -10,10 +10,7 @@ use uuid::Uuid;
 
 /// Simulate an XRPL-sourced cross-rail route.
 /// `asset_id_hint` can be Uuid::nil() for simulation; represents the TSN asset.
-pub fn simulate_xrpl_route(
-    asset_id: Uuid,
-    amount_string: &str,
-) -> (CrossRailRoute, AuditEvent) {
+pub fn simulate_xrpl_route(asset_id: Uuid, amount_string: &str) -> (CrossRailRoute, AuditEvent) {
     let route_id = Uuid::new_v4();
 
     let route = CrossRailRoute {
@@ -55,8 +52,12 @@ mod tests {
     fn cross_rail_route_requires_approvals() {
         let (route, audit) = simulate_xrpl_route(Uuid::new_v4(), "10000000");
         assert!(route.simulation_only);
-        assert!(route.required_approvals.contains(&"control_hub_approval".to_string()));
-        assert!(route.required_approvals.contains(&"xrpl_bridge_operator_approval".to_string()));
+        assert!(route
+            .required_approvals
+            .contains(&"control_hub_approval".to_string()));
+        assert!(route
+            .required_approvals
+            .contains(&"xrpl_bridge_operator_approval".to_string()));
         assert!(!route.blocked_actions.is_empty());
         assert_eq!(audit.actor, "tsn_bridge_xrpl");
     }

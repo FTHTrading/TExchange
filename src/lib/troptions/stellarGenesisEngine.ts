@@ -35,6 +35,7 @@ import {
   BASE_FEE,
   getLiquidityPoolId,
   LiquidityPoolFeeV18,
+  AuthFlag,
 } from "@stellar/stellar-sdk";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -110,6 +111,16 @@ export interface StellarOpResult {
   detail?: unknown;
 }
 
+/**
+ * Verify an admin key against the GENESIS_ADMIN_KEY environment variable.
+ * Returns true if the provided key matches and is non-empty.
+ */
+export function verifyGenesisAdminKey(key: string): boolean {
+  const expected = process.env.GENESIS_ADMIN_KEY;
+  if (!expected || expected.length === 0) return false;
+  return key === expected;
+}
+
 // ─── Account Configuration ────────────────────────────────────────────────────
 
 /**
@@ -141,7 +152,7 @@ export async function configureStellarIssuer(opts?: {
     builder.addOperation(
       Operation.setOptions({
         homeDomain:      domain,
-        setFlags:        buildStellarFlags(opts) as import("@stellar/stellar-sdk").AuthFlag,
+        setFlags:        buildStellarFlags(opts),
         // Clearing clearFlags ensures we can re-run this safely
       })
     );
@@ -235,43 +246,6 @@ export async function setLpTrustline(
     );
 
     return await submitTx(server, builder, [lpKp]);
-  } catch (err) {
-    return { ok: false, error: String(err) };
-  }
-}
-
-/**
- * Create a trustline from an external wallet to the TROPTIONS issuer.
- * Use this when onboarding exchange hot wallets, partner accounts, or end users.
- *
- * ⚠ The holderSecret is used locally for signing and is never logged or transmitted.
- *   For production user wallets, prefer Freighter / Lobstr / hardware wallet signing.
- *
- * @param holderSecret  Stellar secret key of the wallet establishing the trust
- * @param limitAmount   Maximum TROPTIONS the holder is willing to hold (default: 1 billion)
- */
-export async function setExternalStellarTrustline(
-  holderSecret: string,
-  limitAmount:  string = TOTAL_SUPPLY
-): Promise<StellarOpResult> {
-  const server = getServer();
-  try {
-    const issuerKp = loadKeypair("STELLAR_ISSUER_SECRET");
-    const holderKp = Keypair.fromSecret(holderSecret);
-    const account  = await server.loadAccount(holderKp.publicKey());
-
-    const troptions = troptionsAsset(issuerKp.publicKey());
-
-    const builder = new TransactionBuilder(account, {
-      fee:               BASE_FEE,
-      networkPassphrase: NETWORK_PASSPHRASE,
-    });
-
-    builder.addOperation(
-      Operation.changeTrust({ asset: troptions, limit: limitAmount })
-    );
-
-    return await submitTx(server, builder, [holderKp]);
   } catch (err) {
     return { ok: false, error: String(err) };
   }
@@ -442,6 +416,8 @@ export async function createStellarSellOfferUsdc(
 export async function createTroptionsXlmPool(params?: {
   troptionsAmount?: string;
   xlmAmount?: string;
+  maxPrice?: string;
+  minPrice?: string;
 }): Promise<StellarOpResult> {
   const server = getServer();
   try {
@@ -492,6 +468,8 @@ export async function createTroptionsXlmPool(params?: {
 export async function createTroptionsUsdcPool(params?: {
   troptionsAmount?: string;
   usdcAmount?: string;
+  maxPrice?: string;
+  minPrice?: string;
 }): Promise<StellarOpResult> {
   const server = getServer();
   try {
@@ -682,11 +660,11 @@ function buildStellarFlags(opts?: {
   authRequired?: boolean;
   authRevocable?: boolean;
   authClawback?: boolean;
-}): number {
+}): AuthFlag {
   // Stellar flag values: AUTH_REQUIRED=1, AUTH_REVOCABLE=2, AUTH_CLAWBACK_ENABLED=8
   let flags = 0;
   if (opts?.authRequired) flags |= 1;
   if (opts?.authRevocable) flags |= 2;
   if (opts?.authClawback)  flags |= 8;
-  return flags;
+  return flags as AuthFlag;
 }

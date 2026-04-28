@@ -1,21 +1,17 @@
 /**
- * XRPL Genesis Wallet Registry
+ * XRPL Genesis Wallet Registry — TROPTIONS Only
  *
- * Post-compromise wallet structure for the full TROPTIONS entity graph.
- *
- * SECURITY NOTICE:
- * The primary wallet rpP12ND2K7ZRzXZBEUnQM2i18tMGytXnW1 was COMPROMISED.
- * Master key disabled 2026-02-25. ~184M USDT, ~20M GOLD, ~50M EUR drained
- * 2026-03-05. NFTs burned 2026-02-21.
- *
- * This registry defines the intended wallet structure post-compromise.
- * Wallet roles marked "PENDING_FRESH_GENERATION" must be created using
- * a fresh hardware wallet or Xumm before any live operations can begin.
+ * Defines all TROPTIONS wallet roles on XRPL mainnet.
+ * Includes live deployed wallets (issuer + distribution) and
+ * pending-generation specs for future TROPTIONS brand wallets.
  *
  * SAFETY RULES:
  * - No private keys, seeds, or secrets in this file
  * - All entries are read-only references or pending-generation specs
  * - Live execution requires board authorization + legal sign-off
+ *
+ * Live deployment confirmed 2026-04-28.
+ * OPTKAS and compromised wallet entries have been removed.
  */
 
 export type XrplWalletStatus =
@@ -38,7 +34,7 @@ export interface XrplGenesisWalletRecord {
 }
 
 export const XRPL_GENESIS_WALLET_REGISTRY: readonly XrplGenesisWalletRecord[] = [
-  // ── Active wallets (known good) ──────────────────────────────────────────────
+  // ── Active wallets — live on XRPL mainnet ───────────────────────────────────
   {
     id: "xrpl-troptions-org-issuer",
     role: "troptions-org-issuer",
@@ -46,29 +42,27 @@ export const XRPL_GENESIS_WALLET_REGISTRY: readonly XrplGenesisWalletRecord[] = 
     address: "rPF2M1QjdVh1hkNgmMMTkT9qMU7tA7Wds3",
     status: "active_read_only",
     notes:
-      "TROPTIONS IOU issuer. Active for read/trust-line operations. Currency hex: 54524F5054494F4E530000000000000000000000.",
+      "TROPTIONS IOU issuer (cold reserve). Active for read/trust-line operations. Currency hex: 54524F5054494F4E530000000000000000000000.",
     requiresLegalClearance: false,
   },
   {
-    id: "xrpl-optkas-genesis-treasury",
-    role: "optkas-genesis-treasury",
+    id: "xrpl-troptions-issuer-live",
+    role: "troptions-issuer-live",
     brandId: "troptions-org",
-    address: "rncYwc1ss8AdV2vKjaYwMAEj7RNRfKRV4r",
+    address: "rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ",
     status: "active_trustlines_established",
     notes:
-      "OPTKAS Genesis treasury wallet. Trustlines for OPTKAS and SOVBND established. This is the safe treasury wallet — not the compromised primary.",
+      "TROPTIONS live issuer — deployed 2026-04-28. Issued 100,000,000 TROPTIONS IOU. XRPL AMM active, DEX trading live, 3 holders, 4 trustlines. Price $0.0114 · Market Cap $1.1M.",
     requiresLegalClearance: false,
   },
-
-  // ── Compromised wallet — DO NOT USE ─────────────────────────────────────────
   {
-    id: "xrpl-compromised-primary",
-    role: "COMPROMISED_DO_NOT_USE",
-    brandId: null,
-    address: "rpP12ND2K7ZRzXZBEUnQM2i18tMGytXnW1",
-    status: "compromised_do_not_use",
+    id: "xrpl-troptions-distribution-live",
+    role: "troptions-distribution-live",
+    brandId: "troptions-org",
+    address: "rNX4faQ35SdtE4rDoEg8YeVLQKQ57AYyCt",
+    status: "active_trustlines_established",
     notes:
-      "COMPROMISED. Master key disabled 2026-02-25. Regular key swapped twice by attacker. ~184M USDT, ~20M GOLD, ~50M EUR drained 2026-03-05. NFTs burned 2026-02-21. Master key disabled — account is effectively frozen under attacker control. Do not send funds or establish trustlines with this address.",
+      "TROPTIONS distribution + AMM wallet — deployed 2026-04-28. Received 100M TROPTIONS from issuer. Created TROPTIONS/XRP AMM pool. DEX orders placed. AMM TVL $7.91.",
     requiresLegalClearance: false,
   },
 
@@ -163,7 +157,9 @@ export function getPendingXrplWallets(): XrplGenesisWalletRecord[] {
   );
 }
 
-/** Get the compromised wallet record (for forensics reference only) */
-export function getCompromisedXrplWallet(): XrplGenesisWalletRecord | undefined {
-  return XRPL_GENESIS_WALLET_REGISTRY.find((w) => w.status === "compromised_do_not_use");
+/** Get all Troptions live issuer + distribution wallets */
+export function getLiveTroptionsWallets(): XrplGenesisWalletRecord[] {
+  return XRPL_GENESIS_WALLET_REGISTRY.filter(
+    (w) => w.brandId === "troptions-org" && w.status === "active_trustlines_established",
+  );
 }

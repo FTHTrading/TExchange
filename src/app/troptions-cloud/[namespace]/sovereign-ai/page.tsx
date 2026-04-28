@@ -59,7 +59,6 @@ export default async function NamespaceSovereignAiPage({ params }: Props) {
           <span
             className="inline-block cursor-not-allowed rounded-lg border border-gray-700 bg-[#080C14] px-4 py-2 text-xs text-gray-600"
             aria-disabled="true"
-            role="link"
           >
             New AI System — Simulation Only
           </span>
@@ -100,7 +99,6 @@ export default async function NamespaceSovereignAiPage({ params }: Props) {
           <span
             className="cursor-not-allowed rounded-lg border border-gray-700 bg-[#080C14] px-4 py-2 text-xs text-gray-600"
             aria-disabled="true"
-            role="link"
           >
             Build AI System — Simulation Only
           </span>

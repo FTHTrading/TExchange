@@ -488,6 +488,7 @@ name = "tsn-cli"
 version = "0.1.0"
 dependencies = [
  "serde_json",
+ "tsn-nil",
  "tsn-state",
  "uuid",
 ]
@@ -581,6 +582,21 @@ dependencies = [
  "chrono",
  "serde",
  "serde_json",
+ "tsn-state",
+ "uuid",
+]
+
+[[package]]
+name = "tsn-nil"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "hex",
+ "serde",
+ "serde_json",
+ "sha2",
+ "thiserror",
+ "tsn-crypto",
  "tsn-state",
  "uuid",
 ]

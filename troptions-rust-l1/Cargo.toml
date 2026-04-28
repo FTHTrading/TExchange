@@ -26,7 +26,6 @@ members = [
     "crates/cli",
     "crates/brands",
     "crates/genesis",
-    "crates/nil",
 ]
 resolver = "2"
 

@@ -1,9 +1,7 @@
 #![allow(dead_code)]
 
 use chrono::Utc;
-use tsn_state::{
-    AuditEvent, AuditEventType, FreezeStatus, GovernanceDecision, KycTier, Trustline,
-};
+use tsn_state::{AuditEvent, AuditEventType, FreezeStatus, GovernanceDecision, KycTier, Trustline};
 use uuid::Uuid;
 
 pub struct TrustlineSimulationResult {
@@ -80,10 +78,7 @@ pub fn create_trustline_simulation(
     }
 }
 
-pub fn freeze_trustline_simulation(
-    trustline: &mut Trustline,
-    reason: &str,
-) -> AuditEvent {
+pub fn freeze_trustline_simulation(trustline: &mut Trustline, reason: &str) -> AuditEvent {
     trustline.freeze_status = FreezeStatus::FrozenByCompliance;
     trustline.updated_at = Utc::now();
     AuditEvent::new(
@@ -123,6 +118,10 @@ mod tests {
             "1000000000",
             &KycTier::Unknown,
         );
-        assert!(result.governance_decision.blocked_actions.iter().any(|r| r.contains("kyc_insufficient")));
+        assert!(result
+            .governance_decision
+            .blocked_actions
+            .iter()
+            .any(|r| r.contains("kyc_insufficient")));
     }
 }

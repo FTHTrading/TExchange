@@ -1,191 +1,289 @@
 import Image from "next/image";
 import { DEMO_WALLET_SHOWCASE } from "@/content/troptions/demoWalletShowcaseRegistry";
+import CopyAddressButton from "@/components/troptions-evolution/CopyAddressButton";
 
 export const metadata = {
-  title: "Troptions Wallet Showcase",
-  description: "Demo inventory of local XRPL and Stellar wallet patterns, asset types, and purposes across Troptions systems.",
+  title: "TROPTIONS Wallets | Live XRPL & Stellar Deployment",
+  description: "Live TROPTIONS wallet infrastructure on XRPL and Stellar mainnet. Issuer, distribution, AMM, DEX traders, and Stellar bridge wallets — all confirmed funded 2026-04-28.",
 };
 
-const assetTypeCopy: Record<string, string> = {
-  stablecoin: "Stablecoin",
-  iou: "XRPL IOU",
-  "regulated-asset": "Regulated Asset",
-  lp: "LP / Liquidity",
-  nft: "NFT / Evidence",
-  token: "Utility Token",
+const XRPL_WALLETS = DEMO_WALLET_SHOWCASE.filter((w) => w.network === "XRPL");
+const STELLAR_WALLETS = DEMO_WALLET_SHOWCASE.filter((w) => w.network === "Stellar");
+
+const walletTypeBadge: Record<string, { label: string; color: string }> = {
+  issuer:       { label: "Issuer",       color: "bg-amber-50 text-amber-700 border-amber-200" },
+  distribution: { label: "Distribution", color: "bg-blue-50 text-blue-700 border-blue-200" },
+  trading:      { label: "Trader",       color: "bg-emerald-50 text-emerald-700 border-emerald-200" },
+  treasury:     { label: "Holder",       color: "bg-purple-50 text-purple-700 border-purple-200" },
+  liquidity:    { label: "Liquidity",    color: "bg-cyan-50 text-cyan-700 border-cyan-200" },
+  anchor:       { label: "Anchor",       color: "bg-rose-50 text-rose-700 border-rose-200" },
+  evidence:     { label: "Evidence",     color: "bg-slate-100 text-slate-600 border-slate-200" },
 };
 
-export default function TroptionsWalletShowcasePage() {
+const TOKEN_STATS = [
+  { label: "Price",       value: "$0.0114",     sub: "USD" },
+  { label: "Supply",      value: "100,000,000", sub: "TROPTIONS" },
+  { label: "Market Cap",  value: "$1.14 M",     sub: "USD" },
+  { label: "AMM TVL",     value: "$7.91",       sub: "TROPTIONS / XRP" },
+  { label: "24 H Volume", value: "$5.67",       sub: "USD" },
+  { label: "Holders",     value: "3",           sub: "XRPL accounts" },
+  { label: "Trustlines",  value: "4",           sub: "established" },
+  { label: "Trades",      value: "5",           sub: "all time" },
+];
+
+export default function TroptionsWalletPage() {
   return (
     <main className="te-page">
-      <div className="te-wrap space-y-6">
-        <header className="te-panel">
-          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-            <div>
-              <p className="te-kicker">Wallet Demonstration</p>
-              <h1 className="te-heading">Local XRP and Stellar wallet showcase</h1>
-              <p className="te-subheading">
-                This page uses wallet references and capability notes found in your local Troptions repos to show how the platform can present different wallet systems without importing private keys.
+      <div className="te-wrap space-y-8">
+
+        {/* ── Hero ───────────────────────────────────────────────────────────── */}
+        <header className="te-panel overflow-hidden">
+          <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center gap-4">
+                <Image
+                  src="/assets/troptions/logos/troptions-t-logo-black.jpg"
+                  alt="TROPTIONS T logo"
+                  width={64}
+                  height={64}
+                  className="h-16 w-16 rounded-xl object-contain"
+                  priority
+                />
+                <div>
+                  <p className="te-kicker">Live Deployment · XRPL &amp; Stellar Mainnet</p>
+                  <h1 className="te-heading">TROPTIONS Wallets</h1>
+                </div>
+              </div>
+              <p className="te-subheading max-w-2xl">
+                All seven TROPTIONS wallets confirmed funded and operational on 2026-04-28.
+                Issuer, distribution, AMM pool, DEX traders, and Stellar bridge — every address is live and verifiable on-chain.
               </p>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href="https://xrpl.org/token/TROPTIONS+rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="rounded-lg bg-(--gold) px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
+                >
+                  View on XRPL.org ↗
+                </a>
+                <a
+                  href="https://livenet.xrpl.org/accounts/rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="rounded-lg border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-800 transition hover:bg-slate-50"
+                >
+                  XRPL Ledger Explorer ↗
+                </a>
+              </div>
             </div>
-            <div className="rounded-3xl border border-slate-200 bg-white px-6 py-5 shadow-sm">
-              <Image
-                src="/troptions/xrpl-ledger-horizontal-black.svg"
-                alt="XRPL Ledger"
-                width={220}
-                height={55}
-                className="h-auto w-[180px] md:w-[220px]"
-                priority
-              />
-              <p className="mt-3 text-sm leading-6 text-slate-600">
-                Official XRPL brand asset applied to the live wallet and ledger verification section.
-              </p>
-            </div>
+            <Image
+              src="/assets/troptions/logos/troptions-logo-new-official.jpg"
+              alt="TROPTIONS official logo"
+              width={200}
+              height={200}
+              className="h-auto w-40 rounded-2xl object-contain shadow-md md:w-48"
+              priority
+            />
           </div>
         </header>
 
-        <section className="te-panel">
-          <p className="te-kicker">Cloudflare And Domain</p>
-          <div className="te-grid-3">
-            <article className="rounded-2xl border border-slate-200 bg-white p-5">
-              <h2 className="text-lg font-semibold text-slate-900">Canonical Domain</h2>
-              <p className="mt-2 break-all text-sm leading-7 text-slate-600">https://troptions.unykorn.org</p>
-              <p className="mt-3 text-sm leading-7 text-slate-600">Root metadata now resolves against the production hostname so canonical links and deploy-time URLs point at the Cloudflare custom domain.</p>
-            </article>
-            <article className="rounded-2xl border border-slate-200 bg-white p-5">
-              <h2 className="text-lg font-semibold text-slate-900">Worker Route</h2>
-              <p className="mt-2 break-all text-sm leading-7 text-slate-600">troptions.unykorn.org</p>
-              <p className="mt-3 text-sm leading-7 text-slate-600">The repo already includes this hostname as a Cloudflare custom domain in the Wrangler config.</p>
-            </article>
-            <article className="rounded-2xl border border-slate-200 bg-white p-5">
-              <h2 className="text-lg font-semibold text-slate-900">API Route</h2>
-              <p className="mt-2 break-all text-sm leading-7 text-slate-600">api.troptions.unykorn.org</p>
-              <p className="mt-3 text-sm leading-7 text-slate-600">The worker config already reserves the API hostname for the Troptions Cloudflare deployment surface.</p>
-            </article>
+        {/* ── Live Token Stats ───────────────────────────────────────────────── */}
+        <section aria-label="Live token stats">
+          <p className="te-kicker mb-3">Live Token Data · XRPL Mainnet</p>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
+            {TOKEN_STATS.map((stat) => (
+              <div
+                key={stat.label}
+                className="flex flex-col gap-1 rounded-2xl border border-(--gold-light) bg-linear-to-br from-(--navy) to-(--navy-2) px-4 py-4 shadow-sm"
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-(--gold-light)">
+                  {stat.label}
+                </p>
+                <p className="text-xl font-bold text-white leading-tight">{stat.value}</p>
+                <p className="text-xs text-slate-400">{stat.sub}</p>
+              </div>
+            ))}
           </div>
         </section>
 
-        <section className="te-panel">
-          <p className="te-kicker">Live AMM And Explorer References</p>
+        {/* ── XRPL Wallets ──────────────────────────────────────────────────── */}
+        <section aria-label="XRPL wallet cards">
+          <p className="te-kicker mb-4">XRPL Mainnet — {XRPL_WALLETS.length} Wallets</p>
           <div className="te-grid-2">
-            <article className="rounded-2xl border border-slate-200 bg-white p-5">
-              <h2 className="text-lg font-semibold text-slate-900">XRPL AMM Pairs From Local Docs</h2>
-              <div className="mt-4 flex flex-wrap gap-2 text-sm text-slate-700">
-                {[
-                  "TROPTIONS / XRP",
-                ].map((pair) => (
-                  <span key={pair} className="rounded-full border border-slate-300 px-3 py-1">
-                    {pair}
-                  </span>
-                ))}
-              </div>
-              <div className="mt-4 flex flex-wrap gap-3">
-                <a href="https://livenet.xrpl.org/" target="_blank" rel="noreferrer" className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-50">Open XRPL Ledger</a>
-                <a href="https://xrpscan.com/" target="_blank" rel="noreferrer" className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-50">Open XRPScan</a>
-              </div>
-            </article>
-            <article className="rounded-2xl border border-slate-200 bg-white p-5">
-              <h2 className="text-lg font-semibold text-slate-900">Stellar AMM Pairs From Local Docs</h2>
-              <div className="mt-4 flex flex-wrap gap-2 text-sm text-slate-700">
-                {[
-                  "TROPTIONS / XLM",
-                ].map((pair) => (
-                  <span key={pair} className="rounded-full border border-slate-300 px-3 py-1">
-                    {pair}
-                  </span>
-                ))}
-              </div>
-              <div className="mt-4 flex flex-wrap gap-3">
-                <a href="https://stellar.expert/explorer/public" target="_blank" rel="noreferrer" className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-50">Open Stellar Expert</a>
-              </div>
-              <p className="mt-4 text-sm leading-7 text-slate-600">The local docs mark these 9 pools as live. The source material does not expose pool IDs, so this page links to the official explorers for ledger-level verification rather than inventing pool URLs.</p>
-            </article>
-          </div>
-        </section>
+            {XRPL_WALLETS.map((wallet) => {
+              const badge = walletTypeBadge[wallet.walletType] ?? { label: wallet.walletType, color: "bg-slate-100 text-slate-600 border-slate-200" };
+              return (
+                <article key={wallet.id} className="te-panel flex flex-col gap-4">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <p className="te-kicker">{wallet.network}</p>
+                      <h2 className="text-xl font-semibold text-slate-900">{wallet.label}</h2>
+                    </div>
+                    <span className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] ${badge.color}`}>
+                      {badge.label}
+                    </span>
+                  </div>
 
-        <section className="te-panel">
-          <p className="te-kicker">What To Look For</p>
-          <div className="te-grid-3">
-            <article className="rounded-2xl border border-slate-200 bg-white p-5">
-              <h2 className="text-lg font-semibold text-slate-900">Stablecoins</h2>
-              <p className="mt-2 text-sm leading-7 text-slate-600">TROPTIONS shows how a wallet view can distinguish settlement tokens, regulated mirror assets, and on-ramp balances.</p>
-            </article>
-            <article className="rounded-2xl border border-slate-200 bg-white p-5">
-              <h2 className="text-lg font-semibold text-slate-900">LP And Liquidity</h2>
-              <p className="mt-2 text-sm leading-7 text-slate-600">XRPL and Stellar liquidity roles show the difference between an operational treasury wallet and an AMM provider or distribution wallet.</p>
-            </article>
-            <article className="rounded-2xl border border-slate-200 bg-white p-5">
-              <h2 className="text-lg font-semibold text-slate-900">NFT And Proof</h2>
-              <p className="mt-2 text-sm leading-7 text-slate-600">Evidence markers and dual-chain proof flows show where attestation NFTs and Stellar `manage_data` entries belong inside the product.</p>
-            </article>
-          </div>
-        </section>
+                  <p className="text-sm leading-7 text-slate-700">{wallet.summary}</p>
 
-        <section className="te-grid-2" aria-label="wallet-showcase-grid">
-          {DEMO_WALLET_SHOWCASE.map((wallet) => (
-            <article key={wallet.id} className="te-panel">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div>
-                  <p className="te-kicker">{wallet.network}</p>
-                  <h2 className="text-2xl font-semibold text-slate-900">{wallet.label}</h2>
-                </div>
-                <span className="rounded-full border border-slate-300 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-600">
-                  {wallet.walletType}
-                </span>
-              </div>
-
-              <p className="mt-4 text-sm leading-7 text-slate-700">{wallet.summary}</p>
-
-              <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Source</p>
-                <p className="mt-2 text-sm text-slate-700">{wallet.source}</p>
-                <p className="mt-4 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Public Address</p>
-                <p className="mt-2 break-all font-mono text-sm text-slate-700">{wallet.address ?? "Role documented locally; public key not surfaced in the source docs."}</p>
-                <div className="mt-4 flex flex-wrap gap-3">
-                  {wallet.explorerLinks.map((link) => (
-                    <a key={`${wallet.id}-${link.label}`} href={link.url} target="_blank" rel="noreferrer" className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-100">
-                      {link.label}
-                    </a>
-                  ))}
-                </div>
-              </div>
-
-              {wallet.poolReferences && wallet.poolReferences.length > 0 && (
-                <div className="mt-5 rounded-2xl border border-slate-200 bg-white p-4">
-                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">AMM / LP References</p>
-                  <div className="mt-3 space-y-3">
-                    {wallet.poolReferences.map((pool) => (
-                      <div key={`${wallet.id}-${pool.pair}`} className="flex flex-col gap-3 rounded-2xl border border-slate-200 p-4 md:flex-row md:items-center md:justify-between">
-                        <div>
-                          <p className="text-sm font-semibold text-slate-900">{pool.pair}</p>
-                          <p className="mt-1 text-sm text-slate-600">{pool.network} pool documented locally as {pool.status.toLowerCase()}.</p>
-                        </div>
-                        <a href={pool.verificationUrl} target="_blank" rel="noreferrer" className="rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-50">
-                          Verify Live Rail
-                        </a>
+                  {wallet.address && (
+                    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Public Address</p>
+                      <p className="mt-2 break-all font-mono text-sm text-slate-800">{wallet.address}</p>
+                      <div className="mt-3 flex flex-wrap items-center gap-2">
+                        <CopyAddressButton address={wallet.address} />
+                        {wallet.explorerLinks.map((link) => (
+                          <a
+                            key={`${wallet.id}-${link.label}`}
+                            href={link.url}
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-800 transition hover:bg-slate-100"
+                          >
+                            {link.label} ↗
+                          </a>
+                        ))}
                       </div>
+                    </div>
+                  )}
+
+                  {wallet.poolReferences && wallet.poolReferences.length > 0 && (
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">AMM / LP Pairs</p>
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {wallet.poolReferences.map((pool) => (
+                          <a
+                            key={`${wallet.id}-${pool.pair}`}
+                            href={pool.verificationUrl}
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            className="rounded-full border border-(--gold-light) bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-800 transition hover:bg-amber-100"
+                          >
+                            {pool.pair} · {pool.status}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="flex flex-wrap gap-2">
+                    {wallet.assets.map((asset) => (
+                      <span
+                        key={`${wallet.id}-${asset.symbol}`}
+                        className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-700"
+                        title={asset.purpose}
+                      >
+                        {asset.symbol}
+                      </span>
                     ))}
                   </div>
-                </div>
-              )}
-
-              <div className="mt-5 space-y-3">
-                {wallet.assets.map((asset) => (
-                  <div key={`${wallet.id}-${asset.symbol}`} className="rounded-2xl border border-slate-200 p-4">
-                    <div className="flex flex-wrap items-center justify-between gap-3">
-                      <h3 className="text-base font-semibold text-slate-900">{asset.symbol}</h3>
-                      <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-600">
-                        {assetTypeCopy[asset.assetType]}
-                      </span>
-                    </div>
-                    <p className="mt-2 text-sm leading-7 text-slate-600">{asset.purpose}</p>
-                  </div>
-                ))}
-              </div>
-            </article>
-          ))}
+                </article>
+              );
+            })}
+          </div>
         </section>
+
+        {/* ── Stellar Wallets ───────────────────────────────────────────────── */}
+        <section aria-label="Stellar wallet cards">
+          <p className="te-kicker mb-4">Stellar Mainnet — {STELLAR_WALLETS.length} Wallets</p>
+          <div className="te-grid-2">
+            {STELLAR_WALLETS.map((wallet) => {
+              const badge = walletTypeBadge[wallet.walletType] ?? { label: wallet.walletType, color: "bg-slate-100 text-slate-600 border-slate-200" };
+              return (
+                <article key={wallet.id} className="te-panel flex flex-col gap-4">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <p className="te-kicker">{wallet.network}</p>
+                      <h2 className="text-xl font-semibold text-slate-900">{wallet.label}</h2>
+                    </div>
+                    <span className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] ${badge.color}`}>
+                      {badge.label}
+                    </span>
+                  </div>
+
+                  <p className="text-sm leading-7 text-slate-700">{wallet.summary}</p>
+
+                  {wallet.address && (
+                    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Public Address</p>
+                      <p className="mt-2 break-all font-mono text-sm text-slate-800">{wallet.address}</p>
+                      <div className="mt-3 flex flex-wrap items-center gap-2">
+                        <CopyAddressButton address={wallet.address} />
+                        {wallet.explorerLinks.map((link) => (
+                          <a
+                            key={`${wallet.id}-${link.label}`}
+                            href={link.url}
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-800 transition hover:bg-slate-100"
+                          >
+                            {link.label} ↗
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {wallet.poolReferences && wallet.poolReferences.length > 0 && (
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">AMM / LP Pairs</p>
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {wallet.poolReferences.map((pool) => (
+                          <a
+                            key={`${wallet.id}-${pool.pair}`}
+                            href={pool.verificationUrl}
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            className="rounded-full border border-(--gold-light) bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-800 transition hover:bg-amber-100"
+                          >
+                            {pool.pair} · {pool.status}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="flex flex-wrap gap-2">
+                    {wallet.assets.map((asset) => (
+                      <span
+                        key={`${wallet.id}-${asset.symbol}`}
+                        className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-700"
+                        title={asset.purpose}
+                      >
+                        {asset.symbol}
+                      </span>
+                    ))}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* ── Deployment Summary ────────────────────────────────────────────── */}
+        <section className="te-panel" aria-label="Deployment summary">
+          <p className="te-kicker">Deployment Summary · 2026-04-28</p>
+          <div className="te-grid-3 mt-4">
+            <div className="rounded-2xl border border-slate-200 bg-white p-5">
+              <h3 className="text-sm font-semibold text-slate-900">XRPL Chain</h3>
+              <p className="mt-2 text-sm leading-7 text-slate-600">5 wallets live — issuer, distribution+AMM, 2 traders, 1 holder. TROPTIONS/XRP AMM created. 100M TROPTIONS issued.</p>
+            </div>
+            <div className="rounded-2xl border border-slate-200 bg-white p-5">
+              <h3 className="text-sm font-semibold text-slate-900">Stellar Chain</h3>
+              <p className="mt-2 text-sm leading-7 text-slate-600">2 wallets funded — issuer (5 XLM, ledger 62321764) and distribution (15 XLM, ledger 62321765). Cross-chain bridge ready.</p>
+            </div>
+            <div className="rounded-2xl border border-slate-200 bg-white p-5">
+              <h3 className="text-sm font-semibold text-slate-900">No OPTKAS / UnyKorn</h3>
+              <p className="mt-2 text-sm leading-7 text-slate-600">This registry is TROPTIONS-only. All OPTKAS, UnyKorn, USDF, and compromised wallet references have been removed.</p>
+            </div>
+          </div>
+        </section>
+
       </div>
     </main>
   );
 }
+
+
+

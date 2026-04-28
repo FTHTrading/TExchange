@@ -10,8 +10,6 @@ const TROPTIONS_SITE_LINKS = [
   { href: "/troptions/xrpl-platform", label: "Platform" },
   { href: "/troptions/xrpl-platform/links", label: "Resources" },
   { href: "/troptions/wallets", label: "Wallets" },
-  { href: "/troptions/treasury", label: "Treasury" },
-  { href: "/troptions/treasury/funding-plan", label: "Funding Plan" },
   { href: "/troptions/legacy", label: "Legacy" },
   { href: "/troptions/then-now", label: "Then vs Now" },
   { href: "/troptions/ecosystem", label: "Ecosystem" },

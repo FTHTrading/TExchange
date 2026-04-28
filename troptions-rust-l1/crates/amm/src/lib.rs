@@ -5,7 +5,9 @@
 //! Guaranteed yield, guaranteed returns, and guaranteed APY claims are explicitly blocked.
 
 use chrono::Utc;
-use tsn_state::{AuditEvent, AuditEventType, GovernanceDecision, LiquidityPool, PoolPermissionMode};
+use tsn_state::{
+    AuditEvent, AuditEventType, GovernanceDecision, LiquidityPool, PoolPermissionMode,
+};
 use uuid::Uuid;
 
 pub struct AmmSimulationResult {
@@ -17,7 +19,8 @@ pub struct AmmSimulationResult {
     pub risk_disclosure_text: String,
 }
 
-const RISK_DISCLOSURE: &str = "Liquidity provision carries risk of impermanent loss and loss of principal. \
+const RISK_DISCLOSURE: &str =
+    "Liquidity provision carries risk of impermanent loss and loss of principal. \
     TSN does not guarantee any yield, return, or APY on liquidity provided. \
     All AMM operations are in simulation mode. No real assets are at risk.";
 
@@ -32,7 +35,10 @@ fn make_amm_decision(task_id: &str, audit_id: &str, operation: &str) -> Governan
             "control_hub_approval".to_string(),
             "risk_disclosure_acknowledged".to_string(),
         ],
-        compliance_checks: vec!["platform_simulation_gate".to_string(), "lp_risk_disclosure".to_string()],
+        compliance_checks: vec![
+            "platform_simulation_gate".to_string(),
+            "lp_risk_disclosure".to_string(),
+        ],
         audit_hint: format!("AMM {} simulation", operation),
         decided_at: Utc::now(),
     }
@@ -120,9 +126,11 @@ pub fn swap_quote_simulation(
 
 pub fn lp_risk_disclosure_check(acknowledged: bool) -> Result<(), String> {
     if !acknowledged {
-        Err("Risk disclosure must be acknowledged before LP operations. \
+        Err(
+            "Risk disclosure must be acknowledged before LP operations. \
             No yield, return, or APY is guaranteed."
-            .to_string())
+                .to_string(),
+        )
     } else {
         Ok(())
     }
@@ -136,7 +144,9 @@ mod tests {
     fn amm_liquidity_risk_disclosure_required() {
         let result = lp_risk_disclosure_check(false);
         assert!(result.is_err());
-        assert!(result.unwrap_err().contains("Risk disclosure must be acknowledged"));
+        assert!(result
+            .unwrap_err()
+            .contains("Risk disclosure must be acknowledged"));
     }
 
     #[test]

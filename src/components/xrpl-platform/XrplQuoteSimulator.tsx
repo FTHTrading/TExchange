@@ -1,7 +1,7 @@
 import { simulateXrplTrade } from "@/lib/troptions/xrplTradeSimulationEngine";
 
 export function XrplQuoteSimulator() {
-  const quote = simulateXrplTrade({ fromAsset: "XRP", toAsset: "OPTKAS", amount: 1000, venue: "pathfinding" });
+  const quote = simulateXrplTrade({ fromAsset: "XRP", toAsset: "TROPTIONS", amount: 1000, venue: "pathfinding" });
 
   return (
     <section className="xp-card">

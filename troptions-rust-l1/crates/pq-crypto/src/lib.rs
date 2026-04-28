@@ -7,10 +7,10 @@
 //! It does NOT implement production post-quantum cryptographic operations.
 //! Production PQ crypto requires an audited library (e.g., pqcrypto, oqs-rust).
 
+use chrono::Utc;
 pub use tsn_state::{
     QuantumKemScheme, QuantumKeyProfile, QuantumMigrationStatus, QuantumSignatureScheme,
 };
-use chrono::Utc;
 
 pub fn classic_only_profile(address: &str, classic_public_key: &str) -> QuantumKeyProfile {
     QuantumKeyProfile {
@@ -33,7 +33,8 @@ pub fn hybrid_profile(address: &str, classic_public_key: &str) -> QuantumKeyProf
         pq_signature_scheme: Some(QuantumSignatureScheme::HybridEd25519MlDsa),
         pq_kem_scheme: Some(QuantumKemScheme::HybridX25519MlKem),
         pq_public_key_placeholder: Some("PLACEHOLDER_ML_DSA_KEY_NOT_FOR_PRODUCTION".to_string()),
-        nist_fips_reference: "NIST FIPS 204 (ML-DSA) + FIPS 203 (ML-KEM) hybrid transition".to_string(),
+        nist_fips_reference: "NIST FIPS 204 (ML-DSA) + FIPS 203 (ML-KEM) hybrid transition"
+            .to_string(),
         migrated_at: Some(Utc::now()),
     }
 }

@@ -1,96 +1,70 @@
 import type { WalletForensicsWalletRecord } from "@/content/troptions/walletForensicsRegistry";
 
-// ── Stellar wallets from OPTKAS_WALLET_BACKUP_2026-02-07_093153 ───────────────
-// Source: mainnet-secrets.json, generatedAt 2026-02-07T12:58:29.830Z
-// Addresses only — NO seeds in this registry.
+// ── TROPTIONS Stellar Wallets ─────────────────────────────────────────────────
+// These are the live TROPTIONS wallets funded on Stellar mainnet 2026-04-28.
+// TROPTIONS-specific only. No OPTKAS or UnyKorn entries.
+//
+// Both wallets confirmed funded and recorded in data/treasury-funding-log.json.
 
 export const STELLAR_WALLET_INVENTORY_REGISTRY: readonly WalletForensicsWalletRecord[] = [
   {
-    walletId: "stellar-optkas-issuer",
-    address: "GBJIMHMBGTPN5RS42OGBUY5NC2ATZLPT3B3EWV32SM2GQLS46TRJWG4I",
+    walletId: "stellar-troptions-issuer",
+    address: "GB4FHGFUTLLMS3SC5RWRK6RYBGDIUQ5NR7IGN5TWAA3QVHULJ34JGEG4",
     chain: "stellar",
-    label: "OPTKAS Issuer (Stellar)",
-    source: "OPTKAS_WALLET_BACKUP_2026-02-07_093153 — mainnet-secrets.json",
+    label: "TROPTIONS Stellar Issuer",
+    source: "TROPTIONS mainnet deployment — 2026-04-28. Funded via treasury-funding-log.json (ledger 62321764, 5 XLM)",
     role: "issuer",
-    firstSeen: "2026-02-07T12:58:29Z",
-    lastSeen: "2026-02-07T12:58:29Z",
-    currentBalance: "unknown",
-    masterKeyStatus: "unknown",
-    signingKeySeen: false,
-    riskStatus: "unknown",
+    firstSeen: "2026-04-28T00:00:00Z",
+    lastSeen: "2026-04-28T00:00:00Z",
+    currentBalance: "5 XLM",
+    masterKeyStatus: "enabled",
+    signingKeySeen: true,
+    riskStatus: "low",
     notes: [
-      "Stellar issuer account generated 2026-02-07 for OPTKAS deployment.",
-      "Issues Troptions-backed tokens on the Stellar network.",
-      "Seed stored offline in OPTKAS wallet backup — never commit or share.",
-      "Audit for any unauthorised SetOptions (signer add/remove) or ChangeTrust activity.",
+      "TROPTIONS Stellar issuer — funded 5 XLM on 2026-04-28 (ledger 62321764).",
+      "This account is the master authority for issuing TROPTIONS on Stellar mainnet.",
+      "Keep signer threshold high. Enable AUTH_REQUIRED for trustline control.",
+      "Do NOT fund this account with large amounts — it is a cold issuer.",
     ],
     explorerLinks: [
       {
         label: "Stellar Expert",
-        url: "https://stellar.expert/explorer/public/account/GBJIMHMBGTPN5RS42OGBUY5NC2ATZLPT3B3EWV32SM2GQLS46TRJWG4I",
+        url: "https://stellar.expert/explorer/public/account/GB4FHGFUTLLMS3SC5RWRK6RYBGDIUQ5NR7IGN5TWAA3QVHULJ34JGEG4",
       },
       {
         label: "Stellarchain",
-        url: "https://stellarchain.io/accounts/GBJIMHMBGTPN5RS42OGBUY5NC2ATZLPT3B3EWV32SM2GQLS46TRJWG4I",
+        url: "https://stellarchain.io/accounts/GB4FHGFUTLLMS3SC5RWRK6RYBGDIUQ5NR7IGN5TWAA3QVHULJ34JGEG4",
       },
     ],
   },
 
   {
-    walletId: "stellar-optkas-distribution",
-    address: "GAKCD7OKDM4HLZDBEE7KXTRFAYIE755UHL3JFQEOOHDPIMM5GEFY3RPF",
+    walletId: "stellar-troptions-distribution",
+    address: "GBH4YY6EKSIM3LEHUQHEXFDZKMLON64HKMCB2K7CCOXGNCIVGH5GGVWC",
     chain: "stellar",
-    label: "OPTKAS Distribution (Stellar)",
-    source: "OPTKAS_WALLET_BACKUP_2026-02-07_093153 — mainnet-secrets.json",
+    label: "TROPTIONS Stellar Distribution",
+    source: "TROPTIONS mainnet deployment — 2026-04-28. Funded via treasury-funding-log.json (ledger 62321765, 15 XLM)",
     role: "treasury",
-    firstSeen: "2026-02-07T12:58:29Z",
-    lastSeen: "2026-02-07T12:58:29Z",
-    currentBalance: "unknown",
-    masterKeyStatus: "unknown",
-    signingKeySeen: false,
-    riskStatus: "unknown",
+    firstSeen: "2026-04-28T00:00:00Z",
+    lastSeen: "2026-04-28T00:00:00Z",
+    currentBalance: "15 XLM",
+    masterKeyStatus: "enabled",
+    signingKeySeen: true,
+    riskStatus: "low",
     notes: [
-      "Stellar distribution wallet — holds tokens for controlled release.",
-      "Monitor for large unexpected outflows or unauthorised signers.",
+      "TROPTIONS Stellar distribution wallet — funded 15 XLM on 2026-04-28 (ledger 62321765).",
+      "Holds issued TROPTIONS for controlled release via the Stellar AMM and direct trustlines.",
+      "More XLM funded here (15 vs 5) to cover trustline reserves and AMM pool seeding.",
+      "Monitor for large outflows or unauthorised signer additions.",
     ],
     explorerLinks: [
       {
         label: "Stellar Expert",
-        url: "https://stellar.expert/explorer/public/account/GAKCD7OKDM4HLZDBEE7KXTRFAYIE755UHL3JFQEOOHDPIMM5GEFY3RPF",
+        url: "https://stellar.expert/explorer/public/account/GBH4YY6EKSIM3LEHUQHEXFDZKMLON64HKMCB2K7CCOXGNCIVGH5GGVWC",
       },
       {
         label: "Stellarchain",
-        url: "https://stellarchain.io/accounts/GAKCD7OKDM4HLZDBEE7KXTRFAYIE755UHL3JFQEOOHDPIMM5GEFY3RPF",
-      },
-    ],
-  },
-
-  {
-    walletId: "stellar-optkas-anchor",
-    address: "GC6O6Q7FG5FZGHE5D5BHGA6ZTLRAU7UWFJKKWNOJ36G3PKVVKVYLQGA6",
-    chain: "stellar",
-    label: "OPTKAS Anchor (Stellar)",
-    source: "OPTKAS_WALLET_BACKUP_2026-02-07_093153 — mainnet-secrets.json",
-    role: "escrow",
-    firstSeen: "2026-02-07T12:58:29Z",
-    lastSeen: "2026-02-07T12:58:29Z",
-    currentBalance: "unknown",
-    masterKeyStatus: "unknown",
-    signingKeySeen: false,
-    riskStatus: "unknown",
-    notes: [
-      "Stellar anchor wallet — bridges real-world value to on-chain tokens.",
-      "Critical account: compromise here could allow fraudulent token issuance.",
-      "Verify signer thresholds and anchor configuration regularly.",
-    ],
-    explorerLinks: [
-      {
-        label: "Stellar Expert",
-        url: "https://stellar.expert/explorer/public/account/GC6O6Q7FG5FZGHE5D5BHGA6ZTLRAU7UWFJKKWNOJ36G3PKVVKVYLQGA6",
-      },
-      {
-        label: "Stellarchain",
-        url: "https://stellarchain.io/accounts/GC6O6Q7FG5FZGHE5D5BHGA6ZTLRAU7UWFJKKWNOJ36G3PKVVKVYLQGA6",
+        url: "https://stellarchain.io/accounts/GBH4YY6EKSIM3LEHUQHEXFDZKMLON64HKMCB2K7CCOXGNCIVGH5GGVWC",
       },
     ],
   },

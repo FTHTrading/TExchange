@@ -9,12 +9,11 @@ use serde::{Deserialize, Serialize};
 
 // Sub-system crates — imported to confirm linkage; not all are called directly.
 // The runtime's job is orchestration/health, not business logic.
-use tsn_amm as _;
 use tsn_assets as _;
+use tsn_amm as _;
 use tsn_compliance as _;
 use tsn_governance as _;
 use tsn_nft as _;
-use tsn_nil as _;
 use tsn_rwa as _;
 use tsn_stablecoin as _;
 use tsn_trustlines as _;
@@ -76,7 +75,8 @@ const SUBSYSTEMS: &[(&str, &str)] = &[
     ("tsn_amm",         "AMM/DEX: constant-product pool simulation with risk disclosure"),
     ("tsn_governance",  "Governance: proposal submission and BFT vote tallying"),
     ("tsn_bridge_xrpl", "XRPL bridge: cross-rail settlement adapter (simulation)"),
-    ("tsn_bridge_stellar", "Stellar bridge: cross-rail settlement adapter (simulation)"),    ("tsn_nil",          "NIL protocol: athlete identity hashing, 33-signal valuation, deal receipt, compliance, proof vault"),];
+    ("tsn_bridge_stellar", "Stellar bridge: cross-rail settlement adapter (simulation)"),
+];
 
 // ─── Runtime entry point ─────────────────────────────────────────────────
 
@@ -154,11 +154,7 @@ mod tests {
     fn runtime_no_live_execution() {
         let status = start_devnet_runtime();
         for sub in &status.subsystems {
-            assert!(
-                !sub.live_execution_enabled,
-                "{} has live_execution_enabled",
-                sub.name
-            );
+            assert!(!sub.live_execution_enabled, "{} has live_execution_enabled", sub.name);
             assert!(sub.simulation_only, "{} is not simulation_only", sub.name);
         }
     }

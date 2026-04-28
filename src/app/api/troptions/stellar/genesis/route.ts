@@ -20,8 +20,8 @@
  */
 import { NextResponse } from "next/server";
 import { guardPortalWrite, guardPortalRead } from "@/lib/troptions/portalApiGuards";
-import { verifyGenesisAdminKey } from "@/lib/troptions/xrplGenesisEngine";
 import {
+  verifyGenesisAdminKey,
   configureStellarIssuer,
   setDistributorTrustline,
   setLpTrustline,

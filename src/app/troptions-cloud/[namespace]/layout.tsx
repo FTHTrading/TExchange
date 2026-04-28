@@ -25,9 +25,6 @@ const NAV_ITEMS = [
   { label: "Team", href: "/team" },
   { label: "Audit Log", href: "/audit" },
   { label: "Settings", href: "/settings" },
-  { label: "AI Infrastructure", href: "/ai-infrastructure" },
-  { label: "x402", href: "/x402" },
-  { label: "Usage", href: "/usage" },
 ];
 
 export async function generateStaticParams() {
