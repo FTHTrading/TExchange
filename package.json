@@ -39,6 +39,7 @@
     "xrpl": "^4.6.0"
   },
   "devDependencies": {
+    "@netlify/plugin-nextjs": "^5.15.9",
     "@opennextjs/cloudflare": "^1.19.4",
     "@tailwindcss/postcss": "^4",
     "@types/better-sqlite3": "^7.6.13",
