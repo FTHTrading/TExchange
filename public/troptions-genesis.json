@@ -7,13 +7,11 @@
   "created_at": "2026-04-27T00:00:00Z",
   "simulation_only": true,
   "legal_notice": "This genesis manifest is informational infrastructure only. Nothing herein constitutes a financial offer, investment solicitation, securities issuance, or regulatory approval. All capabilities are subject to legal review, licensing, KYC/KYB, AML, custody approval, and board authorization before any live execution may occur.",
-
   "operator": {
     "name": "Bryan Stone",
     "organization": "FTH Trading / Troptions",
     "role": "Founder and Genesis Operator"
   },
-
   "brands": [
     {
       "id": "troptions-org",
@@ -25,10 +23,26 @@
       "xrpl_asset_symbol": "TROPTIONS",
       "stellar_asset_symbol": "TROPTIONS",
       "chain_registrations": [
-        { "chain": "xrpl", "role": "primary-issuer", "readiness": 75 },
-        { "chain": "stellar", "role": "anchor-issuer", "readiness": 40 },
-        { "chain": "polygon", "role": "observer", "readiness": 50 },
-        { "chain": "tsn_internal", "role": "genesis-entity", "readiness": 100 }
+        {
+          "chain": "xrpl",
+          "role": "primary-issuer",
+          "readiness": 75
+        },
+        {
+          "chain": "stellar",
+          "role": "anchor-issuer",
+          "readiness": 40
+        },
+        {
+          "chain": "polygon",
+          "role": "observer",
+          "readiness": 50
+        },
+        {
+          "chain": "tsn_internal",
+          "role": "genesis-entity",
+          "readiness": 100
+        }
       ]
     },
     {
@@ -41,9 +55,21 @@
       "xrpl_asset_symbol": "TXC",
       "stellar_asset_symbol": "TXC",
       "chain_registrations": [
-        { "chain": "xrpl", "role": "exchange-wallet", "readiness": 30 },
-        { "chain": "stellar", "role": "exchange-anchor", "readiness": 20 },
-        { "chain": "tsn_internal", "role": "exchange-entity", "readiness": 80 }
+        {
+          "chain": "xrpl",
+          "role": "exchange-wallet",
+          "readiness": 30
+        },
+        {
+          "chain": "stellar",
+          "role": "exchange-anchor",
+          "readiness": 20
+        },
+        {
+          "chain": "tsn_internal",
+          "role": "exchange-entity",
+          "readiness": 80
+        }
       ]
     },
     {
@@ -56,9 +82,22 @@
       "xrpl_asset_symbol": "TUT",
       "stellar_asset_symbol": "TUT",
       "chain_registrations": [
-        { "chain": "xrpl", "role": "mpt-issuer", "readiness": 25, "standard": "XLS-33" },
-        { "chain": "stellar", "role": "asset-issuer", "readiness": 20 },
-        { "chain": "tsn_internal", "role": "governance-token", "readiness": 90 }
+        {
+          "chain": "xrpl",
+          "role": "mpt-issuer",
+          "readiness": 25,
+          "standard": "XLS-33"
+        },
+        {
+          "chain": "stellar",
+          "role": "asset-issuer",
+          "readiness": 20
+        },
+        {
+          "chain": "tsn_internal",
+          "role": "governance-token",
+          "readiness": 90
+        }
       ]
     },
     {
@@ -71,8 +110,17 @@
       "xrpl_asset_symbol": "TUTCERT",
       "stellar_asset_symbol": null,
       "chain_registrations": [
-        { "chain": "xrpl", "role": "credential-nft-issuer", "readiness": 20, "standard": "XLS-20" },
-        { "chain": "tsn_internal", "role": "education-entity", "readiness": 85 }
+        {
+          "chain": "xrpl",
+          "role": "credential-nft-issuer",
+          "readiness": 20,
+          "standard": "XLS-20"
+        },
+        {
+          "chain": "tsn_internal",
+          "role": "education-entity",
+          "readiness": 85
+        }
       ]
     },
     {
@@ -85,8 +133,17 @@
       "xrpl_asset_symbol": "TTVN",
       "stellar_asset_symbol": null,
       "chain_registrations": [
-        { "chain": "xrpl", "role": "media-nft-issuer", "readiness": 15, "standard": "XLS-20" },
-        { "chain": "tsn_internal", "role": "media-entity", "readiness": 60 }
+        {
+          "chain": "xrpl",
+          "role": "media-nft-issuer",
+          "readiness": 15,
+          "standard": "XLS-20"
+        },
+        {
+          "chain": "tsn_internal",
+          "role": "media-entity",
+          "readiness": 60
+        }
       ]
     },
     {
@@ -100,9 +157,21 @@
       "stellar_asset_symbol": null,
       "rwa_category": "real_estate",
       "chain_registrations": [
-        { "chain": "xrpl", "role": "rwa-receipt-issuer", "readiness": 30 },
-        { "chain": "polygon", "role": "rwa-registry", "readiness": 50 },
-        { "chain": "tsn_internal", "role": "rwa-entity", "readiness": 80 }
+        {
+          "chain": "xrpl",
+          "role": "rwa-receipt-issuer",
+          "readiness": 30
+        },
+        {
+          "chain": "polygon",
+          "role": "rwa-registry",
+          "readiness": 50
+        },
+        {
+          "chain": "tsn_internal",
+          "role": "rwa-entity",
+          "readiness": 80
+        }
       ]
     },
     {
@@ -116,8 +185,16 @@
       "stellar_asset_symbol": null,
       "rwa_category": "energy",
       "chain_registrations": [
-        { "chain": "xrpl", "role": "energy-rwa-issuer", "readiness": 20 },
-        { "chain": "tsn_internal", "role": "energy-entity", "readiness": 70 }
+        {
+          "chain": "xrpl",
+          "role": "energy-rwa-issuer",
+          "readiness": 20
+        },
+        {
+          "chain": "tsn_internal",
+          "role": "energy-entity",
+          "readiness": 70
+        }
       ]
     },
     {
@@ -130,11 +207,14 @@
       "xrpl_asset_symbol": null,
       "stellar_asset_symbol": null,
       "chain_registrations": [
-        { "chain": "tsn_internal", "role": "service-entity", "readiness": 40 }
+        {
+          "chain": "tsn_internal",
+          "role": "service-entity",
+          "readiness": 40
+        }
       ]
     }
   ],
-
   "xrpl": {
     "issuer_address": "rPF2M1QjdVh1hkNgmMMTkT9qMU7tA7Wds3",
     "treasury_address": "rncYwc1ss8AdV2vKjaYwMAEj7RNRfKRV4r",
@@ -156,18 +236,53 @@
       "forensics_registry_status": "EMPTY — all previously minted NFTs were burned"
     },
     "wallet_roles": [
-      { "role": "troptions-org-issuer",        "address": "rPF2M1QjdVh1hkNgmMMTkT9qMU7tA7Wds3", "status": "active_read_only" },
-      { "role": "optkas-genesis-treasury",     "address": "rncYwc1ss8AdV2vKjaYwMAEj7RNRfKRV4r",  "status": "active_trustlines_established" },
-      { "role": "troptions-xchange-wallet",    "address": "PENDING_FRESH_GENERATION",             "status": "to_be_generated" },
-      { "role": "unity-token-mpt-issuer",      "address": "PENDING_FRESH_GENERATION",             "status": "to_be_generated_requires_legal_clearance" },
-      { "role": "university-nft-issuer",       "address": "PENDING_FRESH_GENERATION",             "status": "to_be_generated" },
-      { "role": "tv-network-nft-issuer",       "address": "PENDING_FRESH_GENERATION",             "status": "to_be_generated" },
-      { "role": "real-estate-rwa-issuer",      "address": "PENDING_FRESH_GENERATION",             "status": "to_be_generated" },
-      { "role": "solar-rwa-issuer",            "address": "PENDING_FRESH_GENERATION",             "status": "to_be_generated" },
-      { "role": "hotrcw-service-wallet",       "address": "PENDING_MODEL_REVIEW",                 "status": "pending_model_confirmation" }
+      {
+        "role": "troptions-org-issuer",
+        "address": "rPF2M1QjdVh1hkNgmMMTkT9qMU7tA7Wds3",
+        "status": "active_read_only"
+      },
+      {
+        "role": "optkas-genesis-treasury",
+        "address": "rncYwc1ss8AdV2vKjaYwMAEj7RNRfKRV4r",
+        "status": "active_trustlines_established"
+      },
+      {
+        "role": "troptions-xchange-wallet",
+        "address": "PENDING_FRESH_GENERATION",
+        "status": "to_be_generated"
+      },
+      {
+        "role": "unity-token-mpt-issuer",
+        "address": "PENDING_FRESH_GENERATION",
+        "status": "to_be_generated_requires_legal_clearance"
+      },
+      {
+        "role": "university-nft-issuer",
+        "address": "PENDING_FRESH_GENERATION",
+        "status": "to_be_generated"
+      },
+      {
+        "role": "tv-network-nft-issuer",
+        "address": "PENDING_FRESH_GENERATION",
+        "status": "to_be_generated"
+      },
+      {
+        "role": "real-estate-rwa-issuer",
+        "address": "PENDING_FRESH_GENERATION",
+        "status": "to_be_generated"
+      },
+      {
+        "role": "solar-rwa-issuer",
+        "address": "PENDING_FRESH_GENERATION",
+        "status": "to_be_generated"
+      },
+      {
+        "role": "hotrcw-service-wallet",
+        "address": "PENDING_MODEL_REVIEW",
+        "status": "pending_model_confirmation"
+      }
     ]
   },
-
   "stellar": {
     "activation_status": "accounts_generated_not_yet_funded_or_activated",
     "last_activity": "2026-02-07",
@@ -205,13 +320,28 @@
       "7. Legal + compliance review before mainnet issuance"
     ],
     "assets_to_issue": [
-      { "code": "TROPTIONS", "issuer": "GBJIMHMBGTPN5RS42OGBUY5NC2ATZLPT3B3EWV32SM2GQLS46TRJWG4I", "status": "spec_only" },
-      { "code": "TUT",       "issuer": "GBJIMHMBGTPN5RS42OGBUY5NC2ATZLPT3B3EWV32SM2GQLS46TRJWG4I", "status": "spec_only_securities_counsel_required" },
-      { "code": "TSU",       "issuer": "GBJIMHMBGTPN5RS42OGBUY5NC2ATZLPT3B3EWV32SM2GQLS46TRJWG4I", "status": "spec_only" },
-      { "code": "TXC",       "issuer": "GBJIMHMBGTPN5RS42OGBUY5NC2ATZLPT3B3EWV32SM2GQLS46TRJWG4I", "status": "spec_only_exchange_licensing_required" }
+      {
+        "code": "TROPTIONS",
+        "issuer": "GBJIMHMBGTPN5RS42OGBUY5NC2ATZLPT3B3EWV32SM2GQLS46TRJWG4I",
+        "status": "spec_only"
+      },
+      {
+        "code": "TUT",
+        "issuer": "GBJIMHMBGTPN5RS42OGBUY5NC2ATZLPT3B3EWV32SM2GQLS46TRJWG4I",
+        "status": "spec_only_securities_counsel_required"
+      },
+      {
+        "code": "TSU",
+        "issuer": "GBJIMHMBGTPN5RS42OGBUY5NC2ATZLPT3B3EWV32SM2GQLS46TRJWG4I",
+        "status": "spec_only"
+      },
+      {
+        "code": "TXC",
+        "issuer": "GBJIMHMBGTPN5RS42OGBUY5NC2ATZLPT3B3EWV32SM2GQLS46TRJWG4I",
+        "status": "spec_only_exchange_licensing_required"
+      }
     ]
   },
-
   "polygon": {
     "network": "polygon-mainnet",
     "quantum_vault_factory": "0x9BE7E2A62D8fE9b76E50cBDB9C4e0B80a8b7Ff3A",
@@ -220,7 +350,6 @@
     "evl_sale_contract": "0x496b0c4D2Ae3F7aa3B8Bc3fD9b2d9aFd72BC8e7A",
     "simulation_only": true
   },
-
   "apostle_chain": {
     "chain_id": 7332,
     "rpc_port": 7332,
@@ -228,7 +357,6 @@
     "operator_label": "kevan-burns-chairman",
     "simulation_only": true
   },
-
   "issued_assets": [
     {
       "symbol": "TROPTIONS",
@@ -314,7 +442,6 @@
       "live_execution_allowed": false
     }
   ],
-
   "mpt_definitions": [
     {
       "symbol": "TUT",
@@ -324,7 +451,10 @@
       "max_amount": "1000000000",
       "asset_scale": 6,
       "transfer_fee_basis_pts": 0,
-      "flags": ["lsfMPTCanTransfer", "lsfMPTCanTrade"],
+      "flags": [
+        "lsfMPTCanTransfer",
+        "lsfMPTCanTrade"
+      ],
       "issuer_wallet_role": "unity-token-mpt-issuer",
       "issuer_address": "PENDING_FRESH_GENERATION",
       "status": "spec_only_xls33_pending_legal_clearance_and_fresh_wallet",
@@ -337,7 +467,6 @@
       "simulation_only": true
     }
   ],
-
   "nft_collections": [
     {
       "collection_id": "nft-troptions-org-credential",
@@ -445,7 +574,6 @@
       "simulation_only": true
     }
   ],
-
   "governance": {
     "model": "HotStuff BFT simulation layer",
     "voting_mechanism": "GENIUS Act compliant proposal/vote/execute pipeline",
@@ -453,7 +581,6 @@
     "upgrade_authority": "Bryan Stone / FTH Trading board",
     "compliance_gate": "Legal review + board authorization required for all live state transitions"
   },
-
   "trustlines": [
     {
       "id": "tl-1",
@@ -483,10 +610,8 @@
       "chain": "xrpl"
     }
   ],
-
-  "genesis_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "genesis_hash": "5c0a395f3a83008c8a644325145ac44679747fdd880c9c260ac7781613f4cd29",
   "_note_genesis_hash": "Recompute with SHA-256(JSON.stringify(this_doc_with_genesis_hash_zeroed)) before IPFS pinning",
-
-  "ipfs_cid": null,
+  "ipfs_cid": "QmeDKjm5ovtHycSQzfhC35iNU1niEFTKBq2Yxc49kZsZ3H",
   "_note_ipfs_cid": "Set after pinning to IPFS via /api/ipfs/pin or Pinata/web3.storage"
 }

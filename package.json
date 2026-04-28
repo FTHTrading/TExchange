@@ -24,7 +24,9 @@
     "recovery:timing": "node scripts/capture-recovery-timing.mjs",
     "smoke:prod": "node scripts/run-production-smoke-checks.mjs",
     "backups:rotate": "node scripts/rotate-backups.mjs",
-    "incident:drill": "node scripts/run-incident-drill.mjs"
+    "incident:drill": "node scripts/run-incident-drill.mjs",
+    "genesis:lock": "node scripts/phase20-genesis-lock.mjs",
+    "genesis:validate": "node scripts/validate-phase20.mjs"
   },
   "dependencies": {
     "@stellar/stellar-sdk": "^15.0.1",
