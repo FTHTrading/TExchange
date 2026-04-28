@@ -6,15 +6,14 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
 const NAV_LINKS = [
-  { href: "/troptions",                      label: "Home" },
-  { href: "/troptions/transactions",         label: "Transactions" },
-  { href: "/troptions/xrpl-platform",        label: "Platform" },
-  { href: "/troptions/wallets",              label: "Wallets" },
-  { href: "/troptions/kyc",                  label: "KYC" },
-  { href: "/troptions/compliance/handbooks", label: "Handbooks" },
-  { href: "/troptions/ecosystem",            label: "Ecosystem" },
-  { href: "/troptions/layer1",               label: "Layer 1" },
-  { href: "/troptions/migration",            label: "Migration" },
+  { href: "/troptions",                        label: "Home"         },
+  { href: "/troptions/wallets",                label: "Wallets"      },
+  { href: "/troptions/transactions",           label: "Transactions" },
+  { href: "/troptions/compliance/handbooks",   label: "Handbooks"    },
+  { href: "/troptions/kyc",                    label: "KYC"          },
+  { href: "/troptions/xrpl-stellar-compliance",label: "Compliance"   },
+  { href: "/troptions/rwa/axl-001",            label: "RWA"          },
+  { href: "/troptions/migration",              label: "Migration"    },
 ] as const;
 
 function isActive(href: string, pathname: string): boolean {
@@ -122,55 +121,55 @@ export function TroptionsSiteNav() {
         />
       )}
 
-      {/* Mobile drawer */}
-      <aside
-        aria-label="Mobile navigation"
-        className={[
-          "fixed top-0 right-0 z-50 h-full w-72 bg-[#071e38] border-l border-[#C9A84C]/20 shadow-2xl",
-          "flex flex-col transition-transform duration-300 ease-out lg:hidden",
-          open ? "translate-x-0" : "translate-x-full",
-        ].join(" ")}
-      >
-        {/* Drawer header */}
-        <div className="flex items-center justify-between border-b border-[#C9A84C]/20 px-5 py-4">
-          <span className="text-[13px] font-bold tracking-[0.2em] text-[#f0cf82]">TROPTIONS</span>
-          <button
-            onClick={() => setOpen(false)}
-            aria-label="Close menu"
-            className="text-slate-400 hover:text-white text-xl leading-none"
-          >
-            ✕
-          </button>
-        </div>
-
-        {/* Drawer links */}
-        <nav className="flex flex-col gap-1 px-3 py-4 grow overflow-y-auto">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={[
-                "rounded-lg px-4 py-3 text-sm font-medium transition-colors",
-                isActive(link.href, pathname)
-                  ? "bg-[#C9A84C]/12 text-white font-semibold"
-                  : "text-slate-300 hover:bg-white/5 hover:text-white",
-              ].join(" ")}
+      {/* Mobile drawer — conditionally mounted so links are never in DOM when closed */}
+      {open && (
+        <aside
+          aria-label="Mobile navigation"
+          className="fixed top-0 right-0 z-50 h-full w-72 bg-[#071e38] border-l border-[#C9A84C]/20 shadow-2xl flex flex-col lg:hidden"
+        >
+          {/* Drawer header */}
+          <div className="flex items-center justify-between border-b border-[#C9A84C]/20 px-5 py-4">
+            <span className="text-[13px] font-bold tracking-[0.2em] text-[#f0cf82]">TROPTIONS</span>
+            <button
+              onClick={() => setOpen(false)}
+              aria-label="Close menu"
+              className="text-slate-400 hover:text-white text-xl leading-none"
             >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
+              ✕
+            </button>
+          </div>
 
-        {/* Drawer CTA */}
-        <div className="border-t border-[#C9A84C]/20 px-4 py-5">
-          <Link
-            href="/portal/troptions/onboarding"
-            className="flex items-center justify-center rounded-xl bg-[#c99a3c] px-4 py-3 text-sm font-bold text-[#111827] hover:bg-[#f0cf82] transition-colors"
-          >
-            Request Access
-          </Link>
-        </div>
-      </aside>
+          {/* Drawer links */}
+          <nav className="flex flex-col gap-1 px-3 py-4 grow overflow-y-auto">
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className={[
+                  "rounded-lg px-4 py-3 text-sm font-medium transition-colors",
+                  isActive(link.href, pathname)
+                    ? "bg-[#C9A84C]/12 text-white font-semibold"
+                    : "text-slate-300 hover:bg-white/5 hover:text-white",
+                ].join(" ")}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Drawer CTA */}
+          <div className="border-t border-[#C9A84C]/20 px-4 py-5">
+            <Link
+              href="/portal/troptions/onboarding"
+              onClick={() => setOpen(false)}
+              className="flex items-center justify-center rounded-xl bg-[#c99a3c] px-4 py-3 text-sm font-bold text-[#111827] hover:bg-[#f0cf82] transition-colors"
+            >
+              Request Access
+            </Link>
+          </div>
+        </aside>
+      )}
     </>
   );
 }
