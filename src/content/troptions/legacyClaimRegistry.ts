@@ -143,6 +143,118 @@ export const LEGACY_CLAIM_REGISTRY: readonly LegacyClaimRecord[] = [
       "Troptions is transitioning from legacy utility narratives into a source-tracked, proof-gated, custody-aware, and compliance-controlled operating system.",
     riskNote: "Capability publication must remain tied to module readiness and gated status.",
   },
+  // ── Site Audit 2026-04-27: Xchange, Unity Token, Troptions.org ───────────
+  {
+    claimId: "LCLM-XCHANGE-EXCHANGE-READY",
+    originalClaim: "Troptions Xchange is a live exchange with liquidity and trading pairs.",
+    sourceId: "SRC-TROPTIONSXCHANGE-IO",
+    category: "exchange / liquidity",
+    legacyMeaning: "Platform-readiness and trading-availability marketing.",
+    institutionalMeaning: "Exchange operations require ATS or exchange licensing, counterparty agreements, and compliance sign-off.",
+    status: "blocked",
+    evidenceRequired: [
+      "ATS or exchange license",
+      "Liquidity-provider agreement",
+      "Trading-pair compliance review",
+      "Jurisdiction-by-jurisdiction analysis",
+    ],
+    verificationStatus: "blocked",
+    approvedRewrite:
+      "Troptions Xchange is a planned digital-asset exchange sub-brand currently in the licensing-analysis phase. No live exchange services are offered or available. Any exchange-readiness claims require licensing evidence and compliance approval before publication.",
+    riskNote: "Unlicensed exchange operations create regulatory risk across multiple jurisdictions. All exchange-readiness language is blocked until licensing status is resolved.",
+  },
+  {
+    claimId: "LCLM-XCHANGE-INSTANT-LIQUIDITY",
+    originalClaim: "Troptions tokens have instant liquidity through the Xchange platform.",
+    sourceId: "SRC-TROPTIONSXCHANGE-IO",
+    category: "exchange / liquidity",
+    legacyMeaning: "Immediate conversion availability for token holders.",
+    institutionalMeaning: "Liquidity statements require disclosed market conditions, depth, spread, counterparty terms, and slippage policy.",
+    status: "blocked",
+    evidenceRequired: [
+      "Live exchange order-book evidence",
+      "Liquidity depth disclosure",
+      "Counterparty terms and withdrawal conditions",
+    ],
+    verificationStatus: "blocked",
+    approvedRewrite:
+      "Token liquidity is subject to market conditions, counterparty availability, geographic restrictions, and applicable regulations. No guarantee of liquidity, redemption, or conversion is made or implied.",
+    riskNote: "Instant liquidity language is on the Banned Hype Language list and is blocked without verifiable order-book evidence.",
+  },
+  {
+    claimId: "LCLM-UNITY-TOKEN-SALE",
+    originalClaim: "Troptions Unity Token sale is live and open to the public.",
+    sourceId: "SRC-TROPTIONS-UNITYTOKEN-COM",
+    category: "Troptions Unity",
+    legacyMeaning: "Public token offering availability.",
+    institutionalMeaning: "Token sales may constitute securities offerings subject to SEC or international equivalent regulation.",
+    status: "blocked",
+    evidenceRequired: [
+      "Securities legal classification memo",
+      "Offering exemption analysis",
+      "Investor eligibility and accreditation verification",
+      "Jurisdiction-by-jurisdiction approval",
+    ],
+    verificationStatus: "blocked",
+    approvedRewrite:
+      "No Unity Token public offering is active or available. Any token sale or offering is subject to legal classification, securities analysis, investor eligibility verification, and applicable regulatory approval in each jurisdiction.",
+    riskNote: "Active token-sale language without legal clearance creates securities-violation risk. Blocked until Critical action C1 (legal memo) is completed.",
+  },
+  {
+    claimId: "LCLM-UNITY-ASSET-BACKED",
+    originalClaim: "Troptions Unity Token is asset-backed and preserves value.",
+    sourceId: "SRC-TROPTIONS-UNITYTOKEN-COM",
+    category: "gold / commodity backing",
+    legacyMeaning: "Token stability and value-preservation marketing.",
+    institutionalMeaning: "Asset-backed claims require custody records, reserve audits, valuation methodology, and accounting treatment.",
+    status: "blocked",
+    evidenceRequired: [
+      "Custody evidence for backing assets",
+      "Reserve audit by independent firm",
+      "Valuation and impairment methodology",
+      "Accounting treatment memo",
+    ],
+    verificationStatus: "blocked",
+    approvedRewrite:
+      "Troptions Unity Token has been publicly described as having asset-backing characteristics. Any such claim requires independent custody evidence, reserve audit, valuation methodology, and accounting review before publication.",
+    riskNote: "Unsubstantiated asset-backed language creates significant legal and consumer-protection risk.",
+  },
+  {
+    claimId: "LCLM-TROPTIONS-ORG-MULTITOKEN",
+    originalClaim: "Troptions operates multiple live purpose-built tokens including TROPTIONS, TUT, Troptions Gold, and Troptions Pay.",
+    sourceId: "SRC-TROPTIONS-ORG-FULL-AUDIT",
+    category: "payments",
+    legacyMeaning: "Ecosystem breadth and multi-token utility positioning.",
+    institutionalMeaning: "Each token branch requires separate legal classification, operational evidence, and disclosure controls before institutional publication.",
+    status: "needs-evidence",
+    evidenceRequired: [
+      "Token-by-token legal classification memos",
+      "Operational status and chain deployment evidence per token",
+      "Disclosure controls for each branch",
+    ],
+    verificationStatus: "pending-verification",
+    approvedRewrite:
+      "Troptions is a multi-token digital asset ecosystem. Each branch (TROPTIONS, Troptions Unity Token, Troptions Gold, Troptions Pay) is at a different operational maturity and legal classification stage. Institutional publication requires separate disclosure, evidence, and approval for each branch.",
+    riskNote: "Bundling multiple token branches into a single readiness claim overstates aggregate compliance without per-token evidence.",
+  },
+  {
+    claimId: "LCLM-TROPTIONS-ORG-BARTER-ECOSYSTEM",
+    originalClaim: "Troptions is a fully operational barter and trade ecosystem.",
+    sourceId: "SRC-TROPTIONS-ORG-FULL-AUDIT",
+    category: "barter utility",
+    legacyMeaning: "Core utility positioning as operational barter infrastructure.",
+    institutionalMeaning: "Barter ecosystem language must be bounded by documented workflow capacity, rail-provider status, and operational evidence.",
+    status: "needs-evidence",
+    evidenceRequired: [
+      "Barter workflow documentation",
+      "Active transaction evidence",
+      "Rail-provider operational status",
+    ],
+    verificationStatus: "pending-verification",
+    approvedRewrite:
+      "Troptions is designed as a utility-oriented barter and trade ecosystem. Current operational capacity is subject to workflow controls, provider availability, and jurisdiction-specific terms. Operational claims must be sourced and dated.",
+    riskNote: "Unqualified 'fully operational' language requires documented transaction evidence. Overstated operational claims create disclosure and consumer-protection risk.",
+  },
 ];
 
 export function getClaimsByStatus(status: ClaimStatus): LegacyClaimRecord[] {

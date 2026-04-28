@@ -1,6 +1,39 @@
 # Troptions Domain Map
 ## All Troptions-Associated Domains — Status, DNS, and Integration Notes
 
+_Last updated: 2026-04-27 — site audit of legacy domains completed._
+
+---
+
+## Legacy Domains Requiring Compliance Action (3) — AUDIT 2026-04-27
+
+These domains carry legacy content that has been reviewed and flagged for compliance action. They must **not** be actively marketed. All visitors should be directed to the institutional portal via a Migration Notice Banner.
+
+| # | Legacy Domain | Canonical Successor | Risk Level | Required Action | Source Record |
+|---|---|---|---|---|---|
+| L1 | **troptions.org** | troptions.com (institutional portal) | High | Add migration notice; quarterly content audit; update blocked language | `SRC-TROPTIONS-ORG-FULL-AUDIT` |
+| L2 | **troptionsxchange.io** | troptionsxchange.com | High | Redirect to .com; remove exchange-readiness and liquidity language | `SRC-TROPTIONSXCHANGE-IO` |
+| L3 | **troptions-unitytoken.com** | unitytoken.io | High | Redirect to unitytoken.io; remove token-sale and asset-backed language | `SRC-TROPTIONS-UNITYTOKEN-COM` |
+
+### Migration Notice Requirement
+
+Every legacy domain listed above must display a **Migration Notice Banner** at the top of every page containing:
+1. A statement that the site is a legacy domain.
+2. A link to the institutional compliance portal.
+3. A disclosure that content on this legacy site has not been updated to current compliance standards.
+
+See `src/content/troptions/migrationNoticeRegistry.ts` for approved banner text and `/troptions/legacy` for the canonical migration landing page.
+
+### Blocked Language on Legacy Domains
+
+Before any legacy domain content is re-used on the institutional platform, the following language categories must be reviewed and removed or rewritten:
+
+| Domain | Blocked language categories |
+|---|---|
+| troptions.org | Unverified merchant counts, "fully operational" barter claims, balance-sheet enhancement language, unqualified RWA readiness |
+| troptionsxchange.io | Live exchange language, instant liquidity, listed-and-trading, exchange-ready-today |
+| troptions-unitytoken.com | Token-sale / ICO framing, buy-now CTAs, asset-backed without reserve evidence, charitable outcomes guaranteed |
+
 ---
 
 ## Primary Ecosystem Domains (8)
