@@ -517,6 +517,22 @@ async function main() {
   }
 
   // ── Execute path ──────────────────────────────────────────────────────────────
+  // Approval gates — all three env vars must be set before live execution.
+  const approvalId   = process.env.TROPTIONS_CONTROL_HUB_APPROVAL_ID;
+  const legalId      = process.env.TROPTIONS_LEGAL_REVIEW_ID;
+  const custodyId    = process.env.TROPTIONS_CUSTODY_REVIEW_ID;
+  if (!approvalId || !legalId || !custodyId) {
+    const missing = [
+      !approvalId  && "TROPTIONS_CONTROL_HUB_APPROVAL_ID",
+      !legalId     && "TROPTIONS_LEGAL_REVIEW_ID",
+      !custodyId   && "TROPTIONS_CUSTODY_REVIEW_ID",
+    ].filter(Boolean).join(", ");
+    console.error(`\n❌ EXECUTION BLOCKED — approval gates not satisfied.`);
+    console.error(`   Missing: ${missing}`);
+    console.error(`   Set all three env vars to an approved review ID before running --execute.\n`);
+    process.exit(2);
+  }
+
   if (F.network !== "mainnet" && F.network !== "testnet") {
     console.log(`❌ --network must be testnet or mainnet (got "${F.network}")`);
     process.exit(2);

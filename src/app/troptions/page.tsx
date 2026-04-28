@@ -23,7 +23,7 @@ const STELLAR_DISTRIBUTION = "GBH4YY6EKSIM3LEHUQHEXFDZKMLON64HKMCB2K7CCOXGNCIVGH
 const PROOF_CHECKS = [
   { label: "100M Tokens Issued",   sub: "99,999,999.97 TROPTIONS - obligations on issuer" },
   { label: "AMM Pool Active",      sub: "TROPTIONS / XRP - bootstrap liquidity" },
-  { label: "3 On-Chain Trustlines", sub: "1 Treasury + 1 AMM pool + 1 independent third-party holder" },
+  { label: "3 On-Chain Trustlines", sub: "2 TROPTIONS-controlled + 1 external (not endorsed)" },
   { label: "Genesis Locked",       sub: "8 brand entities, IPFS-pinned manifest" },
 ] as const;
 
@@ -134,7 +134,7 @@ const L1_COMPONENTS = [
 
 const NAV_CARDS = [
   { href: "/troptions/layer1",                   icon: "L1",   title: "Layer 1 (Rust)",      desc: "POPEYE / TEV / CONSENSUS / MARS / TAR - 27 crates" },
-  { href: "/troptions/xrpl-platform",            icon: "XRPL", title: "XRPL Platform",      desc: "Live market data, AMM, DEX, order books" },
+  { href: "/troptions/xrpl-platform",            icon: "XRPL", title: "XRPL Platform",      desc: "XRPL Market Data, AMM, and DEX Readiness" },
   { href: "/troptions/wallets",                  icon: "WLT",  title: "Live Wallets",        desc: "All public addresses with explorer links" },
   { href: "/troptions/ecosystem",                icon: "ECO",  title: "Ecosystem",           desc: "Brand entities, NIL, namespaces, NFTs" },
   { href: "/troptions/rwa/axl-001",              icon: "RWA",  title: "RWA Series 001",      desc: "AXL-001 Alexandrite collateral package (gated)" },
@@ -223,10 +223,9 @@ export default function TroptionsPage() {
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
               <CopyAddressButton address={ISSUER} />
               {[
-                { label: "XRPLorer",    url: `https://xrplorer.com/account/${ISSUER}` },
+                { label: "Bithomp",     url: `https://bithomp.com/explorer/${ISSUER}` },
                 { label: "XRPL Ledger", url: `https://livenet.xrpl.org/accounts/${ISSUER}` },
                 { label: "XRPScan",     url: `https://xrpscan.com/account/${ISSUER}` },
-                { label: "Bithomp",     url: `https://bithomp.com/explorer/${ISSUER}` },
               ].map((ex) => (
                 <a key={ex.url} href={ex.url} target="_blank" rel="noreferrer noopener"
                   style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)", color: "#cbd5e1", padding: "0.35rem 0.75rem", borderRadius: "0.4rem", fontSize: "0.75rem", fontWeight: 600, textDecoration: "none" }}>
