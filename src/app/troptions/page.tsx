@@ -1,18 +1,13 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
 import CopyAddressButton from "@/components/troptions-evolution/CopyAddressButton";
-import "@/styles/troptions-evolution.css";
+import { Card, Badge, SectionHeader, StatCard, StatusBadge } from "@/components/ui";
 
 export const metadata = {
   title: "TROPTIONS - Live Digital Asset on XRPL & Stellar",
   description:
     "TROPTIONS is a live digital asset issued on XRPL Mainnet with 100M tokens, an active AMM pool, and a full Rust Layer 1 blockchain. Verify everything on-chain independently.",
 };
-
-// =============================================================================
-// VERIFIED ON-CHAIN FACTS - XRPL Mainnet ledger 103,872,749 (April 28, 2026)
-// Re-run scripts/verify-troptions-onchain.ps1 to refresh.
-// =============================================================================
 
 const ISSUER = "rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ";
 const DISTRIBUTION = "rNX4faQ35SdtE4rDoEg8YeVLQKQ57AYyCt";
@@ -21,10 +16,10 @@ const STELLAR_ISSUER = "GB4FHGFUTLLMS3SC5RWRK6RYBGDIUQ5NR7IGN5TWAA3QVHULJ34JGEG4
 const STELLAR_DISTRIBUTION = "GBH4YY6EKSIM3LEHUQHEXFDZKMLON64HKMCB2K7CCOXGNCIVGH5GGVWC";
 
 const PROOF_CHECKS = [
-  { label: "100M Tokens Issued",   sub: "99,999,999.97 TROPTIONS - obligations on issuer" },
-  { label: "AMM Pool Active",      sub: "TROPTIONS / XRP - bootstrap liquidity" },
+  { label: "100M Tokens Issued",    sub: "99,999,999.97 TROPTIONS - obligations on issuer" },
+  { label: "AMM Pool Active",       sub: "TROPTIONS / XRP - bootstrap liquidity" },
   { label: "3 On-Chain Trustlines", sub: "2 TROPTIONS-controlled + 1 external (not endorsed)" },
-  { label: "Genesis Locked",       sub: "8 brand entities, IPFS-pinned manifest" },
+  { label: "Genesis Locked",        sub: "8 brand entities, IPFS-pinned manifest" },
 ] as const;
 
 const STATS = [
@@ -34,10 +29,6 @@ const STATS = [
   { value: "8",     label: "Brand Entities" },
 ] as const;
 
-// Wallets - all directly tied to TROPTIONS issuance / settlement / liquidity.
-// We list ONLY accounts we control or that are protocol-owned (AMM).
-// The third XRPL trustline belongs to an independent third-party trader and is
-// NOT a Troptions wallet - it is acknowledged on-chain but not claimed here.
 const WALLETS = [
   {
     label: "XRPL Issuer (Master)",
@@ -90,7 +81,6 @@ const WALLETS = [
   },
 ] as const;
 
-// Live AMM snapshot - ledger 103,872,749
 const AMM_SNAPSHOT = {
   xrp: "2.876",
   troptions: "348.93",
@@ -100,60 +90,62 @@ const AMM_SNAPSHOT = {
 };
 
 const BRANDS = [
-  { name: "TROPTIONS.ORG",           role: "Institutional Platform",    status: "Active",  color: "emerald" },
-  { name: "Troptions Xchange",       role: "Exchange / Trade Platform", status: "Draft",   color: "blue" },
-  { name: "Troptions Unity Token",   role: "Token / Digital Asset",     status: "Live",    color: "emerald" },
-  { name: "Troptions University",    role: "Education / Academy (Fitzherbert)", status: "Active", color: "emerald" },
-  { name: "Troptions TV Network",    role: "Media / Broadcasting",      status: "Draft",   color: "blue" },
-  { name: "Real Estate Connections", role: "Real Estate / RWA",         status: "Draft",   color: "blue" },
-  { name: "Green-N-Go Solar",        role: "Energy / ESG Asset",        status: "Draft",   color: "blue" },
-  { name: "HOTRCW",                  role: "Utility / Service",         status: "Review",  color: "amber" },
+  { name: "TROPTIONS.ORG",           role: "Institutional Platform",            status: "Active" },
+  { name: "Troptions Xchange",       role: "Exchange / Trade Platform",         status: "Draft"  },
+  { name: "Troptions Unity Token",   role: "Token / Digital Asset",             status: "Live"   },
+  { name: "Troptions University",    role: "Education / Academy (Fitzherbert)", status: "Active" },
+  { name: "Troptions TV Network",    role: "Media / Broadcasting",              status: "Draft"  },
+  { name: "Real Estate Connections", role: "Real Estate / RWA",                 status: "Draft"  },
+  { name: "Green-N-Go Solar",        role: "Energy / ESG Asset",                status: "Draft"  },
+  { name: "HOTRCW",                  role: "Utility / Service",                 status: "Review" },
 ] as const;
 
-// Web3 capability stack - all routes already exist in the platform
 const WEB3_STACK = [
-  { icon: "RWA",  title: "Real-World Assets", desc: "Gold, energy, carbon, oil, treasury - proof-gated intake", href: "/troptions-old-money/rwa" },
-  { icon: "PoF",  title: "Proof of Funds",     desc: "Bank-issued source documents, AML-clean evidence ledger", href: "/troptions-old-money/settlement" },
-  { icon: "IOU",  title: "XRPL IOUs",          desc: "TROPTIONS as a native XRPL trust-line currency",          href: "/troptions/xrpl-platform" },
-  { icon: "MPT",  title: "MPTokens",           desc: "Multi-Purpose Tokens for permissioned issuance",          href: "/troptions/xrpl-platform" },
-  { icon: "NFT",  title: "NFTs",               desc: "Brand and asset NFT issuance via XRPL native NFTokens",   href: "/troptions/ecosystem" },
-  { icon: "NS",   title: "Namespaces",         desc: "Reserved brand namespaces in the L1 genesis manifest",    href: "/troptions/ecosystem" },
-  { icon: "NIL",  title: "NIL Rights",         desc: "Name / Image / Likeness tokenization for creators",       href: "/troptions/ecosystem" },
-  { icon: "AMM",  title: "AMM Liquidity",      desc: "Native XRPL AMM pool with TROPTIONS / XRP pair",          href: `https://livenet.xrpl.org/accounts/${AMM_ACCOUNT}` },
+  { icon: "RWA",  title: "Real-World Assets",   desc: "Gold, energy, carbon, oil, treasury - proof-gated intake",        href: "/troptions-old-money/rwa" },
+  { icon: "PoF",  title: "Proof of Funds",       desc: "Bank-issued source documents, AML-clean evidence ledger",          href: "/troptions-old-money/settlement" },
+  { icon: "IOU",  title: "XRPL IOUs",            desc: "TROPTIONS as a native XRPL trust-line currency",                   href: "/troptions/xrpl-platform" },
+  { icon: "MPT",  title: "MPTokens",             desc: "Multi-Purpose Tokens for permissioned issuance",                   href: "/troptions/xrpl-platform" },
+  { icon: "NFT",  title: "NFTs",                 desc: "Brand and asset NFT issuance via XRPL native NFTokens",            href: "/troptions/ecosystem" },
+  { icon: "NS",   title: "Namespaces",           desc: "Reserved brand namespaces in the L1 genesis manifest",             href: "/troptions/ecosystem" },
+  { icon: "NIL",  title: "NIL Rights",           desc: "Name / Image / Likeness tokenization for creators",               href: "/troptions/ecosystem" },
+  { icon: "AMM",  title: "AMM Liquidity",        desc: "Native XRPL AMM pool with TROPTIONS / XRP pair",                  href: `https://livenet.xrpl.org/accounts/${AMM_ACCOUNT}` },
   { icon: "EDU",  title: "Troptions University", desc: "Fitzherbert academy - sovereign curriculum, on-chain credentials", href: "https://fitzherbert.xxxiii.io/" },
 ] as const;
 
-// Rust L1 component architecture - closed-loop execution organism
 const L1_COMPONENTS = [
-  { code: "POPEYE",    role: "Network / P2P",       desc: "libp2p gossipsub eyes & ears - propagates txs and blocks. Hears rumors, never mutates state." },
-  { code: "TEV",       role: "Cryptographic Gate",  desc: "Ed25519 customs border - every payload signature-verified before it can reach the runtime." },
-  { code: "CONSENSUS", role: "BFT Finality",        desc: "Deterministic round-robin leader election with weighted 2/3+ quorum and finality certificates." },
-  { code: "MARS",      role: "Runtime Brain",       desc: "Pure-function state machine - canonical balances, nonces, block production. If MARS says no, the network does not matter." },
-  { code: "TAR",       role: "Persistence",         desc: "Atomic, crash-safe block + state storage with periodic snapshots and continuity checks." },
+  { code: "POPEYE",    role: "Network / P2P",      desc: "libp2p gossipsub eyes & ears - propagates txs and blocks." },
+  { code: "TEV",       role: "Cryptographic Gate", desc: "Ed25519 customs border - every payload signature-verified before runtime." },
+  { code: "CONSENSUS", role: "BFT Finality",       desc: "Deterministic round-robin leader election with weighted 2/3+ quorum." },
+  { code: "MARS",      role: "Runtime Brain",      desc: "Pure-function state machine - canonical balances, nonces, block production." },
+  { code: "TAR",       role: "Persistence",        desc: "Atomic, crash-safe block + state storage with periodic snapshots." },
 ] as const;
 
 const NAV_CARDS = [
-  { href: "/troptions/layer1",                   icon: "L1",   title: "Layer 1 (Rust)",      desc: "POPEYE / TEV / CONSENSUS / MARS / TAR - 27 crates" },
-  { href: "/troptions/xrpl-platform",            icon: "XRPL", title: "XRPL Platform",      desc: "XRPL Market Data, AMM, and DEX Readiness" },
-  { href: "/troptions/wallets",                  icon: "WLT",  title: "Live Wallets",        desc: "All public addresses with explorer links" },
-  { href: "/troptions/ecosystem",                icon: "ECO",  title: "Ecosystem",           desc: "Brand entities, NIL, namespaces, NFTs" },
-  { href: "/troptions/rwa/axl-001",              icon: "RWA",  title: "RWA Series 001",      desc: "AXL-001 Alexandrite collateral package (gated)" },
-  { href: "/troptions/xrpl-stellar-compliance",  icon: "CMP",  title: "Compliance",          desc: "ISO 20022, AML controls, jurisdiction" },
-  { href: "/troptions/transactions",             icon: "TXN",  title: "Transactions",        desc: "8 transaction categories — workflow, DD checklists, approval gates" },
-  { href: "/troptions/compliance/handbooks",     icon: "HBK",  title: "Handbooks",           desc: "Downloadable transaction guides, checklists, and disclosures" },
-  { href: "/troptions/kyc",                      icon: "KYC",  title: "KYC / Onboarding",   desc: "Document hash submission, oracle attestation, DID anchoring" },
+  { href: "/troptions/layer1",                  icon: "L1",   title: "Layer 1 (Rust)",   desc: "POPEYE / TEV / CONSENSUS / MARS / TAR - 27 crates" },
+  { href: "/troptions/xrpl-platform",           icon: "XRPL", title: "XRPL Platform",    desc: "XRPL Market Data, AMM, and DEX Readiness" },
+  { href: "/troptions/wallets",                 icon: "WLT",  title: "Live Wallets",      desc: "All public addresses with explorer links" },
+  { href: "/troptions/ecosystem",               icon: "ECO",  title: "Ecosystem",         desc: "Brand entities, NIL, namespaces, NFTs" },
+  { href: "/troptions/rwa/axl-001",             icon: "RWA",  title: "RWA Series 001",    desc: "AXL-001 Alexandrite collateral package (gated)" },
+  { href: "/troptions/xrpl-stellar-compliance", icon: "CMP",  title: "Compliance",        desc: "ISO 20022, AML controls, jurisdiction" },
+  { href: "/troptions/transactions",            icon: "TXN",  title: "Transactions",      desc: "8 transaction categories - workflow, DD checklists" },
+  { href: "/troptions/compliance/handbooks",    icon: "HBK",  title: "Handbooks",         desc: "Downloadable transaction guides, checklists, disclosures" },
+  { href: "/troptions/kyc",                     icon: "KYC",  title: "KYC / Onboarding",  desc: "Document hash submission, oracle attestation, DID anchoring" },
 ] as const;
 
-// =============================================================================
+const CRATE_TAGS = [
+  "consensus", "bridge-xrpl", "bridge-stellar", "rwa", "nft",
+  "namespaces", "compliance", "pq-crypto", "governance", "genesis", "+17 more",
+] as const;
 
 export default function TroptionsPage() {
   return (
-    <div style={{ background: "linear-gradient(160deg, #071426 0%, #0c1e35 60%, #071426 100%)", minHeight: "100vh" }}>
+    <div className="min-h-screen bg-gradient-to-br from-[#071426] via-[#0c1e35] to-[#071426]">
 
       {/* HERO */}
-      <section style={{ padding: "4rem 1.25rem 3rem", maxWidth: "1200px", margin: "0 auto" }}>
-        <div style={{ display: "flex", alignItems: "flex-start", gap: "1.5rem", flexWrap: "wrap" }}>
-          <div style={{ position: "relative", width: 80, height: 80, borderRadius: "1rem", overflow: "hidden", border: "2px solid rgba(201,154,60,0.6)", flexShrink: 0 }}>
+      <section className="mx-auto max-w-7xl px-5 pt-14 pb-10 md:px-8">
+        <div className="flex flex-wrap items-start gap-6">
+
+          <span className="relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl border-2 border-[#C9A84C]/60 bg-black">
             <Image
               src="/assets/troptions/logos/troptions-logo-new-official.jpg"
               alt="TROPTIONS"
@@ -162,36 +154,43 @@ export default function TroptionsPage() {
               className="object-contain"
               priority
             />
-          </div>
-          <div style={{ flex: 1, minWidth: 260 }}>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", background: "rgba(201,154,60,0.12)", border: "1px solid rgba(201,154,60,0.35)", borderRadius: "2rem", padding: "0.3rem 0.85rem", marginBottom: "0.75rem" }}>
-              <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#4ade80", display: "inline-block" }} />
-              <span style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#f0cf82" }}>Live on XRPL Mainnet</span>
-            </div>
-            <h1 style={{ fontFamily: "var(--font-display, Georgia, serif)", fontSize: "clamp(2.2rem, 5vw, 3.6rem)", fontWeight: 700, lineHeight: 1.1, color: "#f8fafc", margin: "0 0 0.85rem" }}>
+          </span>
+
+          <div className="flex-1 min-w-[260px]">
+            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/35 bg-[#C9A84C]/10 px-3.5 py-1.5">
+              <span className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
+              <span className="text-[11px] font-bold tracking-[0.14em] uppercase text-[#f0cf82]">
+                Live on XRPL Mainnet
+              </span>
+            </span>
+
+            <h1 className="font-display text-[clamp(2.2rem,5vw,3.6rem)] font-bold leading-[1.08] tracking-tight text-slate-50 mb-3">
               TROPTIONS
             </h1>
-            <p style={{ fontSize: "clamp(1rem, 2vw, 1.2rem)", color: "#94a3b8", lineHeight: 1.65, maxWidth: 620, margin: "0 0 1.75rem" }}>
-              A live digital asset on XRPL with a full Rust Layer 1 blockchain, 8 registered brand entities, and a Web3 stack covering RWA, NIL, namespaces, MPTs and NFTs - every claim is verifiable on-chain right now.
+            <p className="text-[clamp(1rem,2vw,1.15rem)] leading-relaxed text-slate-400 max-w-2xl mb-7">
+              A live digital asset on XRPL with a full Rust Layer 1 blockchain, 8 registered brand
+              entities, and a Web3 stack covering RWA, NIL, namespaces, MPTs and NFTs - every claim is
+              verifiable on-chain right now.
             </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.65rem" }}>
+
+            <div className="flex flex-wrap gap-2.5">
               <a
                 href={`https://bithomp.com/explorer/${ISSUER}`}
                 target="_blank" rel="noreferrer noopener"
-                style={{ background: "#c99a3c", color: "#111827", padding: "0.65rem 1.25rem", borderRadius: "0.6rem", fontWeight: 700, fontSize: "0.875rem", textDecoration: "none" }}
+                className="inline-flex items-center rounded-xl bg-[#c99a3c] px-5 py-2.5 text-sm font-bold text-[#111827] transition-colors hover:bg-[#f0cf82]"
               >
                 Verify on Bithomp
               </a>
               <a
                 href={`https://livenet.xrpl.org/accounts/${ISSUER}`}
                 target="_blank" rel="noreferrer noopener"
-                style={{ background: "rgba(255,255,255,0.07)", color: "#f1f5f9", border: "1px solid rgba(255,255,255,0.15)", padding: "0.65rem 1.25rem", borderRadius: "0.6rem", fontWeight: 600, fontSize: "0.875rem", textDecoration: "none" }}
+                className="inline-flex items-center rounded-xl border border-white/15 bg-white/[0.07] px-5 py-2.5 text-sm font-semibold text-slate-100 transition-colors hover:bg-white/[0.12]"
               >
                 XRPL Ledger
               </a>
               <Link
                 href="/portal/troptions/onboarding"
-                style={{ background: "transparent", color: "#f0cf82", border: "1px solid rgba(201,154,60,0.45)", padding: "0.65rem 1.25rem", borderRadius: "0.6rem", fontWeight: 600, fontSize: "0.875rem", textDecoration: "none" }}
+                className="inline-flex items-center rounded-xl border border-[#C9A84C]/45 px-5 py-2.5 text-sm font-semibold text-[#f0cf82] transition-colors hover:bg-[#C9A84C]/10"
               >
                 Request Access
               </Link>
@@ -199,246 +198,291 @@ export default function TroptionsPage() {
           </div>
         </div>
 
-        {/* Stats bar */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: "0.75rem", marginTop: "3rem", borderTop: "1px solid rgba(201,154,60,0.2)", paddingTop: "2rem" }}>
+        <div className="mt-10 border-t border-[#C9A84C]/20 pt-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
           {STATS.map((s) => (
-            <div key={s.label} style={{ padding: "1rem", borderRadius: "0.75rem", background: "rgba(201,154,60,0.07)", border: "1px solid rgba(201,154,60,0.18)", textAlign: "center" }}>
-              <p style={{ fontSize: "1.75rem", fontWeight: 800, color: "#f0cf82", margin: 0, lineHeight: 1 }}>{s.value}</p>
-              <p style={{ fontSize: "0.72rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em", color: "#64748b", margin: "0.4rem 0 0" }}>{s.label}</p>
-            </div>
+            <StatCard key={s.label} value={s.value} label={s.label} />
           ))}
         </div>
       </section>
 
       {/* ON-CHAIN VERIFICATION */}
-      <section style={{ padding: "0 1.25rem 2.5rem", maxWidth: "1200px", margin: "0 auto" }}>
-        <div style={{ background: "rgba(245,240,228,0.97)", border: "1px solid rgba(201,154,60,0.4)", borderRadius: "1rem", padding: "2rem" }}>
-          <p style={{ fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "#92400e", margin: "0 0 0.4rem" }}>On-Chain Proof - XRPL Mainnet</p>
-          <h2 style={{ fontFamily: "var(--font-display, Georgia, serif)", fontSize: "clamp(1.4rem, 3vw, 2rem)", fontWeight: 700, color: "#0f172a", margin: "0 0 0.6rem" }}>Verify TROPTIONS Yourself</h2>
-          <p style={{ color: "#374151", lineHeight: 1.65, margin: "0 0 1.5rem", maxWidth: 720 }}>
-            The issuer address below is the single on-chain source of truth. Click any explorer to independently confirm the token supply, trustlines, AMM pool and trade history - no account required. Snapshot taken at XRPL ledger 103,872,749.
-          </p>
+      <section className="mx-auto max-w-7xl px-5 pb-10 md:px-8">
+        <Card variant="ivory" padding="md">
+          <SectionHeader
+            eyebrow="On-Chain Proof - XRPL Mainnet"
+            heading="Verify TROPTIONS Yourself"
+            body="The issuer address below is the single on-chain source of truth. Click any explorer to independently confirm the token supply, trustlines, AMM pool and trade history - no account required."
+            theme="light"
+          />
 
-          {/* Issuer address */}
-          <div style={{ background: "#0f172a", borderRadius: "0.75rem", padding: "1.25rem 1.5rem", marginBottom: "1.25rem" }}>
-            <p style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "#f0cf82", margin: "0 0 0.5rem" }}>XRPL Issuer Address</p>
-            <p style={{ fontFamily: "var(--font-mono, monospace)", fontSize: "0.85rem", color: "#e2e8f0", wordBreak: "break-all", margin: "0 0 0.85rem" }}>{ISSUER}</p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+          <div className="rounded-xl bg-[#0f172a] p-5 mb-4">
+            <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#f0cf82] mb-1.5">
+              XRPL Issuer Address
+            </p>
+            <p className="font-mono text-sm text-slate-200 break-all mb-3">{ISSUER}</p>
+            <div className="flex flex-wrap gap-2">
               <CopyAddressButton address={ISSUER} />
               {[
                 { label: "Bithomp",     url: `https://bithomp.com/explorer/${ISSUER}` },
                 { label: "XRPL Ledger", url: `https://livenet.xrpl.org/accounts/${ISSUER}` },
                 { label: "XRPScan",     url: `https://xrpscan.com/account/${ISSUER}` },
               ].map((ex) => (
-                <a key={ex.url} href={ex.url} target="_blank" rel="noreferrer noopener"
-                  style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)", color: "#cbd5e1", padding: "0.35rem 0.75rem", borderRadius: "0.4rem", fontSize: "0.75rem", fontWeight: 600, textDecoration: "none" }}>
+                <a
+                  key={ex.url} href={ex.url}
+                  target="_blank" rel="noreferrer noopener"
+                  className="inline-flex items-center rounded-lg border border-white/15 bg-white/[0.08] px-3 py-1.5 text-xs font-semibold text-slate-300 transition-colors hover:bg-white/[0.14]"
+                >
                   {ex.label}
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Proof checklist */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "0.65rem" }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-4">
             {PROOF_CHECKS.map((c) => (
-              <div key={c.label} style={{ display: "flex", alignItems: "flex-start", gap: "0.65rem", background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: "0.6rem", padding: "0.85rem" }}>
-                <span style={{ width: 22, height: 22, borderRadius: "50%", background: "#16a34a", color: "white", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.75rem", fontWeight: 800, flexShrink: 0 }}>OK</span>
+              <div
+                key={c.label}
+                className="flex items-start gap-3 rounded-xl border border-green-200 bg-green-50 p-3.5"
+              >
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-600 text-[10px] font-bold text-white">
+                  OK
+                </span>
                 <div>
-                  <p style={{ fontSize: "0.85rem", fontWeight: 700, color: "#14532d", margin: 0 }}>{c.label}</p>
-                  <p style={{ fontSize: "0.72rem", color: "#166534", margin: "0.15rem 0 0" }}>{c.sub}</p>
+                  <p className="text-sm font-bold text-green-900">{c.label}</p>
+                  <p className="text-[12px] text-green-700 mt-0.5">{c.sub}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Honest AMM disclosure */}
-          <div style={{ marginTop: "1.25rem", background: "#fffbeb", border: "1px solid #fde68a", borderRadius: "0.6rem", padding: "1rem 1.15rem" }}>
-            <p style={{ fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "#92400e", margin: "0 0 0.35rem" }}>AMM Liquidity Snapshot</p>
-            <p style={{ fontSize: "0.85rem", color: "#1f2937", margin: 0, lineHeight: 1.55 }}>
-              <strong>{AMM_SNAPSHOT.xrp} XRP</strong> paired with <strong>{AMM_SNAPSHOT.troptions} TROPTIONS</strong> at fee {AMM_SNAPSHOT.feePct}, {AMM_SNAPSHOT.lpShares} LP shares.
-              <br />
-              <span style={{ color: "#92400e" }}>{AMM_SNAPSHOT.status}.</span>{" "}
-              The Distribution wallet holds 99,999,000 TROPTIONS earmarked for further AMM seeding once governance approves.
+          <div className="rounded-xl border border-amber-300/60 bg-amber-50 px-4 py-3.5">
+            <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-amber-800 mb-1">
+              AMM Liquidity Snapshot
+            </p>
+            <p className="text-sm text-slate-700 leading-relaxed">
+              <strong>{AMM_SNAPSHOT.xrp} XRP</strong> paired with{" "}
+              <strong>{AMM_SNAPSHOT.troptions} TROPTIONS</strong> at fee {AMM_SNAPSHOT.feePct},{" "}
+              {AMM_SNAPSHOT.lpShares} LP shares.{" "}
+              <span className="text-amber-800">{AMM_SNAPSHOT.status}.</span>
             </p>
           </div>
-        </div>
+        </Card>
       </section>
 
       {/* WALLETS */}
-      <section style={{ padding: "0 1.25rem 2.5rem", maxWidth: "1200px", margin: "0 auto" }}>
-        <div style={{ marginBottom: "1.25rem" }}>
-          <p style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "#f0cf82", margin: "0 0 0.35rem" }}>Verified On-Chain Wallets</p>
-          <h2 style={{ fontFamily: "var(--font-display, Georgia, serif)", fontSize: "clamp(1.4rem, 3vw, 2rem)", fontWeight: 700, color: "#f1f5f9", margin: "0 0 0.5rem" }}>Every Address is Public TROPTIONS Infrastructure</h2>
-          <p style={{ color: "#94a3b8", lineHeight: 1.65, margin: 0, maxWidth: 720, fontSize: "0.9rem" }}>
-            These six wallets are the entire public surface of the TROPTIONS issuance. Every balance, trustline and trade is verifiable by anyone - no account, no permission required. We don&apos;t list speculative third-party addresses as &quot;verified holders&quot;.
-          </p>
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "0.85rem" }}>
+      <section className="mx-auto max-w-7xl px-5 pb-10 md:px-8">
+        <SectionHeader
+          eyebrow="Verified On-Chain Wallets"
+          heading="Every Address is Public TROPTIONS Infrastructure"
+          body="These five wallets are the entire public surface of the TROPTIONS issuance. Every balance, trustline and trade is verifiable by anyone."
+        />
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 mb-4">
           {WALLETS.map((w) => (
-            <div key={w.address} style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "0.85rem", padding: "1.25rem" }}>
-              <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "0.5rem", marginBottom: "0.65rem" }}>
+            <Card key={w.address} variant="glass" padding="sm">
+              <div className="flex items-start justify-between gap-2 mb-2.5">
                 <div>
-                  <p style={{ fontWeight: 700, color: "#f1f5f9", fontSize: "0.95rem", margin: 0 }}>{w.label}</p>
-                  <p style={{ fontSize: "0.75rem", color: "#94a3b8", margin: "0.2rem 0 0", lineHeight: 1.5 }}>{w.role}</p>
+                  <p className="font-semibold text-slate-100 text-[15px]">{w.label}</p>
+                  <p className="text-xs text-slate-400 mt-0.5 leading-snug">{w.role}</p>
                 </div>
-                <span style={{
-                  background: w.chain === "XRPL" ? "rgba(59,130,246,0.15)" : "rgba(99,102,241,0.15)",
-                  color: w.chain === "XRPL" ? "#93c5fd" : "#a5b4fc",
-                  border: w.chain === "XRPL" ? "1px solid rgba(59,130,246,0.3)" : "1px solid rgba(99,102,241,0.3)",
-                  padding: "0.2rem 0.6rem", borderRadius: "2rem", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.08em", whiteSpace: "nowrap", flexShrink: 0
-                }}>{w.chain}</span>
+                <Badge variant={w.chain === "XRPL" ? "xrpl" : "stellar"}>{w.chain}</Badge>
               </div>
-              <p style={{ fontFamily: "var(--font-mono, monospace)", fontSize: "0.7rem", color: "#64748b", wordBreak: "break-all", margin: "0 0 0.85rem", background: "rgba(0,0,0,0.25)", padding: "0.6rem 0.75rem", borderRadius: "0.4rem" }}>{w.address}</p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.45rem" }}>
+              <p className="font-mono text-[11px] text-slate-500 break-all bg-black/25 rounded-lg px-3 py-2 mb-3">
+                {w.address}
+              </p>
+              <div className="flex flex-wrap gap-1.5">
                 <CopyAddressButton address={w.address} />
                 {w.explorers.map((ex) => (
-                  <a key={ex.url} href={ex.url} target="_blank" rel="noreferrer noopener"
-                    style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", color: "#cbd5e1", padding: "0.3rem 0.65rem", borderRadius: "0.35rem", fontSize: "0.72rem", fontWeight: 600, textDecoration: "none" }}>
+                  <a
+                    key={ex.url} href={ex.url}
+                    target="_blank" rel="noreferrer noopener"
+                    className="inline-flex items-center rounded-lg border border-white/[0.12] bg-white/[0.06] px-2.5 py-1 text-[11px] font-semibold text-slate-300 transition-colors hover:bg-white/[0.12]"
+                  >
                     {ex.label}
                   </a>
                 ))}
               </div>
-            </div>
+            </Card>
           ))}
         </div>
-        <div style={{ marginTop: "1rem" }}>
-          <Link href="/troptions/wallets" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", color: "#f0cf82", fontSize: "0.875rem", fontWeight: 600, textDecoration: "none", border: "1px solid rgba(201,154,60,0.35)", padding: "0.6rem 1.1rem", borderRadius: "0.5rem" }}>
-            View Full Wallet Showcase
-          </Link>
-        </div>
+
+        <Link
+          href="/troptions/wallets"
+          className="inline-flex items-center gap-1.5 rounded-xl border border-[#C9A84C]/35 px-4 py-2.5 text-sm font-semibold text-[#f0cf82] transition-colors hover:bg-[#C9A84C]/10"
+        >
+          View Full Wallet Showcase
+        </Link>
       </section>
 
-      {/* WEB3 CAPABILITY STACK */}
-      <section style={{ padding: "0 1.25rem 2.5rem", maxWidth: "1200px", margin: "0 auto" }}>
-        <div style={{ background: "#0c1e35", border: "1px solid rgba(201,154,60,0.35)", borderRadius: "1rem", padding: "2rem" }}>
-          <p style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "#f0cf82", margin: "0 0 0.4rem" }}>Web3 Capability Stack</p>
-          <h2 style={{ fontFamily: "var(--font-display, Georgia, serif)", fontSize: "clamp(1.4rem, 3vw, 2rem)", fontWeight: 700, color: "#f1f5f9", margin: "0 0 0.5rem" }}>What TROPTIONS Can Do Today</h2>
-          <p style={{ color: "#94a3b8", lineHeight: 1.65, margin: "0 0 1.5rem", maxWidth: 720, fontSize: "0.9rem" }}>
-            Native XRPL primitives - IOUs, MPTs, NFTs, AMM - combined with proof-gated RWA workflows, NIL rights tokenization, and a sovereign Layer 1 that anchors brand namespaces to on-chain identity.
-          </p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "0.75rem" }}>
+      {/* WEB3 STACK */}
+      <section className="mx-auto max-w-7xl px-5 pb-10 md:px-8">
+        <Card variant="navy" padding="md">
+          <SectionHeader
+            eyebrow="Web3 Capability Stack"
+            heading="What TROPTIONS Can Do Today"
+            body="Native XRPL primitives combined with proof-gated RWA workflows, NIL rights tokenization, and a sovereign Layer 1 that anchors brand namespaces to on-chain identity."
+          />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
             {WEB3_STACK.map((c) => {
               const isExternal = c.href.startsWith("http");
               const inner = (
                 <>
-                  <span style={{ fontFamily: "var(--font-mono, monospace)", fontSize: "0.7rem", fontWeight: 700, color: "#f0cf82", letterSpacing: "0.1em", display: "inline-block", padding: "0.15rem 0.5rem", borderRadius: "0.3rem", background: "rgba(201,154,60,0.12)", border: "1px solid rgba(201,154,60,0.3)", marginBottom: "0.6rem" }}>{c.icon}</span>
-                  <p style={{ fontWeight: 700, color: "#f1f5f9", fontSize: "0.9rem", margin: "0 0 0.3rem" }}>{c.title}</p>
-                  <p style={{ fontSize: "0.75rem", color: "#94a3b8", margin: 0, lineHeight: 1.55 }}>{c.desc}</p>
+                  <Badge variant="mono" className="mb-3">{c.icon}</Badge>
+                  <p className="font-semibold text-slate-100 text-[15px] mb-1">{c.title}</p>
+                  <p className="text-xs text-slate-400 leading-relaxed">{c.desc}</p>
                 </>
               );
-              const style = { background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "0.75rem", padding: "1.1rem 1.25rem", textDecoration: "none", display: "block" };
-              return isExternal
-                ? <a key={c.title} href={c.href} target="_blank" rel="noreferrer noopener" style={style}>{inner}</a>
-                : <Link key={c.title} href={c.href} style={style}>{inner}</Link>;
+              return isExternal ? (
+                <a
+                  key={c.title} href={c.href}
+                  target="_blank" rel="noreferrer noopener"
+                  className="block rounded-xl border border-white/10 bg-white/[0.03] p-4 transition-colors hover:bg-white/[0.07] hover:border-white/20"
+                >
+                  {inner}
+                </a>
+              ) : (
+                <Link
+                  key={c.title} href={c.href}
+                  className="block rounded-xl border border-white/10 bg-white/[0.03] p-4 transition-colors hover:bg-white/[0.07] hover:border-white/20"
+                >
+                  {inner}
+                </Link>
+              );
             })}
           </div>
-        </div>
+        </Card>
       </section>
 
       {/* BRAND ENTITIES */}
-      <section style={{ padding: "0 1.25rem 2.5rem", maxWidth: "1200px", margin: "0 auto" }}>
-        <div style={{ background: "rgba(245,240,228,0.97)", border: "1px solid rgba(201,154,60,0.4)", borderRadius: "1rem", padding: "2rem" }}>
-          <p style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "#92400e", margin: "0 0 0.4rem" }}>8 Brand Entities - Registered in Rust L1 Genesis</p>
-          <h2 style={{ fontFamily: "var(--font-display, Georgia, serif)", fontSize: "clamp(1.4rem, 3vw, 2rem)", fontWeight: 700, color: "#0f172a", margin: "0 0 0.5rem" }}>The TROPTIONS Ecosystem</h2>
-          <p style={{ color: "#374151", lineHeight: 1.65, margin: "0 0 1.5rem", maxWidth: 660 }}>
-            Every entity is embedded in the TSN genesis manifest - deterministically hashed, IPFS-pinned, and verifiable on-chain as a reserved namespace.
-          </p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "0.75rem" }}>
+      <section className="mx-auto max-w-7xl px-5 pb-10 md:px-8">
+        <Card variant="ivory" padding="md">
+          <SectionHeader
+            eyebrow="8 Brand Entities - Registered in Rust L1 Genesis"
+            heading="The TROPTIONS Ecosystem"
+            body="Every entity is embedded in the TSN genesis manifest - deterministically hashed, IPFS-pinned, and verifiable on-chain as a reserved namespace."
+            theme="light"
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2.5">
             {BRANDS.map((b) => (
-              <div key={b.name} style={{ background: "white", border: "1px solid #e2e8f0", borderRadius: "0.75rem", padding: "1rem 1.1rem" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "0.5rem" }}>
-                  <p style={{ fontWeight: 700, color: "#0f172a", fontSize: "0.875rem", margin: 0, lineHeight: 1.3 }}>{b.name}</p>
-                  <span style={{
-                    flexShrink: 0,
-                    background: b.status === "Active" || b.status === "Live" ? "#dcfce7" : b.status === "Review" ? "#fef3c7" : "#dbeafe",
-                    color: b.status === "Active" || b.status === "Live" ? "#166534" : b.status === "Review" ? "#92400e" : "#1e40af",
-                    padding: "0.15rem 0.5rem", borderRadius: "2rem", fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase"
-                  }}>{b.status}</span>
+              <div
+                key={b.name}
+                className="flex items-start justify-between gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3.5"
+              >
+                <div>
+                  <p className="font-bold text-slate-900 text-sm leading-snug">{b.name}</p>
+                  <p className="text-xs text-slate-500 mt-0.5">{b.role}</p>
                 </div>
-                <p style={{ fontSize: "0.75rem", color: "#64748b", margin: "0.35rem 0 0" }}>{b.role}</p>
+                <StatusBadge status={b.status} />
               </div>
             ))}
           </div>
-        </div>
+        </Card>
       </section>
 
-      {/* RUST LAYER 1 */}
-      <section style={{ padding: "0 1.25rem 2.5rem", maxWidth: "1200px", margin: "0 auto" }}>
-        <div style={{ background: "#0c1e35", border: "1px solid rgba(201,154,60,0.35)", borderRadius: "1rem", padding: "2rem", display: "grid", gridTemplateColumns: "1fr auto", gap: "1.5rem", alignItems: "center" }}>
-          <div>
-            <p style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "#f0cf82", margin: "0 0 0.4rem" }}>Rust Layer 1 Blockchain</p>
-            <h2 style={{ fontFamily: "var(--font-display, Georgia, serif)", fontSize: "clamp(1.3rem, 3vw, 1.9rem)", fontWeight: 700, color: "#f1f5f9", margin: "0 0 0.65rem" }}>
-              Troptions Settlement Network (TSN)
-            </h2>
-            <p style={{ color: "#94a3b8", lineHeight: 1.65, margin: "0 0 1.25rem", maxWidth: 560 }}>
-              A purpose-built Rust blockchain with 27 crates covering consensus, cross-chain bridges (XRPL + Stellar), RWA, NFTs, post-quantum crypto, compliance, and governance. The runtime is a closed-loop organism with strict trust boundaries: <strong style={{ color: "#f0cf82" }}>POPEYE -&gt; TEV -&gt; CONSENSUS -&gt; MARS -&gt; TAR</strong>. All 8 brand entities are embedded in the genesis manifest.
-            </p>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "0.6rem", marginBottom: "1rem" }}>
-              {L1_COMPONENTS.map((c) => (
-                <div key={c.code} style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "0.6rem", padding: "0.7rem 0.85rem" }}>
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem", marginBottom: "0.3rem" }}>
-                    <span style={{ fontFamily: "var(--font-mono, monospace)", fontSize: "0.75rem", fontWeight: 800, color: "#f0cf82", letterSpacing: "0.08em" }}>{c.code}</span>
-                    <span style={{ fontSize: "0.62rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "#64748b" }}>{c.role}</span>
+      {/* RUST L1 */}
+      <section className="mx-auto max-w-7xl px-5 pb-10 md:px-8">
+        <Card variant="navy" padding="md">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 items-start">
+            <div>
+              <SectionHeader
+                eyebrow="Rust Layer 1 Blockchain"
+                heading="Troptions Settlement Network (TSN)"
+                body="A purpose-built Rust blockchain with 27 crates covering consensus, cross-chain bridges (XRPL + Stellar), RWA, NFTs, post-quantum crypto, compliance, and governance."
+              />
+
+              <div className="mb-5 flex flex-wrap items-center gap-2">
+                {["POPEYE", "TEV", "CONSENSUS", "MARS", "TAR"].map((c, i, a) => (
+                  <span key={c} className="flex items-center gap-2">
+                    <Badge variant="mono">{c}</Badge>
+                    {i < a.length - 1 && <span className="text-slate-600 text-sm">-&gt;</span>}
+                  </span>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-5">
+                {L1_COMPONENTS.map((c) => (
+                  <div
+                    key={c.code}
+                    className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3"
+                  >
+                    <div className="flex items-center justify-between gap-2 mb-1.5">
+                      <span className="font-mono text-sm font-extrabold text-[#f0cf82] tracking-wide">
+                        {c.code}
+                      </span>
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
+                        {c.role}
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-400 leading-relaxed">{c.desc}</p>
                   </div>
-                  <p style={{ fontSize: "0.72rem", color: "#94a3b8", margin: 0, lineHeight: 1.5 }}>{c.desc}</p>
-                </div>
-              ))}
-            </div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-              {["consensus", "bridge-xrpl", "bridge-stellar", "rwa", "nft", "namespaces", "compliance", "pq-crypto", "governance", "genesis", "+17 more"].map((c) => (
-                <span key={c} style={{ fontFamily: "var(--font-mono, monospace)", fontSize: "0.7rem", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", color: "#94a3b8", padding: "0.22rem 0.55rem", borderRadius: "0.35rem" }}>{c}</span>
-              ))}
-            </div>
-            <div style={{ marginTop: "1.25rem", display: "flex", flexWrap: "wrap", gap: "0.65rem" }}>
-              <Link href="/troptions/layer1"
-                style={{ background: "#c99a3c", color: "#111827", padding: "0.6rem 1.15rem", borderRadius: "0.55rem", fontWeight: 700, fontSize: "0.85rem", textDecoration: "none" }}>
-                Read Layer 1 Spec &rarr;
-              </Link>
-              <a href="https://github.com/FTHTrading/Troptions-L1" target="_blank" rel="noreferrer noopener"
-                style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", color: "#cbd5e1", padding: "0.6rem 1.15rem", borderRadius: "0.55rem", fontWeight: 600, fontSize: "0.85rem", textDecoration: "none" }}>
-                View on GitHub
-              </a>
-              <Link href="/troptions/chains"
-                style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", color: "#cbd5e1", padding: "0.6rem 1.15rem", borderRadius: "0.55rem", fontWeight: 600, fontSize: "0.85rem", textDecoration: "none" }}>
-                Chain Status
-              </Link>
-            </div>
-          </div>
-          <div style={{ display: "grid", gap: "0.65rem", minWidth: 140 }}>
-            {[
-              { v: "27",   l: "Rust Crates" },
-              { v: "4",    l: "Chains" },
-              { v: "100%", l: "Genesis Locked" },
-            ].map((s) => (
-              <div key={s.l} style={{ background: "rgba(201,154,60,0.08)", border: "1px solid rgba(201,154,60,0.2)", borderRadius: "0.65rem", padding: "0.85rem 1rem", textAlign: "center" }}>
-                <p style={{ fontSize: "1.6rem", fontWeight: 800, color: "#f0cf82", margin: 0, lineHeight: 1 }}>{s.v}</p>
-                <p style={{ fontSize: "0.65rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "#64748b", margin: "0.3rem 0 0" }}>{s.l}</p>
+                ))}
               </div>
-            ))}
+
+              <div className="flex flex-wrap gap-1.5 mb-6">
+                {CRATE_TAGS.map((c) => (
+                  <span
+                    key={c}
+                    className="font-mono text-[11px] rounded-lg border border-white/[0.12] bg-white/[0.06] text-slate-400 px-2.5 py-1"
+                  >
+                    {c}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap gap-2.5">
+                <Link
+                  href="/troptions/layer1"
+                  className="inline-flex items-center rounded-xl bg-[#c99a3c] px-5 py-2.5 text-sm font-bold text-[#111827] transition-colors hover:bg-[#f0cf82]"
+                >
+                  Read Layer 1 Spec
+                </Link>
+                <a
+                  href="https://github.com/FTHTrading/Troptions-L1"
+                  target="_blank" rel="noreferrer noopener"
+                  className="inline-flex items-center rounded-xl border border-white/[0.12] bg-white/[0.06] px-5 py-2.5 text-sm font-semibold text-slate-200 transition-colors hover:bg-white/[0.12]"
+                >
+                  GitHub
+                </a>
+              </div>
+            </div>
+
+            <div className="flex flex-row lg:flex-col gap-2 lg:min-w-[130px]">
+              {[
+                { v: "27",   l: "Rust Crates" },
+                { v: "4",    l: "Chains" },
+                { v: "100%", l: "Genesis Locked" },
+              ].map((s) => (
+                <StatCard key={s.l} value={s.v} label={s.l} className="flex-1 lg:flex-none" />
+              ))}
+            </div>
           </div>
-        </div>
+        </Card>
       </section>
 
-      {/* NAVIGATION */}
-      <section style={{ padding: "0 1.25rem 2.5rem", maxWidth: "1200px", margin: "0 auto" }}>
-        <p style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "#64748b", margin: "0 0 1rem" }}>Explore the Platform</p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "0.75rem" }}>
+      {/* EXPLORE */}
+      <section className="mx-auto max-w-7xl px-5 pb-14 md:px-8">
+        <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-4">
+          Explore the Platform
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
           {NAV_CARDS.map((n) => (
-            <Link key={n.href} href={n.href} style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.09)", borderRadius: "0.85rem", padding: "1.1rem 1.25rem", textDecoration: "none", display: "block" }}>
-              <span style={{ fontFamily: "var(--font-mono, monospace)", fontSize: "0.7rem", fontWeight: 700, color: "#f0cf82", letterSpacing: "0.1em", display: "inline-block", padding: "0.15rem 0.5rem", borderRadius: "0.3rem", background: "rgba(201,154,60,0.1)", border: "1px solid rgba(201,154,60,0.25)", marginBottom: "0.45rem" }}>{n.icon}</span>
-              <p style={{ fontWeight: 700, color: "#f1f5f9", fontSize: "0.9rem", margin: "0 0 0.3rem" }}>{n.title}</p>
-              <p style={{ fontSize: "0.75rem", color: "#64748b", margin: 0, lineHeight: 1.5 }}>{n.desc}</p>
+            <Link
+              key={n.href}
+              href={n.href}
+              className="group block rounded-xl border border-white/[0.09] bg-white/[0.03] p-4 transition-all hover:bg-white/[0.07] hover:border-[#C9A84C]/30"
+            >
+              <Badge variant="mono" className="mb-3">{n.icon}</Badge>
+              <p className="font-semibold text-slate-100 text-[15px] mb-1 group-hover:text-white transition-colors">
+                {n.title}
+              </p>
+              <p className="text-xs text-slate-500 leading-relaxed group-hover:text-slate-400 transition-colors">
+                {n.desc}
+              </p>
             </Link>
           ))}
         </div>
       </section>
-
-      {/* FOOTER */}
-      <footer style={{ padding: "0 1.25rem 3rem", maxWidth: "1200px", margin: "0 auto", borderTop: "1px solid rgba(255,255,255,0.07)", paddingTop: "1.5rem", marginTop: "0.5rem" }}>
-        <p style={{ fontSize: "0.72rem", color: "#475569", lineHeight: 1.7 }}>
-          <strong style={{ color: "#64748b" }}>Disclaimer:</strong> TROPTIONS is not a bank, broker-dealer, exchange, custodian, or licensed financial institution. All on-chain data links to public blockchain explorers and can be independently verified. AMM, supply and trustline figures are taken from XRPL ledger 103,872,749 (April 28, 2026). All Rust L1 simulation code is marked <code style={{ fontFamily: "monospace", background: "rgba(255,255,255,0.05)", padding: "0.1em 0.3em", borderRadius: "0.2em" }}>simulation_only: true</code> until governance and provider gates clear.
-        </p>
-      </footer>
 
     </div>
   );
