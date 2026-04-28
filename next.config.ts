@@ -9,6 +9,10 @@ const nextConfig: NextConfig = {
 		root: repoRoot,
 	},
 	serverExternalPackages: ["better-sqlite3"],
+	experimental: {
+		cpus: 4,
+		workerThreads: false,
+	},
 	async rewrites() {
 		return [
 			{

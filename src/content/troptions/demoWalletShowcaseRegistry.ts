@@ -69,57 +69,10 @@ export const DEMO_WALLET_SHOWCASE: readonly DemoWalletShowcaseItem[] = [
       { pair: "TROPTIONS / XRP", network: "XRPL", status: "Live", verificationUrl: "https://livenet.xrpl.org/accounts/rNX4faQ35SdtE4rDoEg8YeVLQKQ57AYyCt" },
     ],
   },
-  {
-    id: "troptions-xrpl-trader-a",
-    label: "TROPTIONS XRPL Trader A",
-    network: "XRPL",
-    address: "rsRy4Yic74sRn4GxYSm8Ve32zHC5mAEaGr",
-    source: "TROPTIONS mainnet deployment — 2026-04-28",
-    walletType: "trading",
-    summary: "Active TROPTIONS DEX trader on XRPL. Placed multiple offers and converted XRP ↔ TROPTIONS. Holds a maximum trustline of 10 quadrillion TROPTIONS.",
-    assets: [
-      { symbol: "TROPTIONS", assetType: "iou", purpose: "DEX trading — buying and selling TROPTIONS for XRP" },
-      { symbol: "XRP", assetType: "token", purpose: "Trading pair base asset" },
-    ],
-    explorerLinks: [
-      { label: "XRPL Ledger", url: "https://livenet.xrpl.org/accounts/rsRy4Yic74sRn4GxYSm8Ve32zHC5mAEaGr" },
-      { label: "XRPScan", url: "https://xrpscan.com/account/rsRy4Yic74sRn4GxYSm8Ve32zHC5mAEaGr" },
-    ],
-  },
-  {
-    id: "troptions-xrpl-trader-b",
-    label: "TROPTIONS XRPL Trader B",
-    network: "XRPL",
-    address: "rMbHoVjLF2z3bS6Pg4NJcqoMsjyExn5LVu",
-    source: "TROPTIONS mainnet deployment — 2026-04-28",
-    walletType: "trading",
-    summary: "Active TROPTIONS DEX and AMM participant on XRPL. Converted 1 XRP → 83.31 TROPTIONS, placed offers, then sold back for 0.899 XRP.",
-    assets: [
-      { symbol: "TROPTIONS", assetType: "iou", purpose: "AMM and DEX interaction — buy/sell round trip" },
-      { symbol: "XRP", assetType: "token", purpose: "Trading pair base asset" },
-    ],
-    explorerLinks: [
-      { label: "XRPL Ledger", url: "https://livenet.xrpl.org/accounts/rMbHoVjLF2z3bS6Pg4NJcqoMsjyExn5LVu" },
-      { label: "XRPScan", url: "https://xrpscan.com/account/rMbHoVjLF2z3bS6Pg4NJcqoMsjyExn5LVu" },
-    ],
-  },
-  {
-    id: "troptions-xrpl-holder-a",
-    label: "TROPTIONS XRPL Holder A",
-    network: "XRPL",
-    address: "r49zYHBsv1WJU6yXV4s2jm5YJDLGT1JFT5",
-    source: "TROPTIONS mainnet deployment — 2026-04-28",
-    walletType: "treasury",
-    summary: "TROPTIONS trustline holder on XRPL mainnet. Established a trustline to the TROPTIONS issuer and holds a TROPTIONS balance acquired from the distribution wallet.",
-    assets: [
-      { symbol: "TROPTIONS", assetType: "iou", purpose: "Trustline holder — acquired TROPTIONS via DEX or direct transfer" },
-      { symbol: "XRP", assetType: "token", purpose: "Reserve and transaction fees" },
-    ],
-    explorerLinks: [
-      { label: "XRPL Ledger", url: "https://livenet.xrpl.org/accounts/r49zYHBsv1WJU6yXV4s2jm5YJDLGT1JFT5" },
-      { label: "XRPScan", url: "https://xrpscan.com/account/r49zYHBsv1WJU6yXV4s2jm5YJDLGT1JFT5" },
-    ],
-  },
+  // NOTE: Independent third-party DEX traders and trustline holders that
+  // appear on chain (e.g. rsRy4Yic..., rMbHoVjLF2z3bS6Pg4NJcqoMsjyExn5LVu,
+  // r49zYHBsv1WJU6yXV4s2jm5YJDLGT1JFT5) are deliberately NOT listed here.
+  // This registry shows only Troptions-controlled wallets.
 
   // ── TROPTIONS Stellar Wallets ─────────────────────────────────────────────
   {

@@ -69,81 +69,10 @@ export const XRPL_WALLET_INVENTORY_REGISTRY: readonly WalletForensicsWalletRecor
     ],
   },
 
-  // ── TROPTIONS Trader A (DEX liquidity provider) ───────────────────────────
-  {
-    walletId: "xrpl-troptions-trader-a",
-    address: "rsRy4Yic74sRn4GxYSm8Ve32zHC5mAEaGr",
-    chain: "xrpl",
-    label: "TROPTIONS Trader A",
-    source: "TROPTIONS mainnet deployment — 2026-04-28",
-    role: "trading",
-    firstSeen: "2026-04-28T08:35:42Z",
-    lastSeen: "2026-04-28T08:36:41Z",
-    currentBalance: "unknown",
-    masterKeyStatus: "enabled",
-    signingKeySeen: true,
-    riskStatus: "low",
-    notes: [
-      "Set trustline limit: 10,000,000,000,000,000 TROPTIONS on 2026-04-28T08:35:42Z.",
-      "Placed DEX offer: Buy 2.5 XRP / Sell 166.5 TROPTIONS at 66.5985 XRP/TROPTIONS.",
-      "Placed DEX offer: Buy 12 XRP / Sell 249.75 TROPTIONS at 20.812 XRP/TROPTIONS.",
-      "Converted 2 XRP → 665.99 TROPTIONS via DEX path payment.",
-    ],
-    explorerLinks: [
-      { label: "XRPSCAN", url: "https://xrpscan.com/account/rsRy4Yic74sRn4GxYSm8Ve32zHC5mAEaGr" },
-      { label: "XRPL Explorer", url: "https://livenet.xrpl.org/accounts/rsRy4Yic74sRn4GxYSm8Ve32zHC5mAEaGr" },
-    ],
-  },
-
-  // ── TROPTIONS Trader B (DEX + AMM interaction) ────────────────────────────
-  {
-    walletId: "xrpl-troptions-trader-b",
-    address: "rMbHoVjLF2z3bS6Pg4NJcqoMsjyExn5LVu",
-    chain: "xrpl",
-    label: "TROPTIONS Trader B",
-    source: "TROPTIONS mainnet deployment — 2026-04-28",
-    role: "trading",
-    firstSeen: "2026-04-28T08:35:50Z",
-    lastSeen: "2026-04-28T08:37:22Z",
-    currentBalance: "unknown",
-    masterKeyStatus: "enabled",
-    signingKeySeen: true,
-    riskStatus: "low",
-    notes: [
-      "Set trustline limit: 10,000,000,000,000,000 TROPTIONS on 2026-04-28T08:35:50Z.",
-      "Converted 1 XRP → 83.31 TROPTIONS via DEX on 2026-04-28T08:35:52Z.",
-      "Placed DEX offer: Buy 1.5 XRP / Sell 20.83 TROPTIONS at 13.8845 XRP/TROPTIONS.",
-      "Converted 83.31 TROPTIONS → 0.899 XRP (sell back) on 2026-04-28T08:37:20Z.",
-    ],
-    explorerLinks: [
-      { label: "XRPSCAN", url: "https://xrpscan.com/account/rMbHoVjLF2z3bS6Pg4NJcqoMsjyExn5LVu" },
-      { label: "XRPL Explorer", url: "https://livenet.xrpl.org/accounts/rMbHoVjLF2z3bS6Pg4NJcqoMsjyExn5LVu" },
-    ],
-  },
-
-  // ── TROPTIONS Holder (trustline only) ─────────────────────────────────────
-  {
-    walletId: "xrpl-troptions-holder-a",
-    address: "r49zYHBsv1WJU6yXV4s2jm5YJDLGT1JFT5",
-    chain: "xrpl",
-    label: "TROPTIONS Holder A",
-    source: "TROPTIONS mainnet deployment — 2026-04-28",
-    role: "related-wallet",
-    firstSeen: "2026-04-28T08:35:42Z",
-    lastSeen: "2026-04-28T08:50:41Z",
-    currentBalance: "unknown",
-    masterKeyStatus: "enabled",
-    signingKeySeen: false,
-    riskStatus: "low",
-    notes: [
-      "Set trustline limit: 1,000,000,000 TROPTIONS on 2026-04-28T08:35:42Z.",
-      "Updated trustline to 0.00 limit on 2026-04-28T08:50:41Z (closed trustline).",
-    ],
-    explorerLinks: [
-      { label: "XRPSCAN", url: "https://xrpscan.com/account/r49zYHBsv1WJU6yXV4s2jm5YJDLGT1JFT5" },
-      { label: "XRPL Explorer", url: "https://livenet.xrpl.org/accounts/r49zYHBsv1WJU6yXV4s2jm5YJDLGT1JFT5" },
-    ],
-  },
+  // NOTE: Independent third-party DEX traders and trustline holders observed
+  // on chain (rsRy4Yic..., rMbHoVjLF2z3bS6Pg4NJcqoMsjyExn5LVu,
+  // r49zYHBsv1WJU6yXV4s2jm5YJDLGT1JFT5) are deliberately excluded from this
+  // inventory. Only Troptions-controlled wallets are listed here.
 ];
 
 // -- Convenience lookups ─────────────────────────────────────────────────────
