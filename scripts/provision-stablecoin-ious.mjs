@@ -76,15 +76,22 @@ import * as StellarSdk from "@stellar/stellar-sdk";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..");
 
-// ─── Load .env.local ────────────────────────────────────────────────────────────
-function loadEnvLocal() {
-  const envPath = path.join(REPO_ROOT, ".env.local");
+// ─── Load .env files ─────────────────────────────────────────────────────────────
+function loadEnvFile(envPath) {
   if (!fs.existsSync(envPath)) return;
-  const txt = fs.readFileSync(envPath, "utf8");
+  const raw = fs.readFileSync(envPath);
+  // Detect UTF-16LE BOM (ff fe)
+  const enc = (raw[0] === 0xff && raw[1] === 0xfe) ? "utf16le" : "utf8";
+  const txt = raw.toString(enc).replace(/^\uFEFF/, ""); // strip BOM if present
   for (const line of txt.split(/\r?\n/)) {
     const m = line.match(/^([A-Z_][A-Z0-9_]*)=(.*)$/);
-    if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, "");
+    if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, "").trim();
   }
+}
+function loadEnvLocal() {
+  // Load in priority order — .env.local wins over .env.generated.local
+  loadEnvFile(path.join(REPO_ROOT, ".env.generated.local"));
+  loadEnvFile(path.join(REPO_ROOT, ".env.local"));
 }
 loadEnvLocal();
 
