@@ -9,7 +9,7 @@ export default function PortalWalletForensicsInvestigationPage() {
   return (
     <WalletForensicsLayout
       title="Full Forensic Investigation (Portal)"
-      intro="All wallets — XRPL primary compromise, related accounts, attacker signing-key chain, OPTKAS backup wallets, and Stellar accounts. Full compromise posture active."
+      intro="All wallets — XRPL primary compromise, related accounts, attacker signing-key chain, legacy backup wallets under investigation, and Stellar accounts. Full compromise posture active."
     >
       <CompromiseEvidencePanel />
     </WalletForensicsLayout>

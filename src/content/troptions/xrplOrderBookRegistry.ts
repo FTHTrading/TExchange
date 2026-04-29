@@ -15,7 +15,7 @@ export interface XrplOrderBookRecord {
 export const XRPL_ORDER_BOOK_REGISTRY: readonly XrplOrderBookRecord[] = [
   {
     id: "ob-1",
-    pair: "XRP / OPTKAS",
+    pair: "XRP / LEGACY-TOKEN",
     method: "book_offers",
     bids: [
       { price: "0.8412", amount: "120000" },

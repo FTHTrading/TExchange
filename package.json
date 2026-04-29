@@ -23,6 +23,7 @@
     "rollback:drill": "node scripts/run-rollback-drill.mjs",
     "recovery:timing": "node scripts/capture-recovery-timing.mjs",
     "smoke:prod": "node scripts/run-production-smoke-checks.mjs",
+    "scan:forbidden-brands": "node scripts/scan-forbidden-brands.mjs",
     "backups:rotate": "node scripts/rotate-backups.mjs",
     "incident:drill": "node scripts/run-incident-drill.mjs",
     "genesis:lock": "node scripts/phase20-genesis-lock.mjs",

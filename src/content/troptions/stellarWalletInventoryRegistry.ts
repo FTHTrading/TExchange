@@ -2,7 +2,7 @@ import type { WalletForensicsWalletRecord } from "@/content/troptions/walletFore
 
 // ── TROPTIONS Stellar Wallets ─────────────────────────────────────────────────
 // These are the live TROPTIONS wallets funded on Stellar mainnet 2026-04-28.
-// TROPTIONS-specific only. No OPTKAS or UnyKorn entries.
+// TROPTIONS-specific only. No legacy token or UnyKorn entries.
 //
 // Both wallets confirmed funded and recorded in data/treasury-funding-log.json.
 

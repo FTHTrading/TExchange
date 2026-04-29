@@ -60,7 +60,7 @@ export interface TreasuryWalletRole {
   readonly address: string;
   /** Env var that holds the private seed/secret (never logged). */
   readonly seedEnvVar?: string;
-  /** Asset codes this wallet is responsible for (e.g. "TROPTIONS", "OPTKAS"). */
+  /** Asset codes this wallet is responsible for (e.g. "TROPTIONS", "SOVBND"). */
   readonly assets: readonly string[];
   /** Daily operational cap in base units of the primary asset. */
   readonly dailyCap?: string;
@@ -108,32 +108,32 @@ export const XRPL_TREASURY_TOPOLOGY: readonly TreasuryWalletRole[] = [
     requiresLegalReview: false,
   },
   {
-    roleId: "xrpl-optkas-issuer",
+    roleId: "xrpl-legacy-issuer",
     chain: "xrpl",
-    displayName: "OPTKAS Issuer (XRPL)",
+    displayName: "Legacy Token Issuer (XRPL)",
     classification: "issuance",
     tier: "cold",
     status: "active",
     address: "rpraqLjKmDB9a43F9fURWA2bVaywkyJua3",
-    assets: ["OPTKAS"],
+    assets: ["LEGACY-TOKEN"],
     signersRequired: 1,
     description:
-      "OPTKAS IOU issuer from the OPTKAS_WALLET_BACKUP_2026-02-07 mainnet generation. Issues OPTKAS-branded tokens.",
+      "Legacy IOU issuer wallet generated 2026-02-07. Issues legacy-branded tokens under legal review. Requires board authorization and legal sign-off before any new issuance.",
     requiresBoardAuth: true,
     requiresLegalReview: true,
   },
   {
-    roleId: "xrpl-optkas-treasury",
+    roleId: "xrpl-legacy-treasury",
     chain: "xrpl",
-    displayName: "OPTKAS Treasury (XRPL)",
+    displayName: "Legacy Treasury (XRPL)",
     classification: "treasury-reserve",
     tier: "warm",
     status: "active",
     address: "rncYwc1ss8AdV2vKjaYwMAEj7RNRfKRV4r",
-    assets: ["OPTKAS", "SOVBND"],
+    assets: ["LEGACY-TOKEN", "SOVBND"],
     signersRequired: 2,
     description:
-      "OPTKAS Genesis treasury wallet. Trustlines for OPTKAS and SOVBND established. Operational reserve under multi-sig.",
+      "Legacy Genesis treasury wallet. Trustlines for legacy token and SOVBND established. Operational reserve under multi-sig.",
     requiresBoardAuth: false,
     requiresLegalReview: false,
   },
@@ -146,7 +146,7 @@ export const XRPL_TREASURY_TOPOLOGY: readonly TreasuryWalletRole[] = [
     status: "configured",
     address: "rPF2M1QjdVh1hkNgmMMTkT9qMU7tA7Wds3",
     seedEnvVar: "XRPL_TREASURY_SEED",
-    assets: ["TROPTIONS", "OPTKAS", "XRP"],
+    assets: ["TROPTIONS", "LEGACY-TOKEN", "XRP"],
     signersRequired: 3,
     description:
       "Cold-storage treasury reserve for TROPTIONS-family assets. 3-of-N multi-sig. Drawdowns only via board-authorized release.",
@@ -332,41 +332,41 @@ export const STELLAR_TREASURY_TOPOLOGY: readonly TreasuryWalletRole[] = [
     { seedEnvVar: "STELLAR_TREASURY_SECRET" },
   ),
 
-  // ── OPTKAS asset family (5) ─────────────────────────────────────────────────
+  // ── Legacy token asset family (5) ───────────────────────────────────────────
   stellarRole(
-    "stellar-optkas-issuer", "OPTKAS Issuer (Stellar)",
+    "stellar-legacy-issuer", "Legacy Token Issuer (Stellar)",
     "issuance", "cold", "active",
     "GBJIMHMBGTPN5RS42OGBUY5NC2ATZLPT3B3EWV32SM2GQLS46TRJWG4I",
-    ["OPTKAS"],
-    "OPTKAS Issuer from OPTKAS_WALLET_BACKUP_2026-02-07. Issues OPTKAS-backed tokens on Stellar mainnet.",
+    ["LEGACY-TOKEN"],
+    "Legacy token issuer wallet generated 2026-02-07. Issues legacy-backed tokens on Stellar mainnet. Under legal review; requires board authorization before new issuance.",
     { requiresBoardAuth: true, requiresLegalReview: true },
   ),
   stellarRole(
-    "stellar-optkas-distribution", "OPTKAS Distribution (Stellar)",
+    "stellar-legacy-distribution", "Legacy Token Distribution (Stellar)",
     "distribution", "warm", "active",
     "GAKCD7OKDM4HLZDBEE7KXTRFAYIE755UHL3JFQEOOHDPIMM5GEFY3RPF",
-    ["OPTKAS"],
-    "OPTKAS Distribution wallet — holds issued supply for controlled release.",
+    ["LEGACY-TOKEN"],
+    "Legacy token distribution wallet — holds issued supply for controlled release.",
   ),
   stellarRole(
-    "stellar-optkas-anchor", "OPTKAS Anchor (Stellar)",
+    "stellar-legacy-anchor", "Legacy Token Anchor (Stellar)",
     "anchor", "warm", "active",
     "GC6O6Q7FG5FZGHE5D5BHGA6ZTLRAU7UWFJKKWNOJ36G3PKVVKVYLQGA6",
-    ["OPTKAS"],
-    "OPTKAS escrow/anchor wallet from OPTKAS_WALLET_BACKUP. Handles SEP-6/SEP-24 flows.",
+    ["LEGACY-TOKEN"],
+    "Legacy escrow/anchor wallet. Handles SEP-6/SEP-24 flows under compliance review.",
     { requiresLegalReview: true },
   ),
   stellarRole(
-    "stellar-optkas-lp", "OPTKAS LP Manager (Stellar)",
+    "stellar-legacy-lp", "Legacy Token LP Manager (Stellar)",
     "liquidity-pool", "warm", "pending-generation", "",
-    ["OPTKAS", "XLM"],
-    "Manages OPTKAS/XLM liquidity pool on Stellar AMM.",
+    ["LEGACY-TOKEN", "XLM"],
+    "Manages legacy token/XLM liquidity pool on Stellar AMM. Pending legal structure review.",
   ),
   stellarRole(
-    "stellar-optkas-treasury", "OPTKAS Treasury Reserve (Stellar)",
+    "stellar-legacy-treasury", "Legacy Token Treasury Reserve (Stellar)",
     "treasury-reserve", "cold", "pending-generation", "",
-    ["OPTKAS"],
-    "Cold-storage treasury reserve for OPTKAS. Multi-sig only.",
+    ["LEGACY-TOKEN"],
+    "Cold-storage treasury reserve for legacy token holdings. Multi-sig only.",
   ),
 
   // ── SOVBND sovereign bond rails (4) ─────────────────────────────────────────
@@ -472,7 +472,7 @@ export const STELLAR_TREASURY_TOPOLOGY: readonly TreasuryWalletRole[] = [
   stellarRole(
     "stellar-dex-maker", "Stellar DEX Market-Maker",
     "market-making", "hot", "pending-generation", "",
-    ["TROPTIONS", "OPTKAS", "XLM", "USDC"],
+    ["TROPTIONS", "LEGACY-TOKEN", "XLM", "USDC"],
     "Hot wallet placing manageBuyOffer/manageSellOffer transactions on the Stellar DEX. Daily cap enforced.",
     { dailyCap: "1000000" },
   ),
@@ -493,7 +493,7 @@ export const STELLAR_TREASURY_TOPOLOGY: readonly TreasuryWalletRole[] = [
   stellarRole(
     "stellar-compliance-hold", "Compliance Hold Wallet (Stellar)",
     "compliance-hold", "warm", "pending-generation", "",
-    ["TROPTIONS", "OPTKAS", "USDF"],
+    ["TROPTIONS", "LEGACY-TOKEN", "USDF"],
     "Holds frozen assets pending compliance review (sanctions match, suspicious-activity hold, KYC dispute). Auth-revocable on issuer side.",
     { requiresLegalReview: true },
   ),
@@ -507,14 +507,14 @@ export const STELLAR_TREASURY_TOPOLOGY: readonly TreasuryWalletRole[] = [
   stellarRole(
     "stellar-exchange-coordination", "Stellar Exchange Coordination",
     "exchange-coordination", "warm", "pending-generation", "",
-    ["TROPTIONS", "OPTKAS"],
+    ["TROPTIONS", "LEGACY-TOKEN"],
     "Coordinates listings and deposits with centralised exchanges (Coinbase, Bitstamp, etc.).",
     { requiresLegalReview: true },
   ),
   stellarRole(
     "stellar-treasury-master", "Stellar Treasury Master Reserve",
     "treasury-reserve", "cold", "pending-generation", "",
-    ["XLM", "USDC", "TROPTIONS", "OPTKAS"],
+    ["XLM", "USDC", "TROPTIONS", "LEGACY-TOKEN"],
     "Master cold-storage treasury reserve aggregating all Stellar-side assets. 4-of-N multi-sig.",
     { signersRequired: 4, requiresBoardAuth: true, requiresLegalReview: true },
   ),

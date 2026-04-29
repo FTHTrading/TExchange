@@ -6,7 +6,7 @@
 
 export const DISCLAIMERS = {
   // ─── Master Disclaimer (required on all Troptions pages) ─────────────────
-  MASTER: `Troptions is a digital asset ecosystem operating through OPTKAS technology infrastructure. Nothing on this platform constitutes financial advice, investment advice, securities offerings, stablecoin issuance, or legal advice. All capabilities, assets, tokens, funding routes, and integrations are subject to ongoing legal review, compliance analysis, and regulatory approval in applicable jurisdictions. Past performance is not indicative of future results. Participants should consult independent financial, legal, tax, and accounting advisors before engaging with any Troptions product or service.`,
+  MASTER: `Troptions is a digital asset ecosystem operating through TROPTIONS compliance-controlled technology infrastructure. Nothing on this platform constitutes financial advice, investment advice, securities offerings, stablecoin issuance, or legal advice. All capabilities, assets, tokens, funding routes, and integrations are subject to ongoing legal review, compliance analysis, and regulatory approval in applicable jurisdictions. Past performance is not indicative of future results. Participants should consult independent financial, legal, tax, and accounting advisors before engaging with any Troptions product or service.`,
 
   // ─── Asset / Token Disclaimer ─────────────────────────────────────────────
   ASSET: `Digital assets involve significant risk including loss of principal. Troptions tokens are not money, not FDIC-insured, and not backed by any government. Token value is subject to market conditions, counterparty risk, regulatory developments, and other factors. No guarantee of value, liquidity, or return is made or implied.`,

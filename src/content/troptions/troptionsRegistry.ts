@@ -58,7 +58,7 @@ export const TROPTIONS_SYSTEM_IDENTITY = {
   tagline:
     "A proof-gated digital value and real-world asset infrastructure for barter, settlement, custody coordination, token-role governance, and evidence-backed participation.",
   version: "1.0.0",
-  internalEngine: "OPTKAS — Operating, Proof, Treasury, KYC/KYB, Asset, Settlement System",
+  internalEngine: "TROPTIONS — Operating, Proof, Treasury, KYC/KYB, Asset, Settlement System",
   complianceModel: "compliance-by-jurisdiction",
   issuanceModel: "proof-gated",
   settlementModel: "custody-gated",

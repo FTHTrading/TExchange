@@ -120,7 +120,7 @@ function AllWalletsTable() {
     <section>
       <SectionHeading>Full Wallet Inventory ({allWallets.length} wallets)</SectionHeading>
       <p className="text-sm text-zinc-400 mb-3">
-        Includes OPTKAS backup wallets (XRPL + Stellar), forensic/compromised accounts, and
+        Includes legacy backup wallets (XRPL + Stellar), forensic/compromised accounts, and
         signing-key investigation addresses. Addresses only — no private keys stored here.
       </p>
       <div className="overflow-x-auto">
@@ -279,9 +279,9 @@ const IMMEDIATE_ACTIONS = [
   { done: false, action: "Create a brand-new XRPL wallet using trusted software (Xumm / XRPL.org tooling). Never reuse the old seed." },
   { done: false, action: "Contact ChangeNOW with the support message above. Reference dest tag 614122458 and tx 84F7978E..." },
   { done: false, action: "Screenshot / export: SetRegularKey txs, DisableMasterKey tx, the 81 XRP payment, failed AccountDelete, IOU outflows." },
-  { done: false, action: "Rotate seeds on ALL other OPTKAS wallets (issuer, treasury, escrow, attestation, amm_liquidity, trading) in case same seed derivation was compromised." },
+  { done: false, action: "Rotate seeds on ALL other legacy backup wallets (issuer, treasury, escrow, attestation, amm_liquidity, trading) in case same seed derivation was compromised." },
   { done: false, action: "Rotate all three Stellar seeds (issuer, distribution, anchor) as a precaution." },
-  { done: false, action: "Review OPTKAS issuer wallet — if it issued IOUs that were drained, coordinate with trustline holders." },
+  { done: false, action: "Review legacy issuer wallet — if it issued IOUs that were drained, coordinate with trustline holders." },
   { done: false, action: "File a report with IC3 (internet crime) or local law enforcement with all attacker addresses and the ChangeNOW dest tag." },
 ];
 

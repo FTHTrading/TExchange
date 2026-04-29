@@ -11,7 +11,7 @@
  * - Live execution requires board authorization + legal sign-off
  *
  * Live deployment confirmed 2026-04-28.
- * OPTKAS and compromised wallet entries have been removed.
+ * Legacy token and compromised wallet entries have been removed.
  */
 
 export type XrplWalletStatus =

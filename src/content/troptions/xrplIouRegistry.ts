@@ -17,7 +17,7 @@ export const XRPL_IOU_REGISTRY: readonly XrplIouRecord[] = [
   { currency: "GBP", issuer: "unknown", category: "stablecoin", note: "Issuer acceptance and redemption determine real value." },
   { currency: "USD", issuer: "unknown", category: "stablecoin", note: "USD code is not automatically bank USD on XRPL." },
   { currency: "DONK", issuer: "unknown", category: "custom-token", note: "Custom issued token. Validate issuer controls and market depth." },
-  { currency: "OPTKAS", issuer: "unknown", category: "custom-token", note: "Project token representation; evaluate trustline and issuer risk." },
+  { currency: "LEGACY", issuer: "unknown", category: "custom-token", note: "Legacy project token representation; evaluate trustline and issuer risk." },
   { currency: "SOVBND", issuer: "unknown", category: "bond", note: "Bond-like code still maps to an issuer IOU model." },
   { currency: "PETRO", issuer: "unknown", category: "commodity", note: "Commodity-themed IOU; verify issuer and redemption ability." },
   { currency: "ATTEST", issuer: "unknown", category: "attestation", note: "Attestation-style issued asset, not native XRP value." },

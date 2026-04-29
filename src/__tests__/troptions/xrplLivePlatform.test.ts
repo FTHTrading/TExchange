@@ -35,7 +35,7 @@ describe("XRPL live platform", () => {
   });
 
   it("simulates quotes without signing or submitting", () => {
-    const quote = simulateXrplTrade({ fromAsset: "XRP", toAsset: "OPTKAS", amount: 1000 });
+    const quote = simulateXrplTrade({ fromAsset: "XRP", toAsset: "TROPTIONS", amount: 1000 });
     expect(quote.auditHint).toContain("No XRPL transaction was signed or submitted");
   });
 

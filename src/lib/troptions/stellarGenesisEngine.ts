@@ -636,11 +636,11 @@ redemption_instructions = "https://troptions.org/redeem"
 regulated = false
 
 [[CURRENCIES]]
-code = "OPTKAS"
+code = "LEGACY"
 issuer = "${issuerAddress}"
 display_decimals = 7
-name = "OPTKAS"
-desc = "OPTKAS — Optioned Kansas Trade Settlement asset. Regional trade instrument."
+name = "Legacy Trade Settlement Token"
+desc = "Legacy TROPTIONS-family trade settlement asset. Regional trade instrument under legal review. Not publicly marketed."
 is_asset_anchored = false
 anchor_asset_type = "other"
 

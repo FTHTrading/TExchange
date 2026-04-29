@@ -84,11 +84,11 @@ export const GLOSSARY: GlossaryEntry[] = [
     institutionalNote: "Always scope compliance claims to specific jurisdiction and activity type.",
   },
   {
-    term: "OPTKAS",
+    term: "Platform Infrastructure",
     category: "Infrastructure",
-    definition: "OPTKAS is the internal technology infrastructure engine powering the Troptions ecosystem. OPTKAS is not a public brand; it is an internal operating system.",
-    prohibitedUses: ["marketed as a public product", "described as a standalone investment"],
-    institutionalNote: "OPTKAS is an internal engineering reference, not a public brand.",
+    definition: "The TROPTIONS compliance-controlled technology infrastructure is the internal operating system powering the Troptions ecosystem. It is not a public brand or standalone investment product.",
+    prohibitedUses: ["marketed as a public product", "described as a standalone investment", "attributed to any third party without documented authority"],
+    institutionalNote: "TROPTIONS platform infrastructure is internally controlled. No third-party brand should be credited as providing, owning, or operating TROPTIONS infrastructure in public materials.",
   },
   {
     term: "Barter Token",

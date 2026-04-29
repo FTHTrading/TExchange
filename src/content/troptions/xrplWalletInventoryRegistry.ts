@@ -2,7 +2,7 @@ import type { WalletForensicsWalletRecord } from "@/content/troptions/walletFore
 
 // ── TROPTIONS XRPL Wallets ────────────────────────────────────────────────────
 // These are the live TROPTIONS wallets deployed on XRPL mainnet 2026-04-28.
-// All wallets are TROPTIONS-specific only. No OPTKAS or UnyKorn entries.
+// All wallets are TROPTIONS-specific only. No legacy token or UnyKorn entries.
 //
 // Token: TROPTIONS IOU
 // Issuer: rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ

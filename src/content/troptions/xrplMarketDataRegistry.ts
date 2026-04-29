@@ -10,8 +10,8 @@ export interface XrplMarketDataRecord {
 }
 
 export const XRPL_MARKET_DATA_REGISTRY: readonly XrplMarketDataRecord[] = [
-  { id: "md-1", pair: "XRP / OPTKAS", venue: "XRPL DEX", lastPrice: "0.8420", change24h: "+2.1%", volume24h: "1.24M XRP", status: "simulated-live", risk: "medium" },
+  { id: "md-1", pair: "XRP / LEGACY-TOKEN", venue: "XRPL DEX", lastPrice: "0.8420", change24h: "+2.1%", volume24h: "1.24M XRP", status: "simulated-live", risk: "medium" },
   { id: "md-2", pair: "XRP / SOVBND", venue: "XRPL DEX", lastPrice: "0.1160", change24h: "-0.4%", volume24h: "420k XRP", status: "simulated-live", risk: "medium" },
-  { id: "md-3", pair: "OPTKAS / XRP", venue: "XRPL AMM", lastPrice: "1.1860", change24h: "+0.8%", volume24h: "980k XRP eq", status: "simulated-live", risk: "medium" },
+  { id: "md-3", pair: "LEGACY-TOKEN / XRP", venue: "XRPL AMM", lastPrice: "1.1860", change24h: "+0.8%", volume24h: "980k XRP eq", status: "simulated-live", risk: "medium" },
   { id: "md-4", pair: "USDF / XRP", venue: "Pathfinding", lastPrice: "1.0004", change24h: "+0.0%", volume24h: "2.8M routed", status: "simulated-live", risk: "low" },
 ];

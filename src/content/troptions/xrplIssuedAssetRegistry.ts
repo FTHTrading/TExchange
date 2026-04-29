@@ -9,7 +9,7 @@ export interface XrplIssuedAssetRecord {
 }
 
 export const XRPL_ISSUED_ASSET_REGISTRY: readonly XrplIssuedAssetRecord[] = [
-  { id: "asset-optkas", symbol: "OPTKAS", assetType: "claim-receipt", issuerModel: "XRPL IOU", freezeEnabled: true, clawbackEnabled: false, trustlineRequired: true },
+  { id: "asset-legacy", symbol: "LEGACY", assetType: "claim-receipt", issuerModel: "XRPL IOU", freezeEnabled: true, clawbackEnabled: false, trustlineRequired: true },
   { id: "asset-sovbnd", symbol: "SOVBND", assetType: "claim-receipt", issuerModel: "XRPL IOU", freezeEnabled: true, clawbackEnabled: false, trustlineRequired: true },
   { id: "asset-imperia", symbol: "IMPERIA", assetType: "claim-receipt", issuerModel: "XRPL IOU", freezeEnabled: true, clawbackEnabled: false, trustlineRequired: true },
   { id: "asset-gemvlt", symbol: "GEMVLT", assetType: "claim-receipt", issuerModel: "XRPL IOU", freezeEnabled: true, clawbackEnabled: false, trustlineRequired: true },

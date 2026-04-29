@@ -11,7 +11,7 @@ export async function POST(request: Request) {
 
   const responseBody = buildXrplApiEnvelope({
     mode: "simulation",
-    quote: simulateXrplTrade({ fromAsset: body.fromAsset ?? "XRP", toAsset: body.toAsset ?? "OPTKAS", amount: typeof body.amount === "number" ? body.amount : 1000, venue: body.venue }),
+    quote: simulateXrplTrade({ fromAsset: body.fromAsset ?? "XRP", toAsset: body.toAsset ?? "TROPTIONS", amount: typeof body.amount === "number" ? body.amount : 1000, venue: body.venue }),
     blockedReason: "Quote simulation only. No XRPL transaction was signed or submitted.",
     requiredApprovals: ["Operator auth", "Idempotency key", "Audit trail"],
     auditHint: "Simulation-only quote.",

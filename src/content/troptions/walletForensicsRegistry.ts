@@ -108,7 +108,7 @@ export const XRPL_CONTROL_KEY_QUESTION =
   "The critical control question is who set and controlled the regular keys rpKmcC1PevAxTBRQgkYtakdGVup2K2Luqh and rJpKvdn64acBnVGNQ873JpQKujA4TAVbfN after master-key disablement.";
 
 export const XRPL_FORENSICS_TIMELINE: readonly string[] = [
-  "2026-02-07: OPTKAS wallet set (issuer/treasury/escrow/attestation/amm/trading) generated offline.",
+  "2026-02-07: Legacy wallet set (issuer/treasury/escrow/attestation/amm/trading) generated offline.",
   "2026-02-18 16:00–16:01 UTC: Issuer rGSDDiG (unykorn.org) distributes UnyKorn USDT to 4 holder wallets: rKNvud9 (39.7M), rnAF6Ki (38.8M), rPqUumc (38.8M), rGhaJrY (10M). Total: ~127.3M USDT issued.",
   "2026-02-18: rpP12ND wallet ecosystem receives XRP and multiple IOUs from rGSDDiG (USDT, GOLD, EUR, USD, GBP, DONK). rDEW3 opens a USDT trustline (50M limit).",
   "2026-02-21: NFT burn activity observed on rpP12ND.",

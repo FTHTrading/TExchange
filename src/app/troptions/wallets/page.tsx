@@ -274,8 +274,8 @@ export default function TroptionsWalletPage() {
               <p className="mt-2 text-sm leading-7 text-slate-600">2 wallets funded — issuer (5 XLM, ledger 62321764) and distribution (15 XLM, ledger 62321765). Cross-chain bridge ready.</p>
             </div>
             <div className="rounded-2xl border border-slate-200 bg-white p-5">
-              <h3 className="text-sm font-semibold text-slate-900">No OPTKAS / UnyKorn</h3>
-              <p className="mt-2 text-sm leading-7 text-slate-600">This registry is TROPTIONS-only. All OPTKAS, UnyKorn, USDF, and compromised wallet references have been removed.</p>
+              <h3 className="text-sm font-semibold text-slate-900">TROPTIONS-Only Registry</h3>
+              <p className="mt-2 text-sm leading-7 text-slate-600">This registry is TROPTIONS-only. All legacy, UnyKorn, USDF, and compromised wallet references have been removed.</p>
             </div>
           </div>
         </section>

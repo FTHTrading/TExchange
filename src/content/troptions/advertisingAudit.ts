@@ -105,7 +105,7 @@ export const ADVERTISING_AUDIT: AdvertisingAuditEntry[] = [
   },
   {
     auditId: "ADV-005",
-    source: "Troptions/OPTKAS institutional materials",
+    source: "Troptions institutional materials",
     originalCopy: "Troptions tokens enhance corporate balance sheets",
     problems: [
       "'Balance sheet enhancement' — accounting treatment requires independent CPA analysis",

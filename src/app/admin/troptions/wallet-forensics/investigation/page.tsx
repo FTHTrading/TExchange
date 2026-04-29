@@ -9,7 +9,7 @@ export default function AdminWalletForensicsInvestigationPage() {
   return (
     <WalletForensicsLayout
       title="Full Forensic Investigation (Admin)"
-      intro="Admin-level full investigation across all 13 wallets. Includes all attacker infrastructure addresses and OPTKAS system wallets."
+      intro="Admin-level full investigation across all 13 wallets. Includes all attacker infrastructure addresses and legacy backup wallets under investigation."
     >
       <CompromiseEvidencePanel />
     </WalletForensicsLayout>

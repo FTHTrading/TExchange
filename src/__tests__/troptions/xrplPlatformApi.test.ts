@@ -22,7 +22,7 @@ describe("XRPL platform API", () => {
     const response = await postQuoteSimulation(new Request("http://localhost/api/troptions/xrpl-platform/quote/simulate", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ fromAsset: "XRP", toAsset: "OPTKAS", amount: 1000 }),
+      body: JSON.stringify({ fromAsset: "XRP", toAsset: "TROPTIONS", amount: 1000 }),
     }));
 
     expect(response.status).toBe(401);
