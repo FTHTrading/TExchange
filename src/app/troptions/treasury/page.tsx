@@ -66,7 +66,7 @@ const classificationLabel: Record<TreasuryClassification, string> = {
 
 function explorerUrl(chain: TreasuryChain, address: string): string | null {
   if (!address) return null;
-  if (chain === "xrpl") return `https://livenet.xrpl.org/accounts/${address}`;
+  if (chain === "xrpl") return `https://xrpscan.com/account/${address}`;
   return `https://stellar.expert/explorer/public/account/${address}`;
 }
 

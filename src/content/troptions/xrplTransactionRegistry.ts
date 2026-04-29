@@ -177,7 +177,7 @@ export const XRPL_TRANSACTION_REGISTRY: readonly WalletForensicsTransactionRecor
     riskLabel: "critical",
     plainEnglishSummary:
       "rDEW3 returned 20,000,513.71 USDT to the UnyKorn issuer rGSDDiG — IOU burned, supply reduced. Tx: E29E7C...934C80",
-    explorerUrl: "https://livenet.xrpl.org/transactions/E29E7C934C80",
+    explorerUrl: "https://xrpscan.com/tx/E29E7C934C80",
   },
   {
     txHash: "95D3B8C9DBD2-RPQUMC-USDT-BURN",
@@ -197,7 +197,7 @@ export const XRPL_TRANSACTION_REGISTRY: readonly WalletForensicsTransactionRecor
     riskLabel: "critical",
     plainEnglishSummary:
       "rPqUumc returned ~38.8M USDT to issuer rGSDDiG — IOU burned. Tx: 95D3B8...C9DBD2",
-    explorerUrl: "https://livenet.xrpl.org/transactions/95D3B8C9DBD2",
+    explorerUrl: "https://xrpscan.com/tx/95D3B8C9DBD2",
   },
   {
     txHash: "0FCFAA177124-RNAF6KI-USDT-BURN",
@@ -217,7 +217,7 @@ export const XRPL_TRANSACTION_REGISTRY: readonly WalletForensicsTransactionRecor
     riskLabel: "critical",
     plainEnglishSummary:
       "rnAF6Ki returned ~38.8M USDT to issuer rGSDDiG — IOU burned. Tx: 0FCFAA...177124",
-    explorerUrl: "https://livenet.xrpl.org/transactions/0FCFAA177124",
+    explorerUrl: "https://xrpscan.com/tx/0FCFAA177124",
   },
   {
     txHash: "646C49CA0A80-RGHAJRY-USDT-BURN",
@@ -237,7 +237,7 @@ export const XRPL_TRANSACTION_REGISTRY: readonly WalletForensicsTransactionRecor
     riskLabel: "critical",
     plainEnglishSummary:
       "rGhaJrY returned 10M USDT to issuer rGSDDiG — IOU burned. Tx: 646C49...CA0A80",
-    explorerUrl: "https://livenet.xrpl.org/transactions/646C49CA0A80",
+    explorerUrl: "https://xrpscan.com/tx/646C49CA0A80",
   },
   {
     txHash: "6839ED0114DA-RKNVUD9-USDT-BURN",
@@ -257,7 +257,7 @@ export const XRPL_TRANSACTION_REGISTRY: readonly WalletForensicsTransactionRecor
     riskLabel: "critical",
     plainEnglishSummary:
       "rKNvud9 returned 39.7M USDT to issuer rGSDDiG — IOU burned. Tx: 6839ED...0114DA",
-    explorerUrl: "https://livenet.xrpl.org/transactions/6839ED0114DA",
+    explorerUrl: "https://xrpscan.com/tx/6839ED0114DA",
   },
   {
     txHash: "61717F7D4943-RPP12ND-USDT-BURN",
@@ -277,7 +277,7 @@ export const XRPL_TRANSACTION_REGISTRY: readonly WalletForensicsTransactionRecor
     riskLabel: "critical",
     plainEnglishSummary:
       "rpP12ND returned 37,648,537.98 USDT to issuer rGSDDiG — IOU burned. Tx: 61717F...7D4943",
-    explorerUrl: "https://livenet.xrpl.org/transactions/61717F7D4943",
+    explorerUrl: "https://xrpscan.com/tx/61717F7D4943",
   },
 
   // ── Mar 5 IOU drain from rpP12ND → rGSDDiG (other currencies) ────────────

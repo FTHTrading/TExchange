@@ -35,7 +35,7 @@ export const XRPL_WALLET_INVENTORY_REGISTRY: readonly WalletForensicsWalletRecor
     ],
     explorerLinks: [
       { label: "XRPSCAN", url: "https://xrpscan.com/account/rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ" },
-      { label: "XRPL Explorer", url: "https://livenet.xrpl.org/accounts/rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ" },
+      { label: "XRPL Explorer", url: "https://xrpscan.com/account/rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ" },
       { label: "XRPL Token Info", url: "https://xrpscan.com/account/rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ" },
     ],
   },
@@ -65,7 +65,7 @@ export const XRPL_WALLET_INVENTORY_REGISTRY: readonly WalletForensicsWalletRecor
     ],
     explorerLinks: [
       { label: "XRPSCAN", url: "https://xrpscan.com/account/rNX4faQ35SdtE4rDoEg8YeVLQKQ57AYyCt" },
-      { label: "XRPL Explorer", url: "https://livenet.xrpl.org/accounts/rNX4faQ35SdtE4rDoEg8YeVLQKQ57AYyCt" },
+      { label: "XRPL Explorer", url: "https://xrpscan.com/account/rNX4faQ35SdtE4rDoEg8YeVLQKQ57AYyCt" },
     ],
   },
 

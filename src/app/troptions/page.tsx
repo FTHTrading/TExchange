@@ -1,4 +1,4 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import CopyAddressButton from "@/components/troptions-evolution/CopyAddressButton";
 import { Card, Badge, SectionHeader, StatCard, StatusBadge } from "@/components/ui";
@@ -36,7 +36,7 @@ const WALLETS = [
     chain: "XRPL",
     address: ISSUER,
     explorers: [
-      { label: "XRPL Ledger", url: `https://livenet.xrpl.org/accounts/${ISSUER}` },
+      { label: "XRPL Ledger", url: `https://xrpscan.com/account/${ISSUER}` },
       { label: "Bithomp",     url: `https://bithomp.com/explorer/${ISSUER}` },
       { label: "XRPScan",     url: `https://xrpscan.com/account/${ISSUER}` },
     ],
@@ -47,7 +47,7 @@ const WALLETS = [
     chain: "XRPL",
     address: DISTRIBUTION,
     explorers: [
-      { label: "XRPL Ledger", url: `https://livenet.xrpl.org/accounts/${DISTRIBUTION}` },
+      { label: "XRPL Ledger", url: `https://xrpscan.com/account/${DISTRIBUTION}` },
       { label: "Bithomp",     url: `https://bithomp.com/explorer/${DISTRIBUTION}` },
     ],
   },
@@ -57,7 +57,7 @@ const WALLETS = [
     chain: "XRPL",
     address: AMM_ACCOUNT,
     explorers: [
-      { label: "XRPL Ledger", url: `https://livenet.xrpl.org/accounts/${AMM_ACCOUNT}` },
+      { label: "XRPL Ledger", url: `https://xrpscan.com/account/${AMM_ACCOUNT}` },
       { label: "Bithomp",     url: `https://bithomp.com/explorer/${AMM_ACCOUNT}` },
     ],
   },
@@ -108,7 +108,7 @@ const WEB3_STACK = [
   { icon: "NFT",  title: "NFTs",                 desc: "Brand and asset NFT issuance via XRPL native NFTokens",            href: "/troptions/ecosystem" },
   { icon: "NS",   title: "Namespaces",           desc: "Reserved brand namespaces in the L1 genesis manifest",             href: "/troptions/ecosystem" },
   { icon: "NIL",  title: "NIL Rights",           desc: "Name / Image / Likeness tokenization for creators",               href: "/troptions/ecosystem" },
-  { icon: "AMM",  title: "AMM Liquidity",        desc: "Native XRPL AMM pool with TROPTIONS / XRP pair",                  href: `https://livenet.xrpl.org/accounts/${AMM_ACCOUNT}` },
+  { icon: "AMM",  title: "AMM Liquidity",        desc: "Native XRPL AMM pool with TROPTIONS / XRP pair",                  href: `https://xrpscan.com/account/${AMM_ACCOUNT}` },
   { icon: "EDU",  title: "Troptions University", desc: "Fitzherbert academy - sovereign curriculum, on-chain credentials", href: "https://fitzherbert.xxxiii.io/" },
 ] as const;
 
@@ -131,7 +131,7 @@ const NAV_CARDS = [
   { href: "/troptions/layer1",                  icon: "L1",   title: "Layer 1 (Rust)",   desc: "POPEYE / TEV / CONSENSUS / MARS / TAR - 27 crates" },
   { href: "/troptions/xrpl-platform",           icon: "XRPL", title: "XRPL Platform",    desc: "XRPL Market Data, AMM, and DEX Readiness" },
   { href: "/troptions/wallets",                 icon: "WLT",  title: "Live Wallets",      desc: "All public addresses with explorer links" },
-  { href: "/troptions/stablecoins",             icon: "IOU",  title: "Stablecoins & IOUs", desc: "USDC · USDT · DAI · EURC issued as XRPL + Stellar Gateway IOUs" },
+  { href: "/troptions/stablecoins",             icon: "IOU",  title: "Stablecoins & IOUs", desc: "USDC � USDT � DAI � EURC issued as XRPL + Stellar Gateway IOUs" },
   { href: "/troptions/ecosystem",               icon: "ECO",  title: "Ecosystem",         desc: "Brand entities, NIL, namespaces, NFTs" },
   { href: "/troptions/rwa/axl-001",             icon: "RWA",  title: "RWA Series 001",    desc: "AXL-001 Alexandrite collateral package (gated)" },
   { href: "/troptions/xrpl-stellar-compliance", icon: "CMP",  title: "Compliance",        desc: "ISO 20022, AML controls, jurisdiction" },
@@ -190,7 +190,7 @@ export default function TroptionsPage() {
                 Verify on Bithomp
               </a>
               <a
-                href={`https://livenet.xrpl.org/accounts/${ISSUER}`}
+                href={`https://xrpscan.com/account/${ISSUER}`}
                 target="_blank" rel="noreferrer noopener"
                 className="inline-flex items-center rounded-xl border border-white/15 bg-white/[0.07] px-5 py-2.5 text-sm font-semibold text-slate-100 transition-colors hover:bg-white/[0.12]"
               >
@@ -213,7 +213,7 @@ export default function TroptionsPage() {
         </div>
       </section>
 
-      {/* GATEWAY IOUs — deal-closing rail */}
+      {/* GATEWAY IOUs � deal-closing rail */}
       <section className="mx-auto max-w-7xl px-5 pb-10 md:px-8">
         <div className="rounded-2xl border border-[#C9A84C]/30 bg-gradient-to-br from-[#0c1e35] via-[#0a1a2e] to-[#071426] p-6 md:p-8">
 
@@ -222,24 +222,24 @@ export default function TroptionsPage() {
             <div>
               <span className="inline-flex items-center gap-2 rounded-full border border-green-500/40 bg-[#052e16] px-3 py-1 text-[10px] font-bold tracking-[0.14em] uppercase text-green-400 mb-3">
                 <span className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />
-                Live on XRPL + Stellar Mainnet · Issued 2026-04-28
+                Live on XRPL + Stellar Mainnet � Issued 2026-04-28
               </span>
               <h2 className="text-[clamp(1.4rem,3vw,2rem)] font-bold text-slate-50 leading-tight mb-2">
                 Gateway IOUs Close Real Deals
               </h2>
               <p className="text-sm text-slate-400 max-w-2xl leading-relaxed">
-                TROPTIONS Gateway has issued USDC, USDT, DAI, and EURC as native IOU trust-line currencies on both XRPL and Stellar mainnet. Counterparties use these IOUs to fund deals, hold escrow, and settle — all verifiable on-chain in seconds with no bank intermediary.
+                TROPTIONS Gateway has issued USDC, USDT, DAI, and EURC as native IOU trust-line currencies on both XRPL and Stellar mainnet. Counterparties use these IOUs to fund deals, hold escrow, and settle � all verifiable on-chain in seconds with no bank intermediary.
               </p>
             </div>
             <Link
               href="/troptions/stablecoins"
               className="shrink-0 self-start inline-flex items-center rounded-xl border border-[#C9A84C]/45 px-4 py-2.5 text-sm font-semibold text-[#f0cf82] transition-colors hover:bg-[#C9A84C]/10"
             >
-              Full Stablecoin Rail →
+              Full Stablecoin Rail ?
             </Link>
           </div>
 
-          {/* IOU logo cards — bigger, more prominent */}
+          {/* IOU logo cards � bigger, more prominent */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
             {ISSUED_IOUS.map((iou) => (
               <Link
@@ -261,7 +261,7 @@ export default function TroptionsPage() {
                   <span className="inline-flex items-center justify-center gap-1.5 rounded-full border border-green-700/60 bg-[#052e16] px-3 py-0.5 text-[10px] font-bold text-green-400 uppercase tracking-widest w-full">
                     <span className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />LIVE
                   </span>
-                  <span className="text-[10px] text-slate-600">{iou.supply} issued · {iou.chain}</span>
+                  <span className="text-[10px] text-slate-600">{iou.supply} issued � {iou.chain}</span>
                 </div>
               </Link>
             ))}
@@ -274,10 +274,10 @@ export default function TroptionsPage() {
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               {([
-                { step: "01", title: "Open Trustline", body: "Counterparty opens a trustline to the TROPTIONS Gateway Issuer on XRPL. One-time setup — works for all 4 IOUs (USDC · USDT · DAI · EURC).", icon: "🔗" },
-                { step: "02", title: "Fund the Deal", body: "Buyer transfers the agreed IOU amount to the deal escrow address. Settles on XRPL in 3–5 seconds. Both parties verify the balance on-chain via XRPScan or Bithomp.", icon: "💰" },
-                { step: "03", title: "Gateway Verifies", body: "TROPTIONS Gateway confirms IOU balance, trustline authorization, and supporting deal docs (PoF, RWA, KYC). All attestations are anchored on-chain.", icon: "✅" },
-                { step: "04", title: "Deal Releases", body: "On condition met — RWA transfer, contract execution, or time-lock — IOUs release from escrow to the seller. Redeemable 1:1 for the underlying stablecoin.", icon: "🏁" },
+                { step: "01", title: "Open Trustline", body: "Counterparty opens a trustline to the TROPTIONS Gateway Issuer on XRPL. One-time setup � works for all 4 IOUs (USDC � USDT � DAI � EURC).", icon: "??" },
+                { step: "02", title: "Fund the Deal", body: "Buyer transfers the agreed IOU amount to the deal escrow address. Settles on XRPL in 3�5 seconds. Both parties verify the balance on-chain via XRPScan or Bithomp.", icon: "??" },
+                { step: "03", title: "Gateway Verifies", body: "TROPTIONS Gateway confirms IOU balance, trustline authorization, and supporting deal docs (PoF, RWA, KYC). All attestations are anchored on-chain.", icon: "?" },
+                { step: "04", title: "Deal Releases", body: "On condition met � RWA transfer, contract execution, or time-lock � IOUs release from escrow to the seller. Redeemable 1:1 for the underlying stablecoin.", icon: "??" },
               ] as const).map((s) => (
                 <div key={s.step} className="rounded-xl border border-white/[0.08] bg-white/[0.03] p-4">
                   <div className="flex items-center gap-2.5 mb-2.5">
@@ -302,7 +302,7 @@ export default function TroptionsPage() {
               ].map((ex) => (
                 <a key={ex.url} href={ex.url} target="_blank" rel="noreferrer noopener"
                   className="font-semibold text-[#f0cf82] hover:underline">
-                  {ex.label} ↗
+                  {ex.label} ?
                 </a>
               ))}
             </div>
@@ -329,7 +329,7 @@ export default function TroptionsPage() {
               <CopyAddressButton address={ISSUER} />
               {[
                 { label: "Bithomp",     url: `https://bithomp.com/explorer/${ISSUER}` },
-                { label: "XRPL Ledger", url: `https://livenet.xrpl.org/accounts/${ISSUER}` },
+                { label: "XRPL Ledger", url: `https://xrpscan.com/account/${ISSUER}` },
                 { label: "XRPScan",     url: `https://xrpscan.com/account/${ISSUER}` },
               ].map((ex) => (
                 <a

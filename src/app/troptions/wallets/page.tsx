@@ -68,7 +68,7 @@ export default function TroptionsWalletPage() {
                   View Token on XRPScan ↗
                 </a>
                 <a
-                  href="https://livenet.xrpl.org/accounts/rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ"
+                  href="https://xrpscan.com/account/rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ"
                   target="_blank"
                   rel="noreferrer noopener"
                   className="rounded-lg border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-800 transition hover:bg-slate-50"

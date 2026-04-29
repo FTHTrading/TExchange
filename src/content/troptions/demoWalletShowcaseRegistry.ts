@@ -44,7 +44,7 @@ export const WALLET_INFRASTRUCTURE: readonly DemoWalletShowcaseItem[] = [
       { symbol: "XRP", assetType: "token", purpose: "Base reserve and transaction fees" },
     ],
     explorerLinks: [
-      { label: "XRPL Ledger", url: "https://livenet.xrpl.org/accounts/rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ" },
+      { label: "XRPL Ledger", url: "https://xrpscan.com/account/rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ" },
       { label: "XRPScan", url: "https://xrpscan.com/account/rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ" },
       { label: "Token Info", url: "https://xrpscan.com/account/rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ" },
     ],
@@ -62,11 +62,11 @@ export const WALLET_INFRASTRUCTURE: readonly DemoWalletShowcaseItem[] = [
       { symbol: "XRP", assetType: "lp", purpose: "TROPTIONS/XRP AMM pair — pool seed liquidity" },
     ],
     explorerLinks: [
-      { label: "XRPL Ledger", url: "https://livenet.xrpl.org/accounts/rNX4faQ35SdtE4rDoEg8YeVLQKQ57AYyCt" },
+      { label: "XRPL Ledger", url: "https://xrpscan.com/account/rNX4faQ35SdtE4rDoEg8YeVLQKQ57AYyCt" },
       { label: "XRPScan", url: "https://xrpscan.com/account/rNX4faQ35SdtE4rDoEg8YeVLQKQ57AYyCt" },
     ],
     poolReferences: [
-      { pair: "TROPTIONS / XRP", network: "XRPL", status: "Live", verificationUrl: "https://livenet.xrpl.org/accounts/rNX4faQ35SdtE4rDoEg8YeVLQKQ57AYyCt" },
+      { pair: "TROPTIONS / XRP", network: "XRPL", status: "Live", verificationUrl: "https://xrpscan.com/account/rNX4faQ35SdtE4rDoEg8YeVLQKQ57AYyCt" },
     ],
   },
   // NOTE: Independent third-party DEX traders and trustline holders that

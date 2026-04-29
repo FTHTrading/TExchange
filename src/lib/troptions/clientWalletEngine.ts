@@ -153,7 +153,7 @@ export function generateXrplWallet(): GeneratedXrplWallet {
     publicKey:   wallet.publicKey,
     seed:        wallet.seed ?? "",
     familySeed:  wallet.seed ?? "",
-    explorerUrl: `https://livenet.xrpl.org/accounts/${wallet.address}`,
+    explorerUrl: `https://xrpscan.com/account/${wallet.address}`,
     trustlineUrl: `https://xumm.app/detect/payload__${TROPTIONS_ISSUER_ADDRESS}`,
     instructions: [
       "1. Fund this address with at least 12 XRP (10 XRP reserve + 2 XRP per trustline).",
@@ -287,7 +287,7 @@ export async function getXrplAccountSummary(
       lpTokens,
       offerCount,
       trustlines,
-      explorerUrl: `https://livenet.xrpl.org/accounts/${address}`,
+      explorerUrl: `https://xrpscan.com/account/${address}`,
     };
   } finally {
     await client.disconnect();

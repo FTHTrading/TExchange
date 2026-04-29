@@ -79,7 +79,7 @@ async function probeAll(): Promise<readonly LiveResult[]> {
 
 function explorerUrl(chain: FundingChain, address: string): string {
   return chain === "xrpl"
-    ? `https://livenet.xrpl.org/accounts/${address}`
+    ? `https://xrpscan.com/account/${address}`
     : `https://stellar.expert/explorer/public/account/${address}`;
 }
 
