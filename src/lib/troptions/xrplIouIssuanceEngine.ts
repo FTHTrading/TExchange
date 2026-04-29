@@ -390,6 +390,9 @@ export interface XrplIouAssetConfig {
   route: string;
   aaveCompatible: boolean;
   liveIssuanceEnabled: false;
+  onChainStatus?: "issued" | "pending" | "draft";
+  mainnetIssuedAt?: string;
+  logoPath?: string;
 }
 
 export const XRPL_IOU_ASSET_CONFIGS: XrplIouAssetConfig[] = [
@@ -460,14 +463,16 @@ export const XRPL_IOU_ASSET_CONFIGS: XrplIouAssetConfig[] = [
   },
   {
     assetType: "TROPTIONS",
-    displayName: "TROPTIONS Native Receipt",
-    xrplCurrencyCode: "TRPTN",
-    xrplCurrencyHex: "54525054004E00000000000000000000000000000",
-    issuanceLimit: "1000000000",
-    underlying: "TROPTIONS token backed by platform reserve and governance policy",
+    displayName: "TROPTIONS Native Token",
+    xrplCurrencyCode: "TROPTIONS",
+    issuanceLimit: "100000000",
+    underlying: "Commercial trade instrument backed by documented barter agreements, real property positions, solar energy, mobile medical assets, and the TROPTIONS Gateway asset reserve. 100,000,000 issued on XRPL mainnet 2026-04-28.",
     route: "MERCHANT_CREDIT",
     aaveCompatible: false,
     liveIssuanceEnabled: false,
+    onChainStatus: "issued",
+    mainnetIssuedAt: "2026-04-28T08:34:43Z",
+    logoPath: "/assets/troptions/logos/troptions-iou-logo.svg",
   },
 ];
 

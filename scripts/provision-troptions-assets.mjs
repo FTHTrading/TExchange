@@ -71,6 +71,7 @@ const F = {
   skipMpt: args.includes("--skip-mpt"),
   skipOffers: args.includes("--skip-offers"),
   skipAmm: args.includes("--skip-amm"),
+  force: args.includes("--force"),  // bypass idempotency skip-if-already-succeeded
 };
 
 // ─── Constants ──────────────────────────────────────────────────────────────────
@@ -100,6 +101,26 @@ const MPT_FLAG_CAN_ESCROW   = 0x00000008;
 const MPT_FLAG_CAN_TRADE    = 0x00000010;
 const MPT_FLAG_CAN_TRANSFER = 0x00000020;
 const MPT_FLAG_CAN_CLAWBACK = 0x00000040;
+
+// ─── Idempotency helpers ────────────────────────────────────────────────────────
+/**
+ * Returns true if a matching op already succeeded in the audit log.
+ * Prevents duplicate submissions when the script is re-run after a partial success.
+ * Pass --force to override and re-submit even if already logged as succeeded.
+ */
+function hasAlreadySucceeded(label, chain) {
+  if (F.force) return false;
+  const logPath = path.join(REPO_ROOT, "data", "treasury-funding-log.json");
+  if (!fs.existsSync(logPath)) return false;
+  try {
+    const entries = JSON.parse(fs.readFileSync(logPath, "utf8"));
+    return entries.some(
+      (e) => e.label === label && e.chain === chain && e.status === "success",
+    );
+  } catch {
+    return false;
+  }
+}
 
 // ─── Audit log ──────────────────────────────────────────────────────────────────
 const logEntries = [];
@@ -237,6 +258,9 @@ async function provisionXrpl() {
 
   // ── Step 1: configure issuer (DefaultRipple + Domain) ─────────────────────────
   console.log("\n  → Step 1: AccountSet on issuer (asfDefaultRipple + Domain)");
+  if (hasAlreadySucceeded("issuer-accountset", "xrpl")) {
+    console.log("    ⏭️  skipped (already succeeded — use --force to re-run)");
+  } else
   await xrplSubmit(client, issuer, {
     TransactionType: "AccountSet",
     Account: issuer.classicAddress,
@@ -246,6 +270,9 @@ async function provisionXrpl() {
 
   // ── Step 2: distributor opens TROPTIONS trustline to issuer ───────────────────
   console.log("\n  → Step 2: TrustSet on distributor (TROPTIONS limit = 1,000,000,000)");
+  if (hasAlreadySucceeded("distributor-trustset", "xrpl")) {
+    console.log("    ⏭️  skipped (already succeeded — use --force to re-run)");
+  } else
   await xrplSubmit(client, dist, {
     TransactionType: "TrustSet",
     Account: dist.classicAddress,
@@ -258,6 +285,9 @@ async function provisionXrpl() {
 
   // ── Step 3: issuer pays initial supply to distributor (mint) ──────────────────
   console.log("\n  → Step 3: Payment from issuer → distributor (issue 100,000,000 TROPTIONS)");
+  if (hasAlreadySucceeded("issue-supply", "xrpl")) {
+    console.log("    ⏭️  skipped (already succeeded — use --force to re-run)");
+  } else
   await xrplSubmit(client, issuer, {
     TransactionType: "Payment",
     Account: issuer.classicAddress,
@@ -272,6 +302,9 @@ async function provisionXrpl() {
   // ── Step 4: NFTokenMint on distributor (genesis member #1) ────────────────────
   if (!F.skipNft) {
     console.log("\n  → Step 4: NFTokenMint on distributor (Genesis Member #1)");
+    if (hasAlreadySucceeded("nft-mint-genesis-1", "xrpl")) {
+      console.log("    ⏭️  skipped (already succeeded — use --force to re-run)");
+    } else {
     const uriHex = Buffer.from(NFT_METADATA_URL, "utf8").toString("hex").toUpperCase();
     await xrplSubmit(client, dist, {
       TransactionType: "NFTokenMint",
@@ -281,6 +314,7 @@ async function provisionXrpl() {
       URI: uriHex,
       Flags: NFT_FLAG_BURNABLE, // non-transferable membership credential
     }, "nft-mint-genesis-1");
+    }
   }
 
   // ── Step 5: MPTokenIssuanceCreate on distributor (Tranche A) ──────────────────
@@ -302,6 +336,9 @@ async function provisionXrpl() {
   // ── Step 6: distributor places DEX offers (TROPTIONS/XRP) ─────────────────────
   if (!F.skipOffers) {
     console.log("\n  → Step 6a: OfferCreate sell 10,000 TROPTIONS for 1 XRP");
+    if (hasAlreadySucceeded("dex-offer-sell-troptions", "xrpl")) {
+      console.log("    ⏭️  skipped (already succeeded — use --force to re-run)");
+    } else
     await xrplSubmit(client, dist, {
       TransactionType: "OfferCreate",
       Account: dist.classicAddress,
@@ -313,22 +350,22 @@ async function provisionXrpl() {
       TakerPays: xrpl.xrpToDrops("1"),
     }, "dex-offer-sell-troptions");
 
-    console.log("\n  → Step 6b: OfferCreate buy 10,000 TROPTIONS for 1 XRP");
-    await xrplSubmit(client, dist, {
-      TransactionType: "OfferCreate",
-      Account: dist.classicAddress,
-      TakerGets: xrpl.xrpToDrops("1"),
-      TakerPays: {
-        currency: TROPTIONS_HEX,
-        issuer: issuer.classicAddress,
-        value: "10000",
-      },
-    }, "dex-offer-buy-troptions");
+    // NOTE: The distributor buy-side offer is intentionally skipped here.
+    // Placing both a sell offer (TROPTIONS→XRP) and a buy offer (XRP→TROPTIONS)
+    // from the same account at equal rates causes immediate self-crossing.
+    // The buy-side market should be seeded by a separate market-maker wallet.
+    // To enable: use a dedicated wallet address, not the distributor.
+    console.log("\n  → Step 6b: OfferCreate buy-side — SKIPPED (self-crossing prevention)");
+    console.log("    ℹ️  Use a separate market-maker wallet for the buy-side offer.");
+    logEv({ chain: "xrpl", mode: F.execute ? "execute" : "dry-run", label: "dex-offer-buy-troptions", status: "skipped", reason: "op_cross_self prevention — use separate market-maker wallet" });
   }
 
   // ── Step 7: AMMCreate TROPTIONS/XRP liquidity pool ─────────────────────────
   if (!F.skipAmm) {
     console.log("\n  → Step 7: AMMCreate TROPTIONS/XRP pool (1 XRP + 1,000 TROPTIONS, fee 0.3%)");
+    if (hasAlreadySucceeded("xrpl-amm-create", "xrpl")) {
+      console.log("    ⏭️  skipped (already succeeded — use --force to re-run)");
+    } else
     await xrplSubmit(client, dist, {
       TransactionType: "AMMCreate",
       Account: dist.classicAddress,
@@ -372,9 +409,12 @@ async function provisionStellar() {
   const TROPTIONS_ASSET = new StellarSdk.Asset("TROPTIONS", issuer.publicKey());
 
   // ── Step 1: configure issuer (auth flags + home_domain) ───────────────────────
-// NOTE: AuthClawbackEnabledFlag is intentionally omitted — clawback-enabled assets
-    // cannot participate in Stellar AMM liquidity pools (CAP-38 restriction).
-    console.log("\n  → Step 1: SetOptions on issuer (auth_required + auth_revocable + home_domain)");
+  // NOTE: AuthClawbackEnabledFlag is intentionally omitted — clawback-enabled assets
+  // cannot participate in Stellar AMM liquidity pools (CAP-38 restriction).
+  console.log("\n  → Step 1: SetOptions on issuer (auth_required + auth_revocable + home_domain)");
+  if (hasAlreadySucceeded("issuer-setoptions", "stellar")) {
+    console.log("    ⏭️  skipped (already succeeded — use --force to re-run)");
+  } else
   await stellarSubmit(server, issuer, (b) =>
     b.addOperation(StellarSdk.Operation.setOptions({
       homeDomain: DOMAIN,
@@ -388,6 +428,9 @@ async function provisionStellar() {
 
   // ── Step 2: distributor opens TROPTIONS trustline ─────────────────────────────
   console.log("\n  → Step 2: ChangeTrust on distributor (TROPTIONS limit = 1,000,000,000)");
+  if (hasAlreadySucceeded("distributor-changetrust", "stellar")) {
+    console.log("    ⏭️  skipped (already succeeded — use --force to re-run)");
+  } else
   await stellarSubmit(server, dist, (b) =>
     b.addOperation(StellarSdk.Operation.changeTrust({
       asset: TROPTIONS_ASSET,
@@ -399,6 +442,9 @@ async function provisionStellar() {
 
   // ── Step 3: issuer authorizes distributor (because auth_required is set) ──────
   console.log("\n  → Step 3: SetTrustLineFlags on issuer authorizing distributor");
+  if (hasAlreadySucceeded("issuer-authorize-distributor", "stellar")) {
+    console.log("    ⏭️  skipped (already succeeded — use --force to re-run)");
+  } else
   await stellarSubmit(server, issuer, (b) =>
     b.addOperation(StellarSdk.Operation.setTrustLineFlags({
       trustor: dist.publicKey(),
@@ -411,6 +457,9 @@ async function provisionStellar() {
 
   // ── Step 4: issuer pays initial supply to distributor ─────────────────────────
   console.log("\n  → Step 4: Payment from issuer → distributor (issue 100,000,000 TROPTIONS)");
+  if (hasAlreadySucceeded("issue-supply", "stellar")) {
+    console.log("    ⏭️  skipped (already succeeded — use --force to re-run)");
+  } else
   await stellarSubmit(server, issuer, (b) =>
     b.addOperation(StellarSdk.Operation.payment({
       destination: dist.publicKey(),
@@ -424,6 +473,9 @@ async function provisionStellar() {
   // ── Step 5: distributor places DEX offers (TROPTIONS/XLM) ─────────────────────
   if (!F.skipOffers) {
     console.log("\n  → Step 5a: ManageSellOffer 10,000 TROPTIONS for 1 XLM");
+    if (hasAlreadySucceeded("dex-offer-sell-troptions", "stellar")) {
+      console.log("    ⏭️  skipped (already succeeded — use --force to re-run)");
+    } else
     await stellarSubmit(server, dist, (b) =>
       b.addOperation(StellarSdk.Operation.manageSellOffer({
         selling: TROPTIONS_ASSET,
@@ -435,17 +487,13 @@ async function provisionStellar() {
       "Troptions DEX sell",
     );
 
-    console.log("\n  → Step 5b: ManageBuyOffer 10,000 TROPTIONS for 1 XLM");
-    await stellarSubmit(server, dist, (b) =>
-      b.addOperation(StellarSdk.Operation.manageBuyOffer({
-        selling: StellarSdk.Asset.native(),
-        buying: TROPTIONS_ASSET,
-        buyAmount: "10000",
-        price: { n: 1, d: 10000 },
-      })),
-      "dex-offer-buy-troptions",
-      "Troptions DEX buy",
-    );
+    // NOTE: The distributor buy-side offer is intentionally skipped.
+    // ManageBuyOffer (XLM→TROPTIONS) from the same account as ManageSellOffer
+    // (TROPTIONS→XLM) at the same price results in op_cross_self rejection.
+    // The buy-side market should be seeded from a separate market-maker account.
+    console.log("\n  → Step 5b: ManageBuyOffer buy-side — SKIPPED (op_cross_self prevention)");
+    console.log("    ℹ️  Use a separate market-maker wallet for the buy-side offer.");
+    logEv({ chain: "stellar", mode: F.execute ? "execute" : "dry-run", label: "dex-offer-buy-troptions", status: "skipped", reason: "op_cross_self prevention — same wallet cannot post both sides" });
   }
 
   // ── Step 6: create TROPTIONS/XLM AMM liquidity pool ──────────────────────────
@@ -457,6 +505,9 @@ async function provisionStellar() {
     );
 
     console.log("\n  → Step 6a: ChangeTrust on distributor for LP share token");
+    if (hasAlreadySucceeded("distributor-changetrust-lp", "stellar")) {
+      console.log("    ⏭️  skipped (already succeeded — use --force to re-run)");
+    } else
     await stellarSubmit(server, dist, (b) =>
       b.addOperation(StellarSdk.Operation.changeTrust({
         asset: lpAsset,
@@ -473,6 +524,9 @@ async function provisionStellar() {
     console.log(`     Pool ID: ${lpPoolId}`);
 
     console.log("\n  → Step 6b: liquidityPoolDeposit (1 XLM + 10,000 TROPTIONS)");
+    if (hasAlreadySucceeded("distributor-lp-deposit", "stellar")) {
+      console.log("    ⏭️  skipped (already succeeded — use --force to re-run)");
+    } else
     await stellarSubmit(server, dist, (b) =>
       b.addOperation(StellarSdk.Operation.liquidityPoolDeposit({
         liquidityPoolId: lpPoolId,

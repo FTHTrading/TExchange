@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 import {
   XRPL_IOU_ASSET_CONFIGS,
@@ -5,6 +6,7 @@ import {
   XRPL_ISSUER_ADDRESS,
   XRPL_DISTRIBUTOR_ADDRESS,
 } from "@/lib/troptions/xrplIouIssuanceEngine";
+import { TROPTIONS_STELLAR_ISSUER } from "@/content/troptions/xrplIouRegistry";
 
 export const metadata: Metadata = {
   title: "XRPL IOU Issuance | TROPTIONS",
@@ -53,6 +55,79 @@ export default function XrplIouPage() {
             every function is in simulation-first governance mode.
           </p>
         </header>
+
+        {/* TROPTIONS On-Chain Status — ISSUED */}
+        <section className="rounded-xl border border-emerald-700/50 bg-emerald-900/10 p-6 space-y-4">
+          <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
+            <div className="shrink-0">
+              <Image
+                src="/assets/troptions/logos/troptions-iou-logo.svg"
+                alt="TROPTIONS IOU"
+                width={80}
+                height={80}
+                className="rounded-xl"
+              />
+            </div>
+            <div className="flex-1 space-y-2">
+              <div className="flex items-center gap-3 flex-wrap">
+                <p className="text-2xl font-bold text-white">TROPTIONS</p>
+                <span className="inline-flex items-center rounded-full bg-emerald-900/60 border border-emerald-600/50 px-3 py-0.5 text-xs font-bold text-emerald-300 uppercase tracking-widest">
+                  ✓ Issued On-Chain
+                </span>
+              </div>
+              <p className="text-sm text-slate-300 leading-6 max-w-2xl">
+                TROPTIONS Native Token — 100,000,000 supply issued on XRPL Mainnet on 2026-04-28.
+                Trustlines active. AMM pool deployed. Distributor wallet funded.
+                Authorized trustline model enforced (RequireAuth).
+              </p>
+              <p className="text-xs text-slate-500">
+                Commercial trade instrument backed by documented barter agreements, real property positions,
+                solar energy, mobile medical assets, and the TROPTIONS Gateway asset reserve.
+              </p>
+            </div>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-3 pt-2 border-t border-emerald-700/30">
+            <div>
+              <p className="font-mono text-xs uppercase tracking-widest text-[#C9A84C] mb-1">XRPL Issuer</p>
+              <code className="text-slate-300 text-xs break-all">{XRPL_ISSUER_ADDRESS}</code>
+              <br />
+              <a
+                href={`https://xrpscan.com/account/${XRPL_ISSUER_ADDRESS}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-sky-400 hover:text-sky-300 mt-1 inline-block"
+              >
+                View on XRPSCAN ↗
+              </a>
+            </div>
+            <div>
+              <p className="font-mono text-xs uppercase tracking-widest text-[#C9A84C] mb-1">XRPL Distributor</p>
+              <code className="text-slate-300 text-xs break-all">{XRPL_DISTRIBUTOR_ADDRESS}</code>
+              <br />
+              <a
+                href={`https://xrpscan.com/account/${XRPL_DISTRIBUTOR_ADDRESS}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-sky-400 hover:text-sky-300 mt-1 inline-block"
+              >
+                View on XRPSCAN ↗
+              </a>
+            </div>
+            <div>
+              <p className="font-mono text-xs uppercase tracking-widest text-[#C9A84C] mb-1">Stellar Issuer</p>
+              <code className="text-slate-300 text-xs break-all">{TROPTIONS_STELLAR_ISSUER.slice(0, 20)}…</code>
+              <br />
+              <a
+                href={`https://stellar.expert/explorer/public/account/${TROPTIONS_STELLAR_ISSUER}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-sky-400 hover:text-sky-300 mt-1 inline-block"
+              >
+                View on Stellar Expert ↗
+              </a>
+            </div>
+          </div>
+        </section>
 
         {/* IOU Explainer */}
         <section className="rounded-xl border border-slate-800 bg-slate-900 p-6 space-y-4">
@@ -126,25 +201,51 @@ export default function XrplIouPage() {
           <div className="grid gap-4 sm:grid-cols-2">
             {XRPL_IOU_ASSET_CONFIGS.map((cfg) => {
               const docs = getRequiredIouDocuments(cfg.assetType);
+              const isIssued = cfg.onChainStatus === "issued";
               return (
                 <div
                   key={cfg.assetType}
-                  className="rounded-xl border border-slate-800 bg-slate-900 p-5 space-y-3"
+                  className={`rounded-xl border p-5 space-y-3 ${isIssued ? "border-emerald-700/40 bg-emerald-900/5" : "border-slate-800 bg-slate-900"}`}
                 >
                   <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <p className="font-bold text-white text-lg">{cfg.displayName}</p>
-                      <p className="text-slate-400 text-sm">{cfg.xrplCurrencyCode}</p>
+                    <div className="flex items-center gap-3">
+                      {cfg.logoPath && (
+                        <Image
+                          src={cfg.logoPath}
+                          alt={cfg.displayName}
+                          width={40}
+                          height={40}
+                          className="rounded-lg shrink-0"
+                        />
+                      )}
+                      <div>
+                        <p className="font-bold text-white text-lg">{cfg.displayName}</p>
+                        <p className="text-slate-400 text-sm">{cfg.xrplCurrencyCode}</p>
+                      </div>
                     </div>
-                    <span className={`inline-flex items-center rounded-full bg-slate-800 px-2.5 py-0.5 text-xs font-semibold shrink-0 ${cfg.aaveCompatible ? "text-green-400" : "text-slate-500"}`}>
-                      {cfg.aaveCompatible ? "Aave-bridgeable" : "No Aave"}
-                    </span>
+                    <div className="flex flex-col items-end gap-1.5 shrink-0">
+                      {isIssued ? (
+                        <span className="inline-flex items-center rounded-full bg-emerald-900/60 border border-emerald-600/50 px-2 py-0.5 text-xs font-bold text-emerald-300 uppercase">
+                          ✓ Issued
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center rounded-full bg-slate-800 px-2 py-0.5 text-xs font-semibold text-slate-500 uppercase">
+                          Draft
+                        </span>
+                      )}
+                      <span className={`inline-flex items-center rounded-full bg-slate-800 px-2.5 py-0.5 text-xs font-semibold ${cfg.aaveCompatible ? "text-green-400" : "text-slate-500"}`}>
+                        {cfg.aaveCompatible ? "Aave-bridgeable" : "No Aave"}
+                      </span>
+                    </div>
                   </div>
                   <div className="space-y-1 text-xs text-slate-500">
                     <p><span className="text-slate-400">Underlying:</span> {cfg.underlying}</p>
                     <p><span className="text-slate-400">Issuance limit:</span> {cfg.issuanceLimit}</p>
                     <p><span className="text-slate-400">Primary route:</span> {cfg.route}</p>
                     <p><span className="text-slate-400">Authorized trustline:</span> Required</p>
+                    {isIssued && cfg.mainnetIssuedAt && (
+                      <p><span className="text-slate-400">Mainnet issued:</span> <span className="text-emerald-400">{cfg.mainnetIssuedAt}</span></p>
+                    )}
                     <p><span className="text-slate-400">Live issuance:</span>{" "}
                       <span className="text-red-400 font-semibold">DISABLED</span>
                     </p>
