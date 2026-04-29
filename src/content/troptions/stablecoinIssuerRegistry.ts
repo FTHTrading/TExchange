@@ -1,5 +1,5 @@
 export interface StablecoinIssuerRecord {
-  symbol: "USDC" | "USDT" | "PYUSD" | "USDP" | "PAXG" | "TRU-UNIT" | "TRU-GOLD" | "TRU-TREASURY";
+  symbol: "USDC" | "USDT" | "DAI" | "EURC" | "PYUSD" | "USDP" | "PAXG" | "TRU-UNIT" | "TRU-GOLD" | "TRU-TREASURY";
   issuer: string;
   chainSupport: readonly string[];
   chainSupportNote: string;
@@ -25,6 +25,24 @@ export const STABLECOIN_ISSUER_REGISTRY: readonly StablecoinIssuerRecord[] = [
     chainSupportNote: "Chain list is configurable and non-exhaustive.",
     useCases: ["Liquidity route evaluation", "Settlement simulation", "Route monitoring"],
     riskControls: ["Reserve transparency review", "Freeze and sanctions awareness", "Illicit-finance monitoring"],
+    defaultInstitutionalRoute: false,
+  },
+  {
+    symbol: "DAI",
+    issuer: "MakerDAO / Sky Protocol",
+    chainSupport: ["Ethereum", "XRPL", "Stellar"],
+    chainSupportNote: "DAI issued as XRPL + Stellar IOU from TROPTIONS Gateway (2026-04-28). AAVE v3 native collateral.",
+    useCases: ["AAVE v3 collateral", "aDAI yield generation", "Deal settlement", "DeFi-native proof workflow"],
+    riskControls: ["Issuer verification", "Reserve audit", "Redemption path confirmation", "AAVE pool smart contract risk"],
+    defaultInstitutionalRoute: false,
+  },
+  {
+    symbol: "EURC",
+    issuer: "Circle Internet Financial, LLC",
+    chainSupport: ["Ethereum", "XRPL", "Stellar"],
+    chainSupportNote: "EURC issued as XRPL + Stellar IOU from TROPTIONS Gateway (2026-04-28). EUR-denominated cross-border settlement.",
+    useCases: ["EUR-denominated settlement", "Cross-border deal closing", "FX risk mitigation"],
+    riskControls: ["Issuer verification", "Reserve audit", "Jurisdiction compliance review", "EUR redemption confirmation"],
     defaultInstitutionalRoute: false,
   },
   {

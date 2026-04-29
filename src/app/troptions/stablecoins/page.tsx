@@ -46,6 +46,8 @@ const CHAIN_COLOR: Record<string, string> = {
 const STABLECOIN_META: Record<string, { logo: string; subPage?: string; assetClass: string; chains?: readonly string[] }> = {
   "USDC":         { logo: "/assets/troptions/logos/usdc-iou-logo.svg",       subPage: "/troptions/stablecoins/usdc",  assetClass: "Stablecoin" },
   "USDT":         { logo: "/assets/troptions/logos/usdt-iou-logo.svg",       subPage: "/troptions/stablecoins/usdt",  assetClass: "Stablecoin" },
+  "DAI":          { logo: "/assets/troptions/logos/dai-iou-logo.svg",        assetClass: "Stablecoin" },
+  "EURC":         { logo: "/assets/troptions/logos/eurc-iou-logo.svg",       assetClass: "Stablecoin" },
   "PYUSD":        { logo: "/assets/troptions/logos/pyusd-iou-logo.svg",      subPage: "/troptions/stablecoins/pyusd", assetClass: "Stablecoin" },
   "USDP":         { logo: "/assets/troptions/logos/usdp-iou-logo.svg",       subPage: "/troptions/stablecoins/usdp",  assetClass: "Stablecoin" },
   "PAXG":         { logo: "/assets/troptions/logos/paxg-iou-logo.svg",       subPage: "/troptions/stablecoins/paxg",  assetClass: "Commodity" },
