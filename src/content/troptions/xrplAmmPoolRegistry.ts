@@ -10,6 +10,7 @@ export interface XrplAmmPoolRecord {
 }
 
 export const XRPL_AMM_POOL_REGISTRY: readonly XrplAmmPoolRecord[] = [
+  { id: "amm-troptions", pair: "TROPTIONS / XRP", poolAddress: "xrpl-amm-troptions-xrp", lpTokenSymbol: "LP-TROPTIONS-XRP", depth: "4.8M XRP eq", feeBps: 30, status: "simulation-ready", risk: "low" },
   { id: "amm-1", pair: "LEGACY-TOKEN / XRP", poolAddress: "xrpl-amm-legacy-xrp", lpTokenSymbol: "LP-LEGACY-XRP", depth: "2.4M XRP eq", feeBps: 30, status: "live-documented", risk: "medium" },
   { id: "amm-2", pair: "SOVBND / XRP", poolAddress: "xrpl-amm-sovbnd-xrp", lpTokenSymbol: "LP-SOVBND-XRP", depth: "1.1M XRP eq", feeBps: 35, status: "live-documented", risk: "medium" },
   { id: "amm-3", pair: "IMPERIA / XRP", poolAddress: "xrpl-amm-imperia-xrp", lpTokenSymbol: "LP-IMPERIA-XRP", depth: "790k XRP eq", feeBps: 35, status: "live-documented", risk: "medium" },

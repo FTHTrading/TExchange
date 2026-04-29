@@ -74,48 +74,48 @@ export interface LenderPacketSummary {
 
 // ─── Route definitions ────────────────────────────────────────────────────────
 
-const ROUTE_DESCRIPTIONS: Record<FundingRoute, { displayName: string; description: string; timeline: string; requiresExternal: boolean }> = {
+const ROUTE_DESCRIPTIONS: Record<FundingRoute, { displayName: string; description: string; estimatedTimeline: string; requiresExternalProvider: boolean }> = {
   PRIVATE_LENDER: {
     displayName: "Private Lender / Family Office",
     description: "Asset-backed loan or credit facility from accredited private lender. Lender reviews TROPTIONS Gateway asset package, appraisal, custody proof, and legal wrapper.",
-    timeline: "45 – 120 days from complete package submission",
-    requiresExternal: true,
+    estimatedTimeline: "45 – 120 days from complete package submission",
+    requiresExternalProvider: true,
   },
   ASSET_BUYER: {
     displayName: "Asset Buyer / Strategic Partner",
     description: "Direct purchase or off-take agreement for the underlying asset. Suitable for liquid asset types (carbon credits, metals) where a willing buyer can be sourced.",
-    timeline: "30 – 90 days depending on asset and buyer network",
-    requiresExternal: true,
+    estimatedTimeline: "30 – 90 days depending on asset and buyer network",
+    requiresExternalProvider: true,
   },
   MERCHANT_CREDIT: {
     displayName: "Merchant Credit / Trade Credit",
     description: "TROPTIONS-native credit line or trade settlement using TROPTIONS token as unit of account. Suitable for closed-network merchant-to-merchant transactions.",
-    timeline: "5 – 15 days once merchant network is onboarded",
-    requiresExternal: false,
+    estimatedTimeline: "5 – 15 days once merchant network is onboarded",
+    requiresExternalProvider: false,
   },
   AAVE_ACCEPTED_COLLATERAL: {
     displayName: "Aave v3 DeFi Lending (Accepted Collateral Only)",
     description: "Deposit accepted collateral (WBTC/cbBTC, ETH, stablecoins) into Aave v3 pool to borrow against. Raw alexandrite, gemstones, and carbon credits are NOT accepted by Aave.",
-    timeline: "Immediate once collateral is wrapped and deposited",
-    requiresExternal: true,
+    estimatedTimeline: "Immediate once collateral is wrapped and deposited",
+    requiresExternalProvider: true,
   },
   XRPL_IOU_RECEIPT: {
     displayName: "XRPL IOU Receipt Distribution",
     description: "Issue XRPL trustline IOUs to qualified counterparties. IOU is a receipt and lender-readable proof — not a guarantee of funds. Requires issuer policy, authorized trustlines, and redemption terms.",
-    timeline: "30 – 60 days from complete IOU readiness package",
-    requiresExternal: false,
+    estimatedTimeline: "30 – 60 days from complete IOU readiness package",
+    requiresExternalProvider: false,
   },
   AMM_AFTER_CLEARANCE: {
     displayName: "AMM Liquidity Pool (Post-Legal Clearance)",
     description: "Add asset-backed IOUs to XRPL AMM pool after full legal, reserve, and compliance clearance. Hard-blocked until legal approval, reserve proof, and public disclosure are complete.",
-    timeline: "90 – 180 days minimum (legal clearance required first)",
-    requiresExternal: false,
+    estimatedTimeline: "90 – 180 days minimum (legal clearance required first)",
+    requiresExternalProvider: false,
   },
   SERVICE_FEE_REVENUE: {
     displayName: "Verification-as-a-Service / Service Fee",
     description: "Earn origination fees, package fees, and administration fees for managing the asset verification and IOU issuance process on behalf of other asset owners.",
-    timeline: "Per engagement — typically 15 – 30 days per client",
-    requiresExternal: false,
+    estimatedTimeline: "Per engagement — typically 15 – 30 days per client",
+    requiresExternalProvider: false,
   },
 };
 

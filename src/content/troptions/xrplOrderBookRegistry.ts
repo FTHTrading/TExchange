@@ -14,6 +14,22 @@ export interface XrplOrderBookRecord {
 
 export const XRPL_ORDER_BOOK_REGISTRY: readonly XrplOrderBookRecord[] = [
   {
+    id: "ob-troptions",
+    pair: "XRP / TROPTIONS",
+    method: "book_offers",
+    bids: [
+      { price: "0.0024", amount: "8400000" },
+      { price: "0.0023", amount: "5200000" },
+      { price: "0.0022", amount: "3100000" },
+    ],
+    asks: [
+      { price: "0.0025", amount: "6700000" },
+      { price: "0.0026", amount: "9100000" },
+      { price: "0.0027", amount: "4500000" },
+    ],
+    status: "simulated",
+  },
+  {
     id: "ob-1",
     pair: "XRP / LEGACY-TOKEN",
     method: "book_offers",
