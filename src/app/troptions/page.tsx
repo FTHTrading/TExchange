@@ -120,10 +120,18 @@ const L1_COMPONENTS = [
   { code: "TAR",       role: "Persistence",        desc: "Atomic, crash-safe block + state storage with periodic snapshots." },
 ] as const;
 
+const ISSUED_IOUS = [
+  { symbol: "USDC", issuer: "Circle",              logo: "/assets/troptions/logos/usdc-iou-logo.svg", supply: "100M", chain: "XRPL + Stellar" },
+  { symbol: "USDT", issuer: "Tether",              logo: "/assets/troptions/logos/usdt-iou-logo.svg", supply: "100M", chain: "XRPL + Stellar" },
+  { symbol: "DAI",  issuer: "MakerDAO / Sky",      logo: "/assets/troptions/logos/dai-iou-logo.svg",  supply: "50M",  chain: "XRPL + Stellar" },
+  { symbol: "EURC", issuer: "Circle (EUR)",         logo: "/assets/troptions/logos/eurc-iou-logo.svg", supply: "50M",  chain: "XRPL + Stellar" },
+] as const;
+
 const NAV_CARDS = [
   { href: "/troptions/layer1",                  icon: "L1",   title: "Layer 1 (Rust)",   desc: "POPEYE / TEV / CONSENSUS / MARS / TAR - 27 crates" },
   { href: "/troptions/xrpl-platform",           icon: "XRPL", title: "XRPL Platform",    desc: "XRPL Market Data, AMM, and DEX Readiness" },
   { href: "/troptions/wallets",                 icon: "WLT",  title: "Live Wallets",      desc: "All public addresses with explorer links" },
+  { href: "/troptions/stablecoins",             icon: "IOU",  title: "Stablecoins & IOUs", desc: "USDC · USDT · DAI · EURC issued as XRPL + Stellar Gateway IOUs" },
   { href: "/troptions/ecosystem",               icon: "ECO",  title: "Ecosystem",         desc: "Brand entities, NIL, namespaces, NFTs" },
   { href: "/troptions/rwa/axl-001",             icon: "RWA",  title: "RWA Series 001",    desc: "AXL-001 Alexandrite collateral package (gated)" },
   { href: "/troptions/xrpl-stellar-compliance", icon: "CMP",  title: "Compliance",        desc: "ISO 20022, AML controls, jurisdiction" },
@@ -312,6 +320,65 @@ export default function TroptionsPage() {
         >
           View Full Wallet Showcase
         </Link>
+      </section>
+
+      {/* GATEWAY IOUs */}
+      <section className="mx-auto max-w-7xl px-5 pb-10 md:px-8">
+        <Card variant="navy" padding="md">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+            <div>
+              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#f0cf82] mb-1">
+                Gateway IOUs · Issued on XRPL + Stellar Mainnet 2026-04-28
+              </p>
+              <h2 className="text-xl font-bold text-slate-100">
+                USDC · USDT · DAI · EURC — Live on Mainnet
+              </h2>
+              <p className="text-sm text-slate-400 mt-1 max-w-xl">
+                Four stablecoin IOUs issued via TROPTIONS Gateway on both XRPL and Stellar mainnet.
+                Each IOU is a native trust-line currency redeemable through the TROPTIONS issuer.
+              </p>
+            </div>
+            <Link
+              href="/troptions/stablecoins"
+              className="shrink-0 inline-flex items-center rounded-xl border border-[#C9A84C]/45 px-4 py-2 text-sm font-semibold text-[#f0cf82] transition-colors hover:bg-[#C9A84C]/10"
+            >
+              View All Stablecoins &amp; IOUs →
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {ISSUED_IOUS.map((iou) => (
+              <Link
+                key={iou.symbol}
+                href="/troptions/stablecoins"
+                className="group flex flex-col items-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.04] p-4 text-center transition-colors hover:border-[#C9A84C]/40 hover:bg-white/[0.08]"
+              >
+                <div className="relative h-12 w-12">
+                  <Image src={iou.logo} alt={iou.symbol} fill sizes="48px" className="rounded-full object-contain" />
+                </div>
+                <div>
+                  <p className="font-bold text-[#f0cf82] text-base group-hover:text-white transition-colors">{iou.symbol}</p>
+                  <p className="text-[11px] text-slate-500 mt-0.5">{iou.issuer}</p>
+                </div>
+                <div className="flex flex-col gap-1 w-full">
+                  <span className="inline-flex items-center justify-center gap-1.5 rounded-md bg-[#052e16] border border-[#166534] px-2 py-0.5 text-[10px] font-bold text-green-400 uppercase tracking-wide">
+                    <span className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />
+                    LIVE
+                  </span>
+                  <span className="text-[10px] text-slate-500">{iou.supply} · {iou.chain}</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          <p className="mt-4 text-[11px] text-slate-600 leading-relaxed">
+            Issuer: <span className="font-mono text-slate-500">{ISSUER}</span> · Provisioned 2026-04-28 ·
+            Verify via{" "}
+            <a href={`https://bithomp.com/explorer/${ISSUER}`} target="_blank" rel="noreferrer noopener" className="text-[#f0cf82] hover:underline">Bithomp</a>
+            {" / "}
+            <a href={`https://xrpscan.com/account/${ISSUER}`} target="_blank" rel="noreferrer noopener" className="text-[#f0cf82] hover:underline">XRPScan</a>
+          </p>
+        </Card>
       </section>
 
       {/* WEB3 STACK */}
