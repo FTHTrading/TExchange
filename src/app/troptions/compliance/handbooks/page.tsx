@@ -20,6 +20,54 @@ interface HandbookInfo {
   sections: string[];
 }
 
+interface RwaDocumentInfo {
+  id: string;
+  title: string;
+  subtitle: string;
+  assetId: string;
+  status: "markdown-ready" | "pdf-pending";
+  icon: string;
+  color: string;
+  description: string;
+  href: string;
+}
+
+const PATE_COAL_DOCS: RwaDocumentInfo[] = [
+  {
+    id:          "pate-coal-lender-review-packet",
+    title:       "PATE-COAL-001 Lender Review Packet",
+    subtitle:    "Executive summary, readiness score, missing documents, financing routes",
+    assetId:     "PATE-COAL-001",
+    status:      "markdown-ready",
+    icon:        "LP",
+    color:       "#c9a84c",
+    description: "Comprehensive lender-facing overview of the Pate Prospect coal/mineral-rights asset: uploaded evidence, 40/100 score, 8 hard-blocker checklist, recommended routes (diligence bridge, operator JV, royalty/streaming), Aave hard-block explanation, and safety disclosure.",
+    href:        "/docs/troptions/pate-coal-lender-review-packet.md",
+  },
+  {
+    id:          "pate-coal-owner-document-request",
+    title:       "PATE-COAL-001 Owner Document Request",
+    subtitle:    "Checklist for asset owner: title, mineral rights, permits, legal, commercial",
+    assetId:     "PATE-COAL-001",
+    status:      "markdown-ready",
+    icon:        "DR",
+    color:       "#64b6ac",
+    description: "Formatted checklist for the asset owner covering all 9 document categories: title/deed, mineral rights, tax/lien/UCC, engineering/technical, permitting/environmental, commercial/offtake, legal authority, funding terms, and XRPL receipt readiness.",
+    href:        "/docs/troptions/pate-coal-owner-document-request.md",
+  },
+  {
+    id:          "pate-coal-route-verification",
+    title:       "PATE-COAL-001 Route Verification Report",
+    subtitle:    "Deployment checklist and curl commands for all 5 public routes",
+    assetId:     "PATE-COAL-001",
+    status:      "markdown-ready",
+    icon:        "RV",
+    color:       "#a78bfa",
+    description: "Post-deployment verification guide: all 5 PATE-COAL-001 routes, expected API responses, PowerShell and curl test commands, and a table of strings that should NOT appear in any live response (simulationOnly enforcement).",
+    href:        "/docs/troptions/pate-coal-route-verification.md",
+  },
+];
+
 const HANDBOOKS: HandbookInfo[] = [
   {
     id: "platform-overview-handbook",
@@ -146,6 +194,60 @@ export default function HandbooksPage() {
           <Link href="/troptions/transactions" style={{ color: "#f0cf82", fontSize: "0.85rem", textDecoration: "none", fontWeight: 600 }}>Transaction Hub →</Link>
           <Link href="/troptions/kyc" style={{ color: "#f0cf82", fontSize: "0.85rem", textDecoration: "none", fontWeight: 600 }}>KYC / Onboarding →</Link>
           <Link href="/troptions/xrpl-stellar-compliance" style={{ color: "#f0cf82", fontSize: "0.85rem", textDecoration: "none", fontWeight: 600 }}>Compliance Overview →</Link>
+          <Link href="/troptions/rwa/pate-coal" style={{ color: "#f0cf82", fontSize: "0.85rem", textDecoration: "none", fontWeight: 600 }}>Pate Coal RWA Package →</Link>
+        </div>
+
+        {/* PATE-COAL-001 Document Registry */}
+        <div style={{ marginTop: "3rem" }}>
+          <div style={{ marginBottom: "1.25rem" }}>
+            <p style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "#f0cf82", margin: "0 0 0.35rem" }}>RWA Document Registry</p>
+            <h2 style={{ fontFamily: "var(--font-display, Georgia, serif)", fontSize: "clamp(1.3rem, 3vw, 1.8rem)", fontWeight: 700, color: "#f8fafc", margin: "0 0 0.5rem" }}>
+              PATE-COAL-001 Funding Package
+            </h2>
+            <p style={{ color: "#94a3b8", fontSize: "0.88rem", lineHeight: 1.6, maxWidth: 700, margin: 0 }}>
+              Supporting documents for the Pate Prospect coal/mineral-rights RWA intake. Current readiness score: <strong style={{ color: "#f0cf82" }}>40 / 100</strong>. Markdown ready · PDF pending.
+            </p>
+          </div>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            {PATE_COAL_DOCS.map((doc) => (
+              <div
+                key={doc.id}
+                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "1rem", padding: "1.25rem 1.5rem", display: "flex", gap: "1.25rem", flexWrap: "wrap", alignItems: "flex-start" }}
+              >
+                {/* Icon */}
+                <div style={{ width: 50, height: 50, borderRadius: "0.65rem", background: `${doc.color}22`, border: `1px solid ${doc.color}55`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.7rem", fontWeight: 800, color: doc.color, flexShrink: 0 }}>
+                  {doc.icon}
+                </div>
+
+                {/* Content */}
+                <div style={{ flex: 1, minWidth: 220 }}>
+                  <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: "0.5rem", marginBottom: "0.45rem" }}>
+                    <div>
+                      <p style={{ fontWeight: 700, color: "#f1f5f9", fontSize: "0.95rem", margin: 0 }}>{doc.title}</p>
+                      <p style={{ fontSize: "0.75rem", color: "#64748b", margin: "0.2rem 0 0" }}>{doc.subtitle}</p>
+                    </div>
+                    <div style={{ display: "flex", gap: "0.5rem", flexShrink: 0, alignItems: "center" }}>
+                      <span style={{ background: "rgba(201,168,76,0.15)", border: "1px solid rgba(201,168,76,0.4)", color: "#f0cf82", fontSize: "0.65rem", fontWeight: 700, padding: "0.2rem 0.65rem", borderRadius: "2rem", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                        Markdown Ready
+                      </span>
+                      <span style={{ background: "rgba(100,100,100,0.2)", border: "1px solid rgba(100,100,100,0.35)", color: "#94a3b8", fontSize: "0.65rem", fontWeight: 600, padding: "0.2rem 0.65rem", borderRadius: "2rem", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                        PDF Pending
+                      </span>
+                    </div>
+                  </div>
+                  <p style={{ fontSize: "0.8rem", color: "#94a3b8", lineHeight: 1.6, margin: "0 0 0.65rem" }}>{doc.description}</p>
+                  <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+                    <span style={{ fontSize: "0.68rem", color: "#475569", fontFamily: "monospace" }}>{doc.assetId}</span>
+                    <span style={{ fontSize: "0.68rem", color: "#334155" }}>·</span>
+                    <Link href="/troptions/rwa/pate-coal" style={{ fontSize: "0.72rem", color: doc.color, textDecoration: "none", fontWeight: 600 }}>
+                      View live package →
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
