@@ -29,7 +29,14 @@
     "genesis:lock": "node scripts/phase20-genesis-lock.mjs",
     "genesis:validate": "node scripts/validate-phase20.mjs",
     "pdf:generate": "node scripts/generate-troptions-pdfs.mjs",
-    "pdf:check": "node scripts/check-troptions-pdfs.mjs"
+    "pdf:check": "node scripts/check-troptions-pdfs.mjs",
+    "xrpl:asset:status": "node scripts/show-xrpl-asset-status.mjs",
+    "xrpl:issuer:verify": "node scripts/xrpl-verify-issuer-proof.mjs",
+    "xrpl:trustlines:check": "node scripts/xrpl-check-account-lines.mjs",
+    "xrpl:proof:report": "node scripts/xrpl-proof-report.mjs",
+    "validate:trade-desk-docs": "node scripts/validate-trade-desk-docs.mjs",
+    "wallet:send:dry": "node scripts/troptions-wallet-send-gated.mjs",
+    "wallet:send:mainnet": "node scripts/troptions-wallet-send-gated.mjs --mainnet --confirm"
   },
   "dependencies": {
     "@stellar/stellar-sdk": "^15.0.1",
