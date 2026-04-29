@@ -18,6 +18,7 @@ const NAV_ITEMS = [
   { label: "Funding Routes",  href: "/troptions/funding-routes" },
   { label: "Pate Coal",       href: "/troptions/rwa/pate-coal" },
   { label: "Playbook",        href: "/troptions/docs/funding-playbook" },
+  { label: "Downloads",       href: "/troptions/docs/downloads" },
 ] as const;
 
 const CTA = { label: "Request Access", href: "/portal/troptions/onboarding" } as const;
