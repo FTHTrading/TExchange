@@ -42,6 +42,14 @@ const CHAIN_COLOR: Record<string, string> = {
   "Internal ledger":"#374151",
 };
 
+// ── Gateway IOU deal-closing metadata ────────────────────────────────────────
+const GATEWAY_IOUS = [
+  { symbol: "USDC", issuer: "Circle",         logo: "/assets/troptions/logos/usdc-iou-logo.svg", role: "USD Settlement",    roleColor: "#4ade80", desc: "Primary USD settlement. Regulated by Circle, redeemable 1:1 for US dollars held in reserve." },
+  { symbol: "USDT", issuer: "Tether",         logo: "/assets/troptions/logos/usdt-iou-logo.svg", role: "USD Liquidity",     roleColor: "#fbbf24", desc: "World's most liquid stablecoin. Deep cross-chain liquidity for high-volume deal funding." },
+  { symbol: "DAI",  issuer: "MakerDAO / Sky", logo: "/assets/troptions/logos/dai-iou-logo.svg",  role: "DeFi-Native USD",   roleColor: "#a78bfa", desc: "Decentralized, over-collateralized. No centralized freeze risk — ideal for autonomous deal contracts." },
+  { symbol: "EURC", issuer: "Circle (EUR)",   logo: "/assets/troptions/logos/eurc-iou-logo.svg", role: "EUR Settlement",    roleColor: "#60a5fa", desc: "Euro-denominated deals and cross-border transactions settling in EUR via Circle's European entity." },
+] as const;
+
 // ── Stablecoin logo + sub-page map ───────────────────────────────────────────
 const STABLECOIN_META: Record<string, { logo: string; subPage?: string; assetClass: string; chains?: readonly string[] }> = {
   "USDC":         { logo: "/assets/troptions/logos/usdc-iou-logo.svg",       subPage: "/troptions/stablecoins/usdc",  assetClass: "Stablecoin" },
@@ -83,8 +91,8 @@ function IouCard({ iou }: { readonly iou: XrplIouRecord }) {
           <Image
             src={iou.logoPath}
             alt={`${iou.currency} logo`}
-            width={48}
-            height={48}
+            width={64}
+            height={64}
             style={{ borderRadius: "50%", border: "1px solid rgba(201,168,76,0.25)", flexShrink: 0 }}
           />
         )}
@@ -167,8 +175,8 @@ function StablecoinCard({ coin }: { readonly coin: StablecoinIssuerRecord }) {
           <Image
             src={meta.logo}
             alt={`${coin.symbol} logo`}
-            width={48}
-            height={48}
+            width={64}
+            height={64}
             style={{ borderRadius: "50%", border: "1px solid rgba(201,154,60,0.3)", flexShrink: 0 }}
           />
         )}
@@ -239,6 +247,7 @@ function StablecoinCard({ coin }: { readonly coin: StablecoinIssuerRecord }) {
 
 export default function TroptionsStablecoinsPage() {
   const iouStablecoins = XRPL_IOU_REGISTRY.filter((r) => r.category === "stablecoin" || r.category === "platform-token" || r.category === "commodity" || r.category === "bond" || r.category === "attestation" || r.category === "rwa-receipt" || r.category === "custom-token");
+  const liveCount = XRPL_IOU_REGISTRY.filter((r) => r.onChainStatus === "issued").length;
   const publicCoins = STABLECOIN_ISSUER_REGISTRY.filter((c) => !c.symbol.startsWith("TRU-"));
   const internalUnits = STABLECOIN_ISSUER_REGISTRY.filter((c) => c.symbol.startsWith("TRU-"));
 
@@ -281,7 +290,7 @@ export default function TroptionsStablecoinsPage() {
             { label: "XRPL IOUs", value: `${iouStablecoins.length}`, sub: "gateway instruments" },
             { label: "Stablecoins", value: `${publicCoins.length}`, sub: "monitored rails" },
             { label: "Chains Covered", value: "10+", sub: "multi-chain" },
-            { label: "Status", value: "1 LIVE", sub: `${iouStablecoins.length - 1} DRAFT` },
+            { label: "Status", value: `${liveCount} LIVE`, sub: `${iouStablecoins.length - liveCount} DRAFT` },
           ].map((s) => (
             <div key={s.label} style={{ background: "rgba(12,20,36,0.88)", border: "1px solid rgba(201,168,76,0.2)", borderRadius: "0.65rem", padding: "0.9rem 1rem" }}>
               <p style={{ margin: "0 0 0.15rem", fontSize: "0.67rem", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 700 }}>{s.label}</p>
@@ -290,6 +299,91 @@ export default function TroptionsStablecoinsPage() {
             </div>
           ))}
         </div>
+
+        {/* ── Gateway Deal Rail ────────────────────────────────────────────── */}
+        <section style={{ background: "linear-gradient(135deg, #0c1e35 0%, #071a2e 50%, #0c1e35 100%)", border: "1px solid rgba(201,168,76,0.3)", borderRadius: "1rem", padding: "2rem" }}>
+
+          {/* Section header */}
+          <div style={{ marginBottom: "1.75rem" }}>
+            <p style={{ margin: "0 0 0.5rem", fontSize: "0.67rem", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.14em", fontWeight: 700 }}>
+              TROPTIONS · Issued XRPL + Stellar Mainnet · 2026-04-28
+            </p>
+            <h2 style={{ margin: "0 0 0.6rem", fontFamily: "Georgia, serif", fontWeight: 700, fontSize: "clamp(1.35rem,3vw,1.9rem)", color: "#f0cf82", lineHeight: 1.2 }}>
+              4-Currency Deal Closing System
+            </h2>
+            <p style={{ margin: 0, fontSize: "0.85rem", color: "#94a3b8", lineHeight: 1.6, maxWidth: "680px" }}>
+              TROPTIONS Gateway has issued four institutional stablecoins as native trust-line currencies on both XRPL and Stellar mainnet.
+              Together they cover <strong style={{ color: "#e2e8f0" }}>USD (two variants for liquidity depth), decentralized DeFi-native USD, and EUR</strong> — giving every counterparty a verified settlement currency that matches their regulatory and liquidity requirements.
+              All four are live on-chain right now. Anyone can verify balances and trustlines independently.
+            </p>
+          </div>
+
+          {/* 4 logo cards — prominent */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "1rem", marginBottom: "2rem" }}>
+            {GATEWAY_IOUS.map((g) => (
+              <div key={g.symbol} style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(201,168,76,0.18)", borderRadius: "0.875rem", padding: "1.25rem", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.75rem", textAlign: "center" }}>
+                {/* Logo */}
+                <div style={{ width: "80px", height: "80px", borderRadius: "50%", border: "2px solid rgba(201,168,76,0.3)", overflow: "hidden", flexShrink: 0, background: "rgba(0,0,0,0.25)" }}>
+                  <Image src={g.logo} alt={`${g.symbol} logo`} width={80} height={80} style={{ objectFit: "contain", padding: "4px" }} />
+                </div>
+                {/* Ticker + LIVE */}
+                <div>
+                  <p style={{ margin: 0, fontWeight: 900, fontSize: "1.5rem", color: "#f0cf82", fontFamily: "'Arial Black', Arial, sans-serif", letterSpacing: "0.05em", lineHeight: 1 }}>{g.symbol}</p>
+                  <p style={{ margin: "0.25rem 0 0.35rem", fontSize: "0.72rem", color: "#64748b" }}>{g.issuer}</p>
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", background: "#052e16", border: "1px solid #166534", borderRadius: "99px", padding: "0.18rem 0.65rem", fontSize: "0.65rem", fontWeight: 700, color: "#4ade80", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                    <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#4ade80", animation: "pulse 2s infinite" }} />
+                    LIVE
+                  </span>
+                </div>
+                {/* Role badge */}
+                <span style={{ background: "rgba(255,255,255,0.06)", border: `1px solid ${g.roleColor}40`, borderRadius: "0.4rem", padding: "0.2rem 0.6rem", fontSize: "0.68rem", fontWeight: 700, color: g.roleColor, letterSpacing: "0.06em" }}>
+                  {g.role}
+                </span>
+                {/* Description */}
+                <p style={{ margin: 0, fontSize: "0.74rem", color: "#64748b", lineHeight: 1.5 }}>{g.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Deal workflow steps */}
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: "1.5rem" }}>
+            <p style={{ margin: "0 0 1rem", fontSize: "0.68rem", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.14em", fontWeight: 700 }}>
+              How to Process a Deal Using Gateway IOUs
+            </p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "0.85rem" }}>
+              {[
+                { n: "01", title: "Open Trustline",    body: "Counterparty opens a trustline to the TROPTIONS Gateway Issuer on XRPL or Stellar. One setup — all 4 IOUs unlocked. Zero cost, takes 10 seconds." },
+                { n: "02", title: "Fund the Deal",     body: "Buyer sends USDC, USDT, DAI, or EURC IOU to the deal escrow address. Settles on-ledger in 3–5 seconds. Balance verifiable by anyone, anywhere." },
+                { n: "03", title: "Proof of Funds",    body: "Gateway confirms IOU balance, trustline, and deal docs (RWA receipt, KYC attestation, PoF). All verifiable via XRPScan or Stellar Expert." },
+                { n: "04", title: "Execute & Release", body: "Condition met (contract signed, RWA transferred, time-lock expired) → IOUs release from escrow to seller. Redeemable 1:1 for the underlying stablecoin." },
+              ].map((s) => (
+                <div key={s.n} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "0.75rem", padding: "1rem" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.6rem" }}>
+                    <span style={{ width: "28px", height: "28px", borderRadius: "0.5rem", background: "rgba(201,168,76,0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: "0.7rem", color: "#f0cf82", flexShrink: 0 }}>{s.n}</span>
+                    <span style={{ fontWeight: 700, fontSize: "0.88rem", color: "#e2e8f0" }}>{s.title}</span>
+                  </div>
+                  <p style={{ margin: 0, fontSize: "0.76rem", color: "#64748b", lineHeight: 1.55 }}>{s.body}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Verify links */}
+            <div style={{ marginTop: "1.25rem", display: "flex", flexWrap: "wrap", gap: "0.75rem", alignItems: "center" }}>
+              <span style={{ fontSize: "0.72rem", color: "#475569" }}>Verify on-chain:</span>
+              {[
+                { label: "XRPL Issuer (XRPScan)", url: "https://xrpscan.com/account/rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ" },
+                { label: "XRPL Distributor (Bithomp)", url: "https://bithomp.com/explorer/rNX4faQ35SdtE4rDoEg8YeVLQKQ57AYyCt" },
+                { label: "Stellar Issuer", url: "https://stellar.expert/explorer/public/account/GB4FHGFUTLLMS3SC5RWRK6RYBGDIUQ5NR7IGN5TWAA3QVHULJ34JGEG4" },
+                { label: "Stellar Distributor", url: "https://stellar.expert/explorer/public/account/GBH4YY6EKSIM3LEHUQHEXFDZKMLON64HKMCB2K7CCOXGNCIVGH5GGVWC" },
+              ].map((ex) => (
+                <a key={ex.url} href={ex.url} target="_blank" rel="noreferrer noopener"
+                  style={{ fontSize: "0.75rem", fontWeight: 600, color: "#c9a84c", textDecoration: "none" }}>
+                  {ex.label} ↗
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* ── XRPL Gateway IOUs ────────────────────────────────────────────── */}
         <section>
