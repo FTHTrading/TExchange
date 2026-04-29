@@ -36,7 +36,7 @@ export const XRPL_WALLET_INVENTORY_REGISTRY: readonly WalletForensicsWalletRecor
     explorerLinks: [
       { label: "XRPSCAN", url: "https://xrpscan.com/account/rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ" },
       { label: "XRPL Explorer", url: "https://livenet.xrpl.org/accounts/rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ" },
-      { label: "XRPL Token Info", url: "https://xrpl.org/token/TROPTIONS+rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ" },
+      { label: "XRPL Token Info", url: "https://xrpscan.com/account/rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ" },
     ],
   },
 

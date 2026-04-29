@@ -60,12 +60,12 @@ export default function TroptionsWalletPage() {
               </p>
               <div className="flex flex-wrap gap-3">
                 <a
-                  href="https://xrpl.org/token/TROPTIONS+rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ"
+                  href="https://xrpscan.com/account/rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ"
                   target="_blank"
                   rel="noreferrer noopener"
                   className="rounded-lg bg-(--gold) px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
                 >
-                  View on XRPL.org ↗
+                  View Token on XRPScan ↗
                 </a>
                 <a
                   href="https://livenet.xrpl.org/accounts/rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ"

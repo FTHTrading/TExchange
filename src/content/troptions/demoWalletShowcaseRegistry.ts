@@ -46,7 +46,7 @@ export const DEMO_WALLET_SHOWCASE: readonly DemoWalletShowcaseItem[] = [
     explorerLinks: [
       { label: "XRPL Ledger", url: "https://livenet.xrpl.org/accounts/rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ" },
       { label: "XRPScan", url: "https://xrpscan.com/account/rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ" },
-      { label: "Token Info", url: "https://xrpl.org/token/TROPTIONS+rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ" },
+      { label: "Token Info", url: "https://xrpscan.com/account/rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ" },
     ],
   },
   {
