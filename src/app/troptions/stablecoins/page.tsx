@@ -480,6 +480,20 @@ export default function TroptionsStablecoinsPage() {
                 </a>
               ))}
             </div>
+
+            {/* Proof of Issuance CTA */}
+            <div style={{ marginTop: "1.1rem", background: "rgba(201,168,76,0.07)", border: "1px solid rgba(201,168,76,0.3)", borderRadius: "0.75rem", padding: "1rem 1.25rem", display: "flex", flexWrap: "wrap", gap: "1rem", alignItems: "center", justifyContent: "space-between" }}>
+              <div>
+                <p style={{ margin: "0 0 0.2rem", fontWeight: 800, fontSize: "0.9rem", color: "#f0cf82" }}>Every issuance transaction hash is published</p>
+                <p style={{ margin: 0, fontSize: "0.76rem", color: "#94a3b8", lineHeight: 1.5 }}>
+                  View full proof of issuance, balance verification guide, XRPL Escrow &amp; NFT receipt mechanisms — seller-ready documentation with direct explorer links for each IOU.
+                </p>
+              </div>
+              <Link href="/troptions/verification"
+                style={{ display: "inline-block", background: "rgba(201,168,76,0.18)", border: "1px solid rgba(201,168,76,0.5)", color: "#f0cf82", borderRadius: "0.5rem", padding: "0.55rem 1.1rem", fontWeight: 800, fontSize: "0.82rem", textDecoration: "none", whiteSpace: "nowrap", flexShrink: 0 }}>
+                View Proof of Issuance →
+              </Link>
+            </div>
           </div>
         </section>
 
