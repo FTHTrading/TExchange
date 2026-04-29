@@ -16,6 +16,7 @@ const NAV_ITEMS = [
   { label: "Compliance",      href: "/troptions/xrpl-stellar-compliance" },
   { label: "XRPL IOU",        href: "/troptions/xrpl-iou" },
   { label: "Funding Routes",  href: "/troptions/funding-routes" },
+  { label: "Pate Coal",       href: "/troptions/rwa/pate-coal" },
 ] as const;
 
 const CTA = { label: "Request Access", href: "/portal/troptions/onboarding" } as const;
