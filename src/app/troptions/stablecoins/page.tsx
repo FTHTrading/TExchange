@@ -8,7 +8,14 @@ export const metadata = {
   description:
     "TROPTIONS institutional-grade stablecoin and IOU reference: USDC, USDT, PAXG, PYUSD, USDP and all XRPL gateway IOUs with asset classes, transfer fees, chain support, and risk controls.",
 };
-
+// ── Supply lookup (from registry notes) ─────────────────────────────────────
+const IOU_SUPPLY: Record<string, string> = {
+  TROPTIONS: "100,000,000",
+  USDC:      "100,000,000",
+  USDT:      "100,000,000",
+  DAI:       "50,000,000",
+  EURC:      "50,000,000",
+};
 // ── Asset class badge styling ────────────────────────────────────────────────
 const ASSET_CLASS_STYLE: Record<string, { bg: string; color: string; border: string }> = {
   "Stablecoin":        { bg: "#052e16", color: "#4ade80", border: "#166534" },
@@ -299,6 +306,97 @@ export default function TroptionsStablecoinsPage() {
             </div>
           ))}
         </div>
+
+        {/* ── Zero-fee selling point banner ──────────────────────────────── */}
+        <div style={{ background: "linear-gradient(135deg, #052e16 0%, #0a3d22 100%)", border: "1px solid rgba(74,222,128,0.35)", borderRadius: "0.875rem", padding: "1.25rem 1.5rem", display: "flex", alignItems: "center", gap: "1.25rem", flexWrap: "wrap" }}>
+          <div style={{ width: "48px", height: "48px", borderRadius: "50%", background: "rgba(74,222,128,0.15)", border: "1px solid rgba(74,222,128,0.3)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: "1.5rem" }}>
+            💸
+          </div>
+          <div style={{ flex: 1, minWidth: "200px" }}>
+            <p style={{ margin: "0 0 0.3rem", fontWeight: 800, fontSize: "1.05rem", color: "#4ade80", letterSpacing: "0.02em" }}>
+              Zero Transfer Fees on All Four Stablecoins
+            </p>
+            <p style={{ margin: 0, fontSize: "0.8rem", color: "#86efac", lineHeight: 1.55 }}>
+              USDC, USDT, DAI, and EURC carry a <strong>0 bps transfer fee</strong> — every on-ledger settlement moves at face value with no gateway deduction.
+              Each IOU is redeemable 1:1 for the underlying stablecoin held in reserve by the original issuer. TROPTIONS native carries a 25 bps sustainability fee — see the full schedule below.
+            </p>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "0.35rem", flexShrink: 0 }}>
+            <span style={{ background: "#052e16", border: "1px solid #166534", color: "#4ade80", borderRadius: "0.4rem", padding: "0.3rem 0.8rem", fontSize: "0.72rem", fontWeight: 800, letterSpacing: "0.08em" }}>0 BPS · FREE</span>
+            <span style={{ fontSize: "0.67rem", color: "#4ade80", opacity: 0.7 }}>USDC · USDT · DAI · EURC</span>
+          </div>
+        </div>
+
+        {/* ── Fee Schedule table ──────────────────────────────────────────── */}
+        <section style={{ background: "rgba(12,20,36,0.92)", border: "1px solid rgba(201,168,76,0.22)", borderRadius: "1rem", padding: "1.5rem" }}>
+          <div style={{ marginBottom: "1rem" }}>
+            <p style={{ margin: "0 0 0.25rem", fontSize: "0.67rem", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.14em", fontWeight: 700 }}>TROPTIONS Gateway</p>
+            <h2 style={{ margin: 0, fontFamily: "Georgia, serif", fontWeight: 700, fontSize: "clamp(1.1rem,2.5vw,1.45rem)", color: "#f0cf82" }}>Complete Fee Schedule</h2>
+            <p style={{ margin: "0.3rem 0 0", fontSize: "0.8rem", color: "#64748b", lineHeight: 1.5 }}>
+              All issued and planned IOUs — asset class, maximum supply, XRPL transfer fee, and live status.
+            </p>
+          </div>
+          <div style={{ overflowX: "auto" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.8rem" }}>
+              <thead>
+                <tr style={{ borderBottom: "1px solid rgba(201,168,76,0.2)" }}>
+                  {["Asset", "Asset Class", "Max Supply", "Transfer Fee", "Status"].map((h) => (
+                    <th key={h} style={{ padding: "0.5rem 0.75rem", textAlign: "left", fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#64748b", whiteSpace: "nowrap" }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {XRPL_IOU_REGISTRY.map((iou, i) => {
+                  const sts = STATUS_STYLE[iou.onChainStatus ?? "draft"];
+                  const cls = ASSET_CLASS_STYLE[iou.assetClass] ?? ASSET_CLASS_STYLE["Custom Token"];
+                  const feeFree = iou.transferFeeRateBps === 0;
+                  return (
+                    <tr key={iou.currency} style={{ borderBottom: "1px solid rgba(255,255,255,0.05)", background: i % 2 === 0 ? "transparent" : "rgba(255,255,255,0.02)" }}>
+                      {/* Asset */}
+                      <td style={{ padding: "0.65rem 0.75rem", whiteSpace: "nowrap" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                          {iou.logoPath && (
+                            <Image src={iou.logoPath} alt={iou.currency} width={28} height={28} style={{ borderRadius: "50%", border: "1px solid rgba(201,168,76,0.2)", flexShrink: 0 }} />
+                          )}
+                          <span style={{ fontWeight: 800, color: "#f0cf82", fontFamily: "'Arial Black', Arial, sans-serif", letterSpacing: "0.04em" }}>{iou.currency}</span>
+                        </div>
+                      </td>
+                      {/* Asset Class */}
+                      <td style={{ padding: "0.65rem 0.75rem" }}>
+                        <span style={{ background: cls.bg, color: cls.color, border: `1px solid ${cls.border}`, borderRadius: "0.3rem", padding: "0.15rem 0.5rem", fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.07em", textTransform: "uppercase", whiteSpace: "nowrap" }}>
+                          {iou.assetClass}
+                        </span>
+                      </td>
+                      {/* Supply */}
+                      <td style={{ padding: "0.65rem 0.75rem", color: "#94a3b8", whiteSpace: "nowrap" }}>
+                        {IOU_SUPPLY[iou.currency] ?? "—"}
+                      </td>
+                      {/* Fee */}
+                      <td style={{ padding: "0.65rem 0.75rem", whiteSpace: "nowrap" }}>
+                        {feeFree ? (
+                          <span style={{ background: "#052e16", border: "1px solid #166534", color: "#4ade80", borderRadius: "0.3rem", padding: "0.15rem 0.55rem", fontSize: "0.68rem", fontWeight: 800, letterSpacing: "0.06em" }}>FREE</span>
+                        ) : (
+                          <span style={{ color: "#fbbf24", fontWeight: 700 }}>{iou.transferFeeRateBps} bps · {(iou.transferFeeRateBps / 100).toFixed(2)}%</span>
+                        )}
+                      </td>
+                      {/* Status */}
+                      <td style={{ padding: "0.65rem 0.75rem" }}>
+                        <span style={{ background: sts.bg, color: sts.color, border: `1px solid ${sts.border}`, borderRadius: "99px", padding: "0.15rem 0.6rem", fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.08em" }}>
+                          {sts.label}
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          <p style={{ margin: "0.85rem 0 0", fontSize: "0.7rem", color: "#475569", borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "0.75rem" }}>
+            Transfer fees are deducted by the XRPL protocol at settlement time. 0 bps assets transfer at exactly face value.
+            TROPTIONS (25 bps) sustains gateway infrastructure. Commodity and specialty IOUs carry fees commensurate with custody and compliance overhead.
+            All issued IOUs are redeemable 1:1 for the underlying asset via the TROPTIONS Gateway redemption process.
+          </p>
+        </section>
 
         {/* ── Gateway Deal Rail ────────────────────────────────────────────── */}
         <section style={{ background: "linear-gradient(135deg, #0c1e35 0%, #071a2e 50%, #0c1e35 100%)", border: "1px solid rgba(201,168,76,0.3)", borderRadius: "1rem", padding: "2rem" }}>
