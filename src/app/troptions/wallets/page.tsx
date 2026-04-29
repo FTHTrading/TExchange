@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { DEMO_WALLET_SHOWCASE } from "@/content/troptions/demoWalletShowcaseRegistry";
+import { WALLET_INFRASTRUCTURE } from "@/content/troptions/demoWalletShowcaseRegistry";
 import CopyAddressButton from "@/components/troptions-evolution/CopyAddressButton";
 
 export const metadata = {
@@ -7,8 +7,8 @@ export const metadata = {
   description: "Live TROPTIONS wallet infrastructure on XRPL and Stellar mainnet. Issuer, distribution, AMM, DEX traders, and Stellar bridge wallets — all confirmed funded 2026-04-28.",
 };
 
-const XRPL_WALLETS = DEMO_WALLET_SHOWCASE.filter((w) => w.network === "XRPL");
-const STELLAR_WALLETS = DEMO_WALLET_SHOWCASE.filter((w) => w.network === "Stellar");
+const XRPL_WALLETS = WALLET_INFRASTRUCTURE.filter((w) => w.network === "XRPL");
+const STELLAR_WALLETS = WALLET_INFRASTRUCTURE.filter((w) => w.network === "Stellar");
 
 const walletTypeBadge: Record<string, { label: string; color: string }> = {
   issuer:       { label: "Issuer",       color: "bg-amber-50 text-amber-700 border-amber-200" },

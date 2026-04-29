@@ -29,7 +29,7 @@ export interface DemoWalletShowcaseItem {
   readonly poolReferences?: readonly DemoWalletPoolReference[];
 }
 
-export const DEMO_WALLET_SHOWCASE: readonly DemoWalletShowcaseItem[] = [
+export const WALLET_INFRASTRUCTURE: readonly DemoWalletShowcaseItem[] = [
   // ── TROPTIONS XRPL Wallets ──────────────────────────────────────────────────
   {
     id: "troptions-xrpl-issuer",

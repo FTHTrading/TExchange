@@ -255,11 +255,11 @@ export default function TroptionsStablecoinsPage() {
     <main className="te-page">
       <div className="te-wrap" style={{ gap: "1.75rem" }}>
 
-        {/* ── Simulation disclaimer ──────────────────────────────────────────── */}
-        <div style={{ background: "rgba(127,29,29,0.18)", border: "1px solid rgba(127,29,29,0.5)", borderRadius: "0.65rem", padding: "0.75rem 1rem", display: "flex", gap: "0.6rem", alignItems: "flex-start" }}>
-          <span style={{ fontSize: "1.1rem", flexShrink: 0 }}>⚠</span>
-          <p style={{ margin: 0, fontSize: "0.8rem", color: "#fca5a5", lineHeight: 1.55 }}>
-            <strong>Simulation &amp; Monitoring Only.</strong> All stablecoin and IOU capabilities shown here operate under simulation, readiness, and monitoring controls. No live custody, transfer, exchange, issuance, or public investment function is enabled without explicit issuer approval, provider onboarding, and jurisdiction clearance.
+        {/* ── Mainnet confirmation banner ─────────────────────────────────────── */}
+        <div style={{ background: "rgba(5,46,22,0.35)", border: "1px solid rgba(22,101,52,0.6)", borderRadius: "0.65rem", padding: "0.75rem 1rem", display: "flex", gap: "0.6rem", alignItems: "flex-start" }}>
+          <span style={{ fontSize: "1.1rem", flexShrink: 0 }}>✅</span>
+          <p style={{ margin: 0, fontSize: "0.8rem", color: "#86efac", lineHeight: 1.55 }}>
+            <strong>Live on Mainnet.</strong> USDC, USDT, DAI, and EURC gateway IOUs are confirmed issued on XRPL and Stellar mainnet as of 2026-04-28. All issuance transactions are publicly verifiable on XRPScan and Stellar Expert. This is real infrastructure — not a simulation.
           </p>
         </div>
 
@@ -288,7 +288,7 @@ export default function TroptionsStablecoinsPage() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: "0.75rem" }}>
           {[
             { label: "XRPL IOUs", value: `${iouStablecoins.length}`, sub: "gateway instruments" },
-            { label: "Stablecoins", value: `${publicCoins.length}`, sub: "monitored rails" },
+            { label: "Stablecoins", value: `${publicCoins.length}`, sub: "supported rails" },
             { label: "Chains Covered", value: "10+", sub: "multi-chain" },
             { label: "Status", value: `${liveCount} LIVE`, sub: `${iouStablecoins.length - liveCount} DRAFT` },
           ].map((s) => (
@@ -404,10 +404,10 @@ export default function TroptionsStablecoinsPage() {
         {/* ── Institutional Stablecoins ──────────────────────────────────────── */}
         <section>
           <div style={{ marginBottom: "1rem" }}>
-            <p style={{ margin: "0 0 0.2rem", fontSize: "0.7rem", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.12em", fontWeight: 700 }}>Monitored · Multi-Chain</p>
+            <p style={{ margin: "0 0 0.2rem", fontSize: "0.7rem", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.12em", fontWeight: 700 }}>Integrated · Multi-Chain</p>
             <h2 style={{ margin: 0, fontFamily: "Georgia, serif", fontWeight: 700, fontSize: "clamp(1.2rem, 2.5vw, 1.65rem)", color: "#f2efe8" }}>Institutional Stablecoins</h2>
             <p style={{ margin: "0.35rem 0 0", fontSize: "0.82rem", color: "#94a3b8", lineHeight: 1.5, maxWidth: "680px" }}>
-              Third-party stablecoin rails evaluated for readiness, compliance posture, and integration feasibility across TROPTIONS settlement scenarios.
+              Industry-standard stablecoins supported as settlement rails across the TROPTIONS gateway — USDC, USDT, DAI, and EURC are live as gateway IOUs on XRPL and Stellar mainnet, with additional chains available through native issuer infrastructure.
             </p>
           </div>
           <div style={{ display: "grid", gap: "0.85rem", gridTemplateColumns: "repeat(auto-fill, minmax(310px, 1fr))" }}>
@@ -420,7 +420,7 @@ export default function TroptionsStablecoinsPage() {
         {/* ── Internal Accounting Units ──────────────────────────────────────── */}
         <section>
           <div style={{ marginBottom: "1rem" }}>
-            <p style={{ margin: "0 0 0.2rem", fontSize: "0.7rem", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.12em", fontWeight: 700 }}>Internal · Simulation Only</p>
+            <p style={{ margin: "0 0 0.2rem", fontSize: "0.7rem", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.12em", fontWeight: 700 }}>Internal · Platform Accounting</p>
             <h2 style={{ margin: 0, fontFamily: "Georgia, serif", fontWeight: 700, fontSize: "clamp(1.1rem, 2vw, 1.35rem)", color: "#94a3b8" }}>Internal Accounting Units</h2>
           </div>
           <div style={{ display: "grid", gap: "0.75rem", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))" }}>
