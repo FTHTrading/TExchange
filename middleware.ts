@@ -21,4 +21,7 @@ export const config = {
     "/troptions/gated/:path*",
     "/portal/:path*",
   ],
+  // Next.js 16 changed the default middleware runtime to Node.js.
+  // Cloudflare Workers requires edge runtime. Explicit declaration required.
+  runtime: "edge",
 };
