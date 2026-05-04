@@ -664,7 +664,7 @@ export async function getAccountInfo(address: string): Promise<{
       address,
       xrpBalance:  String(dropsToXrp(String(data.Balance))),
       sequence:    data.Sequence,
-      ownerCount:  data.OwnerCount,
+      ownerCount:  Number(data.OwnerCount),
     };
   } catch (err) {
     return { ok: false, address, error: String(err) };

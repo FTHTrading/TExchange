@@ -35,7 +35,6 @@ import {
   BASE_FEE,
   getLiquidityPoolId,
   LiquidityPoolFeeV18,
-  AuthFlag,
 } from "@stellar/stellar-sdk";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -101,6 +100,18 @@ async function submitTx(
   }
 }
 
+// ─── Admin Key Verification ───────────────────────────────────────────────────
+
+/**
+ * Verify that the supplied key matches the GENESIS_ADMIN_KEY env var.
+ * Used by genesis/lp API routes to gate write operations.
+ */
+export function verifyGenesisAdminKey(key: string): boolean {
+  const expected = process.env.GENESIS_ADMIN_KEY;
+  if (!expected || !key) return false;
+  return key === expected;
+}
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export interface StellarOpResult {
@@ -109,16 +120,6 @@ export interface StellarOpResult {
   ledger?: number;
   error?: string;
   detail?: unknown;
-}
-
-/**
- * Verify an admin key against the GENESIS_ADMIN_KEY environment variable.
- * Returns true if the provided key matches and is non-empty.
- */
-export function verifyGenesisAdminKey(key: string): boolean {
-  const expected = process.env.GENESIS_ADMIN_KEY;
-  if (!expected || expected.length === 0) return false;
-  return key === expected;
 }
 
 // ─── Account Configuration ────────────────────────────────────────────────────
@@ -152,7 +153,7 @@ export async function configureStellarIssuer(opts?: {
     builder.addOperation(
       Operation.setOptions({
         homeDomain:      domain,
-        setFlags:        buildStellarFlags(opts),
+        setFlags:        buildStellarFlags(opts) as import("@stellar/stellar-sdk").AuthFlag | undefined,
         // Clearing clearFlags ensures we can re-run this safely
       })
     );
@@ -416,8 +417,6 @@ export async function createStellarSellOfferUsdc(
 export async function createTroptionsXlmPool(params?: {
   troptionsAmount?: string;
   xlmAmount?: string;
-  maxPrice?: string;
-  minPrice?: string;
 }): Promise<StellarOpResult> {
   const server = getServer();
   try {
@@ -468,8 +467,6 @@ export async function createTroptionsXlmPool(params?: {
 export async function createTroptionsUsdcPool(params?: {
   troptionsAmount?: string;
   usdcAmount?: string;
-  maxPrice?: string;
-  minPrice?: string;
 }): Promise<StellarOpResult> {
   const server = getServer();
   try {
@@ -636,11 +633,11 @@ redemption_instructions = "https://troptions.org/redeem"
 regulated = false
 
 [[CURRENCIES]]
-code = "LEGACY"
+code = "OPTKAS"
 issuer = "${issuerAddress}"
 display_decimals = 7
-name = "Legacy Trade Settlement Token"
-desc = "Legacy TROPTIONS-family trade settlement asset. Regional trade instrument under legal review. Not publicly marketed."
+name = "OPTKAS"
+desc = "OPTKAS — Optioned Kansas Trade Settlement asset. Regional trade instrument."
 is_asset_anchored = false
 anchor_asset_type = "other"
 
@@ -660,11 +657,11 @@ function buildStellarFlags(opts?: {
   authRequired?: boolean;
   authRevocable?: boolean;
   authClawback?: boolean;
-}): AuthFlag {
+}): number {
   // Stellar flag values: AUTH_REQUIRED=1, AUTH_REVOCABLE=2, AUTH_CLAWBACK_ENABLED=8
   let flags = 0;
   if (opts?.authRequired) flags |= 1;
   if (opts?.authRevocable) flags |= 2;
   if (opts?.authClawback)  flags |= 8;
-  return flags as AuthFlag;
+  return flags;
 }
