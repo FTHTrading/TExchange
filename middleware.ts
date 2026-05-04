@@ -17,5 +17,8 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/troptions/gated/:path*"],
+  matcher: [
+    "/troptions/gated/:path*",
+    "/portal/:path*",
+  ],
 };
