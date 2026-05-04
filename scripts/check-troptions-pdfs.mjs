@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * check-troptions-pdfs.mjs
- * Verifies all 20 expected TROPTIONS PDFs exist and are >10KB.
+ * Verifies all expected TROPTIONS PDFs exist and are >10KB.
  * Run: npm run pdf:check
  * Exits 1 if any are missing or too small.
  */
@@ -35,6 +35,23 @@ const EXPECTED = [
   "liquidity-pool-readiness-handbook.pdf",
   "wallet-mint-noncustodial-guide.pdf",
   "rust-runtime-control-layer-overview.pdf",
+  "troptions-wallet-hub-guide.pdf",
+  "troptions-wallet-transfer-procedure.pdf",
+  "usdc-usdt-vault-attestation-framework.pdf",
+  "private-placement-owner-strategy-brief.pdf",
+  "private-placement-sales-execution-guide.pdf",
+  "private-placement-minting-leverage-framework.pdf",
+  "bryan-stone-kyc-cis-master-file.pdf",
+  "usdt-proof-of-funds-verification-and-validation.pdf",
+  "trader-account-validation-and-lock-control-framework.pdf",
+  "broker-dealer-onboarding-and-xrpl-vaulting-framework.pdf",
+  "x402-mesh-pay-overview.pdf",
+  "bryan-stone-kyc-appendix-template.pdf",
+  "counterparty-verification-sheet.pdf",
+  "broker-dealer-readiness-scorecard.pdf",
+  "capital-leverage-structuring-framework-50m.pdf",
+  "xrpl-tx-cd7271274743c20635ed58515f84b399a4113fe40e62cfc8248446a494d1e642-xrpscan.pdf",
+  "xrpl-tx-b14c09d240af67279eec84e0cb521766df9bcfb909e1481486e62b928a528093-xrpscan.pdf",
 ];
 
 console.log(`\nTROPTIONS PDF Check — ${EXPECTED.length} expected files\n`);

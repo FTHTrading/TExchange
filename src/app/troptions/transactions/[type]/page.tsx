@@ -2,16 +2,12 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
-const DISCLOSURE =
-  "All transaction workflows are simulation-only. No live execution, custody, settlement, or contract deployment has occurred.";
-
 const CATALOG: Record<string, {
   id: string;
   title: string;
   icon: string;
   color: string;
   description: string;
-  disclosureStatement: string;
   requiredDocuments: string[];
   dueDiligenceSteps: string[];
   requiredApprovals: string[];
@@ -23,7 +19,6 @@ const CATALOG: Record<string, {
     icon: "RWA",
     color: "#c99a3c",
     description: "Tokenise a real-world asset (gemstones, real estate, equipment, art) into a TROPTIONS IOU or permissioned token on XRPL. This transaction type carries the highest due diligence burden.",
-    disclosureStatement: "RWA tokenisation is simulation-only. No live token issuance, on-chain registration, SPV formation, or custody arrangement has occurred. Execution is blocked pending legal, compliance, and custody approvals.",
     requiredDocuments: ["Independent Appraisal Report", "Custody Statement from licensed custodian", "SPV / Legal Wrapper Agreement", "Insurance Certificate", "Securities Law Opinion from qualified counsel", "UBO Declaration", "KYC for all parties", "Board Resolution (if entity)"],
     dueDiligenceSteps: ["Verify asset title and ownership chain", "Confirm appraiser independence and credentials", "Validate custody arrangement with licensed custodian", "Review SPV structure with legal counsel", "Obtain securities law opinion for relevant jurisdiction", "Confirm insurance coverage adequacy", "Complete KYC for all signatories and beneficial owners", "Control Hub review and sign-off"],
     requiredApprovals: ["Control Hub Approval", "Legal Review", "Compliance Review", "Custody Verification", "KYC Cleared", "Sanctions Clear", "Provider Approval"],
@@ -35,7 +30,6 @@ const CATALOG: Record<string, {
     icon: "CO₂",
     color: "#16a34a",
     description: "Transfer verified, unretired carbon credits to a buyer. Credits must be registered with a recognised registry such as Verra VCS, Gold Standard, or ACR.",
-    disclosureStatement: "Carbon credit transactions are simulation-only. No registry transfer, custody change, or settlement has occurred.",
     requiredDocuments: ["Registry Certificate (unretired credits)", "Third-Party Verification Report", "Proof of Registry Account Custody", "KYC for both buyer and seller", "Transfer Instruction Letter"],
     dueDiligenceSteps: ["Verify registry account ownership and custody", "Confirm credits are unretired and not double-counted", "Obtain third-party verification report", "Complete KYC for both parties", "Verify registry transfer capability", "Control Hub review"],
     requiredApprovals: ["Control Hub Approval", "Compliance Review", "Provider Approval", "Oracle Attestation"],
@@ -47,7 +41,6 @@ const CATALOG: Record<string, {
     icon: "♻",
     color: "#059669",
     description: "Permanently retire carbon credits on behalf of a beneficiary. This action is irreversible. Retired credits cannot be resold or transferred.",
-    disclosureStatement: "Carbon credit retirement is simulation-only. No registry retirement action has occurred. Retirement is an irreversible, permanent action.",
     requiredDocuments: ["Registry Certificate (unretired credits)", "Signed Retirement Instruction from authorised party", "Beneficiary Declaration", "KYC for instructing party", "Confirmation of instructing party authority"],
     dueDiligenceSteps: ["Confirm authorised party has capacity to instruct retirement", "Verify credits are unretired", "Obtain signed retirement instruction", "Confirm beneficiary identity and declaration", "Control Hub review"],
     requiredApprovals: ["Control Hub Approval", "Compliance Review", "Oracle Attestation"],
@@ -59,7 +52,6 @@ const CATALOG: Record<string, {
     icon: "₿",
     color: "#f59e0b",
     description: "Record a Bitcoin settlement preference. TROPTIONS does not transmit Bitcoin. Actual movement is handled by a licensed VASP. Travel Rule applies at $1,000 and above.",
-    disclosureStatement: "Bitcoin settlement records are simulation-only. TROPTIONS does not transmit Bitcoin or provide money-transmission services. All Bitcoin movement is handled by a licensed VASP.",
     requiredDocuments: ["Source of Funds Declaration", "Licensed VASP Provider Instructions", "Wallet Risk Screening Report", "Travel Rule Package (required at $1,000+)", "KYC for both parties"],
     dueDiligenceSteps: ["Identify licensed VASP for execution", "Obtain source-of-funds documentation", "Screen wallet addresses against risk databases", "Prepare Travel Rule package if ≥$1,000", "Complete KYC for both parties", "Control Hub review"],
     requiredApprovals: ["Control Hub Approval", "Compliance Review", "KYC Cleared", "Sanctions Clear", "Travel Rule Submitted"],
@@ -71,7 +63,6 @@ const CATALOG: Record<string, {
     icon: "🔒",
     color: "#6366f1",
     description: "Pledge a verified asset as collateral for a facility, loan, or agreement. Requires lender confirmation, pledge agreement, and appraisal.",
-    disclosureStatement: "Collateral pledge transactions are simulation-only. No lien has been registered, no custody arrangement has been entered, and no facility has been activated.",
     requiredDocuments: ["Pledge and Security Agreement", "Independent Appraisal Report", "Custody Statement", "Lender Confirmation Letter", "KYC for both parties", "Insurance Certificate"],
     dueDiligenceSteps: ["Confirm asset ownership and title", "Obtain independent appraisal", "Review and execute pledge agreement with legal counsel", "Obtain lender confirmation", "Verify custody arrangements", "Control Hub review"],
     requiredApprovals: ["Control Hub Approval", "Legal Review", "Compliance Review", "Custody Verification", "Provider Approval"],
@@ -83,7 +74,6 @@ const CATALOG: Record<string, {
     icon: "EQ",
     color: "#8b5cf6",
     description: "Issue equity-linked tokens representing economic rights in an entity. Requires securities law compliance, board approval, and comprehensive UBO disclosure.",
-    disclosureStatement: "Equity token issuance is simulation-only. No securities have been issued, no regulatory filing has been made, and no investor funds have been accepted.",
     requiredDocuments: ["Operating Agreement or Articles", "UBO Declaration with KYC for all >10% holders", "Business Registration Documents", "Securities Law Opinion", "Board Resolution authorising issuance", "Investor Disclosure Document"],
     dueDiligenceSteps: ["Obtain securities law opinion from qualified counsel", "Identify and KYC all beneficial owners above 10%", "Prepare and adopt board resolution", "Draft and review investor disclosure document", "Confirm jurisdiction regulatory requirements", "Control Hub review"],
     requiredApprovals: ["Board Approval", "Legal Review", "Compliance Review", "Provider Approval"],
@@ -95,7 +85,6 @@ const CATALOG: Record<string, {
     icon: "≋",
     color: "#0ea5e9",
     description: "Convert TROPTIONS IOUs to a GENIUS Act-compliant stablecoin. This transaction is gated by reserve verification, AML controls, and GENIUS Act status checks.",
-    disclosureStatement: "Stablecoin conversions are simulation-only. The GENIUS Act framework gate is active. No conversion, reserve transfer, or stablecoin issuance has occurred.",
     requiredDocuments: ["Reserve Proof from licensed issuer", "AML Certificate", "Stablecoin Issuer Authorisation", "GENIUS Act Compliance Declaration", "KYC for converting party"],
     dueDiligenceSteps: ["Verify GENIUS Act compliance status", "Confirm reserve proof from licensed issuer", "Obtain AML certificate", "Confirm stablecoin issuer is authorised", "Control Hub review"],
     requiredApprovals: ["GENIUS Act Gate", "Control Hub Approval", "Compliance Review", "Oracle Attestation"],
@@ -107,7 +96,6 @@ const CATALOG: Record<string, {
     icon: "PAY",
     color: "#94a3b8",
     description: "Internal administrative or fee payment within the TROPTIONS ecosystem. Requires KYC clearance and Control Hub sign-off.",
-    disclosureStatement: "Administrative payments are simulation-only. No funds have been transferred.",
     requiredDocuments: ["Payment Instruction", "KYC for both parties"],
     dueDiligenceSteps: ["Confirm payment purpose and authorisation", "Verify KYC for both parties", "Control Hub review"],
     requiredApprovals: ["Control Hub Approval", "KYC Cleared", "Sanctions Clear"],
@@ -121,7 +109,8 @@ interface Props {
 
 export default async function TransactionTypePage({ params }: Props) {
   const { type } = await params;
-  const def = CATALOG[type];
+  const normalizedType = type.includes("-") ? type.replace(/-/g, "_") : type;
+  const def = CATALOG[type] ?? CATALOG[normalizedType];
 
   if (!def) {
     return (
@@ -165,13 +154,6 @@ export default async function TransactionTypePage({ params }: Props) {
         <p style={{ color: "#94a3b8", lineHeight: 1.65, maxWidth: 720, margin: "0 0 1.5rem", fontSize: "0.925rem" }}>
           {def.description}
         </p>
-
-        {/* Simulation disclosure */}
-        <div style={{ background: "rgba(239,68,68,0.07)", border: "1px solid rgba(239,68,68,0.3)", borderRadius: "0.6rem", padding: "0.85rem 1.1rem", marginBottom: "2.5rem" }}>
-          <p style={{ fontSize: "0.78rem", color: "#fca5a5", margin: 0, lineHeight: 1.6 }}>
-            <strong style={{ color: "#f87171" }}>SIMULATION NOTICE:</strong> {def.disclosureStatement}
-          </p>
-        </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem" }}>
 
@@ -236,8 +218,6 @@ export default async function TransactionTypePage({ params }: Props) {
           </Link>
         </div>
 
-        {/* Platform disclosure */}
-        <p style={{ fontSize: "0.72rem", color: "#475569", margin: "2rem 0 0", lineHeight: 1.6 }}>{DISCLOSURE}</p>
       </div>
     </div>
   );

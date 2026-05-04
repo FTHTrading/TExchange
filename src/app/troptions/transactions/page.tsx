@@ -3,15 +3,13 @@ import Link from "next/link";
 export const metadata = {
   title: "TROPTIONS Transactions — Workflow Engine",
   description:
-    "Browse 8 transaction categories, view due-diligence checklists, approval gates, and required documents. All workflows are simulation-only.",
+    "Browse 8 transaction categories, view due-diligence checklists, approval gates, and required documents.",
 };
-
-const DISCLOSURE =
-  "All transaction workflows are simulation-only. No live execution, custody, settlement, or contract deployment has occurred. Execution remains blocked until all legal, compliance, and custody approvals are in place.";
 
 const CATEGORIES = [
   {
     id: "rwa_tokenisation",
+    slug: "rwa-tokenisation",
     title: "RWA Tokenisation",
     icon: "RWA",
     color: "#c99a3c",
@@ -22,6 +20,7 @@ const CATEGORIES = [
   },
   {
     id: "carbon_credit_sale",
+    slug: "carbon-credit-sale",
     title: "Carbon Credit Sale",
     icon: "CO₂",
     color: "#16a34a",
@@ -32,6 +31,7 @@ const CATEGORIES = [
   },
   {
     id: "carbon_credit_retirement",
+    slug: "carbon-credit-retirement",
     title: "Carbon Credit Retirement",
     icon: "♻",
     color: "#059669",
@@ -42,6 +42,7 @@ const CATEGORIES = [
   },
   {
     id: "btc_settlement",
+    slug: "bitcoin-settlement",
     title: "Bitcoin Settlement",
     icon: "₿",
     color: "#f59e0b",
@@ -52,6 +53,7 @@ const CATEGORIES = [
   },
   {
     id: "collateral_pledge",
+    slug: "collateral-pledge",
     title: "Collateral Pledge",
     icon: "🔒",
     color: "#6366f1",
@@ -62,6 +64,7 @@ const CATEGORIES = [
   },
   {
     id: "equity_token_issuance",
+    slug: "equity-token-issuance",
     title: "Equity Token Issuance",
     icon: "EQ",
     color: "#8b5cf6",
@@ -72,6 +75,7 @@ const CATEGORIES = [
   },
   {
     id: "stablecoin_conversion",
+    slug: "stablecoin-conversion",
     title: "Stablecoin Conversion",
     icon: "≋",
     color: "#0ea5e9",
@@ -82,6 +86,7 @@ const CATEGORIES = [
   },
   {
     id: "administrative_payment",
+    slug: "administrative-payment",
     title: "Administrative Payment",
     icon: "PAY",
     color: "#94a3b8",
@@ -107,13 +112,8 @@ export default function TransactionsHubPage() {
             TROPTIONS Transaction Hub
           </h1>
           <p style={{ color: "#94a3b8", lineHeight: 1.65, maxWidth: 720, margin: "0 0 1.25rem", fontSize: "0.925rem" }}>
-            Select a transaction category to view the full due-diligence checklist, required documents, approval gates, and workflow steps. All execution is simulation-only until all approvals are in place.
+            Select a transaction category to view the full due-diligence checklist, required documents, approval gates, and workflow steps.
           </p>
-          <div style={{ background: "rgba(239,68,68,0.07)", border: "1px solid rgba(239,68,68,0.3)", borderRadius: "0.6rem", padding: "0.85rem 1.1rem" }}>
-            <p style={{ fontSize: "0.78rem", color: "#fca5a5", margin: 0, lineHeight: 1.6 }}>
-              <strong style={{ color: "#f87171" }}>SIMULATION NOTICE:</strong> {DISCLOSURE}
-            </p>
-          </div>
         </div>
 
         {/* Quick links */}
@@ -134,7 +134,7 @@ export default function TransactionsHubPage() {
           {CATEGORIES.map((cat) => (
             <Link
               key={cat.id}
-              href={`/troptions/transactions/${cat.id}`}
+              href={`/troptions/transactions/${cat.slug}`}
               style={{ textDecoration: "none", display: "block", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "1rem", padding: "1.4rem", transition: "border-color 0.15s" }}
             >
               <div style={{ display: "flex", alignItems: "center", gap: "0.85rem", marginBottom: "0.85rem" }}>

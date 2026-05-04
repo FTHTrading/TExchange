@@ -11,6 +11,14 @@
   },
   "routes": [
     {
+      "pattern": "troptions.drunks.app",
+      "custom_domain": true
+    },
+    {
+      "pattern": "t.drunks.app",
+      "custom_domain": true
+    },
+    {
       "pattern": "troptions.unykorn.org",
       "custom_domain": true
     },

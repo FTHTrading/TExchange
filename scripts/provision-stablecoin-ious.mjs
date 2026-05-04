@@ -65,6 +65,7 @@
  *   node scripts/provision-stablecoin-ious.mjs --xrpl-only --execute
  *   node scripts/provision-stablecoin-ious.mjs --stellar-only --execute
  *   node scripts/provision-stablecoin-ious.mjs --skip-usdc --skip-usdt --execute
+ *   node scripts/provision-stablecoin-ious.mjs --network=mainnet --execute --xrpl-only --skip-usdt --skip-dai --skip-eurc --usdc-supply=175000000
  */
 
 import fs from "node:fs";
@@ -113,7 +114,26 @@ const F = {
   skipUsdt:      args.includes("--skip-usdt"),
   skipDai:       args.includes("--skip-dai"),
   skipEurc:      args.includes("--skip-eurc"),
+  usdcSupply:    flagValue("usdc-supply", ""),
+  usdtSupply:    flagValue("usdt-supply", ""),
+  daiSupply:     flagValue("dai-supply", ""),
+  eurcSupply:    flagValue("eurc-supply", ""),
 };
+
+function resolveSupply(assetId, fallback) {
+  const value =
+    assetId === "USDC" ? F.usdcSupply :
+    assetId === "USDT" ? F.usdtSupply :
+    assetId === "DAI" ? F.daiSupply :
+    assetId === "EURC" ? F.eurcSupply :
+    "";
+
+  if (!value) return fallback;
+  if (!/^\d+(\.\d+)?$/.test(value)) {
+    throw new Error(`Invalid --${assetId.toLowerCase()}-supply value: ${value}`);
+  }
+  return value;
+}
 
 // ─── Wallet addresses ───────────────────────────────────────────────────────────
 const XRPL_ISSUER_ADDR      = "rJLMSTy77hTxqgDw9WMxCnYC8m5vhqN3FQ";
@@ -134,7 +154,7 @@ const ASSETS = [
     underlying:    "USD Coin (USDC) — Circle",
     xrplCurrency:  "5553444300000000000000000000000000000000", // USDC hex
     stellarCode:   "USDC",
-    supply:        "100000000",
+    supply:        resolveSupply("USDC", "100000000"),
     trustLimit:    "1000000000",
     skip:          () => F.skipUsdc,
     metadataUrl:   `https://${DOMAIN}/troptions/asset-metadata/usdc.iou.v1.json`,
@@ -147,7 +167,7 @@ const ASSETS = [
     underlying:    "Tether USD (USDT) — Tether Operations",
     xrplCurrency:  "5553445400000000000000000000000000000000", // USDT hex
     stellarCode:   "USDT",
-    supply:        "100000000",
+    supply:        resolveSupply("USDT", "100000000"),
     trustLimit:    "1000000000",
     skip:          () => F.skipUsdt,
     metadataUrl:   `https://${DOMAIN}/troptions/asset-metadata/usdt.iou.v1.json`,
@@ -160,7 +180,7 @@ const ASSETS = [
     underlying:    "Dai (DAI) — MakerDAO / Sky Protocol",
     xrplCurrency:  "DAI",                                     // 3-char standard
     stellarCode:   "DAI",
-    supply:        "50000000",
+    supply:        resolveSupply("DAI", "50000000"),
     trustLimit:    "500000000",
     skip:          () => F.skipDai,
     metadataUrl:   `https://${DOMAIN}/troptions/asset-metadata/dai.iou.v1.json`,
@@ -173,7 +193,7 @@ const ASSETS = [
     underlying:    "Euro Coin (EURC) — Circle",
     xrplCurrency:  "4555524300000000000000000000000000000000", // EURC hex
     stellarCode:   "EURC",
-    supply:        "50000000",
+    supply:        resolveSupply("EURC", "50000000"),
     trustLimit:    "500000000",
     skip:          () => F.skipEurc,
     metadataUrl:   `https://${DOMAIN}/troptions/asset-metadata/eurc.iou.v1.json`,

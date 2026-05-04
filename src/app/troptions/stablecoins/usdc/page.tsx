@@ -4,7 +4,7 @@ import { STABLECOIN_ISSUER_REGISTRY } from "@/content/troptions/stablecoinIssuer
 
 export const metadata = {
   title: "USDC Route Profile | TROPTIONS Stablecoins",
-  description: "USDC institutional route profile for TROPTIONS — simulation readiness, x402 alignment, RWA funding, and risk controls.",
+  description: "USDC institutional route profile for TROPTIONS — live-issued gateway IOU, settlement rails, redemption pathway, and risk controls.",
 };
 
 const record = STABLECOIN_ISSUER_REGISTRY.find((r) => r.symbol === "USDC")!;
@@ -14,10 +14,10 @@ export default function TroptionsStablecoinsUsdcPage() {
     <main className="te-page">
       <div className="te-wrap" style={{ gap: "1.5rem" }}>
 
-        {/* Simulation disclaimer */}
-        <div style={{ background: "rgba(127,29,29,0.18)", border: "1px solid rgba(127,29,29,0.5)", borderRadius: "0.65rem", padding: "0.65rem 0.9rem", display: "flex", gap: "0.5rem", alignItems: "flex-start" }}>
-          <span style={{ fontSize: "1rem", flexShrink: 0 }}>⚠</span>
-          <p style={{ margin: 0, fontSize: "0.78rem", color: "#fca5a5", lineHeight: 1.5 }}><strong>Simulation Only.</strong> USDC capabilities operate under monitoring and readiness controls. No live custody or transfer without issuer, provider, and jurisdiction approvals.</p>
+        {/* Live issuance confirmation */}
+        <div style={{ background: "rgba(5,46,22,0.2)", border: "1px solid rgba(22,101,52,0.45)", borderRadius: "0.65rem", padding: "0.65rem 0.9rem", display: "flex", gap: "0.5rem", alignItems: "flex-start" }}>
+          <span style={{ fontSize: "1rem", flexShrink: 0 }}>✅</span>
+          <p style={{ margin: 0, fontSize: "0.78rem", color: "#86efac", lineHeight: 1.5 }}><strong>Live mainnet issuance confirmed.</strong> USDC gateway IOU is issued on XRPL + Stellar mainnet as of 2026-04-28. Use issuer, trustline, and redemption controls documented below.</p>
         </div>
 
         {/* Hero card */}
@@ -27,7 +27,7 @@ export default function TroptionsStablecoinsUsdcPage() {
             <div style={{ flex: 1 }}>
               <p className="te-kicker">Circle · Multi-Chain Stablecoin</p>
               <h1 className="te-heading">USDC Route Profile</h1>
-              <p className="te-subheading" style={{ marginTop: "0.4rem", maxWidth: "620px" }}>USD Coin is the primary institutional simulation route for TROPTIONS payment rails, settlement readiness, x402 alignment, and RWA funding scenarios.</p>
+              <p className="te-subheading" style={{ marginTop: "0.4rem", maxWidth: "620px" }}>USD Coin is the primary institutional settlement route for TROPTIONS payment rails, deal closing, x402 alignment, and RWA funding workflows.</p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "0.45rem", marginTop: "0.9rem" }}>
                 <span style={{ background: "#052e16", color: "#4ade80", border: "1px solid #166534", borderRadius: "0.3rem", padding: "0.15rem 0.5rem", fontSize: "0.68rem", fontWeight: 700, textTransform: "uppercase" }}>Stablecoin</span>
                 <span style={{ background: "#1e3a5f", color: "#93c5fd", border: "1px solid #1e40af", borderRadius: "0.3rem", padding: "0.15rem 0.5rem", fontSize: "0.68rem", fontWeight: 700 }}>DEFAULT INSTITUTIONAL ROUTE</span>

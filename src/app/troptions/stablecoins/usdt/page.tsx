@@ -4,7 +4,7 @@ import { STABLECOIN_ISSUER_REGISTRY } from "@/content/troptions/stablecoinIssuer
 
 export const metadata = {
   title: "USDT Route Profile | TROPTIONS Stablecoins",
-  description: "USDT route profile for TROPTIONS — liquidity evaluation, settlement simulation, and reserve risk controls.",
+  description: "USDT route profile for TROPTIONS — live-issued gateway IOU, liquidity route management, and reserve risk controls.",
 };
 
 const record = STABLECOIN_ISSUER_REGISTRY.find((r) => r.symbol === "USDT")!;
@@ -14,9 +14,9 @@ export default function TroptionsStablecoinsUsdtPage() {
     <main className="te-page">
       <div className="te-wrap" style={{ gap: "1.5rem" }}>
 
-        <div style={{ background: "rgba(127,29,29,0.18)", border: "1px solid rgba(127,29,29,0.5)", borderRadius: "0.65rem", padding: "0.65rem 0.9rem", display: "flex", gap: "0.5rem", alignItems: "flex-start" }}>
-          <span style={{ fontSize: "1rem", flexShrink: 0 }}>⚠</span>
-          <p style={{ margin: 0, fontSize: "0.78rem", color: "#fca5a5", lineHeight: 1.5 }}><strong>Simulation Only.</strong> USDT capabilities are limited to monitoring and readiness evaluation. Heightened reserve transparency, freeze risk, and sanctions controls apply.</p>
+        <div style={{ background: "rgba(5,46,22,0.2)", border: "1px solid rgba(22,101,52,0.45)", borderRadius: "0.65rem", padding: "0.65rem 0.9rem", display: "flex", gap: "0.5rem", alignItems: "flex-start" }}>
+          <span style={{ fontSize: "1rem", flexShrink: 0 }}>✅</span>
+          <p style={{ margin: 0, fontSize: "0.78rem", color: "#86efac", lineHeight: 1.5 }}><strong>Live mainnet issuance confirmed.</strong> USDT gateway IOU is issued on XRPL + Stellar mainnet as of 2026-04-28. Heightened reserve transparency, freeze, and sanctions controls remain in force.</p>
         </div>
 
         <div className="te-panel" style={{ padding: "1.75rem" }}>
@@ -25,7 +25,7 @@ export default function TroptionsStablecoinsUsdtPage() {
             <div style={{ flex: 1 }}>
               <p className="te-kicker">Tether · Multi-Chain Stablecoin</p>
               <h1 className="te-heading">USDT Route Profile</h1>
-              <p className="te-subheading" style={{ marginTop: "0.4rem", maxWidth: "620px" }}>Tether USD — the world's highest-volume stablecoin — is monitored for liquidity route evaluation and settlement simulation under strict reserve and sanctions controls.</p>
+              <p className="te-subheading" style={{ marginTop: "0.4rem", maxWidth: "620px" }}>Tether USD — the world's highest-volume stablecoin — is a live-issued gateway route for liquidity-heavy settlement workflows under strict reserve and sanctions controls.</p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "0.45rem", marginTop: "0.9rem" }}>
                 <span style={{ background: "#052e16", color: "#4ade80", border: "1px solid #166534", borderRadius: "0.3rem", padding: "0.15rem 0.5rem", fontSize: "0.68rem", fontWeight: 700, textTransform: "uppercase" }}>Stablecoin</span>
                 <span style={{ background: "#1c0a00", color: "#fb923c", border: "1px solid #7c2d12", borderRadius: "0.3rem", padding: "0.15rem 0.5rem", fontSize: "0.68rem", fontWeight: 700 }}>ELEVATED RISK MONITORING</span>

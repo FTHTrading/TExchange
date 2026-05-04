@@ -5,11 +5,12 @@ export async function POST(request: NextRequest) {
   try {
     const body = (await request.json()) as {
       text: string;
+      voice?: string;
       segmentId?: string;
       pageId?: string;
     };
 
-    const { text, segmentId, pageId } = body;
+    const { text, voice, segmentId, pageId } = body;
 
     if (!text || text.trim().length === 0) {
       return NextResponse.json({ ok: false, error: "Empty text" }, { status: 400 });
@@ -17,6 +18,7 @@ export async function POST(request: NextRequest) {
 
     const ttsResponse = await deepgramTextToSpeech({
       text,
+      model: voice,
     });
 
     return new NextResponse(ttsResponse.audioData, {

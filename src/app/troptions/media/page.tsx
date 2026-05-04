@@ -1,106 +1,248 @@
-import { getTroptionsSubBrand } from "@/content/troptions/troptionsEcosystemRegistry";
-import { FULL_DISCLAIMER } from "@/content/troptions/troptionsRegistry";
+import Link from "next/link";
+import { Card, Badge, SectionHeader } from "@/components/ui";
+import { getActiveTnnShows, TNN_DISCLAIMER } from "@/lib/troptions/tnnShowRegistry";
 
 export const metadata = {
-  title: "Troptions Television Network — Ecosystem Media",
+  title: "TROPTIONS Media & Web3 TV - TNN Episodes & Creator Content",
   description:
-    "Troptions Television Network is the media and broadcasting arm of the Troptions ecosystem — hosting educational content, ecosystem updates, partner features, and community programming.",
+    "TROPTIONS Television Network (TNN) — episodes, creator spotlights, merchant stories, charity campaigns, and Web3 education.",
 };
 
-const brand = getTroptionsSubBrand("troptions-tv-network")!;
-
 export default function TroptionsMediaPage() {
+  const shows = getActiveTnnShows();
+
+  // Mock episode data (would be from API in real implementation)
+  const mockEpisodes = [
+    {
+      id: "ep-001",
+      showId: "troptions-founder-files",
+      episodeNumber: 1,
+      title: "The TROPTIONS Story",
+      guestName: "Bryan/Garland",
+      status: "DRAFT",
+      hasGuestRelease: false,
+      publishStatus: "NEEDS_RELEASE",
+    },
+    {
+      id: "ep-002",
+      showId: "web3-made-simple",
+      episodeNumber: 1,
+      title: "What is a Wallet?",
+      guestName: "TROPTIONS Team",
+      status: "DRAFT",
+      hasGuestRelease: true,
+      publishStatus: "READY_TO_PUBLISH",
+    },
+    {
+      id: "ep-003",
+      showId: "creator-nil-spotlight",
+      episodeNumber: 1,
+      title: "Creator Profile: [Creator Name]",
+      guestName: "TBD",
+      status: "PLANNING",
+      hasGuestRelease: false,
+      publishStatus: "NOT_STARTED",
+    },
+  ];
+
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-white">
-      {/* Header */}
-      <div className="border-b border-[#C9A84C]/20 bg-[#0D1B2A]">
-        <div className="max-w-7xl mx-auto px-6 py-10">
-          <p className="text-[#C9A84C] font-mono text-xs uppercase tracking-[0.3em]">Media / Broadcasting</p>
-          <h1 className="text-4xl font-bold text-white mt-2">{brand.displayName}</h1>
-          <p className="text-gray-400 mt-3 text-sm max-w-2xl">{brand.publicDescription}</p>
-          <div className="flex items-center gap-3 mt-4">
-            <span className="inline-block bg-yellow-900/40 text-yellow-300 font-mono text-xs px-3 py-1 rounded-full border border-yellow-700/40 uppercase tracking-widest">
-              {brand.status}
-            </span>
-            <span className="text-gray-500 text-xs font-mono">{brand.domain}</span>
+    <div className="min-h-screen bg-gradient-to-b from-[#071426] to-[#0a1a2e]">
+      <div className="mx-auto max-w-6xl px-6 py-12">
+        {/* Header */}
+        <div className="mb-12">
+          <h1 className="text-5xl font-bold text-white mb-4">TROPTIONS Media & Web3 TV</h1>
+          <p className="text-xl text-slate-300 mb-6">
+            TROPTIONS Television Network (TNN) — Spotlighting creators, merchants, charities, and Web3 innovation.
+          </p>
+          <p className="text-base text-slate-400 mb-8">
+            {TNN_DISCLAIMER}
+          </p>
+          <div className="flex gap-4 flex-wrap">
+            <Link
+              href="/troptions/nil"
+              className="inline-flex items-center rounded-lg bg-[#c99a3c] px-6 py-3 font-bold text-[#111827] hover:bg-[#f0cf82] transition-colors"
+            >
+              Launch Creator Campaigns
+            </Link>
+            <button className="inline-flex items-center rounded-lg border border-[#C9A84C] px-6 py-3 font-bold text-[#f0cf82] hover:bg-[#C9A84C]/10 transition-colors cursor-not-allowed opacity-50">
+              Create Episode (Coming Soon)
+            </button>
           </div>
         </div>
-      </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-10 space-y-10">
-        {/* Disclaimer */}
-        <div className="border border-amber-700/40 bg-amber-900/10 rounded-lg p-5 text-amber-200 text-xs leading-relaxed">
-          <strong className="block mb-1 uppercase tracking-widest text-amber-400 font-mono text-[10px]">
-            Media Disclaimer
-          </strong>
-          Broadcast and promotional content must include appropriate financial disclaimers where applicable.{" "}
-          {FULL_DISCLAIMER}
-        </div>
+        {/* TNN Shows Overview */}
+        <div className="mb-16">
+          <SectionHeader
+            heading="TROPTIONS Television Network Shows"
+            body="Five foundational shows building the TNN platform: Founder Files, Creator Spotlight, Merchant Spotlight, Charity Impact, and Web3 Education"
+          />
 
-        {/* Mission + Role */}
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="bg-[#111827] border border-gray-800 rounded-xl p-7">
-            <p className="text-[#C9A84C] font-mono text-xs uppercase tracking-[0.3em] mb-3">Network Purpose</p>
-            <h2 className="text-xl font-bold text-white mb-3">Ecosystem Broadcasting</h2>
-            <p className="text-gray-400 text-sm leading-relaxed">{brand.purpose}</p>
-          </div>
-          <div className="bg-[#111827] border border-gray-800 rounded-xl p-7">
-            <p className="text-[#C9A84C] font-mono text-xs uppercase tracking-[0.3em] mb-3">System Role</p>
-            <h2 className="text-xl font-bold text-white mb-3">Content Distribution Layer</h2>
-            <p className="text-gray-400 text-sm leading-relaxed">{brand.systemRole}</p>
-          </div>
-        </section>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mt-8">
+            {shows.map((show) => (
+              <Card key={show.showId} className="h-full hover:border-[#C9A84C]/80 hover:bg-white/[0.02] transition-all">
+                <div className="p-6 space-y-4 h-full flex flex-col">
+                  {/* Title + Status */}
+                  <div className="flex items-start justify-between gap-2">
+                    <h3 className="text-lg font-semibold text-white flex-1">{show.displayName}</h3>
+                    <Badge variant="amber">{show.status}</Badge>
+                  </div>
 
-        {/* Content categories */}
-        <section className="bg-[#111827] border border-gray-800 rounded-xl p-7">
-          <p className="text-[#C9A84C] font-mono text-xs uppercase tracking-[0.3em] mb-4">Content Categories</p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            {[
-              "Ecosystem Updates",
-              "Education &amp; Tutorials",
-              "Partner Showcases",
-              "Community Programming",
-              "Founder Interviews",
-              "Market Insights",
-              "RWA Case Studies",
-              "Compliance Briefings",
-              "Live Events",
-            ].map((cat) => (
-              <div key={cat} className="bg-[#0D1B2A] border border-[#C9A84C]/20 rounded-lg p-3 text-center">
-                <p className="text-gray-300 text-xs font-medium" dangerouslySetInnerHTML={{ __html: cat }} />
-              </div>
+                  {/* Description */}
+                  <p className="text-sm text-slate-400">{show.description}</p>
+
+                  {/* Details */}
+                  <div className="space-y-2 text-xs text-slate-500">
+                    <div>
+                      <strong>Target Audience:</strong> {show.targetAudience.join(", ")}
+                    </div>
+                    <div>
+                      <strong>Frequency:</strong> {show.episodeFrequency}
+                    </div>
+                    <div>
+                      <strong>Episodes:</strong> {show.targetEpisodeCount || "TBD"}
+                    </div>
+                    {show.launchDate && (
+                      <div>
+                        <strong>Launch:</strong> {new Date(show.launchDate).toLocaleDateString()}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Purpose */}
+                  <div className="border-t border-white/10 pt-3 mt-auto">
+                    <p className="text-xs text-slate-300 italic">
+                      <strong>Purpose:</strong> {show.purpose}
+                    </p>
+                  </div>
+                </div>
+              </Card>
             ))}
           </div>
-        </section>
+        </div>
 
-        {/* Capabilities */}
-        <section className="bg-[#111827] border border-gray-800 rounded-xl p-7">
-          <p className="text-[#C9A84C] font-mono text-xs uppercase tracking-[0.3em] mb-4">Connected Systems</p>
-          <div className="flex flex-wrap gap-2">
-            {brand.linkedCapabilities.map((cap) => (
-              <span
-                key={cap}
-                className="bg-[#1a2535] border border-gray-700 text-gray-300 font-mono text-xs px-3 py-1 rounded-full"
+        {/* Episodes in Progress */}
+        <div className="mb-16">
+          <SectionHeader
+            heading="Episodes in Progress"
+            body="Pilot episodes being prepared for launch — all require guest releases before publishing"
+          />
+
+          <div className="grid gap-4 mt-8">
+            {mockEpisodes.map((ep) => (
+              <Card key={ep.id} className="hover:border-[#C9A84C]/80 hover:bg-white/[0.02] transition-all">
+                <div className="p-6 space-y-4">
+                  {/* Title + Status */}
+                  <div className="flex items-start justify-between gap-4 flex-wrap">
+                    <div className="flex-1">
+                      <h3 className="text-lg font-semibold text-white mb-1">{ep.title}</h3>
+                      <p className="text-sm text-slate-400">
+                        Episode {ep.episodeNumber} · Guest: {ep.guestName}
+                      </p>
+                    </div>
+                    <div className="flex gap-2">
+                      <Badge variant={ep.status === "DRAFT" ? "amber" : "blue"}>{ep.status}</Badge>
+                      <Badge
+                        variant={
+                          ep.publishStatus === "READY_TO_PUBLISH"
+                            ? "green"
+                            : ep.publishStatus === "NEEDS_RELEASE"
+                              ? "red"
+                              : "slate"
+                        }
+                      >
+                        {ep.publishStatus === "READY_TO_PUBLISH"
+                          ? "Ready"
+                          : ep.publishStatus === "NEEDS_RELEASE"
+                            ? "Needs Release"
+                            : "Planning"}
+                      </Badge>
+                    </div>
+                  </div>
+
+                  {/* Release Status */}
+                  <div className="flex items-center justify-between bg-white/5 rounded-lg p-3">
+                    <span className="text-sm text-slate-300">Guest Release Attached:</span>
+                    <span
+                      className={`text-sm font-semibold ${ep.hasGuestRelease ? "text-green-400" : "text-amber-400"}`}
+                    >
+                      {ep.hasGuestRelease ? "✓ Yes" : "✗ Not Attached"}
+                    </span>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex gap-2 pt-2">
+                    {ep.publishStatus === "READY_TO_PUBLISH" ? (
+                      <button className="flex-1 rounded-lg bg-[#c99a3c] px-4 py-2 text-sm font-bold text-[#111827] hover:bg-[#f0cf82] transition-colors">
+                        Publish Episode
+                      </button>
+                    ) : (
+                      <button className="flex-1 rounded-lg border border-[#C9A84C] px-4 py-2 text-sm font-bold text-[#f0cf82] hover:bg-[#C9A84C]/10 transition-colors cursor-not-allowed opacity-50">
+                        Upload Release Required
+                      </button>
+                    )}
+                    <button className="rounded-lg border border-white/20 px-4 py-2 text-sm font-semibold text-slate-300 hover:bg-white/10 transition-colors">
+                      Edit
+                    </button>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* Get Started Section */}
+        <div className="rounded-xl border border-[#C9A84C]/30 bg-gradient-to-r from-[#C9A84C]/5 to-transparent p-8">
+          <h2 className="text-2xl font-bold text-white mb-4">Get Started with TNN</h2>
+
+          <div className="grid md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <h3 className="text-lg font-semibold text-[#f0cf82] mb-3">For Creators & Athletes</h3>
+              <ul className="text-slate-300 space-y-2 text-sm">
+                <li>✓ Build your creator profile</li>
+                <li>✓ Sign media release</li>
+                <li>✓ Get sponsors matched</li>
+                <li>✓ Track campaign proof-of-performance</li>
+              </ul>
+              <Link
+                href="/troptions/nil"
+                className="inline-block mt-4 text-[#f0cf82] font-semibold hover:underline"
               >
-                {cap}
-              </span>
-            ))}
-          </div>
-        </section>
+                Creator Onboarding →
+              </Link>
+            </div>
 
-        {/* Next actions */}
-        <section className="bg-[#0D1B2A] border border-[#C9A84C]/20 rounded-xl p-7">
-          <p className="text-[#C9A84C] font-mono text-xs uppercase tracking-[0.3em] mb-4">Build-Out Steps</p>
-          <ul className="space-y-2">
-            {brand.nextActions.map((action) => (
-              <li key={action} className="flex items-start gap-3 text-sm text-gray-300">
-                <span className="text-[#C9A84C] mt-0.5">›</span>
-                {action}
+            <div>
+              <h3 className="text-lg font-semibold text-[#f0cf82] mb-3">For Sponsors & Brands</h3>
+              <ul className="text-slate-300 space-y-2 text-sm">
+                <li>✓ Create sponsored campaigns</li>
+                <li>✓ Set deliverables</li>
+                <li>✓ Track proof-of-performance</li>
+                <li>✓ Manage payments</li>
+              </ul>
+              <button className="inline-block mt-4 text-[#f0cf82] font-semibold hover:underline cursor-not-allowed opacity-50">
+                Sponsor Campaigns (Coming Soon) →
+              </button>
+            </div>
+          </div>
+
+          <div className="border-t border-white/10 pt-6">
+            <h4 className="text-sm font-bold text-white mb-2 uppercase tracking-widest">IMPORTANT DISCLAIMERS</h4>
+            <ul className="text-xs text-slate-400 space-y-1">
+              <li>
+                • No guaranteed sponsorships, income, followers, views, or campaign outcomes • All episodes require guest
+                releases
               </li>
-            ))}
-          </ul>
-        </section>
+              <li>
+                • All sponsored content requires signed agreements • Merchant spotlights do not guarantee customer acquisition
+              </li>
+              <li>
+                • Educational content is informational only • Simulation-only: No live streaming, video delivery, or sponsorship
+                payments enabled
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </main>
+    </div>
   );
 }
