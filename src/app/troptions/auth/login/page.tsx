@@ -1,11 +1,15 @@
 'use client';
 
 import { FormEvent, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { Suspense } from 'react';
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get('redirect') ?? '/portal/troptions/dashboard';
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -28,7 +32,9 @@ export default function LoginPage() {
         throw new Error(data.error || 'Login failed');
       }
 
-      router.push('/troptions/gated/downloads');
+      // Validate redirect is same-origin to prevent open redirect
+      const safe = redirectTo.startsWith('/') ? redirectTo : '/portal/troptions/dashboard';
+      router.push(safe);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -163,5 +169,13 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense>
+      <LoginForm />
+    </Suspense>
   );
 }

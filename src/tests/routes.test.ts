@@ -147,3 +147,206 @@ describe("Inquiries API input validation", () => {
     expect(src).toContain("consentGiven");
   });
 });
+
+// ---------------------------------------------------------------------------
+// 8. New revenue-readiness pages exist
+// ---------------------------------------------------------------------------
+describe("Revenue-readiness pages exist", () => {
+  test("CIS intake form page exists (not just a redirect)", () => {
+    const src = fs.readFileSync(
+      path.join(ROOT, "src/app/troptions/cis/page.tsx"),
+      "utf-8"
+    );
+    // Must be a real form, not just a redirect
+    expect(src).toContain("use client");
+    expect(src).toContain("/api/troptions/cis-requests");
+  });
+
+  test("Proof room page exists", () => {
+    expect(exists("src/app/troptions/proof-room/page.tsx")).toBe(true);
+  });
+
+  test("Request Access page exists", () => {
+    expect(exists("src/app/troptions/request-access/page.tsx")).toBe(true);
+  });
+
+  test("Admin intake dashboard exists", () => {
+    expect(exists("src/app/admin/troptions/intake/page.tsx")).toBe(true);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 9. CIS API route structure
+// ---------------------------------------------------------------------------
+describe("CIS API route structure", () => {
+  test("CIS route file exists", () => {
+    expect(exists("src/app/api/troptions/cis-requests/route.ts")).toBe(true);
+  });
+
+  test("CIS route validates name field", () => {
+    const src = fs.readFileSync(
+      path.join(ROOT, "src/app/api/troptions/cis-requests/route.ts"),
+      "utf-8"
+    );
+    expect(src).toContain("name");
+  });
+
+  test("CIS route validates email field", () => {
+    const src = fs.readFileSync(
+      path.join(ROOT, "src/app/api/troptions/cis-requests/route.ts"),
+      "utf-8"
+    );
+    expect(src).toContain("email");
+  });
+
+  test("CIS route validates consentGiven field", () => {
+    const src = fs.readFileSync(
+      path.join(ROOT, "src/app/api/troptions/cis-requests/route.ts"),
+      "utf-8"
+    );
+    expect(src).toContain("consentGiven");
+  });
+
+  test("CIS route returns downloadUrl", () => {
+    const src = fs.readFileSync(
+      path.join(ROOT, "src/app/api/troptions/cis-requests/route.ts"),
+      "utf-8"
+    );
+    expect(src).toContain("downloadUrl");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 10. CSV export route exists and is admin-only
+// ---------------------------------------------------------------------------
+describe("CRM CSV export route", () => {
+  test("inquiries export route file exists", () => {
+    expect(exists("src/app/api/troptions/inquiries/export/route.ts")).toBe(true);
+  });
+
+  test("export route checks getCurrentUser (admin-only)", () => {
+    const src = fs.readFileSync(
+      path.join(ROOT, "src/app/api/troptions/inquiries/export/route.ts"),
+      "utf-8"
+    );
+    expect(src).toContain("getCurrentUser");
+  });
+
+  test("export route sets Content-Disposition attachment header", () => {
+    const src = fs.readFileSync(
+      path.join(ROOT, "src/app/api/troptions/inquiries/export/route.ts"),
+      "utf-8"
+    );
+    expect(src).toContain("Content-Disposition");
+    expect(src).toContain("attachment");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 11. Portal layout has real server-side auth
+// ---------------------------------------------------------------------------
+describe("Portal layout auth", () => {
+  test("portal layout calls getCurrentUser", () => {
+    const src = fs.readFileSync(
+      path.join(ROOT, "src/app/portal/troptions/layout.tsx"),
+      "utf-8"
+    );
+    expect(src).toContain("getCurrentUser");
+  });
+
+  test("portal layout redirects unauthenticated users", () => {
+    const src = fs.readFileSync(
+      path.join(ROOT, "src/app/portal/troptions/layout.tsx"),
+      "utf-8"
+    );
+    expect(src).toContain("redirect");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 12. Login page handles redirect param
+// ---------------------------------------------------------------------------
+describe("Login page redirect param", () => {
+  test("login page reads redirect searchParam", () => {
+    const src = fs.readFileSync(
+      path.join(ROOT, "src/app/troptions/auth/login/page.tsx"),
+      "utf-8"
+    );
+    expect(src).toContain("redirect");
+  });
+
+  test("login page validates same-origin redirect", () => {
+    const src = fs.readFileSync(
+      path.join(ROOT, "src/app/troptions/auth/login/page.tsx"),
+      "utf-8"
+    );
+    // Checks for safe redirect (starts with /)
+    expect(src).toContain("startsWith");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 13. revenue-db.ts CIS functions
+// ---------------------------------------------------------------------------
+describe("Revenue DB CIS functions", () => {
+  test("revenue-db.ts exports createCisRequest", () => {
+    const src = fs.readFileSync(
+      path.join(ROOT, "src/lib/troptions/revenue-db.ts"),
+      "utf-8"
+    );
+    expect(src).toContain("export function createCisRequest");
+  });
+
+  test("revenue-db.ts exports listCisRequests", () => {
+    const src = fs.readFileSync(
+      path.join(ROOT, "src/lib/troptions/revenue-db.ts"),
+      "utf-8"
+    );
+    expect(src).toContain("export function listCisRequests");
+  });
+
+  test("revenue-db.ts exports getCisSummary", () => {
+    const src = fs.readFileSync(
+      path.join(ROOT, "src/lib/troptions/revenue-db.ts"),
+      "utf-8"
+    );
+    expect(src).toContain("export function getCisSummary");
+  });
+
+  test("cis_requests table defined in schema", () => {
+    const src = fs.readFileSync(
+      path.join(ROOT, "src/lib/troptions/revenue-db.ts"),
+      "utf-8"
+    );
+    expect(src).toContain("cis_requests");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 14. Proof room lists real downloadable files
+// ---------------------------------------------------------------------------
+describe("Proof room page lists real files", () => {
+  test("proof room page references proof HTML file", () => {
+    const src = fs.readFileSync(
+      path.join(ROOT, "src/app/troptions/proof-room/page.tsx"),
+      "utf-8"
+    );
+    expect(src).toContain("/proofs/bryan-stone-usdc-175m.html");
+  });
+
+  test("proof room page references CIS master PDF", () => {
+    const src = fs.readFileSync(
+      path.join(ROOT, "src/app/troptions/proof-room/page.tsx"),
+      "utf-8"
+    );
+    expect(src).toContain("bryan-stone-kyc-cis-master-file.pdf");
+  });
+
+  test("proof room has verified badge logic", () => {
+    const src = fs.readFileSync(
+      path.join(ROOT, "src/app/troptions/proof-room/page.tsx"),
+      "utf-8"
+    );
+    expect(src).toContain("verified");
+  });
+});

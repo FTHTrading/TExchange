@@ -71,6 +71,27 @@ function initRevenueSchema(database: Database.Database): void {
     CREATE INDEX IF NOT EXISTS idx_inquiries_created  ON inquiries(created_at);
     CREATE INDEX IF NOT EXISTS idx_bookings_email     ON booking_requests(email);
     CREATE INDEX IF NOT EXISTS idx_bookings_created   ON booking_requests(created_at);
+
+    CREATE TABLE IF NOT EXISTS cis_requests (
+      id                TEXT PRIMARY KEY,
+      name              TEXT NOT NULL,
+      email             TEXT NOT NULL,
+      phone             TEXT,
+      company           TEXT,
+      entity_type       TEXT NOT NULL DEFAULT 'individual',
+      jurisdiction      TEXT,
+      purpose           TEXT NOT NULL,
+      transaction_type  TEXT,
+      estimated_amount  TEXT,
+      consent_given     INTEGER NOT NULL DEFAULT 0,
+      status            TEXT NOT NULL DEFAULT 'received',
+      created_at        TEXT NOT NULL,
+      updated_at        TEXT NOT NULL
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_cis_email   ON cis_requests(email);
+    CREATE INDEX IF NOT EXISTS idx_cis_status  ON cis_requests(status);
+    CREATE INDEX IF NOT EXISTS idx_cis_created ON cis_requests(created_at);
   `);
 }
 
@@ -285,6 +306,107 @@ export function getBookingSummary() {
     database
       .prepare("SELECT COUNT(*) as n FROM booking_requests WHERE status = 'pending'")
       .get() as { n: number }
+  ).n;
+  return { total, pending };
+}
+
+// ─── CIS Requests ─────────────────────────────────────────────────────────────
+
+export interface CisRequestRow {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+  company?: string;
+  entityType: string;
+  jurisdiction?: string;
+  purpose: string;
+  transactionType?: string;
+  estimatedAmount?: string;
+  consentGiven: boolean;
+  status: "received" | "under_review" | "complete" | "declined";
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateCisRequestInput {
+  name: string;
+  email: string;
+  phone?: string;
+  company?: string;
+  entityType?: string;
+  jurisdiction?: string;
+  purpose: string;
+  transactionType?: string;
+  estimatedAmount?: string;
+  consentGiven: boolean;
+}
+
+function rowToCis(row: Record<string, unknown>): CisRequestRow {
+  return {
+    id: row.id as string,
+    name: row.name as string,
+    email: row.email as string,
+    phone: (row.phone as string) || undefined,
+    company: (row.company as string) || undefined,
+    entityType: (row.entity_type as string) ?? "individual",
+    jurisdiction: (row.jurisdiction as string) || undefined,
+    purpose: row.purpose as string,
+    transactionType: (row.transaction_type as string) || undefined,
+    estimatedAmount: (row.estimated_amount as string) || undefined,
+    consentGiven: row.consent_given === 1,
+    status: (row.status as CisRequestRow["status"]) ?? "received",
+    createdAt: row.created_at as string,
+    updatedAt: row.updated_at as string,
+  };
+}
+
+export function createCisRequest(input: CreateCisRequestInput): CisRequestRow {
+  const database = getRevenueDb();
+  const id = crypto.randomUUID();
+  const now = new Date().toISOString();
+
+  database
+    .prepare(
+      `INSERT INTO cis_requests
+        (id, name, email, phone, company, entity_type, jurisdiction, purpose,
+         transaction_type, estimated_amount, consent_given, status, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'received', ?, ?)`
+    )
+    .run(
+      id,
+      input.name.trim(),
+      input.email.toLowerCase().trim(),
+      input.phone?.trim() ?? null,
+      input.company?.trim() ?? null,
+      input.entityType?.trim() ?? "individual",
+      input.jurisdiction?.trim() ?? null,
+      input.purpose.trim(),
+      input.transactionType?.trim() ?? null,
+      input.estimatedAmount?.trim() ?? null,
+      input.consentGiven ? 1 : 0,
+      now,
+      now
+    );
+
+  return rowToCis(
+    database.prepare("SELECT * FROM cis_requests WHERE id = ?").get(id) as Record<string, unknown>
+  );
+}
+
+export function listCisRequests(limit = 100, offset = 0): CisRequestRow[] {
+  const database = getRevenueDb();
+  const rows = database
+    .prepare("SELECT * FROM cis_requests ORDER BY created_at DESC LIMIT ? OFFSET ?")
+    .all(limit, offset) as Record<string, unknown>[];
+  return rows.map(rowToCis);
+}
+
+export function getCisSummary() {
+  const database = getRevenueDb();
+  const total = (database.prepare("SELECT COUNT(*) as n FROM cis_requests").get() as { n: number }).n;
+  const pending = (
+    database.prepare("SELECT COUNT(*) as n FROM cis_requests WHERE status = 'received'").get() as { n: number }
   ).n;
   return { total, pending };
 }
