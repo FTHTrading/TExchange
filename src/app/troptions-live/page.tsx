@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 // ─── TROPTIONS on XRPL ────────────────────────────────────────────────────────
 // Non-standard 9-char code encoded as 20-byte uppercase hex (XLS-20 compatible)
@@ -381,65 +383,177 @@ export default function TroptionsLivePage() {
       className="min-h-screen flex flex-col"
       style={{ background: "var(--navy)", color: "var(--foreground)" }}
     >
-      {/* ══ HEADER ══════════════════════════════════════════════════════════════ */}
-      <header style={{ borderBottom: "1px solid var(--line)" }}>
-        <div className="max-w-5xl mx-auto px-6 py-4 flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <div
-              className="text-xs font-mono tracking-widest uppercase"
-              style={{ color: "var(--gold)" }}
+      {/* ══ INSTITUTIONAL NAV ═══════════════════════════════════════════════════ */}
+      <nav
+        style={{
+          borderBottom: "1px solid var(--line)",
+          background: "rgba(7,20,38,0.97)",
+          position: "sticky",
+          top: 0,
+          zIndex: 50,
+          backdropFilter: "blur(12px)",
+        }}
+      >
+        <div
+          className="max-w-5xl mx-auto px-6 flex items-center justify-between"
+          style={{ height: 60 }}
+        >
+          {/* Left: logo + wordmark */}
+          <Link href="/troptions" style={{ display: "flex", alignItems: "center", gap: "0.65rem", textDecoration: "none" }}>
+            <Image
+              src="/assets/troptions/logos/troptions-tt-on-black.jpg"
+              alt="TROPTIONS"
+              width={36}
+              height={36}
+              style={{ borderRadius: 5, objectFit: "cover" }}
+              priority
+            />
+            <span
+              style={{
+                fontFamily: "'Palatino Linotype','Book Antiqua',Georgia,serif",
+                fontSize: "0.95rem",
+                letterSpacing: "0.22em",
+                color: "var(--gold-light)",
+                fontWeight: 600,
+                textTransform: "uppercase",
+              }}
             >
-              TROPTIONS LIVE &nbsp;•&nbsp; XRPL TRADING SYSTEM &nbsp;•&nbsp; 2026
-            </div>
-            <div
-              className="text-xs uppercase tracking-widest mt-0.5"
-              style={{ color: "var(--muted)" }}
+              TROPTIONS
+            </span>
+            <span
+              style={{
+                fontSize: "0.62rem",
+                letterSpacing: "0.2em",
+                color: "var(--muted)",
+                textTransform: "uppercase",
+                borderLeft: "1px solid var(--line)",
+                paddingLeft: "0.65rem",
+                marginLeft: "0.1rem",
+              }}
             >
-              DIGITAL ASSET DEALER &nbsp;•&nbsp; XRPL SETTLEMENT INFRASTRUCTURE
-            </div>
+              LIVE
+            </span>
+          </Link>
+
+          {/* Center: nav links */}
+          <div className="hidden md:flex items-center gap-5">
+            {[
+              { label: "Wallet",     onClick: () => setActiveTab("wallet") },
+              { label: "Trust Line", onClick: () => setActiveTab("trust") },
+              { label: "Buy",        onClick: () => setActiveTab("buy") },
+              { label: "Sell",       onClick: () => setActiveTab("sell") },
+              { label: "Verify",     onClick: () => setActiveTab("verify") },
+            ].map((item) => (
+              <button
+                key={item.label}
+                onClick={item.onClick}
+                style={{
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: "0.72rem",
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  color: "var(--muted)",
+                  fontFamily: "inherit",
+                  padding: "0",
+                  transition: "color 0.15s",
+                }}
+                onMouseOver={(e) => (e.currentTarget.style.color = "var(--gold-light)")}
+                onMouseOut={(e) => (e.currentTarget.style.color = "var(--muted)")}
+              >
+                {item.label}
+              </button>
+            ))}
           </div>
 
-          <div className="flex items-center gap-4 text-xs font-mono">
-            {/* Live indicator */}
-            <span className="flex items-center gap-1.5" style={{ color: "#22c55e" }}>
+          {/* Right: live indicator + back link */}
+          <div className="flex items-center gap-4">
+            <span className="flex items-center gap-1.5 text-xs font-mono" style={{ color: "#22c55e" }}>
               <span
-                className="inline-block w-2 h-2 rounded-full"
-                style={{ background: "#22c55e", boxShadow: "0 0 6px #22c55e" }}
+                style={{
+                  display: "inline-block",
+                  width: 7,
+                  height: 7,
+                  borderRadius: "50%",
+                  background: "#22c55e",
+                  boxShadow: "0 0 6px #22c55e",
+                }}
               />
-              XRPL MAINNET
+              MAINNET
             </span>
-
-            {/* XRP price */}
-            {prices?.xrp != null && (
-              <span style={{ color: "var(--gold-light)" }}>
-                XRP{" "}
-                <strong>${prices.xrp.toFixed(4)}</strong>
-                {priceLoading && (
-                  <span style={{ color: "var(--muted)" }}> ↻</span>
-                )}
-              </span>
-            )}
-
-            {/* TROPTIONS price */}
-            {orderBook?.bestAskXrpPerTroptions != null && prices?.xrp != null && (
-              <span style={{ color: "var(--gold)" }}>
-                TROPTIONS{" "}
-                <strong>
-                  {fmt(orderBook.bestAskXrpPerTroptions, 6)} XRP
-                </strong>
-                {" "}
-                <span style={{ color: "var(--muted)" }}>
-                  (${fmt(orderBook.bestAskXrpPerTroptions * prices.xrp, 4)})
-                </span>
-              </span>
-            )}
+            <Link
+              href="/troptions"
+              style={{
+                fontSize: "0.7rem",
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: "var(--muted)",
+                textDecoration: "none",
+                border: "1px solid var(--line)",
+                padding: "0.3rem 0.75rem",
+                borderRadius: 5,
+              }}
+            >
+              ← Portal
+            </Link>
           </div>
         </div>
-      </header>
+
+        {/* Live price ticker bar */}
+        {(prices?.xrp != null || orderBook?.bestAskXrpPerTroptions != null) && (
+          <div
+            style={{
+              borderTop: "1px solid var(--line)",
+              background: "rgba(0,0,0,0.3)",
+              padding: "0.3rem 0",
+            }}
+          >
+            <div className="max-w-5xl mx-auto px-6 flex flex-wrap items-center gap-x-6 gap-y-1 text-xs font-mono">
+              {prices?.xrp != null && (
+                <span>
+                  <span style={{ color: "var(--muted)" }}>XRP/USD </span>
+                  <strong style={{ color: "var(--gold-light)" }}>${prices.xrp.toFixed(4)}</strong>
+                  {priceLoading && <span style={{ color: "var(--muted)" }}> ↻</span>}
+                </span>
+              )}
+              {orderBook?.bestAskXrpPerTroptions != null && (
+                <span>
+                  <span style={{ color: "var(--muted)" }}>TROPTIONS Ask </span>
+                  <strong style={{ color: "var(--gold)" }}>{fmt(orderBook.bestAskXrpPerTroptions, 6)} XRP</strong>
+                  {prices?.xrp != null && (
+                    <span style={{ color: "var(--muted)" }}>
+                      {" "}(${fmt(orderBook.bestAskXrpPerTroptions * prices.xrp, 4)})
+                    </span>
+                  )}
+                </span>
+              )}
+              {orderBook?.bestBidXrpPerTroptions != null && (
+                <span>
+                  <span style={{ color: "var(--muted)" }}>Bid </span>
+                  <strong style={{ color: "var(--gold-light)" }}>{fmt(orderBook.bestBidXrpPerTroptions, 6)} XRP</strong>
+                </span>
+              )}
+              <span>
+                <span style={{ color: "var(--muted)" }}>Issuer </span>
+                <span
+                  className="cursor-pointer"
+                  style={{ color: "var(--gold)" }}
+                  onClick={() => copyToClipboard(TROPTIONS_ISSUER, "issuer-ticker")}
+                  title="Click to copy"
+                >
+                  {TROPTIONS_ISSUER.slice(0, 8)}…
+                  {copied === "issuer-ticker" && <span style={{ color: "#22c55e" }}> ✓</span>}
+                </span>
+              </span>
+            </div>
+          </div>
+        )}
+      </nav>
 
       {/* ══ HERO ════════════════════════════════════════════════════════════════ */}
-      <section className="max-w-5xl mx-auto w-full px-6 pt-14 pb-10 text-center">
-        <SectionBadge>⬤ SECURE ACCESS</SectionBadge>
+      <section className="max-w-5xl mx-auto w-full px-6 pt-12 pb-8 text-center">
+        <SectionBadge>⬤ XRPL MAINNET — LIVE</SectionBadge>
 
         <h1
           className="text-5xl font-bold mb-3 tracking-tight"
@@ -458,91 +572,34 @@ export default function TroptionsLivePage() {
           className="mt-3 text-sm max-w-xl mx-auto"
           style={{ color: "var(--muted)", lineHeight: 1.75 }}
         >
-          Non-custodial &nbsp;•&nbsp; Self-sovereign &nbsp;•&nbsp; Cryptographic
-          ownership &nbsp;•&nbsp; XRPL protocol
+          Non-custodial &nbsp;·&nbsp; Self-sovereign &nbsp;·&nbsp; Cryptographic
+          ownership &nbsp;·&nbsp; XRPL protocol
         </p>
-
-        {/* Stat bar */}
-        <div
-          className="inline-flex flex-wrap items-center gap-x-6 gap-y-2 mt-8 px-6 py-3 rounded-lg text-sm font-mono justify-center"
-          style={{
-            border: "1px solid var(--line)",
-            background: "var(--navy-2)",
-          }}
-        >
-          <span>
-            <span style={{ color: "var(--muted)" }}>XRP/USD </span>
-            <span style={{ color: "var(--gold-light)", fontWeight: 700 }}>
-              {prices?.xrp != null ? `$${prices.xrp.toFixed(4)}` : "—"}
-            </span>
-          </span>
-
-          <span style={{ color: "var(--line)" }}>|</span>
-
-          <span>
-            <span style={{ color: "var(--muted)" }}>Best Ask </span>
-            <span style={{ color: "var(--gold-light)", fontWeight: 700 }}>
-              {orderBook?.bestAskXrpPerTroptions != null
-                ? `${fmt(orderBook.bestAskXrpPerTroptions, 6)} XRP`
-                : "No orders"}
-            </span>
-          </span>
-
-          <span style={{ color: "var(--line)" }}>|</span>
-
-          <span>
-            <span style={{ color: "var(--muted)" }}>Best Bid </span>
-            <span style={{ color: "var(--gold-light)", fontWeight: 700 }}>
-              {orderBook?.bestBidXrpPerTroptions != null
-                ? `${fmt(orderBook.bestBidXrpPerTroptions, 6)} XRP`
-                : "No orders"}
-            </span>
-          </span>
-
-          <span style={{ color: "var(--line)" }}>|</span>
-
-          <span>
-            <span style={{ color: "var(--muted)" }}>Issuer </span>
-            <span
-              className="cursor-pointer hover:opacity-80 transition-opacity"
-              style={{ color: "var(--gold)" }}
-              onClick={() => copyToClipboard(TROPTIONS_ISSUER, "issuer-hero")}
-              title="Click to copy issuer address"
-            >
-              {TROPTIONS_ISSUER.slice(0, 8)}…
-              {copied === "issuer-hero" && (
-                <span style={{ color: "#22c55e" }}> ✓</span>
-              )}
-            </span>
-          </span>
-        </div>
       </section>
 
       {/* ══ TAB NAV ═════════════════════════════════════════════════════════════ */}
-      <div
-        className="max-w-5xl mx-auto w-full px-6"
-        style={{ borderBottom: "1px solid var(--line)" }}
-      >
-        <nav className="flex overflow-x-auto">
+      <div className="max-w-5xl mx-auto w-full px-6 pt-2 pb-4">
+        <div
+          className="inline-flex flex-wrap gap-1.5 p-1 rounded-lg"
+          style={{ background: "var(--navy-2)", border: "1px solid var(--line)" }}
+        >
           {tabs.map(({ key, label }) => (
             <button
               key={key}
               onClick={() => setActiveTab(key)}
-              className="shrink-0 px-5 py-3 text-xs uppercase tracking-widest font-mono transition-colors"
+              className="px-4 py-2 text-xs uppercase tracking-widest font-mono transition-all rounded-md"
               style={{
-                color: activeTab === key ? "var(--gold)" : "var(--muted)",
-                borderBottom:
-                  activeTab === key
-                    ? "2px solid var(--gold)"
-                    : "2px solid transparent",
-                background: "none",
+                color: activeTab === key ? "#071426" : "var(--muted)",
+                background: activeTab === key ? "var(--gold)" : "transparent",
+                border: "none",
                 cursor: "pointer",
+                fontWeight: activeTab === key ? 700 : 400,
               }}
             >
               {label}
             </button>
           ))}
-        </nav>
+        </div>
       </div>
 
       {/* ══ TAB CONTENT ═════════════════════════════════════════════════════════ */}
@@ -1383,52 +1440,50 @@ export default function TroptionsLivePage() {
 
       {/* ══ FOOTER ══════════════════════════════════════════════════════════════ */}
       <footer
-        className="py-4"
         style={{
           borderTop: "1px solid var(--line)",
           background: "var(--navy)",
         }}
       >
+        {/* Nav row */}
         <div
-          className="max-w-5xl mx-auto px-6 flex flex-wrap items-center justify-between gap-3 text-xs font-mono"
-          style={{ color: "var(--muted)" }}
+          className="max-w-5xl mx-auto px-6 py-4 flex flex-wrap items-center justify-between gap-3"
+          style={{ borderBottom: "1px solid var(--line)" }}
         >
-          <span>© 2026 UNYKORN. All rights reserved.</span>
-          <div className="flex flex-wrap gap-5 items-center">
-            <a
-              href="/troptions"
-              style={{ color: "var(--muted)" }}
-              className="hover:opacity-80 transition-opacity"
+          <Link href="/troptions" style={{ display: "flex", alignItems: "center", gap: "0.55rem", textDecoration: "none" }}>
+            <Image
+              src="/assets/troptions/logos/troptions-tt-on-black.jpg"
+              alt="TROPTIONS"
+              width={28}
+              height={28}
+              style={{ borderRadius: 4, objectFit: "cover" }}
+            />
+            <span
+              style={{
+                fontFamily: "'Palatino Linotype',Georgia,serif",
+                fontSize: "0.8rem",
+                letterSpacing: "0.2em",
+                color: "var(--muted)",
+                textTransform: "uppercase",
+              }}
             >
-              Institutional Portal
-            </a>
-            <a
-              href="/troptions-portal"
-              style={{ color: "var(--muted)" }}
-              className="hover:opacity-80 transition-opacity"
-            >
-              Operator Portal
-            </a>
-            <span style={{ color: "var(--gold)" }}>TROPTIONS LIVE</span>
-            <a
-              href="https://xrpl.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: "var(--muted)" }}
-              className="hover:opacity-80 transition-opacity"
-            >
-              XRPL.org ↗
-            </a>
-            <a
-              href="https://xaman.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: "var(--muted)" }}
-              className="hover:opacity-80 transition-opacity"
-            >
-              Xaman ↗
-            </a>
+              TROPTIONS
+            </span>
+          </Link>
+          <div className="flex flex-wrap gap-4 text-xs font-mono" style={{ color: "var(--muted)" }}>
+            <Link href="/troptions" style={{ color: "var(--muted)", textDecoration: "none" }}>Institutional Portal</Link>
+            <Link href="/troptions/verification" style={{ color: "var(--muted)", textDecoration: "none" }}>Proof Room</Link>
+            <Link href="/troptions/stablecoins" style={{ color: "var(--muted)", textDecoration: "none" }}>Stablecoins</Link>
+            <Link href="/troptions/layer1" style={{ color: "var(--muted)", textDecoration: "none" }}>Layer 1</Link>
+            <Link href="/troptions/wallets" style={{ color: "var(--muted)", textDecoration: "none" }}>Wallets</Link>
+            <a href="https://xrpl.org" target="_blank" rel="noopener noreferrer" style={{ color: "var(--muted)", textDecoration: "none" }}>XRPL.org ↗</a>
+            <a href="https://xaman.app" target="_blank" rel="noopener noreferrer" style={{ color: "var(--muted)", textDecoration: "none" }}>Xaman ↗</a>
           </div>
+        </div>
+        {/* Copyright */}
+        <div className="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between text-xs font-mono" style={{ color: "#3a3530" }}>
+          <span>© 2003–2026 TROPTIONS / UNYKORN. All rights reserved.</span>
+          <span style={{ color: "var(--gold)", letterSpacing: "0.15em" }}>TROPTIONS LIVE</span>
         </div>
       </footer>
     </main>

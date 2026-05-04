@@ -1,12 +1,8 @@
-import path from "node:path";
 import type { NextConfig } from "next";
-import { fileURLToPath } from "node:url";
-
-const repoRoot = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
 	turbopack: {
-		root: repoRoot,
+		root: process.cwd(),
 	},
 	serverExternalPackages: ["better-sqlite3"],
 	experimental: {
