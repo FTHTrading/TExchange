@@ -56,12 +56,14 @@ export default async function NamespaceSovereignAiPage({ params }: Props) {
           <p className="mb-4 text-xs text-gray-500">
             Build your first Sovereign AI system from one of {templateCount} templates.
           </p>
-          <span
-            className="inline-block cursor-not-allowed rounded-lg border border-gray-700 bg-[#080C14] px-4 py-2 text-xs text-gray-600"
+          <Link
+            href={`/troptions-cloud/${namespace}/sovereign-ai/new`}
+            className="inline-block cursor-not-allowed pointer-events-none rounded-lg border border-gray-700 bg-[#080C14] px-4 py-2 text-xs text-gray-600"
             aria-disabled="true"
+            tabIndex={-1}
           >
             New AI System — Simulation Only
-          </span>
+          </Link>
         </div>
       ) : (
         <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -96,12 +98,14 @@ export default async function NamespaceSovereignAiPage({ params }: Props) {
           >
             Browse Templates
           </Link>
-          <span
+          <Link
+            href={`/troptions-cloud/${namespace}/sovereign-ai/new`}
             className="cursor-not-allowed rounded-lg border border-gray-700 bg-[#080C14] px-4 py-2 text-xs text-gray-600"
             aria-disabled="true"
+            onClick={(e) => e.preventDefault()}
           >
             Build AI System — Simulation Only
-          </span>
+          </Link>
         </div>
       </div>
     </div>
