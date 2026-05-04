@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
 	},
 	serverExternalPackages: ["better-sqlite3"],
 	experimental: {
-		cpus: 2,
+		cpus: 1,
 		workerThreads: false,
 	},
 	async rewrites() {
