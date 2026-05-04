@@ -230,6 +230,93 @@ Files: `src/content/troptions-cloud/namespaceRegistry.ts`
 - Used to generate 870 static pages via `generateStaticParams`
 - **Not on-chain** — namespace ownership is not cryptographically enforced; it's a content registry
 
+---
+
+## 6. Client-Facing Revenue Layer
+
+*Added: 2026-05-04 — GitHub Copilot automated session*
+*Build after addition: ✅ EXIT 0 — 60 test suites / 1071 tests passing*
+
+### 6.1 Client Inquiry System
+**Status: ✅ BUILT**
+
+- `POST /api/troptions/inquiries` — public endpoint, validates required fields, writes to `data/revenue.db`
+- `GET /api/troptions/inquiries` — admin-only (auth cookie required), returns inquiry list + summary
+- Lead scoring: `qualifyLead()` returns 0–100 score based on budget, company, phone, message length, etc.
+- SQLite table: `inquiries` (id, name, email, company, budget_range, service_interest, message, status, lead_score, etc.)
+
+### 6.2 Booking Request System
+**Status: ✅ BUILT**
+
+- `POST /api/troptions/booking-requests` — public endpoint, writes to `data/revenue.db`
+- `GET /api/troptions/booking-requests` — admin-only, returns bookings + summary
+- Calendar integration: ❌ NOT BUILT — booking form shows manual confirmation warning
+- SQLite table: `booking_requests` (id, name, email, company, call_type, preferred_date, etc.)
+
+### 6.3 Client-Facing Pages
+**Status: ✅ BUILT**
+
+| Page | Status |
+|---|---|
+| `/troptions/services` | ✅ 8 service cards, prices, SystemStatusBadge |
+| `/troptions/pricing` | ✅ 4 packages from SERVICE_PACKAGES data |
+| `/troptions/contact` | ✅ Full inquiry form, API-wired, consent checkbox |
+| `/troptions/book` | ✅ Booking form, API-wired |
+| `/troptions/client-onboarding` | ✅ 6-step onboarding overview |
+| `/troptions/trust` | ✅ Operational checklist + compliance notices |
+| `/troptions/disclaimers` | ✅ 9-section plain-language legal page |
+| `/troptions/payments` | ✅ Payment readiness status, invoice-only mode |
+| `/troptions/insights` | ✅ 6 article stubs with SystemStatus badges |
+
+### 6.4 Admin Revenue Dashboard
+**Status: ✅ BUILT**
+
+- `/admin/revenue` — auth-gated server component
+- Shows: summary cards, breakdowns by service/budget, priority leads table (score ≥ 50), all inquiries, all bookings
+- Calls `listInquiries()`, `listBookingRequests()`, `getInquirySummary()`, `getBookingSummary()` from revenue-db
+- Calculates `totalEstimatedValue` from `calculateEstimatedOpportunityValue()` per inquiry
+
+### 6.5 Payment Processing
+**Status: ⚠️ PARTIAL — Invoice-Only Mode**
+
+- Stripe: ❌ NOT CONFIGURED — no `STRIPE_SECRET_KEY` in env
+- `getPaymentReadiness()` returns `status: "not_configured"`, `invoiceOnly: true`
+- `createInvoiceRequest()` and `createDepositIntentPlaceholder()` return structured objects; no Stripe API calls made
+- Manual invoice workflow is documented in `docs/revenue/PAYMENT_READINESS.md`
+- Activation: add `STRIPE_SECRET_KEY` + `STRIPE_WEBHOOK_SECRET` env vars — no code changes required
+
+### 6.6 Compliance Components
+**Status: ✅ BUILT**
+
+- `SystemStatusBadge` — 7 statuses: Live, Client Ready, Intake Open, In Development, Planning, Demo Only, Compliance Review Required
+- `ComplianceNotice` — orange warning block rendered on all RWA/token/escrow/trade desk pages
+- All financial/investment claims are disclaimed on `/troptions/disclaimers`
+
+### 6.7 Revenue Library
+**Status: ✅ BUILT**
+
+- `src/lib/troptions/revenue.ts` — types, SERVICE_PACKAGES (4), qualifyLead(), calculateEstimatedOpportunityValue(), getNextRecommendedAction()
+- `src/lib/troptions/revenue-db.ts` — SQLite CRUD for inquiries + bookings, WAL mode
+- `src/lib/troptions/payments.ts` — payment readiness layer, Stripe config detection
+
+### 6.8 Tests
+**Status: ✅ BUILT — 19 new tests across 3 files**
+
+- `src/__tests__/troptions/revenue.test.ts` — package data, scoring, labels
+- `src/__tests__/troptions/payments.test.ts` — Stripe config detection, invoice/deposit objects
+- `src/__tests__/troptions/revenue-db.test.ts` — SQLite CRUD (isolated temp DB)
+
+### What Can Make Money Immediately
+- Qualified client inquiries → manual admin follow-up → invoice → wire/ACH
+- Discovery call bookings → manual calendar confirmation → proposal → deposit
+
+### What Still Needs Manual/Future Setup
+- Stripe keys → activate online checkout
+- Email notifications for new leads
+- Calendar API integration for auto-confirmed bookings
+- CRM integration (admin dashboard is the CRM for now)
+- Proposal PDF generation
+
 ### 5.2 Sovereign AI Registry
 **Status: ✅ BUILT (content registry)**
 
