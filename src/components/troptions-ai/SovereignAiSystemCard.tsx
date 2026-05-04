@@ -87,9 +87,9 @@ export default function SovereignAiSystemCard({ system, namespaceSlug }: Props) 
       {/* View link */}
       <Link
         href={`/troptions-cloud/${namespaceSlug}/sovereign-ai/${system.id}`}
-        className="block w-full cursor-not-allowed rounded-lg border border-gray-700 bg-[#080C14] px-4 py-2 text-center text-xs text-gray-600"
+        className="block w-full cursor-not-allowed pointer-events-none rounded-lg border border-gray-700 bg-[#080C14] px-4 py-2 text-center text-xs text-gray-600"
         aria-disabled="true"
-        onClick={(e) => e.preventDefault()}
+        tabIndex={-1}
       >
         View System — Simulation Only
       </Link>

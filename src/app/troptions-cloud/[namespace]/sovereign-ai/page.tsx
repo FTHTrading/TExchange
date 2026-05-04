@@ -100,9 +100,9 @@ export default async function NamespaceSovereignAiPage({ params }: Props) {
           </Link>
           <Link
             href={`/troptions-cloud/${namespace}/sovereign-ai/new`}
-            className="cursor-not-allowed rounded-lg border border-gray-700 bg-[#080C14] px-4 py-2 text-xs text-gray-600"
+            className="cursor-not-allowed pointer-events-none rounded-lg border border-gray-700 bg-[#080C14] px-4 py-2 text-xs text-gray-600"
             aria-disabled="true"
-            onClick={(e) => e.preventDefault()}
+            tabIndex={-1}
           >
             Build AI System — Simulation Only
           </Link>
