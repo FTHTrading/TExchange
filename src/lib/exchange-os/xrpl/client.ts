@@ -1,65 +1,54 @@
 // TROPTIONS Exchange OS — XRPL Read-Only Client
-// Uses WebSocket for live XRPL data reads.
+// Uses HTTP JSON-RPC for CF Workers compatibility (no WebSocket / no xrpl npm package).
 // NO private keys. NO signing. NO auto-submit.
 // All write operations return unsigned transaction blobs.
 
 import { xrplConfig } from "@/config/exchange-os/xrpl";
 import type { XrplErrorResponse } from "./types";
 
-/** WebSocket request/response helper — read-only commands only */
+/** HTTP JSON-RPC endpoint (same XRPL cluster, HTTP transport) */
+const XRPL_HTTP_URL = "https://s1.xrplcluster.com/";
+
+/** HTTP JSON-RPC helper — read-only commands only */
 async function xrplRequest(
   method: string,
   params: Record<string, unknown>
 ): Promise<unknown> {
-  // Always use mainnet for read-only queries — it's safe and gives real market data
-  const wsUrl = xrplConfig.mainnetWsUrl;
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15_000);
 
-  return new Promise((resolve, reject) => {
-    const ws = new WebSocket(wsUrl);
-    const timeout = setTimeout(() => {
-      ws.close();
-      reject(new Error("XRPL WebSocket timeout"));
-    }, 15_000);
+  try {
+    const res = await fetch(XRPL_HTTP_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ method, params: [params] }),
+      signal: controller.signal,
+    });
 
-    ws.onopen = () => {
-      ws.send(
-        JSON.stringify({ id: 1, command: method, ...params })
-      );
+    if (!res.ok) {
+      throw new Error(`XRPL HTTP error: ${res.status}`);
+    }
+
+    const data = (await res.json()) as {
+      result?: { status?: string; error?: string; error_code?: number; error_message?: string } & Record<string, unknown>;
+      error?: string;
     };
 
-    ws.onmessage = (evt) => {
-      clearTimeout(timeout);
-      ws.close();
-      try {
-        const data = JSON.parse(evt.data as string) as {
-          status?: string;
-          result?: unknown;
-          error?: string;
-          error_code?: number;
-          error_message?: string;
-        };
-        if (data.status === "error" || data.error) {
-          const err: XrplErrorResponse = {
-            error: data.error ?? "unknown_error",
-            errorCode: data.error_code,
-            errorMessage: data.error_message,
-            status: "error",
-          };
-          reject(err);
-        } else {
-          resolve(data.result);
-        }
-      } catch {
-        reject(new Error("Invalid JSON from XRPL WebSocket"));
-      }
-    };
+    const result = data.result;
+    if (!result || result.status === "error" || result.error) {
+      const err: XrplErrorResponse = {
+        error: result?.error ?? data.error ?? "unknown_error",
+        errorCode: result?.error_code,
+        errorMessage: result?.error_message,
+        status: "error",
+      };
+      throw err;
+    }
 
-    ws.onerror = () => {
-      clearTimeout(timeout);
-      ws.close();
-      reject(new Error("XRPL WebSocket connection error"));
-    };
-  });
+    return result;
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 /** Allowed read-only XRPL commands — hardcoded whitelist for security */

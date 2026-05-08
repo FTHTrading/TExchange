@@ -262,8 +262,8 @@ export function XrplMarketsTable() {
       );
     })
     .sort((a, b) => {
-      const va = (a as Record<string, number>)[sortKey] ?? 0;
-      const vb = (b as Record<string, number>)[sortKey] ?? 0;
+      const va = (a as unknown as Record<string, number>)[sortKey] ?? 0;
+      const vb = (b as unknown as Record<string, number>)[sortKey] ?? 0;
       return sortDir === "desc" ? vb - va : va - vb;
     });
 

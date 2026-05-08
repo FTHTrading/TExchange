@@ -38,11 +38,12 @@ function toNumber(v: string | XrplAmount | undefined): number {
 }
 
 function resolveXrplAmount(ticker: string, issuer?: string): string | XrplAmount {
-  if (ticker === "XRP") return "XRP";
+  if (ticker === "XRP") return "XRP" as string;
   return {
     currency:
       ticker === "TROPTIONS" ? xrplConfig.troptionsHex : ticker.toUpperCase(),
     issuer: issuer ?? xrplConfig.troptionsIssuer,
+    value: "0",
   };
 }
 

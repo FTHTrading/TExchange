@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { PDF_DOCUMENT_REGISTRY } from "@/lib/troptions/pdfDocumentRegistry";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 export function GET() {
   return NextResponse.json({

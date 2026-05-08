@@ -802,7 +802,7 @@ function HistoryTab() {
             padding: "0.6rem 0",
             borderBottom: i < staticHistory.length - 1 ? "1px solid var(--xos-border)" : "none",
           }}>
-            <div style={{ display: "flex", align: "center", gap: 8 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <div style={{
                 width: 28,
                 height: 28,

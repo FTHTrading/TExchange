@@ -171,8 +171,8 @@ export default function SolanaLaunchWizard() {
 
       // Ask wallet to sign + send
       const w = window as Window & {
-        solana?: { signAndSendTransaction(tx: Transaction): Promise<{ signature: string }> };
-        solflare?: { signAndSendTransaction(tx: Transaction): Promise<{ signature: string }> };
+        solana?: { signAndSendTransaction(tx: import("@solana/web3.js").Transaction): Promise<{ signature: string }> };
+        solflare?: { signAndSendTransaction(tx: import("@solana/web3.js").Transaction): Promise<{ signature: string }> };
       };
       const provider = w.solana ?? w.solflare;
       if (!provider) throw new Error("Wallet disappeared.");
