@@ -52,11 +52,11 @@ interface XrplTx {
 
 type Tab = "dashboard" | "send" | "mint" | "history";
 
-// ── Known contacts ────────────────────────────────────────────────
+// ── Known contacts (role-based, no personal names) ───────────────
 const CONTACTS = [
-  { name: "Sravan Vallenki", email: "sravan@fthco.com", label: "Primary FTH_USD" },
-  { name: "Sravan Konduri", email: "sravan.k@fthco.com", label: "Secondary" },
-  { name: "Buck Vaughan", email: "buck@fthco.com", label: "Partner" },
+  { name: "FTH Operations", email: "ops@fthco.com", label: "Primary FTH_USD · Operations Desk" },
+  { name: "FTH Team", email: "team@fthco.com", label: "Secondary · Team Account" },
+  { name: "FTH Partner", email: "partner@fthco.com", label: "Partner · Settlement" },
 ];
 
 const CURRENCIES = ["FTH USD", "UNY", "TROPTIONS", "XRP", "USDF", "ATP"];
@@ -322,10 +322,10 @@ function DashboardTab({
           RECENT LEDGER ACTIVITY
         </div>
         {[
-          { to: "Sravan Konduri", date: "Apr 3 · FTH_USD", amount: -100 },
-          { to: "Buck Vaughan", date: "Mar 30 · FTH_USD", amount: -100 },
-          { to: "Sravan Konduri", date: "Mar 30 · FTH_USD", amount: -50 },
-          { to: "Sravan Konduri", date: "Mar 30 · FTH_USD", amount: -50 },
+          { to: "FTH Operations", date: "Apr 3 · FTH_USD", amount: -100 },
+          { to: "FTH Partner", date: "Mar 30 · FTH_USD", amount: -100 },
+          { to: "FTH Operations", date: "Mar 30 · FTH_USD", amount: -50 },
+          { to: "FTH Operations", date: "Mar 30 · FTH_USD", amount: -50 },
         ].map((tx, i) => (
           <div key={i} style={{
             display: "flex",
@@ -779,12 +779,12 @@ function HistoryTab() {
     }
   }
 
-  // Static history from UnyKorn genesis data
+  // Static history (role-based identifiers, no personal names)
   const staticHistory = [
-    { id: "tx1", to: "Sravan Konduri", date: "Apr 3, 2026", currency: "FTH_USD", amount: -100, type: "send" as const },
-    { id: "tx2", to: "Buck Vaughan", date: "Mar 30, 2026", currency: "FTH_USD", amount: -100, type: "send" as const },
-    { id: "tx3", to: "Sravan Konduri", date: "Mar 30, 2026", currency: "FTH_USD", amount: -50, type: "send" as const },
-    { id: "tx4", to: "Sravan Konduri", date: "Mar 30, 2026", currency: "FTH_USD", amount: -50, type: "send" as const },
+    { id: "tx1", to: "FTH Operations", date: "Apr 3, 2026", currency: "FTH_USD", amount: -100, type: "send" as const },
+    { id: "tx2", to: "FTH Partner", date: "Mar 30, 2026", currency: "FTH_USD", amount: -100, type: "send" as const },
+    { id: "tx3", to: "FTH Operations", date: "Mar 30, 2026", currency: "FTH_USD", amount: -50, type: "send" as const },
+    { id: "tx4", to: "FTH Operations", date: "Mar 30, 2026", currency: "FTH_USD", amount: -50, type: "send" as const },
   ];
 
   return (
@@ -864,12 +864,23 @@ function HistoryTab() {
 }
 
 // ── Main Component ────────────────────────────────────────────────
+// ── Notifications (static — will connect to chain events) ─────────
+const NOTIFICATIONS = [
+  { id: "n1", type: "ok" as const,   icon: "◈", msg: "Apostle Chain 7332 · 35 agents active",    time: "now" },
+  { id: "n2", type: "ok" as const,   icon: "✓", msg: "FTH Pay Chain 7331 · Operational",           time: "2m" },
+  { id: "n3", type: "info" as const, icon: "◆", msg: "TROPTIONS · XRPL mainnet height advancing",  time: "5m" },
+];
+
 export function FthPayDashboard() {
   const [tab, setTab] = useState<Tab>("dashboard");
   const [xrplAddress, setXrplAddress] = useState("");
   const [xrplBalances, setXrplBalances] = useState<XrplBalances | null>(null);
   const [chainHealth, setChainHealth] = useState<ChainHealth | null>(null);
   const [loadingXrpl, setLoadingXrpl] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [notifOpen, setNotifOpen] = useState(false);
+  const [notifSeen, setNotifSeen] = useState(false);
+  const notifCount = notifSeen ? 0 : NOTIFICATIONS.length;
 
   // Load chain health on mount
   useEffect(() => {
@@ -892,43 +903,165 @@ export function FthPayDashboard() {
     setLoadingXrpl(false);
   }, [xrplAddress]);
 
+  const goTab = (t: Tab) => { setTab(t); setMenuOpen(false); };
+
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-      {/* Header */}
+    <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", position: "relative" }}>
+
+      {/* ── Hamburger drawer backdrop ── */}
+      {menuOpen && (
+        <div
+          onClick={() => setMenuOpen(false)}
+          style={{
+            position: "fixed", inset: 0, zIndex: 100,
+            background: "rgba(5,13,24,0.72)", backdropFilter: "blur(3px)",
+          }}
+        />
+      )}
+
+      {/* ── Hamburger side drawer ── */}
+      <div style={{
+        position: "fixed", top: 0, left: 0, bottom: 0, width: 256, zIndex: 101,
+        background: "var(--xos-surface)", borderRight: "1px solid var(--xos-border-2)",
+        padding: "1.25rem 1rem",
+        transform: menuOpen ? "translateX(0)" : "translateX(-110%)",
+        transition: "transform 0.2s cubic-bezier(0.4,0,0.2,1)",
+        display: "flex", flexDirection: "column", gap: "0.35rem",
+        overflowY: "auto",
+      }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
+          <span style={{ fontSize: "0.9rem", fontWeight: 800, color: "var(--xos-gold)", letterSpacing: "0.05em" }}>◆ GENESIS</span>
+          <button onClick={() => setMenuOpen(false)} style={{ background: "none", border: "none", color: "var(--xos-text-muted)", cursor: "pointer", fontSize: "1rem", fontFamily: "inherit", padding: "0.2rem 0.4rem" }}>✕</button>
+        </div>
+
+        <div style={{ fontSize: "0.6rem", color: "var(--xos-text-subtle)", letterSpacing: "0.1em", padding: "0 0.5rem", marginBottom: 2 }}>WALLET</div>
+        {(["dashboard", "send", "mint", "history"] as Tab[]).map((t) => {
+          const meta = { dashboard: ["⌂", "Dashboard"], send: ["↑", "Send"], mint: ["◆", "Mint"], history: ["↻", "History"] }[t]!;
+          return (
+            <button key={t} onClick={() => goTab(t)} style={{
+              display: "flex", alignItems: "center", gap: "0.65rem",
+              background: tab === t ? "var(--xos-surface-3)" : "transparent",
+              border: tab === t ? "1px solid var(--xos-border-2)" : "1px solid transparent",
+              borderRadius: "var(--xos-radius)", padding: "0.55rem 0.75rem",
+              color: tab === t ? "var(--xos-gold)" : "var(--xos-text-muted)",
+              fontSize: "0.82rem", fontWeight: tab === t ? 700 : 400,
+              cursor: "pointer", width: "100%", textAlign: "left", fontFamily: "inherit",
+            }}>
+              <span style={{ width: 18, textAlign: "center" }}>{meta[0]}</span> {meta[1]}
+            </button>
+          );
+        })}
+
+        <div style={{ borderTop: "1px solid var(--xos-border)", margin: "0.5rem 0", paddingTop: "0.5rem" }}>
+          <div style={{ fontSize: "0.6rem", color: "var(--xos-text-subtle)", letterSpacing: "0.1em", padding: "0 0.5rem", marginBottom: 2 }}>EXCHANGE</div>
+          {([
+            { href: "/exchange-os", icon: "◈", label: "Markets" },
+            { href: "/exchange-os/orderbook", icon: "◈", label: "Order Book" },
+            { href: "/exchange-os/tokens", icon: "◈", label: "Token Launcher" },
+            { href: "/exchange-os/solana", icon: "◈", label: "Solana SPL" },
+          ]).map(({ href, icon, label }) => (
+            <a key={href} href={href} style={{
+              display: "flex", alignItems: "center", gap: "0.65rem",
+              padding: "0.55rem 0.75rem", color: "var(--xos-text-muted)",
+              fontSize: "0.8rem", textDecoration: "none", borderRadius: "var(--xos-radius)",
+            }}>
+              <span style={{ width: 18, textAlign: "center", color: "var(--xos-cyan)" }}>{icon}</span> {label}
+            </a>
+          ))}
+        </div>
+
+        <div style={{ marginTop: "auto", fontSize: "0.6rem", color: "var(--xos-text-subtle)", paddingTop: "1rem", borderTop: "1px solid var(--xos-border)", lineHeight: 1.7 }}>
+          ◆ TROPTIONS EXCHANGE<br />Genesis v3.0.0 · Build 20260508
+        </div>
+      </div>
+
+      {/* ── Notification panel ── */}
+      {notifOpen && (
+        <div style={{
+          position: "fixed", top: 68, right: 16, width: 296, zIndex: 102,
+          background: "var(--xos-surface)", border: "1px solid var(--xos-border-2)",
+          borderRadius: "var(--xos-radius)", boxShadow: "0 8px 32px rgba(0,0,0,0.55)",
+          overflow: "hidden",
+        }}>
+          <div style={{ padding: "0.75rem 1rem", borderBottom: "1px solid var(--xos-border)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--xos-text-muted)", letterSpacing: "0.06em" }}>NOTIFICATIONS</span>
+            <button onClick={() => { setNotifOpen(false); setNotifSeen(true); }} style={{ background: "none", border: "none", color: "var(--xos-text-subtle)", cursor: "pointer", fontSize: "0.85rem", fontFamily: "inherit" }}>✕</button>
+          </div>
+          {NOTIFICATIONS.map((n) => (
+            <div key={n.id} style={{ padding: "0.65rem 1rem", borderBottom: "1px solid var(--xos-border)", display: "flex", gap: "0.6rem", alignItems: "flex-start" }}>
+              <span style={{ color: n.type === "ok" ? "var(--xos-green)" : "var(--xos-cyan)", marginTop: 1, fontSize: "0.85rem" }}>{n.icon}</span>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: "0.75rem", color: "var(--xos-text)", lineHeight: 1.4 }}>{n.msg}</div>
+                <div style={{ fontSize: "0.63rem", color: "var(--xos-text-subtle)", marginTop: 2 }}>{n.time} ago</div>
+              </div>
+            </div>
+          ))}
+          <div style={{ padding: "0.5rem 1rem", textAlign: "center" }}>
+            <button onClick={() => { setNotifOpen(false); setNotifSeen(true); }} style={{ background: "none", border: "none", color: "var(--xos-text-subtle)", fontSize: "0.7rem", cursor: "pointer", fontFamily: "inherit" }}>Mark all read</button>
+          </div>
+        </div>
+      )}
+
+      {/* ── Header ── */}
       <div className="xos-card" style={{
         padding: "1rem 1.25rem",
         background: "linear-gradient(135deg, var(--xos-surface) 0%, var(--xos-surface-3) 100%)",
         borderTop: "2px solid var(--xos-gold)",
       }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "0.75rem" }}>
-          <div>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: 4 }}>
-              <span style={{ fontSize: "1rem", fontWeight: 800, color: "var(--xos-gold)", letterSpacing: "0.04em" }}>
-                ◆ UNYKORN · GENESIS
-              </span>
-              <span style={{ fontSize: "0.65rem", color: "var(--xos-text-subtle)", background: "var(--xos-surface-3)", padding: "1px 6px", borderRadius: 4 }}>
-                v3.0.0
-              </span>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "0.75rem" }}>
+          {/* Left: hamburger + branding */}
+          <div style={{ display: "flex", alignItems: "flex-start", gap: "0.65rem" }}>
+            <button
+              onClick={() => setMenuOpen(true)}
+              aria-label="Open menu"
+              style={{
+                background: "var(--xos-surface-2)", border: "1px solid var(--xos-border)",
+                borderRadius: "var(--xos-radius)", padding: "0.4rem 0.55rem",
+                cursor: "pointer", color: "var(--xos-text-muted)", fontSize: "1rem",
+                fontFamily: "inherit", flexShrink: 0, marginTop: 3, lineHeight: 1,
+              }}
+            >☰</button>
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: 4 }}>
+                <span style={{ fontSize: "1rem", fontWeight: 800, color: "var(--xos-gold)", letterSpacing: "0.04em" }}>◆ UNYKORN · GENESIS</span>
+                <span style={{ fontSize: "0.63rem", color: "var(--xos-text-subtle)", background: "var(--xos-surface-3)", padding: "1px 6px", borderRadius: 4 }}>v3.0.0</span>
+              </div>
+              <div style={{ fontSize: "0.72rem", color: "var(--xos-text-muted)" }}>Chairman · Principal · Operator</div>
+              <div style={{ fontSize: "0.68rem", color: "var(--xos-text-subtle)" }}>TROPTIONS Exchange · UnyKorn.org</div>
             </div>
-            <div style={{ fontSize: "0.88rem", fontWeight: 700, color: "var(--xos-text)" }}>Kevan Burns</div>
-            <div style={{ fontSize: "0.72rem", color: "var(--xos-text-muted)" }}>Chairman · Principal · Operator</div>
-            <div style={{ fontSize: "0.7rem", color: "var(--xos-text-subtle)" }}>kevan@unykorn.org</div>
           </div>
+          {/* Right: notification bell + guard */}
           <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "0.4rem" }}>
-            <div style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 6,
-              background: "var(--xos-green-glow)",
-              border: "1px solid var(--xos-green-muted)",
-              borderRadius: "var(--xos-radius)",
-              padding: "0.3rem 0.65rem",
-              fontSize: "0.72rem",
-              color: "var(--xos-green)",
-              fontWeight: 600,
-            }}>
-              <StatusDot online />
-              Guard: Active
+            <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+              <button
+                onClick={() => { setNotifOpen(!notifOpen); if (!notifOpen) setNotifSeen(true); }}
+                aria-label="Notifications"
+                style={{
+                  position: "relative", background: "var(--xos-surface-2)", border: "1px solid var(--xos-border)",
+                  borderRadius: "var(--xos-radius)", padding: "0.35rem 0.5rem",
+                  cursor: "pointer", fontSize: "0.9rem", fontFamily: "inherit",
+                  color: notifCount > 0 ? "var(--xos-gold)" : "var(--xos-text-subtle)",
+                }}
+              >
+                🔔
+                {notifCount > 0 && (
+                  <span style={{
+                    position: "absolute", top: -5, right: -5, width: 15, height: 15,
+                    background: "var(--xos-red)", borderRadius: "50%",
+                    fontSize: "0.55rem", color: "#fff", fontWeight: 700,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}>{notifCount}</span>
+                )}
+              </button>
+              <div style={{
+                display: "flex", alignItems: "center", gap: 6,
+                background: "var(--xos-green-glow)", border: "1px solid var(--xos-green-muted)",
+                borderRadius: "var(--xos-radius)", padding: "0.3rem 0.65rem",
+                fontSize: "0.72rem", color: "var(--xos-green)", fontWeight: 600,
+              }}>
+                <StatusDot online />
+                Guard: Active
+              </div>
             </div>
             <div style={{ fontSize: "0.68rem", color: "var(--xos-text-subtle)" }}>$0 / $50,000 daily</div>
           </div>
@@ -937,34 +1070,24 @@ export function FthPayDashboard() {
         {/* Action buttons */}
         <div style={{ display: "flex", gap: "0.5rem", marginTop: "1rem", flexWrap: "wrap" }}>
           {[
-            { label: "↑ Send", action: () => setTab("send") },
+            { label: "↑ Send", action: () => goTab("send") },
             { label: "↓ Receive", action: () => {} },
-            { label: "◆ Mint", action: () => setTab("mint") },
-            { label: "↻ History", action: () => setTab("history") },
+            { label: "◆ Mint", action: () => goTab("mint") },
+            { label: "↻ History", action: () => goTab("history") },
           ].map((btn) => (
-            <button
-              key={btn.label}
-              className="xos-btn xos-btn--gold"
-              onClick={btn.action}
-              style={{ fontSize: "0.78rem", padding: "0.35rem 0.9rem" }}
-            >
+            <button key={btn.label} className="xos-btn xos-btn--gold" onClick={btn.action} style={{ fontSize: "0.78rem", padding: "0.35rem 0.9rem" }}>
               {btn.label}
             </button>
           ))}
-          <button className="xos-btn" style={{ fontSize: "0.78rem", padding: "0.35rem 0.9rem" }}>
-            ⇄ Convert
-          </button>
+          <button className="xos-btn" style={{ fontSize: "0.78rem", padding: "0.35rem 0.9rem" }}>⇄ Convert</button>
         </div>
       </div>
 
       {/* Tab bar */}
       <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
         {(["dashboard", "send", "mint", "history"] as Tab[]).map((t) => (
-          <TabBtn key={t} active={tab === t} onClick={() => setTab(t)}>
-            {t === "dashboard" ? "⌂ Dashboard"
-              : t === "send" ? "↑ Send"
-              : t === "mint" ? "◆ Mint"
-              : "↻ History"}
+          <TabBtn key={t} active={tab === t} onClick={() => goTab(t)}>
+            {t === "dashboard" ? "⌂ Dashboard" : t === "send" ? "↑ Send" : t === "mint" ? "◆ Mint" : "↻ History"}
           </TabBtn>
         ))}
       </div>
@@ -985,8 +1108,8 @@ export function FthPayDashboard() {
       {tab === "history" && <HistoryTab />}
 
       {/* Footer */}
-      <div style={{ textAlign: "center", fontSize: "0.65rem", color: "var(--xos-text-subtle)", paddingBottom: "0.5rem" }}>
-        ◆ UNYKORN · GENESIS · XRPL · STELLAR · POLYGON · TRON · BUILD 20260508
+      <div style={{ textAlign: "center", fontSize: "0.63rem", color: "var(--xos-text-subtle)", paddingBottom: "0.5rem" }}>
+        ◆ TROPTIONS EXCHANGE · GENESIS v3 · XRPL · STELLAR · FTH PAY 7331 · APOSTLE 7332 · BUILD 20260508
       </div>
     </div>
   );
