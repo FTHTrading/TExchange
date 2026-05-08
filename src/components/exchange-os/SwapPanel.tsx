@@ -236,17 +236,36 @@ export function SwapPanel({ defaultFrom = "XRP", defaultTo = "TROPTIONS" }: Swap
             padding: "0.75rem",
             marginBottom: "1rem",
             fontSize: "0.8rem",
+            display: "flex",
+            flexDirection: "column",
+            gap: "0.3rem",
           }}
         >
-          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.25rem" }}>
-            <span style={{ color: "var(--xos-text-muted)" }}>Rate</span>
-            <span style={{ color: "var(--xos-text)", fontFamily: "var(--xos-font-mono)" }}>
-              1 {fromToken} → {toToken} (see quote details)
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <span style={{ color: "var(--xos-text-muted)" }}>You receive</span>
+            <span style={{ color: "var(--xos-green)", fontFamily: "var(--xos-font-mono)", fontWeight: 700 }}>
+              {typeof quote.toAmount === "object" && quote.toAmount !== null
+                ? `${(quote.toAmount as { value?: string }).value ?? "?"} ${toToken}`
+                : String(quote.toAmount)}
             </span>
           </div>
+          {(quote.estimatedSlippagePct ?? 0) > 0 && (
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <span style={{ color: "var(--xos-text-muted)" }}>Est. slippage</span>
+              <span style={{ color: "var(--xos-text)" }}>{quote.estimatedSlippagePct}%</span>
+            </div>
+          )}
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <span style={{ color: "var(--xos-text-muted)" }}>Network fee</span>
+            <span style={{ color: "var(--xos-text)" }}>{quote.estimatedFeesXrp} XRP</span>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <span style={{ color: "var(--xos-text-muted)" }}>Route</span>
+            <span style={{ color: "var(--xos-cyan)" }}>{quote.route}</span>
+          </div>
           {quote.demoMode && (
-            <p style={{ color: "var(--xos-amber)", marginTop: "0.25rem" }}>
-              ⚠ Demo quote — not a real price
+            <p style={{ color: "var(--xos-amber)", margin: 0, fontSize: "0.72rem" }}>
+              ⚠ Simulated quote — connect to mainnet for real prices
             </p>
           )}
         </div>

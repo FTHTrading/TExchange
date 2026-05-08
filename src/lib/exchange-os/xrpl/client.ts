@@ -11,9 +11,8 @@ async function xrplRequest(
   method: string,
   params: Record<string, unknown>
 ): Promise<unknown> {
-  const wsUrl = xrplConfig.mainnetEnabled
-    ? xrplConfig.mainnetWsUrl
-    : xrplConfig.websocketUrl;
+  // Always use mainnet for read-only queries — it's safe and gives real market data
+  const wsUrl = xrplConfig.mainnetWsUrl;
 
   return new Promise((resolve, reject) => {
     const ws = new WebSocket(wsUrl);

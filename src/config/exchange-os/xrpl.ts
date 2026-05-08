@@ -1,18 +1,20 @@
 // TROPTIONS Exchange OS — XRPL Configuration
-// Mainnet is locked by default. Testnet read-only is safe default.
+// Read-only mainnet ops (pathfinding, book_offers, account_info) are always on.
+// XRPL_MAINNET_ENABLED only gates TX submission (write operations).
 
 export const xrplConfig = {
-  network: (process.env.XRPL_NETWORK || "testnet") as "testnet" | "mainnet",
-  websocketUrl:
-    process.env.XRPL_WEBSOCKET_URL || "wss://s.altnet.rippletest.net:51233",
+  network: "mainnet" as "testnet" | "mainnet",
+  /** Used for read-only mainnet queries (pathfinding, order book, account info) */
   mainnetWsUrl:
     process.env.XRPL_MAINNET_WS_URL || "wss://xrplcluster.com",
+  /** Testnet WS — only used when explicitly requested */
+  websocketUrl:
+    process.env.XRPL_WEBSOCKET_URL || "wss://s.altnet.rippletest.net:51233",
+  /** Gate for WRITE operations (tx submission) only — reads are always mainnet */
   mainnetEnabled: process.env.XRPL_MAINNET_ENABLED === "true",
-  demoMode: process.env.XRPL_MAINNET_ENABLED !== "true",
-  explorerBase:
-    process.env.XRPL_MAINNET_ENABLED === "true"
-      ? "https://livenet.xrpl.org"
-      : "https://testnet.xrpl.org",
+  /** demoMode now only applies to tx signing/submission — NOT to read queries */
+  demoMode: false,
+  explorerBase: "https://livenet.xrpl.org",
   /** TROPTIONS token — non-standard 9-char ticker encoded as 20-byte hex */
   troptionsHex: "54524F5054494F4E530000000000000000000000",
   troptionsIssuer:
