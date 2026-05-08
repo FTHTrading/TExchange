@@ -1,5 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
+import TroptionsSubNav from "@/components/troptions/TroptionsSubNav";
+import "@/styles/troptions-evolution.css";
 
 export const metadata = {
   title: "Proof of Issuance | TROPTIONS Gateway Verification",
@@ -180,7 +182,9 @@ CreateClaimableBalance {
 
 export default function VerificationPage() {
   return (
-    <main className="te-page">
+    <div style={{ background: "linear-gradient(155deg, #091528 0%, #10233d 58%, #0d1a2d 100%)", minHeight: "100vh" }}>
+      <TroptionsSubNav />
+      <main className="te-page" style={{ background: "transparent" }}>
       <div className="te-wrap" style={{ gap: "2rem" }}>
 
         {/* ── Hero ───────────────────────────────────────────────────────────── */}
@@ -199,13 +203,11 @@ export default function VerificationPage() {
               XRPL Issuer on XRPScan ↗
             </a>
             <a href={stellarExpert("GB4FHGFUTLLMS3SC5RWRK6RYBGDIUQ5NR7IGN5TWAA3QVHULJ34JGEG4")} target="_blank" rel="noreferrer noopener"
-               className="rounded-lg border border-slate-300 px-5 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition"
-               style={{ textDecoration: "none" }}>
+               style={{ display: "inline-block", background: "rgba(34,211,238,0.1)", border: "1px solid rgba(34,211,238,0.4)", color: "#22d3ee", borderRadius: "0.45rem", padding: "0.45rem 1rem", fontSize: "0.85rem", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
               Stellar Issuer on Expert ↗
             </a>
             <Link href="/troptions/stablecoins"
-               className="rounded-lg border border-slate-300 px-5 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition"
-               style={{ textDecoration: "none" }}>
+               style={{ display: "inline-block", background: "rgba(201,162,74,0.1)", border: "1px solid rgba(201,162,74,0.4)", color: "#e8c066", borderRadius: "0.45rem", padding: "0.45rem 1rem", fontSize: "0.85rem", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
               Fee Schedule →
             </Link>
           </div>
@@ -434,13 +436,15 @@ export default function VerificationPage() {
         </section>
 
         {/* ── Quick nav ───────────────────────────────────────────────────────── */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", paddingTop: "0.5rem", borderTop: "1px solid rgba(255,255,255,0.07)" }}>
-          <Link href="/troptions/stablecoins" style={{ fontSize: "0.8rem", color: "#c9a84c", fontWeight: 700, textDecoration: "none" }}>← Fee Schedule</Link>
-          <Link href="/troptions/wallets" style={{ fontSize: "0.8rem", color: "#c9a84c", fontWeight: 700, textDecoration: "none" }}>← Wallet Infrastructure</Link>
-          <Link href="/troptions" style={{ fontSize: "0.8rem", color: "#c9a84c", fontWeight: 700, textDecoration: "none" }}>← TROPTIONS Overview</Link>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", paddingTop: "1rem", borderTop: "1px solid rgba(201,162,74,0.2)", alignItems: "center" }}>
+          <Link href="/troptions/stablecoins" style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", background: "rgba(201,162,74,0.1)", border: "1px solid rgba(201,162,74,0.35)", color: "#e8c066", borderRadius: "0.4rem", padding: "0.4rem 0.85rem", fontSize: "0.78rem", fontWeight: 700, textDecoration: "none" }}>← Fee Schedule</Link>
+          <Link href="/troptions/wallets" style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", background: "rgba(201,162,74,0.1)", border: "1px solid rgba(201,162,74,0.35)", color: "#e8c066", borderRadius: "0.4rem", padding: "0.4rem 0.85rem", fontSize: "0.78rem", fontWeight: 700, textDecoration: "none" }}>← Wallet Infrastructure</Link>
+          <Link href="/troptions" style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", background: "rgba(201,162,74,0.1)", border: "1px solid rgba(201,162,74,0.35)", color: "#e8c066", borderRadius: "0.4rem", padding: "0.4rem 0.85rem", fontSize: "0.78rem", fontWeight: 700, textDecoration: "none" }}>← TROPTIONS Overview</Link>
+          <Link href="/exchange-os" style={{ marginLeft: "auto", display: "inline-flex", alignItems: "center", gap: "0.35rem", background: "rgba(0,212,255,0.08)", border: "1px solid rgba(0,212,255,0.3)", color: "#00d4ff", borderRadius: "0.4rem", padding: "0.4rem 0.85rem", fontSize: "0.78rem", fontWeight: 700, textDecoration: "none" }}>⟷ Exchange OS →</Link>
         </div>
 
       </div>
-    </main>
+      </main>
+    </div>
   );
 }

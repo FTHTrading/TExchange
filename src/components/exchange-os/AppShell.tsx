@@ -83,6 +83,9 @@ function SidebarNav() {
         })}
       </nav>
       <div className="xos-sidebar-footer">
+        <Link href="/troptions" style={{ display: "flex", alignItems: "center", gap: "0.45rem", textDecoration: "none", marginBottom: "0.6rem", padding: "0.35rem 0.5rem", borderRadius: "0.35rem", background: "rgba(201,162,74,0.07)", border: "1px solid rgba(201,162,74,0.2)" }}>
+          <span style={{ fontSize: "0.65rem", color: "var(--xos-gold-muted)", fontWeight: 700, letterSpacing: "0.06em" }}>← TROPTIONS.ORG</span>
+        </Link>
         <div style={{ fontSize: "0.65rem", color: "var(--xos-text-subtle)", lineHeight: 1.6 }}>
           <div style={{ fontWeight: 600, color: "var(--xos-gold-muted)", marginBottom: 2 }}>troptionsxchange.com</div>
           {brand.poweredBy}<br />{brand.platformLine}

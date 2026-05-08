@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { STABLECOIN_ISSUER_REGISTRY, type StablecoinIssuerRecord } from "@/content/troptions/stablecoinIssuerRegistry";
 import { XRPL_IOU_REGISTRY, type XrplIouRecord } from "@/content/troptions/xrplIouRegistry";
+import TroptionsSubNav from "@/components/troptions/TroptionsSubNav";
+import "@/styles/troptions-evolution.css";
 
 export const metadata = {
   title: "Stablecoin Rail Intelligence | TROPTIONS",
@@ -259,7 +261,9 @@ export default function TroptionsStablecoinsPage() {
   const internalUnits = STABLECOIN_ISSUER_REGISTRY.filter((c) => c.symbol.startsWith("TRU-"));
 
   return (
-    <main className="te-page">
+    <div style={{ background: "linear-gradient(155deg, #091528 0%, #10233d 58%, #0d1a2d 100%)", minHeight: "100vh" }}>
+      <TroptionsSubNav />
+      <main className="te-page" style={{ background: "transparent" }}>
       <div className="te-wrap" style={{ gap: "1.75rem" }}>
 
         {/* ── Mainnet confirmation banner ─────────────────────────────────────── */}
@@ -284,8 +288,7 @@ export default function TroptionsStablecoinsPage() {
               View XRPL Issuer on XRPScan ↗
             </a>
             <Link href="/troptions/wallets"
-               className="rounded-lg border border-slate-300 px-5 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition"
-               style={{ textDecoration: "none" }}>
+               style={{ display: "inline-block", background: "rgba(201,162,74,0.1)", border: "1px solid rgba(201,162,74,0.4)", color: "#e8c066", borderRadius: "0.45rem", padding: "0.45rem 1rem", fontSize: "0.85rem", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
               Wallet Infrastructure →
             </Link>
           </div>
@@ -566,6 +569,7 @@ export default function TroptionsStablecoinsPage() {
         </div>
 
       </div>
-    </main>
+      </main>
+    </div>
   );
 }

@@ -116,6 +116,9 @@ export default function TroptionsInstitutionalPage() {
                 {n.label}
               </Link>
             ))}
+            <Link href="/exchange-os" style={{ background: "#071426", color: "#c9a84c", border: "1px solid rgba(201,162,74,0.45)", padding: "0.4rem 1rem", borderRadius: 3, fontSize: "0.82rem", fontWeight: 700, textDecoration: "none", letterSpacing: "0.03em" }}>
+              ⟷ Exchange OS
+            </Link>
             <Link href="/portal/troptions/dashboard" style={{ background: G.navy, color: "#fff", padding: "0.4rem 1.1rem", borderRadius: 3, fontSize: "0.82rem", fontWeight: 600, textDecoration: "none" }}>
               Client Portal
             </Link>
