@@ -15,11 +15,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Troptions Institutional Operating System",
-  description: "Troptions institutional platform for governance-controlled workflows, analytics, and compliance-aware operations.",
+  title: "TROPTIONS Exchange OS",
+  description: "Trade, launch, and verify XRPL assets on the TROPTIONS decentralized exchange.",
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: "/",
+  },
+  icons: {
+    icon: [
+      { url: "/assets/troptions/logos/troptions-tt-gold.jpg", type: "image/jpeg" },
+    ],
+    apple: [
+      { url: "/assets/troptions/logos/troptions-tt-gold.jpg", type: "image/jpeg" },
+    ],
+    shortcut: "/assets/troptions/logos/troptions-tt-gold.jpg",
   },
 };
 
