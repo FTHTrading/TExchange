@@ -11,82 +11,103 @@ export function HeroSection() {
       className="xos-hero-bg"
       style={{
         padding: "3.5rem 1.5rem 3rem",
-        maxWidth: 960,
+        maxWidth: 1000,
         margin: "0 auto",
         textAlign: "center",
       }}
     >
-      {/* TROPTIONS logo mark */}
-      <div style={{ marginBottom: "1.75rem" }}>
-        <TroptionsLogo size={80} variant="full" style={{ display: "inline-flex" }} />
+      {/* Logo */}
+      <div style={{ marginBottom: "1.5rem" }}>
+        <TroptionsLogo size={72} variant="full" style={{ display: "inline-flex" }} />
       </div>
 
-      {/* Power badge */}
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.625rem", marginBottom: "1.625rem", flexWrap: "wrap" }}>
-        <span className="xos-badge xos-badge--gold" style={{ fontSize: "0.72rem" }}>
-          ◆ TROPTIONS Exchange OS
+      {/* Live DEX badge row */}
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", marginBottom: "1.5rem", flexWrap: "wrap" }}>
+        <span className="xos-badge xos-badge--cyan" style={{ fontSize: "0.7rem", fontWeight: 700 }}>
+          ● LIVE DEX
         </span>
-        <span className="xos-badge xos-badge--cyan" style={{ fontSize: "0.72rem" }}>
-          ⚡ Powered by XRPL
+        <span className="xos-badge xos-badge--gold" style={{ fontSize: "0.7rem" }}>
+          ◆ XRPL Native
         </span>
-        <span className="xos-badge xos-badge--slate" style={{ fontSize: "0.72rem" }}>
-          x402 Protocol
+        <span className="xos-badge xos-badge--slate" style={{ fontSize: "0.7rem" }}>
+          x402 Intelligence
+        </span>
+        <span className="xos-badge xos-badge--slate" style={{ fontSize: "0.7rem" }}>
+          Unsigned-First Wallet
         </span>
       </div>
 
+      {/* Main headline */}
       <h1
         style={{
-          fontSize: "clamp(2rem, 5vw, 3.5rem)",
+          fontSize: "clamp(2.2rem, 5vw, 3.8rem)",
           fontWeight: 900,
-          lineHeight: 1.1,
+          lineHeight: 1.08,
           color: "var(--xos-text)",
-          marginBottom: "1.125rem",
-          letterSpacing: "-0.02em",
+          marginBottom: "1rem",
+          letterSpacing: "-0.025em",
         }}
       >
-        {brand.tagline}
+        TROPTIONS Live DEX
       </h1>
 
       <p
         style={{
-          fontSize: "1.05rem",
+          fontSize: "1.1rem",
           color: "var(--xos-text-muted)",
-          maxWidth: 600,
-          margin: "0 auto 2.75rem",
-          lineHeight: 1.7,
+          maxWidth: 580,
+          margin: "0 auto 0.75rem",
+          lineHeight: 1.65,
         }}
       >
-        {brand.description}
+        Trade, launch, and verify XRPL assets in one professional decentralized exchange.
+      </p>
+
+      <p
+        style={{
+          fontSize: "0.82rem",
+          color: "var(--xos-text-subtle)",
+          maxWidth: 560,
+          margin: "0 auto 2.25rem",
+          lineHeight: 1.6,
+        }}
+      >
+        Live order books · AMM liquidity · Issuer verification · Launch proof packets · x402 intelligence
       </p>
 
       {/* CTA row */}
       <div
         style={{
           display: "flex",
-          gap: "0.875rem",
+          gap: "0.75rem",
           justifyContent: "center",
           flexWrap: "wrap",
-          marginBottom: "2.5rem",
+          marginBottom: "1.5rem",
         }}
       >
-        <Link href="/exchange-os/launch" className="xos-btn xos-btn--primary xos-btn--lg">
-          ◆ Launch a Token
-        </Link>
         <Link href="/exchange-os/trade" className="xos-btn xos-btn--cyan xos-btn--lg">
-          ⟷ Trade Now
+          ⟷ Start Trading
         </Link>
-        <Link href="/exchange-os/earn" className="xos-btn xos-btn--outline xos-btn--lg">
-          ◎ Earn Rewards
+        <Link href="/exchange-os/tokens" className="xos-btn xos-btn--outline xos-btn--lg">
+          ≡ View Markets
+        </Link>
+        <Link href="/exchange-os/launch" className="xos-btn xos-btn--primary xos-btn--lg">
+          ◆ Launch Token
         </Link>
       </div>
 
-      {/* Proof pillars */}
-      <div className="xos-stat-strip" style={{ maxWidth: 700, margin: "0 auto" }}>
+      {/* Powered by note */}
+      <p style={{ fontSize: "0.7rem", color: "var(--xos-text-subtle)", margin: "0 0 2rem", letterSpacing: "0.04em" }}>
+        {brand.poweredBy}
+      </p>
+
+      {/* 4-pillar strip */}
+      <div className="xos-stat-strip" style={{ maxWidth: 760, margin: "0 auto" }}>
         {[
-          { icon: "⟐", label: "XRPL Settlement", desc: "Real blockchain, not a database", color: "var(--xos-cyan)" },
-          { icon: "⚡", label: "x402 Payments",   desc: "Pay-per-use AI reports",         color: "var(--xos-gold)" },
-          { icon: "◆",  label: "Proof Packets",   desc: "Verify every launch on-chain",   color: "var(--xos-green)" },
-          { icon: "◎",  label: "Creator Rewards", desc: "Earn from your token volume",    color: "var(--xos-gold-light)" },
+          { icon: "⟷", label: "Live Order Books",  desc: "Native XRPL DEX depth",          color: "var(--xos-cyan)" },
+          { icon: "◎",  label: "AMM Pools",         desc: "Swap through XRPL liquidity",    color: "var(--xos-cyan)" },
+          { icon: "◆",  label: "Issuer Proof",      desc: "Verified launches on-chain",     color: "var(--xos-gold)" },
+          { icon: "⚡", label: "x402 Intelligence", desc: "Paid AI risk & market reports",  color: "var(--xos-gold)" },
         ].map(({ icon, label, desc, color }) => (
           <div key={label} className="xos-stat-strip-cell" style={{ textAlign: "center" }}>
             <div style={{ fontSize: "1.1rem", color, marginBottom: "0.25rem" }}>{icon}</div>
@@ -101,8 +122,8 @@ export function HeroSection() {
       </div>
 
       {features.demoMode && (
-        <p style={{ marginTop: "1.5rem", fontSize: "0.75rem", color: "var(--xos-text-subtle)" }}>
-          Demo mode active — all prices and volumes are simulated
+        <p style={{ marginTop: "1.5rem", fontSize: "0.72rem", color: "var(--xos-text-subtle)" }}>
+          Demo mode — prices and volumes are simulated. Set XRPL_MAINNET_ENABLED=true for live data.
         </p>
       )}
     </section>

@@ -19,8 +19,8 @@ export const xrplConfig = {
   troptionsHex: "54524F5054494F4E530000000000000000000000",
   troptionsIssuer:
     process.env.TROPTIONS_XRPL_ISSUER || "rPF2M1QjdVh1hkNgmMMTkT9qMU7tA7Wds3",
-  reserveBase: 2,    // XRP base reserve
-  reserveOwner: 0.2, // XRP per owned object
+  reserveBase: 1,    // XRP base reserve (mainnet, subject to XRPL governance)
+  reserveOwner: 0.2, // XRP per owned object (trustlines, offers, etc.)
   /** Unsigned transaction timeout in seconds — user must sign within this window */
   unsignedTxTtlSecs: 300,
 } as const;

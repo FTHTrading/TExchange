@@ -45,10 +45,10 @@ export function TopBar() {
 
       {/* Right: wallet + quick links */}
       <div className="xos-topbar-right">
-        <Link href="/exchange-os/earn" className="xos-topbar-pill xos-topbar-pill--gold">
-          Earn Rewards
+        <Link href="/exchange-os/tokens" className="xos-topbar-pill xos-topbar-pill--outline">
+          Markets
         </Link>
-        <Link href="/exchange-os/launch" className="xos-topbar-pill xos-topbar-pill--outline">
+        <Link href="/exchange-os/launch" className="xos-topbar-pill xos-topbar-pill--gold">
           Launch Token
         </Link>
 

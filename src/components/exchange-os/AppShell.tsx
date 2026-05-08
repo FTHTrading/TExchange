@@ -103,8 +103,20 @@ function SidebarNav({ collapsed, onToggle }: { collapsed: boolean; onToggle: () 
           <Link href="/troptions" title="← TROPTIONS.ORG" style={{ color: "var(--xos-gold-muted)", textDecoration: "none", fontSize: "0.9rem" }}>←</Link>
         ) : (
           <div style={{ fontSize: "0.65rem", color: "var(--xos-text-subtle)", lineHeight: 1.6 }}>
-            <div style={{ fontWeight: 600, color: "var(--xos-gold-muted)", marginBottom: 2 }}>troptionsxchange.com</div>
-            {brand.poweredBy}<br />{brand.platformLine}
+            <div style={{ fontWeight: 600, color: "var(--xos-gold-muted)", marginBottom: 2 }}>TROPTIONS Live DEX</div>
+            {brand.poweredBy}
+            <div style={{ marginTop: "0.5rem", display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
+              {[
+                { href: "/exchange-os/docs", label: "Docs" },
+                { href: "/exchange-os/fees", label: "Fees" },
+                { href: "/exchange-os/status", label: "Status" },
+                { href: "/exchange-os/risk", label: "Risk" },
+              ].map(({ href, label }) => (
+                <Link key={href} href={href} style={{ color: "var(--xos-text-subtle)", textDecoration: "none", padding: "0.1rem 0.3rem", borderRadius: "0.2rem", border: "1px solid var(--xos-border)", fontSize: "0.62rem" }}>
+                  {label}
+                </Link>
+              ))}
+            </div>
           </div>
         )}
         {/* Collapse toggle */}

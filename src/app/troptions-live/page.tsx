@@ -9,7 +9,7 @@ import Link from "next/link";
 const TROPTIONS_HEX = "54524F5054494F4E530000000000000000000000";
 const TROPTIONS_ISSUER = "rPF2M1QjdVh1hkNgmMMTkT9qMU7tA7Wds3";
 const TRUST_LIMIT = "1000000000"; // 1 billion max trust line
-const XRP_RESERVE_BASE = 2; // base account reserve in XRP
+const XRP_RESERVE_BASE = 1; // base account reserve in XRP (mainnet)
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface PriceData {
@@ -754,7 +754,7 @@ export default function TroptionsLivePage() {
                     {XRP_RESERVE_BASE} XRP
                   </strong>{" "}
                   (base reserve). Additional{" "}
-                  <strong style={{ color: "var(--gold-light)" }}>2 XRP</strong>{" "}
+                  <strong style={{ color: "var(--gold-light)" }}>0.2 XRP</strong>{" "}
                   required per trust line.
                 </div>
 
@@ -818,7 +818,7 @@ export default function TroptionsLivePage() {
               <p className="text-sm" style={{ color: "var(--muted)", lineHeight: 1.75 }}>
                 Before your wallet can hold TROPTIONS, you must authorize a trust
                 line to the issuer. This is a one-time on-chain transaction that
-                uses 2 XRP in reserve (recoverable if you remove the trust line
+                uses 0.2 XRP in reserve (recoverable if you remove the trust line
                 later).
               </p>
             </div>
@@ -844,7 +844,7 @@ export default function TroptionsLivePage() {
                     copyLabel: "trust-issuer",
                   },
                   { label: "Trust Limit", value: "1,000,000,000 TROPTIONS" },
-                  { label: "Reserve Required", value: "2 XRP" },
+                  { label: "Reserve Required", value: "0.2 XRP" },
                   { label: "Standard", value: "XRP Ledger IOU (XLS-20 compatible)" },
                 ].map(({ label, value, mono, small, copyLabel }) => (
                   <div

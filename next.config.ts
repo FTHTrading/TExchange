@@ -1,6 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+	async redirects() {
+		return [
+			{ source: "/exchange-o", destination: "/exchange-os", permanent: true },
+			{ source: "/exchange-o/:path*", destination: "/exchange-os/:path*", permanent: true },
+			{ source: "/live-dex", destination: "/exchange-os", permanent: false },
+			{ source: "/live-dex/:path*", destination: "/exchange-os/:path*", permanent: false },
+		];
+	},
 	turbopack: {
 		root: process.cwd(),
 	},

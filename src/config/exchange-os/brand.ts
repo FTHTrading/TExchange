@@ -3,14 +3,14 @@
 
 export const brand = {
   name: "TROPTIONS",
-  product: "TROPTIONS Exchange OS",
-  tagline: "Launch. Trade. Earn. Prove.",
-  poweredBy: "Powered by TROPTIONS",
-  platformLine: "XRPL + x402 Commerce Exchange",
+  product: "TROPTIONS Live DEX",
+  tagline: "Trade, launch, and verify XRPL assets.",
+  poweredBy: "Powered by TROPTIONS Exchange OS",
+  platformLine: "Professional XRPL Decentralized Exchange",
   url: "https://troptions.unykorn.org",
   support: "support@troptions.com",
   description:
-    "TROPTIONS Exchange OS turns XRPL trading, token launches, rewards, sponsor offers, and AI-powered commerce into one simple operating system.",
+    "Trade, launch, and verify XRPL assets in one professional decentralized exchange. Live order books, AMM liquidity, issuer verification, launch proof packets, and x402 intelligence rails.",
 } as const;
 
 // Brand color tokens — mirrors the existing Troptions CSS var system
