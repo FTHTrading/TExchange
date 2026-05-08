@@ -321,9 +321,9 @@ export const TROPTIONS_WALLET_HUB_REGISTRY: readonly TroptionsWalletRecord[] = [
     displayName: "TROPTIONS Operator",
     role: "OPERATOR",
     network: "INTERNAL",
-    ownerName: "Kevan Burns",
+    ownerName: "TROPTIONS Chairman",
     title: "Chairman · Principal Operator",
-    email: "kevan@unykorn.org",
+    email: "ops@unykorn.org",
     status: "READ_ONLY",
     chainId: "internal-ops",
     assetBalances: [

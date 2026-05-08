@@ -43,7 +43,7 @@ export const WALLET_INVITE_REGISTRY: readonly WalletInvite[] = [
   {
     inviteId: "invite_fth_co_001",
     inviteHandle: "operator.troptions",
-    invitedBy: "Kevan Burns",
+    invitedBy: "TROPTIONS Chairman",
     inviterRole: "Chairman",
     inviteStatus: "active",
     allowedEmailDomain: "fthco.com",
@@ -64,7 +64,7 @@ export const WALLET_INVITE_REGISTRY: readonly WalletInvite[] = [
   {
     inviteId: "invite_partner_001",
     inviteHandle: "partner.troptions",
-    invitedBy: "Kevan Burns",
+    invitedBy: "TROPTIONS Chairman",
     inviterRole: "Chairman",
     inviteStatus: "active",
     expiresAt: "2026-05-31T23:59:59Z",

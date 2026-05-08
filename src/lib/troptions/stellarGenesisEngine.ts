@@ -642,8 +642,8 @@ is_asset_anchored = false
 anchor_asset_type = "other"
 
 [[PRINCIPALS]]
-name = "Kevan Burns"
-email = "kevan@troptions.org"
+name = "TROPTIONS Chairman"
+email = "ops@troptions.org"
 twitter = "@troptions"
 github = "UnyKorn"
 id_photo_hash = ""

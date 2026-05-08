@@ -30,7 +30,7 @@ describe("troptions wallet hub registry", () => {
   it("contains operator profile", () => {
     expect(
       TROPTIONS_WALLET_HUB_REGISTRY.find(
-        (w) => w.id === "troptions-operator-profile" && w.ownerName === "Kevan Burns",
+        (w) => w.id === "troptions-operator-profile" && w.ownerName === "TROPTIONS Chairman",
       ),
     ).toBeDefined();
   });

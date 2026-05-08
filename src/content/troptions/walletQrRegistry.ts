@@ -22,7 +22,7 @@ export const WALLET_QR_REGISTRY: readonly WalletQrCode[] = [
     handle: "kevan.troptions",
     qrPayloadUri: "troptions://wallet/kevan.troptions",
     qrPayloadText:
-      'troptions://wallet/kevan.troptions\nProfile: Kevan Burns\nRole: Chairman\nNetwork: Troptions Genesis',
+      'troptions://wallet/kevan.troptions\nProfile: TROPTIONS Chairman\nRole: Chairman\nNetwork: Troptions Genesis',
     displayFormat: "wallet-profile",
     issuedAt: "2026-04-25T12:00:00Z",
     expiresAt: undefined,

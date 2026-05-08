@@ -20,8 +20,8 @@ export const WALLET_USER_REGISTRY: readonly WalletUser[] = [
   {
     userId: "user_kevan_burns",
     handle: "kevan.troptions",
-    displayName: "Kevan Burns",
-    email: "kevan@unykorn.org",
+    displayName: "TROPTIONS Chairman",
+    email: "ops@unykorn.org",
     role: "admin",
     inviteId: "invite_kevan_burns_001",
     kycStatus: "verified",

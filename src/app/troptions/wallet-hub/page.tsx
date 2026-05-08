@@ -120,9 +120,9 @@ export default function TroptionsWalletHubPage() {
           <div className="flex items-start justify-between gap-3">
             <div>
               <p className="te-kicker">Operator Profile</p>
-              <h2 className="text-2xl font-semibold text-white">Kevan Burns</h2>
-              <p className="text-sm text-slate-300">Chairman · Principal Operator</p>
-              <p className="text-sm text-slate-400">kevan@unykorn.org</p>
+              <h2 className="text-2xl font-semibold text-white">Chairman · Principal Operator</h2>
+              <p className="text-sm text-slate-300">TROPTIONS Exchange · UnyKorn.org</p>
+              <p className="text-sm text-slate-400">ops@unykorn.org</p>
             </div>
             <span className="rounded-full border border-amber-500/45 bg-amber-500/10 px-3 py-1 text-xs font-bold text-amber-300">
               Role: Operator · Status: Read-only / Approval-gated
