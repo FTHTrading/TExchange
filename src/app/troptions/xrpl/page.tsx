@@ -1,4 +1,5 @@
 import { listXrplEcosystemAssets } from "@/lib/troptions/xrpl-stellar/xrplStellarControlHubBridge";
+import Link from "next/link";
 
 export const metadata = {
   title: "XRPL Ecosystem | Troptions",
@@ -11,7 +12,13 @@ export default function XrplEcosystemPage() {
 
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-white">
-      <div className="mx-auto max-w-6xl px-6 py-16 space-y-10">
+      {/* Back nav */}
+      <div style={{ background: "#071426", borderBottom: "1px solid rgba(201,162,74,0.2)", padding: "0.6rem 1.5rem", display: "flex", gap: "0.75rem", alignItems: "center" }}>
+        <Link href="/troptions" style={{ fontSize: "0.78rem", color: "#c9a84c", textDecoration: "none", padding: "0.25rem 0.6rem", border: "1px solid rgba(201,162,74,0.3)", borderRadius: "0.35rem" }}>← TROPTIONS</Link>
+        <Link href="/troptions/xrpl-platform" style={{ fontSize: "0.78rem", color: "#a0b4cc", textDecoration: "none", padding: "0.25rem 0.6rem", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "0.35rem" }}>XRPL Platform</Link>
+        <Link href="/exchange-os/trade" style={{ fontSize: "0.78rem", color: "#00d4ff", textDecoration: "none", padding: "0.25rem 0.6rem", border: "1px solid rgba(0,212,255,0.2)", borderRadius: "0.35rem" }}>⟷ Trade Live</Link>
+      </div>
+      <div className="mx-auto max-w-6xl px-6 py-12 space-y-10">
         {/* Safety notice — must be prominent */}
         <div className="rounded-xl border border-red-700/40 bg-red-900/20 p-5 space-y-2">
           <p className="font-bold text-red-300 text-base">Important Disclosures</p>

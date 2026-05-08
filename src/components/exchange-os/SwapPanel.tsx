@@ -126,11 +126,17 @@ export function SwapPanel({ defaultFrom = "XRP", defaultTo = "TROPTIONS" }: Swap
               setFromToken(e.target.value);
               setQuote(null);
             }}
-            style={{ width: 120 }}
+            style={{ width: 130 }}
           >
             <option>XRP</option>
             <option>TROPTIONS</option>
+            <option>USD</option>
             <option>USDC</option>
+            <option>USDT</option>
+            <option>BTC</option>
+            <option>ETH</option>
+            <option>EUR</option>
+            <option>SOLO</option>
           </select>
         </div>
       </div>
@@ -172,11 +178,17 @@ export function SwapPanel({ defaultFrom = "XRP", defaultTo = "TROPTIONS" }: Swap
               setToToken(e.target.value);
               setQuote(null);
             }}
-            style={{ width: 120 }}
+            style={{ width: 130 }}
           >
             <option>TROPTIONS</option>
             <option>XRP</option>
+            <option>USD</option>
             <option>USDC</option>
+            <option>USDT</option>
+            <option>BTC</option>
+            <option>ETH</option>
+            <option>EUR</option>
+            <option>SOLO</option>
           </select>
         </div>
       </div>

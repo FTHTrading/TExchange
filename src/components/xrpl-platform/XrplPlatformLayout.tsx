@@ -23,6 +23,21 @@ export function XrplPlatformLayout({ title, intro, children }: XrplPlatformLayou
   return (
     <main className="xp-theme min-h-screen">
       <div className="xp-wrap">
+        {/* Back nav row */}
+        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.25rem", flexWrap: "wrap" }}>
+          <Link
+            href="/troptions"
+            style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", fontSize: "0.78rem", color: "#a0b4cc", textDecoration: "none", padding: "0.3rem 0.65rem", border: "1px solid rgba(201,162,74,0.2)", borderRadius: "0.4rem", background: "rgba(201,162,74,0.06)" }}
+          >
+            ← TROPTIONS
+          </Link>
+          <Link
+            href="/exchange-os/trade"
+            style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", fontSize: "0.78rem", color: "#00d4ff", textDecoration: "none", padding: "0.3rem 0.65rem", border: "1px solid rgba(0,212,255,0.2)", borderRadius: "0.4rem", background: "rgba(0,212,255,0.05)" }}
+          >
+            ⟷ Exchange OS Trade
+          </Link>
+        </div>
         <header className="xp-header">
           <p className="xp-kicker">XRPL Platform</p>
           <h1 className="xp-title">{title}</h1>

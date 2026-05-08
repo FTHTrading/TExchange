@@ -93,9 +93,39 @@
 .xos-sidebar-wrapper {
   width: var(--xos-sidebar-w);
   flex-shrink: 0;
+  transition: width var(--xos-transition-slow);
+}
+.xos-sidebar-wrapper--collapsed {
+  width: 60px;
 }
 @media (max-width: 768px) {
   .xos-sidebar-wrapper { display: none; }
+}
+/* Collapsed sidebar: icons only */
+.xos-sidebar--collapsed {
+  width: 60px;
+}
+.xos-sidebar--collapsed .xos-nav-label,
+.xos-sidebar--collapsed .xos-nav-badge,
+.xos-sidebar--collapsed .xos-nav-section-label,
+.xos-sidebar--collapsed .xos-sidebar-footer > div {
+  display: none;
+}
+.xos-sidebar--collapsed .xos-nav-item {
+  justify-content: center;
+  padding: 0.55rem;
+}
+.xos-sidebar--collapsed .xos-sidebar-logo {
+  padding: 0.75rem 0;
+  display: flex;
+  justify-content: center;
+}
+.xos-sidebar--collapsed .xos-sidebar-footer {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
 }
 .xos-main-column {
   flex: 1;
