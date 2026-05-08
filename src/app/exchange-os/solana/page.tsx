@@ -1,26 +1,7 @@
-import dynamic from "next/dynamic";
 import Link from "next/link";
+import { SolanaWizardLoader } from "@/components/exchange-os/SolanaWizardLoader";
 
 export const metadata = { title: "Solana Token Launch — TROPTIONS Exchange OS" };
-
-// Dynamically import the wallet-connected wizard — never runs on the server
-const SolanaLaunchWizard = dynamic(
-  () => import("@/components/exchange-os/SolanaLaunchWizard"),
-  {
-    ssr: false,
-    loading: () => (
-      <div
-        style={{
-          padding: "3rem",
-          textAlign: "center",
-          color: "var(--xos-text-muted)",
-        }}
-      >
-        Loading Solana wallet interface…
-      </div>
-    ),
-  }
-);
 
 export default function SolanaPage() {
   return (
@@ -89,7 +70,7 @@ export default function SolanaPage() {
       </div>
 
       {/* Wizard */}
-      <SolanaLaunchWizard />
+      <SolanaWizardLoader />
 
       {/* Info boxes */}
       <div
