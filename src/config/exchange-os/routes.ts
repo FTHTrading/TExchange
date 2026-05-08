@@ -16,6 +16,7 @@ export const PRIMARY_NAV: NavRoute[] = [
   { href: "/exchange-os/x402", label: "x402 Services", icon: "zap", description: "Paid AI reports and premium APIs", badge: "Premium" },
   { href: "/exchange-os/tokens", label: "Tokens", icon: "list", description: "Discover and search tokens" },
   { href: "/exchange-os/wallet", label: "Wallet", icon: "wallet", description: "Wallet analytics and holdings" },
+  { href: "/exchange-os/solana", label: "Solana Launch", icon: "diamond", description: "Deploy SPL tokens on Solana" },
 ] as const;
 
 export const SECONDARY_NAV: NavRoute[] = [
@@ -33,4 +34,5 @@ export const MOBILE_NAV: NavRoute[] = [
   { href: "/exchange-os/launch", label: "Launch", icon: "rocket", description: "Launch" },
   { href: "/exchange-os/earn", label: "Earn", icon: "coins", description: "Earn" },
   { href: "/exchange-os/tokens", label: "Tokens", icon: "list", description: "Tokens" },
+  { href: "/exchange-os/solana", label: "Solana", icon: "diamond", description: "Solana" },
 ] as const;

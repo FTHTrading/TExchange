@@ -1,34 +1,46 @@
-import {
-  NextResponse,
-  auditPortalAction,
-  buildBlockedResponse,
-  guardPortalWrite,
-  saveIdempotentResponse,
-} from "@/lib/troptions/portalApiGuards";
+import { NextResponse } from "next/server";
+import { createRwaRequest } from "@/lib/troptions/revenue-db";
 
 export async function POST(request: Request) {
-  let idempotency: Parameters<typeof saveIdempotentResponse>[0];
   try {
-    const guarded = await guardPortalWrite(request);
-    if (guarded instanceof NextResponse) return guarded;
-    idempotency = guarded.idempotency;
-    const payload = await request.json();
-    const routeKey = new URL(request.url).pathname;
+    const body = await request.json();
 
-    const responseBody = buildBlockedResponse(
-      ["RWA intake is pending legal, custody, and proof approvals"],
-      { intakeRecorded: true, assetId: payload.assetId ?? "RWA-NEW" },
-    );
+    // Validate required fields
+    const missing: string[] = [];
+    if (!body.name)             missing.push("name");
+    if (!body.email)            missing.push("email");
+    if (!body.assetClass)       missing.push("assetClass");
+    if (!body.assetDescription) missing.push("assetDescription");
+    if (!body.estimatedValue)   missing.push("estimatedValue");
+    if (!body.jurisdiction)     missing.push("jurisdiction");
+    if (!body.purpose)          missing.push("purpose");
+    if (!body.consentGiven)     missing.push("consentGiven");
+    if (missing.length) {
+      return NextResponse.json({ ok: false, error: `Missing required fields: ${missing.join(", ")}` }, { status: 400 });
+    }
 
-    auditPortalAction("rwa_intake", guarded.auth.actorId, guarded.auth.actorRole, routeKey, {
-      assetId: payload.assetId ?? "RWA-NEW",
+    const record = createRwaRequest({
+      name:             String(body.name),
+      email:            String(body.email),
+      phone:            body.phone    ? String(body.phone)    : undefined,
+      company:          body.company  ? String(body.company)  : undefined,
+      entityType:       body.entityType ? String(body.entityType) : "individual",
+      assetClass:       String(body.assetClass),
+      assetDescription: String(body.assetDescription),
+      estimatedValue:   String(body.estimatedValue),
+      jurisdiction:     String(body.jurisdiction),
+      custodyPreference: body.custodyPreference ? String(body.custodyPreference) : "troptions_custodian",
+      hasExistingDocs:  Boolean(body.hasExistingDocs),
+      docTypes:         body.docTypes ? String(body.docTypes) : undefined,
+      settlementChain:  body.settlementChain ? String(body.settlementChain) : "xrpl",
+      purpose:          String(body.purpose),
+      timeline:         body.timeline ? String(body.timeline) : undefined,
+      notes:            body.notes    ? String(body.notes)    : undefined,
+      consentGiven:     Boolean(body.consentGiven),
     });
 
-    saveIdempotentResponse(idempotency, 200, responseBody);
-    return NextResponse.json(responseBody);
+    return NextResponse.json({ ok: true, rwaId: record.id, status: record.status });
   } catch (error) {
-    const responseBody = { ok: false, error: (error as Error).message };
-    saveIdempotentResponse(idempotency, 400, responseBody);
-    return NextResponse.json(responseBody, { status: 400 });
+    return NextResponse.json({ ok: false, error: (error as Error).message }, { status: 500 });
   }
 }

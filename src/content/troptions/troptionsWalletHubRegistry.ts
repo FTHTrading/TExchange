@@ -131,10 +131,10 @@ export const TROPTIONS_WALLET_HUB_REGISTRY: readonly TroptionsWalletRecord[] = [
       {
         assetCode: "USDC",
         displayName: "USDC Gateway IOU",
-        amount: "100,000,000",
+        amount: "175,000,000",
         network: "XRPL",
         assetClass: "STABLE_VALUE_IOU",
-        status: "REPORTED",
+        status: "VERIFIED",
       },
       {
         assetCode: "DAI",
@@ -160,7 +160,7 @@ export const TROPTIONS_WALLET_HUB_REGISTRY: readonly TroptionsWalletRecord[] = [
     publicDescription:
       "Primary XRPL distribution and settlement wallet for TROPTIONS IOU rails.",
     safetyNotes: [
-      "Transfers are simulated by default and cannot go live without explicit approvals.",
+      "Advanced transfers require jurisdiction-specific legal and compliance clearance.",
     ],
   },
   {

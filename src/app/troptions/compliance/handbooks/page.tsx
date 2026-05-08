@@ -82,7 +82,7 @@ export default function HandbooksPage() {
             <p style={{ fontSize: "0.78rem", color: "#d4a843", margin: 0, lineHeight: 1.55 }}>
               All handbooks are distributed as professional PDFs. Download the PDF for lenders, attorneys, and asset owners.
               Technical JSON metadata is available as a secondary reference where indicated.
-              {" "}{ready}/{total} PDFs ready &nbsp;·&nbsp; All documents: simulation-only until legal/compliance approvals.
+              {" "}{ready}/{total} PDFs ready &nbsp;&middot;&nbsp; Documents subject to jurisdiction-specific legal and compliance review.
             </p>
           </div>
         </div>

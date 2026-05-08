@@ -28,7 +28,7 @@ const TOKEN_STATS = [
   { label: "24 H Volume", value: "$5.67",       sub: "USD" },
   { label: "Holders",     value: "3",           sub: "XRPL accounts" },
   { label: "Trustlines",  value: "4",           sub: "established" },
-  { label: "Trades",      value: "5",           sub: "all time" },
+  { label: "USDC Issued", value: "175M",        sub: "XRPL mainnet" },
 ];
 
 export default function TroptionsWalletPage() {

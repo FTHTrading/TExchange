@@ -8,21 +8,43 @@ import { TradingSimulationCard } from "@/components/client-portal/TradingSimulat
 import { XrplRouteCard } from "@/components/client-portal/XrplRouteCard";
 import { getClientPortalSummary } from "@/lib/troptions/clientPortalEngine";
 import { getGlobalRailDashboard } from "@/lib/troptions/globalRailEngine";
+import Link from "next/link";
 
 type ClientPortalPageScaffoldProps = {
   title: string;
   intro: string;
   moduleName: string;
+  ctaLabel?: string;
+  ctaHref?: string;
 };
 
-export function ClientPortalPageScaffold({ title, intro, moduleName }: ClientPortalPageScaffoldProps) {
+export function ClientPortalPageScaffold({ title, intro, moduleName, ctaLabel, ctaHref }: ClientPortalPageScaffoldProps) {
   const summary = getClientPortalSummary("CL-001");
   const rails = getGlobalRailDashboard();
 
   return (
     <ClientPortalLayout title={title} intro={intro}>
+      {ctaLabel && ctaHref && (
+        <div style={{ marginBottom: "1.5rem" }}>
+          <Link
+            href={ctaHref}
+            style={{
+              display: "inline-block",
+              background: "#1B3259",
+              color: "#fff",
+              padding: "0.7rem 1.75rem",
+              borderRadius: 3,
+              fontWeight: 600,
+              fontSize: "0.9rem",
+              textDecoration: "none",
+            }}
+          >
+            {ctaLabel} →
+          </Link>
+        </div>
+      )}
       <ClientStatusCard label="Identity Status" status={summary.identityStatus} detail="KYC/KYB and sanctions checks are mandatory." />
-      <ClientStatusCard label="Settlement Readiness" status={summary.settlementReadiness} detail="Settlement remains simulation-only until approvals are complete." />
+      <ClientStatusCard label="Settlement Readiness" status={summary.settlementReadiness} detail="Settlement is live on XRPL and Stellar mainnet. Custody and advanced workflows require jurisdiction-specific compliance review." />
       <ModuleAccessCard
         moduleName={moduleName}
         allowed={false}

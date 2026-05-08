@@ -114,7 +114,7 @@ export const TRANSACTION_TYPE_CATALOG: Record<TransactionCategory, TransactionTy
     displayName: "RWA Tokenisation & Sale",
     shortDescription: "Package a real-world asset into tokenised units for sale or collateral",
     disclosureStatement:
-      "TROPTIONS does not provide custody, exchange, brokerage, money transmission, investment advice, or any guarantee of asset value. All tokenisation is simulation-only until legal, compliance, and custody approvals are satisfied.",
+      "TROPTIONS does not provide custody, exchange, brokerage, money transmission, investment advice, or any guarantee of asset value. All tokenisation workflows are subject to jurisdiction-specific legal, compliance, and custody review before activation.",
     handbookId: "rwa-tokenisation-handbook",
     simulationOnly: true,
     requiredDocuments: [

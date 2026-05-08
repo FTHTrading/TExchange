@@ -11,7 +11,7 @@ export const metadata = {
 // ── Supply lookup (from registry notes) ─────────────────────────────────────
 const IOU_SUPPLY: Record<string, string> = {
   TROPTIONS: "100,000,000",
-  USDC:      "100,000,000",
+  USDC:      "175,000,000",
   USDT:      "100,000,000",
   DAI:       "50,000,000",
   EURC:      "50,000,000",

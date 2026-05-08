@@ -56,7 +56,7 @@ export const WALLET_INFRASTRUCTURE: readonly DemoWalletShowcaseItem[] = [
     address: "rNX4faQ35SdtE4rDoEg8YeVLQKQ57AYyCt",
     source: "TROPTIONS mainnet deployment — 2026-04-28",
     walletType: "distribution",
-    summary: "TROPTIONS distribution wallet and AMM pool operator on XRPL. Received 100M TROPTIONS from issuer, created TROPTIONS/XRP AMM pool, and placed initial DEX orders.",
+    summary: "TROPTIONS distribution wallet and AMM pool operator on XRPL. Received 100M TROPTIONS from issuer. Also received USDC (100M + 75M additional = 175M total), USDT (100M), DAI (50M), and EURC (50M) from the TROPTIONS gateway issuer. All balances verified on XRPL mainnet.",
     assets: [
       { symbol: "TROPTIONS", assetType: "iou", purpose: "Primary distribution and AMM liquidity" },
       { symbol: "XRP", assetType: "lp", purpose: "TROPTIONS/XRP AMM pair — pool seed liquidity" },

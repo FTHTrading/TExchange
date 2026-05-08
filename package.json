@@ -70,6 +70,8 @@
     "desk:pdf:dry": "node scripts/generate-desk-pof-pdf.mjs --dry-run"
   },
   "dependencies": {
+    "@solana/spl-token": "^0.4.14",
+    "@solana/web3.js": "^1.98.4",
     "@stellar/stellar-sdk": "^15.0.1",
     "@types/pg": "^8.20.0",
     "better-sqlite3": "^12.9.0",

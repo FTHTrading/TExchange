@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 
 const DISCLOSURE =
-  "KYC procedures are simulation-only. No identity data is transmitted or stored in raw form. Only cryptographic hashes of submitted document content are recorded. This system does not provide legal KYC compliance determinations.";
+  "KYC submissions are processed through the TROPTIONS compliance layer. No identity data is transmitted or stored in raw form. Only cryptographic hashes of submitted document content are recorded. This system does not provide legal KYC compliance determinations. All determinations are subject to independent legal and compliance review.";
 
 const DOCUMENT_TYPES = [
   "passport",
@@ -89,9 +89,9 @@ export default function KycOnboardingPage() {
           <h1 style={{ fontFamily: "var(--font-display, Georgia, serif)", fontSize: "clamp(1.6rem, 4vw, 2.4rem)", fontWeight: 700, color: "#f8fafc", margin: "0 0 0.75rem" }}>
             KYC / Onboarding
           </h1>
-          <div style={{ background: "rgba(239,68,68,0.07)", border: "1px solid rgba(239,68,68,0.3)", borderRadius: "0.6rem", padding: "0.85rem 1.1rem", marginBottom: "0.75rem" }}>
-            <p style={{ fontSize: "0.78rem", color: "#fca5a5", margin: 0, lineHeight: 1.6 }}>
-              <strong style={{ color: "#f87171" }}>SIMULATION NOTICE:</strong> {DISCLOSURE}
+          <div style={{ background: "rgba(201,168,76,0.08)", border: "1px solid rgba(201,168,76,0.3)", borderRadius: "0.6rem", padding: "0.85rem 1.1rem", marginBottom: "0.75rem" }}>
+            <p style={{ fontSize: "0.78rem", color: "#f0cf82", margin: 0, lineHeight: 1.6 }}>
+              <strong style={{ color: "#c9a84c" }}>COMPLIANCE NOTICE:</strong> {DISCLOSURE}
             </p>
           </div>
         </div>

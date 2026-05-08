@@ -46,7 +46,7 @@ const PIPELINE = [
 ];
 
 const STABLECOINS = [
-  { sym: "USDC", supply: "100,000,000", peg: "USD", issuer: "Circle",   tx: "CD7271274743C20635ED58515F84B399A4113FE40E62CFC8248446A494D1E642" },
+  { sym: "USDC", supply: "175,000,000", peg: "USD", issuer: "Circle",   tx: "4CCB18E8838C6B40D4E022B68817D45BAD3E235652C52F0337D82C4E4E5AAB6E" },
   { sym: "USDT", supply: "100,000,000", peg: "USD", issuer: "Tether",   tx: "42092147E2D2BB2E944C7156378A6CEE8B8D0E78FB350266FC1990439D7F1F6F" },
   { sym: "DAI",  supply: "50,000,000",  peg: "USD", issuer: "MakerDAO", tx: "C0D75DCCF46DCA6F1776D739A4EC0F521330E170B8BC2E09C7F4D42A2361F641" },
   { sym: "EURC", supply: "50,000,000",  peg: "EUR", issuer: "Circle",   tx: "FF11D7773C0EDF38833A9CEE5AE03DEB6167D87FF07180A275A1DDCABCC560D1" },
@@ -85,6 +85,9 @@ const VERTICALS = [
   { name: "Media",             href: "/troptions/media",                    cat: "Media" },
   { name: "Momentum / Sports", href: "/troptions/momentum",                 cat: "Media" },
   { name: "Institutional",     href: "/troptions/institutional",            cat: "Access" },
+  { name: "Broker Dealer",     href: "/troptions/broker-dealer",            cat: "Access" },
+  { name: "POF Submit",        href: "/troptions/pof/submit",               cat: "Access" },
+  { name: "RWA Intake",        href: "/troptions/rwa/intake",               cat: "Access" },
   { name: "PayOps",            href: "/troptions/payments",                 cat: "Access" },
 ];
 

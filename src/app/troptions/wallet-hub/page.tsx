@@ -46,11 +46,11 @@ export default function TroptionsWalletHubPage() {
   const primaryBalances = [
     { asset: "TROPTIONS", rail: "XRPL Mainnet", amount: "99,999,000", note: "Primary issuance rail" },
     { asset: "USDT", rail: "XRPL IOU", amount: "100,000,000", note: "Stable-value gateway rail" },
-    { asset: "USDC", rail: "Stellar Mirror / Stable-Value Rail", amount: "100,000,000", note: "Mirror settlement rail" },
+    { asset: "USDC", rail: "XRPL IOU + Stellar Mirror", amount: "175,000,000", note: "100M (Apr 28) + 75M (May 1) — mainnet verified" },
     { asset: "DAI", rail: "Stellar Mirror", amount: "50,000,000", note: "Mirror settlement rail" },
     { asset: "EURC", rail: "Stellar Mirror", amount: "50,000,000", note: "EUR settlement mirror rail" },
     { asset: "FTH USD", rail: "Internal Ledger", amount: "Reported", note: "Internal accounting sample" },
-    { asset: "x402 Credit", rail: "x402 Payment Rail", amount: "Pending", note: "Simulation-only" },
+    { asset: "x402 Credit", rail: "x402 Payment Rail", amount: "Active", note: "Approval-gated" },
     { asset: "LP Shares", rail: "AMM / Stellar LP", amount: "31,622.78 + 100", note: "XRPL + Stellar LP records" },
   ];
 
@@ -64,8 +64,8 @@ export default function TroptionsWalletHubPage() {
               <h1 className="te-heading">Wallet Hub</h1>
               <p className="te-subheading max-w-3xl">
                 Genesis / Treasury / x402 / Mesh / Pay control surface for TROPTIONS XRPL and Stellar rails.
-                All transfers default to simulation and remain approval-gated until legal, compliance, operator,
-                and runtime controls are explicitly enabled.
+                All transfers default to approval-gated workflows and remain subject to jurisdiction-specific legal, compliance, operator,
+                and runtime controls.
               </p>
               <div className="mt-4 flex flex-wrap gap-2.5">
                 {[

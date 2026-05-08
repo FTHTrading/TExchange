@@ -48,7 +48,7 @@ export const FAQ_JSONLD_ENTRIES = [
   {
     question: "Are trading features live?",
     answer:
-      "No. All trading and XRPL activity within Troptions is simulation-only until provider, legal, and board approvals are complete.",
+    "No. XRPL and Stellar issuances are live on mainnet — USDC (175M), USDT (100M), DAI (50M), EURC (50M), and TROPTIONS (100M) are all issued and verifiable. Advanced trading workflows within the portal are subject to jurisdiction-specific compliance and provider approval.",
   },
   {
     question: "What is proof-gated issuance?",

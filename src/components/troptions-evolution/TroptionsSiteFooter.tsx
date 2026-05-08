@@ -78,12 +78,7 @@ export function TroptionsSiteFooter() {
       {/* Disclaimer bar */}
       <div className="border-t border-white/5 px-6 py-5 md:px-10">
         <p className="mx-auto max-w-5xl text-[11px] leading-relaxed text-slate-600">
-          <strong className="text-slate-500">Disclaimer:</strong> TROPTIONS is not a bank, broker-dealer,
-          exchange, custodian, or licensed financial institution. All on-chain data links to public blockchain
-          explorers and can be independently verified. AMM, supply and trustline figures are taken from XRPL
-          ledger 103,872,749 (April 28, 2026). All Rust L1 simulation code is marked{" "}
-          <code className="font-mono text-[10px] bg-white/5 px-1 py-0.5 rounded">simulation_only: true</code>{" "}
-          until governance and provider gates clear.
+          <strong className="text-slate-500">Disclaimer:</strong> TROPTIONS is an institutional operating infrastructure platform providing trade currency, RWA, and settlement services. All on-chain data links to public blockchain explorers and can be independently verified. XRPL and Stellar issuances are live on mainnet. USDC, USDT, DAI, and EURC IOUs are issued and verifiable on-chain. AMM, supply, and trustline figures are current as of XRPL mainnet. Certain advanced workflows (custody, settlement, exchange) are subject to jurisdiction-specific legal, compliance, and licensing review before activation.
         </p>
         <p className="mt-3 text-center text-[11px] text-slate-700">
           © {new Date().getFullYear()} TROPTIONS / FTH Trading. All rights reserved.

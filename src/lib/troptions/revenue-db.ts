@@ -92,6 +92,60 @@ function initRevenueSchema(database: Database.Database): void {
     CREATE INDEX IF NOT EXISTS idx_cis_email   ON cis_requests(email);
     CREATE INDEX IF NOT EXISTS idx_cis_status  ON cis_requests(status);
     CREATE INDEX IF NOT EXISTS idx_cis_created ON cis_requests(created_at);
+
+    CREATE TABLE IF NOT EXISTS pof_requests (
+      id                TEXT PRIMARY KEY,
+      name              TEXT NOT NULL,
+      email             TEXT NOT NULL,
+      phone             TEXT,
+      company           TEXT,
+      entity_type       TEXT NOT NULL DEFAULT 'individual',
+      amount            TEXT NOT NULL,
+      currency          TEXT NOT NULL DEFAULT 'USD',
+      source_of_funds   TEXT NOT NULL,
+      purpose           TEXT NOT NULL,
+      jurisdiction      TEXT,
+      bank_name         TEXT,
+      transaction_type  TEXT NOT NULL DEFAULT 'deal_funding',
+      timeline          TEXT,
+      notes             TEXT,
+      consent_given     INTEGER NOT NULL DEFAULT 0,
+      status            TEXT NOT NULL DEFAULT 'received',
+      created_at        TEXT NOT NULL,
+      updated_at        TEXT NOT NULL
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_pof_email   ON pof_requests(email);
+    CREATE INDEX IF NOT EXISTS idx_pof_status  ON pof_requests(status);
+    CREATE INDEX IF NOT EXISTS idx_pof_created ON pof_requests(created_at);
+
+    CREATE TABLE IF NOT EXISTS rwa_requests (
+      id                TEXT PRIMARY KEY,
+      name              TEXT NOT NULL,
+      email             TEXT NOT NULL,
+      phone             TEXT,
+      company           TEXT,
+      entity_type       TEXT NOT NULL DEFAULT 'individual',
+      asset_class       TEXT NOT NULL,
+      asset_description TEXT NOT NULL,
+      estimated_value   TEXT NOT NULL,
+      jurisdiction      TEXT NOT NULL,
+      custody_preference TEXT NOT NULL DEFAULT 'troptions_custodian',
+      has_existing_docs INTEGER NOT NULL DEFAULT 0,
+      doc_types         TEXT,
+      settlement_chain  TEXT NOT NULL DEFAULT 'xrpl',
+      purpose           TEXT NOT NULL,
+      timeline          TEXT,
+      notes             TEXT,
+      consent_given     INTEGER NOT NULL DEFAULT 0,
+      status            TEXT NOT NULL DEFAULT 'received',
+      created_at        TEXT NOT NULL,
+      updated_at        TEXT NOT NULL
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_rwa_email   ON rwa_requests(email);
+    CREATE INDEX IF NOT EXISTS idx_rwa_status  ON rwa_requests(status);
+    CREATE INDEX IF NOT EXISTS idx_rwa_created ON rwa_requests(created_at);
   `);
 }
 
@@ -407,6 +461,286 @@ export function getCisSummary() {
   const total = (database.prepare("SELECT COUNT(*) as n FROM cis_requests").get() as { n: number }).n;
   const pending = (
     database.prepare("SELECT COUNT(*) as n FROM cis_requests WHERE status = 'received'").get() as { n: number }
+  ).n;
+  return { total, pending };
+}
+
+// ─── POF Requests ─────────────────────────────────────────────────────────────
+
+export interface PofRequestRow {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+  company?: string;
+  entityType: string;
+  amount: string;
+  currency: string;
+  sourceOfFunds: string;
+  purpose: string;
+  jurisdiction?: string;
+  bankName?: string;
+  transactionType: string;
+  timeline?: string;
+  notes?: string;
+  consentGiven: boolean;
+  status: "received" | "under_review" | "verified" | "declined";
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreatePofRequestInput {
+  name: string;
+  email: string;
+  phone?: string;
+  company?: string;
+  entityType?: string;
+  amount: string;
+  currency?: string;
+  sourceOfFunds: string;
+  purpose: string;
+  jurisdiction?: string;
+  bankName?: string;
+  transactionType?: string;
+  timeline?: string;
+  notes?: string;
+  consentGiven: boolean;
+}
+
+function rowToPof(row: Record<string, unknown>): PofRequestRow {
+  return {
+    id: row.id as string,
+    name: row.name as string,
+    email: row.email as string,
+    phone: (row.phone as string) || undefined,
+    company: (row.company as string) || undefined,
+    entityType: (row.entity_type as string) ?? "individual",
+    amount: row.amount as string,
+    currency: (row.currency as string) ?? "USD",
+    sourceOfFunds: row.source_of_funds as string,
+    purpose: row.purpose as string,
+    jurisdiction: (row.jurisdiction as string) || undefined,
+    bankName: (row.bank_name as string) || undefined,
+    transactionType: (row.transaction_type as string) ?? "deal_funding",
+    timeline: (row.timeline as string) || undefined,
+    notes: (row.notes as string) || undefined,
+    consentGiven: row.consent_given === 1,
+    status: (row.status as PofRequestRow["status"]) ?? "received",
+    createdAt: row.created_at as string,
+    updatedAt: row.updated_at as string,
+  };
+}
+
+export function createPofRequest(input: CreatePofRequestInput): PofRequestRow {
+  const database = getRevenueDb();
+  const id = crypto.randomUUID();
+  const now = new Date().toISOString();
+
+  database
+    .prepare(
+      `INSERT INTO pof_requests
+        (id, name, email, phone, company, entity_type, amount, currency,
+         source_of_funds, purpose, jurisdiction, bank_name, transaction_type,
+         timeline, notes, consent_given, status, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'received', ?, ?)`
+    )
+    .run(
+      id,
+      input.name.trim(),
+      input.email.toLowerCase().trim(),
+      input.phone?.trim() ?? null,
+      input.company?.trim() ?? null,
+      input.entityType?.trim() ?? "individual",
+      input.amount.trim(),
+      input.currency?.trim() ?? "USD",
+      input.sourceOfFunds.trim(),
+      input.purpose.trim(),
+      input.jurisdiction?.trim() ?? null,
+      input.bankName?.trim() ?? null,
+      input.transactionType?.trim() ?? "deal_funding",
+      input.timeline?.trim() ?? null,
+      input.notes?.trim() ?? null,
+      input.consentGiven ? 1 : 0,
+      now,
+      now
+    );
+
+  return rowToPof(
+    database.prepare("SELECT * FROM pof_requests WHERE id = ?").get(id) as Record<string, unknown>
+  );
+}
+
+export function listPofRequests(limit = 100, offset = 0): PofRequestRow[] {
+  const database = getRevenueDb();
+  const rows = database
+    .prepare("SELECT * FROM pof_requests ORDER BY created_at DESC LIMIT ? OFFSET ?")
+    .all(limit, offset) as Record<string, unknown>[];
+  return rows.map(rowToPof);
+}
+
+export function getPofRequest(id: string): PofRequestRow | null {
+  const database = getRevenueDb();
+  const row = database.prepare("SELECT * FROM pof_requests WHERE id = ?").get(id) as Record<string, unknown> | undefined;
+  return row ? rowToPof(row) : null;
+}
+
+export function updatePofStatus(id: string, status: PofRequestRow["status"]): boolean {
+  const database = getRevenueDb();
+  const result = database
+    .prepare("UPDATE pof_requests SET status = ?, updated_at = ? WHERE id = ?")
+    .run(status, new Date().toISOString(), id);
+  return result.changes > 0;
+}
+
+export function getPofSummary() {
+  const database = getRevenueDb();
+  const total = (database.prepare("SELECT COUNT(*) as n FROM pof_requests").get() as { n: number }).n;
+  const pending = (
+    database.prepare("SELECT COUNT(*) as n FROM pof_requests WHERE status = 'received'").get() as { n: number }
+  ).n;
+  return { total, pending };
+}
+
+// ─── RWA Requests ─────────────────────────────────────────────────────────────
+
+export interface RwaRequestRow {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+  company?: string;
+  entityType: string;
+  assetClass: string;
+  assetDescription: string;
+  estimatedValue: string;
+  jurisdiction: string;
+  custodyPreference: string;
+  hasExistingDocs: boolean;
+  docTypes?: string;
+  settlementChain: string;
+  purpose: string;
+  timeline?: string;
+  notes?: string;
+  consentGiven: boolean;
+  status: "received" | "under_review" | "approved" | "declined";
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateRwaRequestInput {
+  name: string;
+  email: string;
+  phone?: string;
+  company?: string;
+  entityType?: string;
+  assetClass: string;
+  assetDescription: string;
+  estimatedValue: string;
+  jurisdiction: string;
+  custodyPreference?: string;
+  hasExistingDocs?: boolean;
+  docTypes?: string;
+  settlementChain?: string;
+  purpose: string;
+  timeline?: string;
+  notes?: string;
+  consentGiven: boolean;
+}
+
+function rowToRwa(row: Record<string, unknown>): RwaRequestRow {
+  return {
+    id: row.id as string,
+    name: row.name as string,
+    email: row.email as string,
+    phone: (row.phone as string) || undefined,
+    company: (row.company as string) || undefined,
+    entityType: (row.entity_type as string) ?? "individual",
+    assetClass: row.asset_class as string,
+    assetDescription: row.asset_description as string,
+    estimatedValue: row.estimated_value as string,
+    jurisdiction: row.jurisdiction as string,
+    custodyPreference: (row.custody_preference as string) ?? "troptions_custodian",
+    hasExistingDocs: row.has_existing_docs === 1,
+    docTypes: (row.doc_types as string) || undefined,
+    settlementChain: (row.settlement_chain as string) ?? "xrpl",
+    purpose: row.purpose as string,
+    timeline: (row.timeline as string) || undefined,
+    notes: (row.notes as string) || undefined,
+    consentGiven: row.consent_given === 1,
+    status: (row.status as RwaRequestRow["status"]) ?? "received",
+    createdAt: row.created_at as string,
+    updatedAt: row.updated_at as string,
+  };
+}
+
+export function createRwaRequest(input: CreateRwaRequestInput): RwaRequestRow {
+  const database = getRevenueDb();
+  const id = crypto.randomUUID();
+  const now = new Date().toISOString();
+
+  database
+    .prepare(
+      `INSERT INTO rwa_requests
+        (id, name, email, phone, company, entity_type, asset_class, asset_description,
+         estimated_value, jurisdiction, custody_preference, has_existing_docs, doc_types,
+         settlement_chain, purpose, timeline, notes, consent_given, status, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'received', ?, ?)`
+    )
+    .run(
+      id,
+      input.name.trim(),
+      input.email.toLowerCase().trim(),
+      input.phone?.trim() ?? null,
+      input.company?.trim() ?? null,
+      input.entityType?.trim() ?? "individual",
+      input.assetClass.trim(),
+      input.assetDescription.trim(),
+      input.estimatedValue.trim(),
+      input.jurisdiction.trim(),
+      input.custodyPreference?.trim() ?? "troptions_custodian",
+      input.hasExistingDocs ? 1 : 0,
+      input.docTypes?.trim() ?? null,
+      input.settlementChain?.trim() ?? "xrpl",
+      input.purpose.trim(),
+      input.timeline?.trim() ?? null,
+      input.notes?.trim() ?? null,
+      input.consentGiven ? 1 : 0,
+      now,
+      now
+    );
+
+  return rowToRwa(
+    database.prepare("SELECT * FROM rwa_requests WHERE id = ?").get(id) as Record<string, unknown>
+  );
+}
+
+export function listRwaRequests(limit = 100, offset = 0): RwaRequestRow[] {
+  const database = getRevenueDb();
+  const rows = database
+    .prepare("SELECT * FROM rwa_requests ORDER BY created_at DESC LIMIT ? OFFSET ?")
+    .all(limit, offset) as Record<string, unknown>[];
+  return rows.map(rowToRwa);
+}
+
+export function getRwaRequest(id: string): RwaRequestRow | null {
+  const database = getRevenueDb();
+  const row = database.prepare("SELECT * FROM rwa_requests WHERE id = ?").get(id) as Record<string, unknown> | undefined;
+  return row ? rowToRwa(row) : null;
+}
+
+export function updateRwaStatus(id: string, status: RwaRequestRow["status"]): boolean {
+  const database = getRevenueDb();
+  const result = database
+    .prepare("UPDATE rwa_requests SET status = ?, updated_at = ? WHERE id = ?")
+    .run(status, new Date().toISOString(), id);
+  return result.changes > 0;
+}
+
+export function getRwaSummary() {
+  const database = getRevenueDb();
+  const total = (database.prepare("SELECT COUNT(*) as n FROM rwa_requests").get() as { n: number }).n;
+  const pending = (
+    database.prepare("SELECT COUNT(*) as n FROM rwa_requests WHERE status = 'received'").get() as { n: number }
   ).n;
   return { total, pending };
 }

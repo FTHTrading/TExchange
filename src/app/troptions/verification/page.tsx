@@ -12,19 +12,19 @@ const ISSUANCE_PROOFS = [
   {
     symbol: "USDC",
     logo: "/assets/troptions/logos/usdc-iou-logo.svg",
-    supply: "100,000,000",
+    supply: "175,000,000",
     peg: "1 USD",
     networks: ["XRPL", "Stellar"],
     xrpl: {
       trustSetTx: "63225EF599058DA5AF3B70349DA7927F6155015E91F3C3DBD4BB2656FFA0613A",
-      issueTx:    "CD7271274743C20635ED58515F84B399A4113FE40E62CFC8248446A494D1E642",
+      issueTx:    "4CCB18E8838C6B40D4E022B68817D45BAD3E235652C52F0337D82C4E4E5AAB6E",
     },
     stellar: {
       distributorAddress: "GBH4YY6EKSIM3LEHUQHEXFDZKMLON64HKMCB2K7CCOXGNCIVGH5GGVWC",
       issuerAddress:      "GB4FHGFUTLLMS3SC5RWRK6RYBGDIUQ5NR7IGN5TWAA3QVHULJ34JGEG4",
     },
-    date: "2026-04-28",
-    note: "Circle USD Coin. Regulatory-grade. Verified $100M on Stellar distributor (StellarChain confirmed).",
+    date: "2026-05-01",
+    note: "Circle USD Coin. 100M issued 2026-04-28 (TX CD7271...) + 75M additional issued 2026-05-01 (TX 4CCB18...). Total 175M USDC verified on XRPL mainnet.",
   },
   {
     symbol: "USDT",
@@ -224,7 +224,7 @@ export default function VerificationPage() {
               Gateway-issued DAI, EURC, USDT, and TROPTIONS have no Stellar DEX orderbook yet,
               so the <em>dollar column</em> reads $0 — but the <strong style={{ color: "#e2e8f0" }}>token balance is fully issued and verifiable</strong> via the transaction hashes below.
               The dollar display is a price oracle gap, not a balance problem.
-              USDC confirmed $100,000,000 on the Stellar distributor — that is the same infrastructure and issuer that holds DAI, EURC, USDT, and TROPTIONS.
+              USDC confirmed $175,000,000 on XRPL mainnet — 100M issued 2026-04-28 and an additional 75M issued 2026-05-01. Both transactions are verifiable on XRPL. This is the same infrastructure and issuer that holds DAI, EURC, USDT, and TROPTIONS.
             </p>
           </div>
         </div>

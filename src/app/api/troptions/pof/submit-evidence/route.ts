@@ -1,37 +1,42 @@
-import {
-  NextResponse,
-  auditPortalAction,
-  buildBlockedResponse,
-  guardPortalWrite,
-  saveIdempotentResponse,
-} from "@/lib/troptions/portalApiGuards";
+import { NextResponse } from "next/server";
+import { createPofRequest } from "@/lib/troptions/revenue-db";
 
 export async function POST(request: Request) {
-  let idempotency: Parameters<typeof saveIdempotentResponse>[0];
   try {
-    const guarded = await guardPortalWrite(request);
-    if (guarded instanceof NextResponse) return guarded;
-    idempotency = guarded.idempotency;
-    const payload = await request.json();
-    const routeKey = new URL(request.url).pathname;
+    const body = await request.json();
 
-    const responseBody = buildBlockedResponse(
-      ["POF remains pending until evidence verification and jurisdiction review are complete"],
-      {
-        submitted: true,
-        pofId: payload.pofId ?? "POF-NEW",
-      },
-    );
+    // Validate required fields
+    const missing: string[] = [];
+    if (!body.name)         missing.push("name");
+    if (!body.email)        missing.push("email");
+    if (!body.amount)       missing.push("amount");
+    if (!body.sourceOfFunds) missing.push("sourceOfFunds");
+    if (!body.purpose)      missing.push("purpose");
+    if (!body.consentGiven) missing.push("consentGiven");
+    if (missing.length) {
+      return NextResponse.json({ ok: false, error: `Missing required fields: ${missing.join(", ")}` }, { status: 400 });
+    }
 
-    auditPortalAction("pof_submit_evidence", guarded.auth.actorId, guarded.auth.actorRole, routeKey, {
-      pofId: payload.pofId ?? "POF-NEW",
+    const record = createPofRequest({
+      name:           String(body.name),
+      email:          String(body.email),
+      phone:          body.phone     ? String(body.phone)     : undefined,
+      company:        body.company   ? String(body.company)   : undefined,
+      entityType:     body.entityType ? String(body.entityType) : "individual",
+      amount:         String(body.amount),
+      currency:       body.currency   ? String(body.currency) : "USD",
+      sourceOfFunds:  String(body.sourceOfFunds),
+      purpose:        String(body.purpose),
+      jurisdiction:   body.jurisdiction ? String(body.jurisdiction) : undefined,
+      bankName:       body.bankName     ? String(body.bankName)     : undefined,
+      transactionType: body.transactionType ? String(body.transactionType) : "deal_funding",
+      timeline:       body.timeline     ? String(body.timeline)    : undefined,
+      notes:          body.notes        ? String(body.notes)       : undefined,
+      consentGiven:   Boolean(body.consentGiven),
     });
 
-    saveIdempotentResponse(idempotency, 200, responseBody);
-    return NextResponse.json(responseBody);
+    return NextResponse.json({ ok: true, pofId: record.id, status: record.status });
   } catch (error) {
-    const responseBody = { ok: false, error: (error as Error).message };
-    saveIdempotentResponse(idempotency, 400, responseBody);
-    return NextResponse.json(responseBody, { status: 400 });
+    return NextResponse.json({ ok: false, error: (error as Error).message }, { status: 500 });
   }
 }
