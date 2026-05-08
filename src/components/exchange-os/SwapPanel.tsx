@@ -275,11 +275,7 @@ export function SwapPanel({ defaultFrom = "XRP", defaultTo = "TROPTIONS" }: Swap
             <span style={{ color: "var(--xos-text-muted)" }}>Route</span>
             <span style={{ color: "var(--xos-cyan)" }}>{quote.route}</span>
           </div>
-          {quote.demoMode && (
-            <p style={{ color: "var(--xos-amber)", margin: 0, fontSize: "0.72rem" }}>
-              ⚠ Simulated quote — connect to mainnet for real prices
-            </p>
-          )}
+
         </div>
       )}
 

@@ -81,9 +81,7 @@ export function TopBar() {
           </button>
         )}
 
-        {features.demoMode && (
-          <span className="xos-badge xos-badge--orange" style={{ fontSize: "0.65rem" }}>DEMO</span>
-        )}
+
       </div>
     </header>
   );

@@ -38,16 +38,7 @@ function NavIcon({ icon }: { icon: string }) {
   );
 }
 
-function DemoModeBanner() {
-  if (!features.demoMode) return null;
-  return (
-    <div className="xos-demo-banner">
-      ⚠ DEMO MODE — Simulated data only. Set{" "}
-      <code style={{ fontFamily: "monospace", fontSize: "0.8em" }}>XRPL_MAINNET_ENABLED=true</code>{" "}
-      to enable live trading.
-    </div>
-  );
-}
+
 
 function SidebarNav({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => void }) {
   const pathname = usePathname();
@@ -165,6 +156,47 @@ function MobileBottomNav() {
   );
 }
 
+const ALL_ROUTES = [...PRIMARY_NAV, ...SECONDARY_NAV];
+
+function BreadcrumbBar() {
+  const pathname = usePathname();
+  if (pathname === "/exchange-os" || pathname === "/exchange-os/") return null;
+
+  const matched = ALL_ROUTES.find(
+    (r) => r.href !== "/exchange-os" && pathname.startsWith(r.href)
+  );
+  const label = matched?.label ?? decodeURIComponent(pathname.split("/").pop() ?? "");
+
+  return (
+    <nav
+      aria-label="breadcrumb"
+      style={{
+        padding: "0.35rem 1rem",
+        borderBottom: "1px solid var(--xos-border)",
+        display: "flex",
+        alignItems: "center",
+        gap: "0.35rem",
+        fontSize: "0.78rem",
+        color: "var(--xos-text-muted)",
+        background: "var(--xos-surface-1)",
+      }}
+    >
+      <Link
+        href="/exchange-os"
+        style={{ color: "var(--xos-cyan)", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.2rem" }}
+      >
+        ⌂ Home
+      </Link>
+      {label && (
+        <>
+          <span style={{ opacity: 0.45 }}>/</span>
+          <span style={{ color: "var(--xos-text)" }}>{label}</span>
+        </>
+      )}
+    </nav>
+  );
+}
+
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
 
@@ -183,7 +215,6 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="xos">
-      <DemoModeBanner />
       <div className="xos-layout">
         <div className={`xos-sidebar-wrapper${collapsed ? " xos-sidebar-wrapper--collapsed" : ""}`}>
           <SidebarNav collapsed={collapsed} onToggle={toggle} />
@@ -191,6 +222,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         <div className="xos-main-column">
           <TopBar />
           <LiveMarketsTicker />
+          <BreadcrumbBar />
           <main className="xos-content">
             {children}
           </main>

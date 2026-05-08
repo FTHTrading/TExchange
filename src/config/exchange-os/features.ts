@@ -30,10 +30,8 @@ export const features = {
   adminEnabled: true,
   proofPacketsEnabled: true,
 
-  // Demo mode toggle (true = show demo data, false = require live data)
-  demoMode:
-    process.env.XRPL_MAINNET_ENABLED !== "true" ||
-    process.env.X402_ENABLED !== "true",
+  // Demo mode — disabled; live XRPL data is used throughout
+  demoMode: false,
 } as const;
 
 export type FeatureKey = keyof typeof features;

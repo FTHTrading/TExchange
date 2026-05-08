@@ -121,11 +121,7 @@ export function HeroSection() {
         ))}
       </div>
 
-      {features.demoMode && (
-        <p style={{ marginTop: "1.5rem", fontSize: "0.72rem", color: "var(--xos-text-subtle)" }}>
-          Demo mode — prices and volumes are simulated. Set XRPL_MAINNET_ENABLED=true for live data.
-        </p>
-      )}
+
     </section>
   );
 }

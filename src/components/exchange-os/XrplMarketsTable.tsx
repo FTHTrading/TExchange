@@ -26,14 +26,8 @@ export interface XrplMarketToken {
 }
 
 type SortKey =
-  | "marketCap"
-  | "liquidity"
-  | "change5m"
-  | "change1h"
   | "change24h"
-  | "change7d"
   | "volume24h"
-  | "volume7d"
   | "price"
   | "holders";
 
@@ -181,7 +175,7 @@ function SortHeader({
 function SkeletonRow() {
   return (
     <tr style={{ borderBottom: "1px solid var(--xos-border-0)" }}>
-      {Array.from({ length: 13 }).map((_, i) => (
+      {Array.from({ length: 6 }).map((_, i) => (
         <td key={i} style={{ padding: "0.55rem 0.5rem" }}>
           <div
             style={{
@@ -400,30 +394,10 @@ export function XrplMarketsTable() {
               >
                 Trade
               </th>
-              <SortHeader label="MC" col="marketCap" {...sortProps} />
-              <SortHeader label="Liq" col="liquidity" {...sortProps} />
-              <SortHeader label="5m" col="change5m" {...sortProps} />
-              <SortHeader label="1h" col="change1h" {...sortProps} />
-              <SortHeader label="24h" col="change24h" {...sortProps} />
-              <SortHeader label="7d" col="change7d" {...sortProps} />
+              <SortHeader label="24h %" col="change24h" {...sortProps} />
               <SortHeader label="24h Vol" col="volume24h" {...sortProps} />
-              <SortHeader label="7d Vol" col="volume7d" {...sortProps} />
               <SortHeader label="Price" col="price" {...sortProps} />
               <SortHeader label="Holders" col="holders" {...sortProps} />
-              <th
-                style={{
-                  padding: "0.45rem 0.5rem",
-                  color: "var(--xos-text-muted)",
-                  fontSize: "0.68rem",
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.06em",
-                  textAlign: "left",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                DEX
-              </th>
             </tr>
           </thead>
 
@@ -433,7 +407,7 @@ export function XrplMarketsTable() {
             ) : error ? (
               <tr>
                 <td
-                  colSpan={13}
+                  colSpan={6}
                   style={{
                     padding: "3rem",
                     textAlign: "center",
@@ -452,7 +426,7 @@ export function XrplMarketsTable() {
             ) : filtered.length === 0 ? (
               <tr>
                 <td
-                  colSpan={13}
+                  colSpan={6}
                   style={{
                     padding: "3rem",
                     textAlign: "center",
@@ -497,7 +471,14 @@ export function XrplMarketsTable() {
                             lineHeight: 1.2,
                           }}
                         >
-                          {token.name || token.currency}
+                          <Link
+                            href={`/exchange-os/token/${encodeURIComponent(token.currency)}?issuer=${encodeURIComponent(token.issuer)}`}
+                            style={{ color: "inherit", textDecoration: "none" }}
+                            onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--xos-cyan)")}
+                            onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "inherit")}
+                          >
+                            {token.name || token.currency}
+                          </Link>
                         </div>
                         <div
                           style={{
@@ -554,39 +535,10 @@ export function XrplMarketsTable() {
                     </Link>
                   </td>
 
-                  {/* MC */}
-                  <td
-                    style={{
-                      textAlign: "right",
-                      padding: "0.35rem 0.5rem",
-                      color: "var(--xos-text)",
-                      fontSize: "0.78rem",
-                      fontVariantNumeric: "tabular-nums",
-                    }}
-                  >
-                    {fmtUsd(token.marketCap)}
-                  </td>
-
-                  {/* Liquidity */}
-                  <td
-                    style={{
-                      textAlign: "right",
-                      padding: "0.35rem 0.5rem",
-                      color: "var(--xos-text-muted)",
-                      fontSize: "0.78rem",
-                      fontVariantNumeric: "tabular-nums",
-                    }}
-                  >
-                    {fmtUsd(token.liquidity)}
-                  </td>
-
-                  {/* Change columns */}
-                  <PctCell v={token.change5m} />
-                  <PctCell v={token.change1h} />
+                  {/* 24h change */}
                   <PctCell v={token.change24h} />
-                  <PctCell v={token.change7d} />
 
-                  {/* Volumes */}
+                  {/* 24h Volume */}
                   <td
                     style={{
                       textAlign: "right",
@@ -598,17 +550,6 @@ export function XrplMarketsTable() {
                     }}
                   >
                     {fmtUsd(token.volume24h)}
-                  </td>
-                  <td
-                    style={{
-                      textAlign: "right",
-                      padding: "0.35rem 0.5rem",
-                      color: "var(--xos-text-muted)",
-                      fontSize: "0.78rem",
-                      fontVariantNumeric: "tabular-nums",
-                    }}
-                  >
-                    {fmtUsd(token.volume7d)}
                   </td>
 
                   {/* Price */}
@@ -636,18 +577,6 @@ export function XrplMarketsTable() {
                     }}
                   >
                     {fmtHolders(token.holders)}
-                  </td>
-
-                  {/* DEX */}
-                  <td
-                    style={{
-                      padding: "0.35rem 0.5rem",
-                      fontSize: "0.7rem",
-                      color: "var(--xos-text-subtle)",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {token.dex}
                   </td>
                 </tr>
               ))

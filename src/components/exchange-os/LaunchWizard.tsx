@@ -83,7 +83,7 @@ export function LaunchWizard() {
           Launch Your Token
         </h2>
         <p style={{ color: "var(--xos-text-muted)", fontSize: "0.85rem" }}>
-          {features.demoMode ? "Demo mode — no real transactions will be submitted" : "Mainnet launch wizard"}
+          Prepare unsigned XRPL transactions — sign with your own wallet.
         </p>
       </div>
 

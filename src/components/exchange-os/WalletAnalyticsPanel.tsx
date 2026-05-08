@@ -67,11 +67,7 @@ export function WalletAnalyticsPanel() {
 
       {data && (
         <div style={{ marginTop: "1rem" }}>
-          {data.demoMode && (
-            <div style={{ fontSize: "0.72rem", color: "var(--xos-amber)", marginBottom: "0.75rem" }}>
-              ⚠ Demo data — configure mainnet to see real balances
-            </div>
-          )}
+
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
             <div className="xos-stat-label">Address</div>
             <div className="xos-stat-value" style={{ fontSize: "0.75rem", wordBreak: "break-all" }}>{data.address}</div>
