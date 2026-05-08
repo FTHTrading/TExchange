@@ -25,6 +25,7 @@ const NAV_ICONS: Record<string, string> = {
   "user-plus": "＋",
   mic: "🎙",
   diamond: "◆",  // Solana launch
+  send: "↑",     // FTH Pay
 };
 
 function NavIcon({ icon }: { icon: string }) {
