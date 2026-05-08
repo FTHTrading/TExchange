@@ -39,22 +39,26 @@ type SortKey =
 
 // ─── Formatters ───────────────────────────────────────────────────────────────
 
-function fmtUsd(n: number): string {
-  if (n === 0) return "$0";
+function fmtUsd(raw: number | null | undefined): string {
+  const n = typeof raw === "number" && isFinite(raw) ? raw : 0;
+  if (n === 0) return "—";
   if (n >= 1_000_000_000) return `$${(n / 1_000_000_000).toFixed(2)}B`;
   if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(2)}M`;
   if (n >= 1_000) return `$${(n / 1_000).toFixed(2)}K`;
   return `$${n.toFixed(2)}`;
 }
 
-function fmtPrice(n: number): string {
-  if (n === 0) return "$0";
+function fmtPrice(raw: number | null | undefined): string {
+  const n = typeof raw === "number" && isFinite(raw) ? raw : null;
+  if (n === null || n === 0) return "—";
   if (n >= 1) return `$${n.toFixed(4)}`;
   if (n < 0.000001) return `$${n.toExponential(2)}`;
   return `$${n.toFixed(6)}`;
 }
 
-function fmtHolders(n: number): string {
+function fmtHolders(raw: number | null | undefined): string {
+  const n = typeof raw === "number" && isFinite(raw) ? raw : 0;
+  if (n === 0) return "—";
   if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
   if (n >= 1_000) return `${(n / 1_000).toFixed(1)}K`;
   return String(n);
@@ -64,7 +68,7 @@ function fmtHolders(n: number): string {
 
 function TokenIcon({ token }: { token: XrplMarketToken }) {
   const [errored, setErrored] = useState(false);
-  const initials = (token.name || token.currency).slice(0, 2).toUpperCase();
+  const initials = String(token.name || token.currency || "?").slice(0, 2).toUpperCase();
 
   if (token.icon && !errored) {
     return (

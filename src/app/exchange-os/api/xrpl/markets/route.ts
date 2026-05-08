@@ -58,8 +58,21 @@ interface RawToken {
 
 // ---------- normalizer -----------------------------------------------------
 
+function toStr(v: unknown, fallback = ""): string {
+  if (v == null) return fallback;
+  if (typeof v === "string") return v;
+  if (typeof v === "number") return String(v);
+  // Object (e.g. {issuer/domain/rXXX}) — not renderable, use fallback
+  return fallback;
+}
+
+function toNum(v: unknown, fallback = 0): number {
+  const n = typeof v === "number" ? v : Number(v);
+  return isFinite(n) ? n : fallback;
+}
+
 function normalizeToken(raw: RawToken) {
-  const rawCurrency = raw.currency ?? "";
+  const rawCurrency = toStr(raw.currency, "");
   const currency =
     rawCurrency.length === 40 ? decodeHexCurrency(rawCurrency) : rawCurrency;
   const m = raw.metrics ?? {};
@@ -68,20 +81,20 @@ function normalizeToken(raw: RawToken) {
   return {
     currency,
     currencyHex: rawCurrency,
-    issuer: raw.issuer ?? "",
-    name: meta.name ?? currency,
-    icon: meta.icon ?? null,
-    dex: meta.dex ?? "XRPL DEX",
-    price: m.price ?? 0,
-    change5m: m.changes?.price_5m ?? 0,
-    change1h: m.changes?.price_1h ?? 0,
-    change24h: m.changes?.price_24h ?? 0,
-    change7d: m.changes?.price_7d ?? 0,
-    volume24h: m.volume ?? 0,
-    volume7d: m.volume_7d ?? 0,
-    marketCap: m.market_cap ?? 0,
-    liquidity: m.liquidity ?? 0,
-    holders: m.trustlines ?? m.holders ?? 0,
+    issuer: toStr(raw.issuer, ""),
+    name: toStr(meta.name, currency) || currency,
+    icon: toStr(meta.icon) || null,
+    dex: toStr(meta.dex, "XRPL DEX") || "XRPL DEX",
+    price: toNum(m.price),
+    change5m: toNum(m.changes?.price_5m),
+    change1h: toNum(m.changes?.price_1h),
+    change24h: toNum(m.changes?.price_24h),
+    change7d: toNum(m.changes?.price_7d),
+    volume24h: toNum(m.volume),
+    volume7d: toNum(m.volume_7d),
+    marketCap: toNum(m.market_cap),
+    liquidity: toNum(m.liquidity),
+    holders: toNum(m.trustlines ?? m.holders),
   };
 }
 
